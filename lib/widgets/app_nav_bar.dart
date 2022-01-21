@@ -10,40 +10,56 @@ class AppNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        backgroundColor: AppColors.primaryLight,
-        leading: IconButton(
+      elevation: 0,
+      backgroundColor: AppColors.greyLight,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 8),
+        child: IconButton(
           // icon: Image.asset(AppImages.drPriyanka,),
           // onPressed: () { },
+
           icon: const CircleAvatar(
             backgroundImage: AssetImage(AppImages.drPriyanka),
           ),
-          onPressed: (){},
+          onPressed: () {},
         ),
-        flexibleSpace: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-
-            SizedBox(
-              child: SvgPicture.asset(AppImages.icLocationPrimary),
-              height: 20,
-              width: 11,
-            ),
-            const Text("Jari Mari, Sakinaka",style: TextStyle(
-              color: AppColors.greyDark
-            ),),
-            SizedBox(
-              child: SvgPicture.asset(AppImages.icArrowDown),
-              height: 15,
-              width: 10,
-            ),
-            SizedBox(
-              child: SvgPicture.asset(AppImages.icNotificationPrimary),
-              height: 24,
-              width: 10,
-            ),
-
-          ],
-        ),);
-
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          const Spacer(
+            flex: 4,
+          ),
+          SizedBox(
+            child: SvgPicture.asset(AppImages.icLocationPrimary),
+            height: 20,
+            width: 20,
+          ),
+          const SizedBox(
+            width: 4,
+          ),
+          const Text(
+            "Jari Mari, Sakinaka",
+            style: TextStyle(color: AppColors.greyDark, fontSize: 16),
+          ),
+          const SizedBox(
+            width: 4,
+          ),
+          SizedBox(
+            child: SvgPicture.asset(AppImages.icArrowDown),
+            height: 15,
+            width: 10,
+          ),
+          const Spacer(
+            flex: 6,
+          ),
+          SizedBox(
+            child: SvgPicture.asset(AppImages.icNotificationPrimary),
+            height: 24,
+            width: 24,
+          ),
+        ],
+      ),
+    );
   }
 }
