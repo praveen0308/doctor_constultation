@@ -1,205 +1,347 @@
+import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyle {
-  //#region ==Roboto Fonts==
-  //#region Headline
-  static final headline1 = GoogleFonts.roboto(
-      textStyle: const TextStyle(fontSize: 80.0, fontWeight: FontWeight.w700));
+  static headline1(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w700}) =>
+      GoogleFonts.roboto(
+          textStyle:
+              TextStyle(fontSize: 80.0, fontWeight: wFont, color: txtColor));
 
-  static final headline2 = GoogleFonts.roboto(
-      textStyle: const TextStyle(fontSize: 60.0, fontWeight: FontWeight.w700));
+  static headline2(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w700}) =>
+      GoogleFonts.roboto(
+          textStyle:
+              TextStyle(fontSize: 60.0, fontWeight: wFont, color: txtColor));
 
-  static final headline3 = GoogleFonts.roboto(
-      textStyle: const TextStyle(fontSize: 40.0, fontWeight: FontWeight.w700));
+  static headline3(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w700}) =>
+      GoogleFonts.roboto(
+          textStyle:
+              TextStyle(fontSize: 40.0, fontWeight: wFont, color: txtColor));
 
-  static final headline4 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-          fontSize: 34.0, fontWeight: FontWeight.w500, letterSpacing: 0.0025));
+  static headline4(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 34.0,
+              fontWeight: wFont,
+              letterSpacing: 0.0025,
+              color: txtColor));
 
-  static final headline5 = GoogleFonts.roboto(
-      textStyle: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500));
+  static headline5(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500}) =>
+      GoogleFonts.roboto(
+          textStyle:
+              TextStyle(fontSize: 24.0, fontWeight: wFont, color: txtColor));
 
-  static final headline6 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-          fontSize: 20.0, fontWeight: FontWeight.w500, letterSpacing: 0.0075));
+  static headline6(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 20.0,
+              fontWeight: wFont,
+              letterSpacing: 0.0075,
+              color: txtColor));
 
   //#endregion
 
   //#region Subtitle
-  static final subtitle1 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-          height: 2.4,
-          letterSpacing: 0.05));
+  static subtitle1(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w700}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 18,
+              fontWeight: wFont,
+              letterSpacing: 0.05,
+              color: txtColor));
 
-  static final subtitle2 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-          fontSize: 14, fontWeight: FontWeight.w700, letterSpacing: 0.05));
+  static subtitle2(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w700}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.05,
+              color: txtColor));
 
-  static final subtitle3 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-          fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.05));
+  static subtitle3(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.05,
+              color: txtColor));
 
   //#endregion
 
   //#region Body
-  static final body1 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-          fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.05));
+  static body1(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: wFont,
+              letterSpacing: 0.05,
+              color: txtColor));
 
-  static final body2 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-          fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.15));
+  static body2(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.15,
+              color: txtColor));
 
-  static final body3 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-          fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.15));
+  static body3(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.15,
+              color: txtColor));
 
   //#endregion
 
   //#region Button
-  static final button1 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-          fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.013));
+  static button1(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.013,
+              color: AppColors.primary));
 
-  static final button2 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.15,
-  ));
-  static final button3 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.15,
-  ));
+  static button2(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.15,
+              color: txtColor));
+
+  static button3(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.15,
+              color: txtColor));
 
   //#endregion
 
   //#region Caption
-  static final captionRF1 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.03,
-  ));
+  static captionRF1(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: wFont,
+              letterSpacing: 0.03,
+              color: txtColor));
 
-  static final captionRF2 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w700,
-    letterSpacing: 0.03,
-  ));
-  static final captionRF3 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.03,
-  ));
-  static final captionRF4 = GoogleFonts.roboto(
-      textStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400));
+  static captionRF2(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w700}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.03,
+              color: txtColor));
+
+  static captionRF3(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 12,
+              fontWeight: wFont,
+              letterSpacing: 0.03,
+              color: txtColor));
+
+  static captionRF4(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.roboto(
+          textStyle:
+              TextStyle(fontSize: 10, fontWeight: wFont, color: txtColor));
 
   //#endregion
 
   //#region Overlie
-  static final overlieRF1 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.15,
-  ));
+  static overlieRF1(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.15,
+              color: txtColor));
 
-  static final overlieRF2 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.10,
-  ));
-  static final overlieRF3 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w700,
-    letterSpacing: 0.10,
-  ));
-  static final overlieRF4 = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-    fontSize: 10,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.05,
-  ));
+  static overlieRF2(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 12,
+              fontWeight: wFont,
+              letterSpacing: 0.10,
+              color: txtColor));
+
+  static overlieRF3(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w700}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 12,
+              fontWeight: wFont,
+              letterSpacing: 0.10,
+              color: txtColor));
+
+  static overlieRF4(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 10,
+              fontWeight: wFont,
+              letterSpacing: 0.05,
+              color: txtColor));
+
 //#endregion
 
   //#region Review
-  static final review = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-        fontSize: 6,
-        fontWeight: FontWeight.w500,
-        letterSpacing: 0.01,
-      ));
+  static review(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500}) =>
+      GoogleFonts.roboto(
+          textStyle: TextStyle(
+              fontSize: 6,
+              fontWeight: wFont,
+              letterSpacing: 0.01,
+              color: txtColor));
 
-  static final reviewPara = GoogleFonts.roboto(
-      textStyle: const TextStyle(
-        fontSize: 8,
-        fontWeight: FontWeight.w400
-      ));
+  static reviewPara(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.roboto(
+          textStyle:
+              TextStyle(fontSize: 8, fontWeight: wFont, color: txtColor));
+
   //#endregion
 //#endregion
 
 //#region ==Oxygen Font==
   //#region Caption
-  static final captionOF1 = GoogleFonts.oxygen(
-      textStyle: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 0.03,
-      ));
+  static captionOF1(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.oxygen(
+          textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: wFont,
+              letterSpacing: 0.03,
+              color: txtColor));
 
-  static final captionOF2 = GoogleFonts.oxygen(
-      textStyle: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.03,
-      ));
-  static final captionOF3 = GoogleFonts.oxygen(
-      textStyle: const TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 0.03,
-      ));
-  static final captionOF4 = GoogleFonts.oxygen(
-      textStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.w400));
+  static captionOF2(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w700}) =>
+      GoogleFonts.oxygen(
+          textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: wFont,
+              letterSpacing: 0.03,
+              color: txtColor));
+
+  static captionOF3(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.oxygen(
+          textStyle: TextStyle(
+              fontSize: 12,
+              fontWeight: wFont,
+              letterSpacing: 0.03,
+              color: txtColor));
+
+  static captionOF4(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400}) =>
+      GoogleFonts.oxygen(
+          textStyle:
+              TextStyle(fontSize: 10, fontWeight: wFont, color: txtColor));
 
   //#endregion
 
   //#region Overlie
-  static final overlieOF1 = GoogleFonts.oxygen(
-      textStyle: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 0.15,
-      ));
+  static overlieOF1(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400,
+          double sFont = 14}) =>
+      GoogleFonts.oxygen(
+          textStyle: TextStyle(
+              fontSize: sFont,
+              fontWeight: wFont,
+              letterSpacing: 0.15,
+              color: txtColor));
 
-  static final overlieOF2 = GoogleFonts.oxygen(
-      textStyle: const TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 0.10,
-      ));
-  static final overlieOF3 = GoogleFonts.oxygen(
-      textStyle: const TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.10,
-      ));
-  static final overlieOF4 = GoogleFonts.oxygen(
-      textStyle: const TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.w500,
-        letterSpacing: 0.05,
-      ));
+  static overlieOF2(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w400,
+            double sFont = 12}) =>
+      GoogleFonts.oxygen(
+          textStyle: TextStyle(
+              fontSize: sFont,
+              fontWeight: wFont,
+              letterSpacing: 0.10,
+              color: txtColor));
+
+  static overlieOF3(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w700,
+            double sFont = 12}) =>
+      GoogleFonts.oxygen(
+          textStyle: TextStyle(
+              fontSize: sFont,
+              fontWeight: wFont,
+              letterSpacing: 0.10,
+              color: txtColor));
+
+  static overlieOF4(
+          {Color txtColor = AppColors.greyDark,
+          FontWeight wFont = FontWeight.w500,
+            double sFont = 10
+          }) =>
+      GoogleFonts.oxygen(
+          textStyle: TextStyle(
+              fontSize: sFont,
+              fontWeight: wFont,
+              letterSpacing: 0.05,
+              color: txtColor));
 //#endregion
 //#endregion
 }

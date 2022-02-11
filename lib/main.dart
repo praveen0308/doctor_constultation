@@ -1,7 +1,10 @@
+import 'package:doctor_consultation/common/auth/login.dart';
+import 'package:doctor_consultation/common/splash_screen.dart';
+import 'package:doctor_consultation/common/success_view.dart';
+import 'package:doctor_consultation/common/welcome_user_type.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
-import 'package:doctor_consultation/patient/dashboard/dashboard.dart';
-import 'package:doctor_consultation/widgets/app_nav_bar.dart';
+import 'package:doctor_consultation/widgets/app_nav_bar/app_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,14 +19,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: AppColors.primary,
-        statusBarIconBrightness: Brightness.dark));
+        statusBarColor: AppColors.greyLightest,
+        statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: AppColors.greyLightest,
+    systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarDividerColor: AppColors.greyLight
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: AppColors.primarySwatchColor,
-          scaffoldBackgroundColor: AppColors.greyLight),
-      home: DashboardPatient(),
+          scaffoldBackgroundColor: AppColors.greyLightest),
+      home: SplashScreen(),
     );
   }
 }

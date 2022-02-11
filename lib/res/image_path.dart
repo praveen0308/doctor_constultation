@@ -14,6 +14,12 @@ class AppImages{
   static const String icLogo = '$rootImagePath/pic_app_icon.png';
   static const String drPriyanka = '$rootImagePath/dr_priyanka.jpg';
 
+  static const String imgVideo1 = '$rootImagePath/img_Video1.png';
+  static const String imgVideo2 = '$rootImagePath/img_Video2.png';
+  static const String imgVideo3 = '$rootImagePath/img_Video3.png';
+  static const String imgAvatar = '$rootImagePath/img_Avatar.png';
+  static const String imgMap = '$rootImagePath/pic_map.png';
+
   //#region All Icons
   //#region Bottom nav icons
       //#region Single Color
@@ -55,6 +61,7 @@ class AppImages{
 
       static const String icSearch = '$rootIconSinglePath/ic_search.svg';
       static const String icFilter = '$rootIconSinglePath/ic_filter.svg';
+      static const String icSnapping = '$rootIconSinglePath/ic_snapping.svg';
       //#endregion
 
       //#region Primary Color
@@ -62,8 +69,9 @@ class AppImages{
       static const String icFavListPrimary = '$rootIconPrimaryPath/ic_fav_list_primary.svg';
       static const String icFavEmptyPrimary = '$rootIconPrimaryPath/ic_fav_empty_primary.svg';
 
-      static const String icSearchPrimary = '$rootIconSinglePath/ic_search_primary.svg';
-      static const String icFilterPrimary = '$rootIconSinglePath/ic_filter_primary.svg';
+      static const String icSearchPrimary = '$rootIconPrimaryPath/ic_search_primary.svg';
+      static const String icFilterPrimary = '$rootIconPrimaryPath/ic_filter_primary.svg';
+      static const String icPhoneCallPrimary = '$rootIconPrimaryPath/ic_phone_call.svg';
     //#endregion
   //#endregion
 
@@ -88,8 +96,18 @@ class AppImages{
       static const String icStarEmpty = '$rootIconSinglePath/ic_star_empty.svg';
 
       static const String icAttachment = '$rootIconSinglePath/ic_attachment.svg';
+      static const String icEditImage = '$rootIconSinglePath/ic_profileImg.svg';
 
 
+      //#endregion
+
+      //#region Profile
+      static const String icMyPlan = '$rootIconSinglePath/ic_myPlan.svg';
+      static const String icAddresses = '$rootIconSinglePath/ic_addresses.svg';
+      static const String icAboutUs = '$rootIconSinglePath/ic_about.svg';
+      static const String icHelpUs = '$rootIconSinglePath/ic_helpUs.svg';
+      static const String icShareUs = '$rootIconSinglePath/ic_shareUs.svg';
+      static const String icLogOut = '$rootIconSinglePath/ic_logout.svg';
       //#endregion
 
 
@@ -97,6 +115,7 @@ class AppImages{
 
   //#region Dr. Profile Page Icon
       //#region Single Color
+      static const String icDoctor = '$rootIconSinglePath/ic_doctor.svg';
       static const String icClinic = '$rootIconSinglePath/ic_clinic.svg';
       static const String icOnlineConsult = '$rootIconSinglePath/ic_online.svg';
 
@@ -116,19 +135,20 @@ class AppImages{
       static const String icPatientCountPrimary = '$rootIconSinglePath/ic_patient_count_primary.svg';
       static const String icExperienceCountPrimary = '$rootIconSinglePath/ic_experience_count_primary.svg';
 
-      static const String icTimingPrimary = '$rootIconSinglePath/ic_timing_primary.svg';
+      static const String icTimingPrimary = '$rootIconPrimaryPath/ic_timing_primary.svg';
 
-      static const String icPastAppointmentPrimary = '$rootIconSinglePath/ic_past_appointment_primary.svg';
+      static const String icPastAppointmentPrimary = '$rootIconPrimaryPath/ic_past_appointment_primary.svg';
+      static const String icNavPastAppointmentPrimary = '$rootIconPrimaryPath/ic_nav_past_appointment_primary.svg';
     //#endregion
 
   //#endregion
 
   //#region Appointment Summery Page Icon
       //#region Primary Color
-      static const String icTreatmentSummery = '$rootIconSinglePath/ic_treatment_summery_primary.svg';
-      static const String icMedicineSummery = '$rootIconSinglePath/ic_medicine_summery_primary.svg';
-      static const String icDescriptionSummery = '$rootIconSinglePath/ic_description_summery_primary.svg';
-      static const String icPaymentSummery = '$rootIconSinglePath/ic_payment_summery_primary.svg';
+      static const String icTreatmentSummery = '$rootIconPrimaryPath/ic_treatment_summery_primary.svg';
+      static const String icMedicineSummery = '$rootIconPrimaryPath/ic_medicine_summery_primary.svg';
+      static const String icDescriptionSummery = '$rootIconPrimaryPath/ic_description_summery_primary.svg';
+      static const String icPaymentSummery = '$rootIconPrimaryPath/ic_payment_summery_primary.svg';
 
       //#endregion
 
@@ -143,6 +163,7 @@ class AppImages{
     static const String imgOnBoarding4 = '$rootImagePath/img_onBoarding4.svg';
 
     static const String imgWelcome = '$rootImagePath/img_doctor_team2.svg';
+    static const String imgShareUs = '$rootImagePath/img_share_us.svg';
     //#endregion
 
     //#region Login Images
@@ -151,12 +172,22 @@ class AppImages{
     //#endregion
 
     //#region Common Images
-
     static const String imgSuccessfullyDone = '$rootImagePath/img_successfully_done.svg';
     static const String imgNotAvailable = '$rootImagePath/img_not_available1.svg';
     static const String imgRuPay = '$rootImagePath/img_RuPay.svg';
+    static const String imgGPay = '$rootImagePath/img_gPay.png';
+    static const String imgPhonePe = '$rootImagePath/img_phonePe.png';
+    static const String imgPaytm = '$rootImagePath/img_paytm.png';
+    static const String imgUPI = '$rootImagePath/img_upi.png';
 
-
+    //#region Social Media
+    static const String imgInstagram = '$rootImagePath/img_instagram.svg';
+    static const String imgFacebook = '$rootImagePath/img_facebook.svg';
+    static const String imgWhatsApp = '$rootImagePath/img_whatsapp.svg';
+    static const String imgLinkedin = '$rootImagePath/img_linkedin.svg';
+    static const String imgTwitter = '$rootImagePath/img_twitter.svg';
+    static const String imgYouTube = '$rootImagePath/img_youtube.svg';
+    //#endregion
     //#endregion
   //#endregion
 }
