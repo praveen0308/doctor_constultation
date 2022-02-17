@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/achievement_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
@@ -25,6 +26,7 @@ class DrProfileBody extends StatefulWidget {
 
 class _DrProfileBodyState extends State<DrProfileBody> {
   List<AchievementModel> achievements = [];
+  final _storage = SecureStorage();
 
   @override
   void initState() {
@@ -138,9 +140,12 @@ class _DrProfileBodyState extends State<DrProfileBody> {
           const SizedBox(
             height: 20,
           ),
-
         ],
       ),
     );
+  }
+
+  void bookNewAppointment() {
+    var roleId = _storage.getUserRoleId();
   }
 }

@@ -1,14 +1,12 @@
-
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/user/patient/dashboard/dashboard.dart';
 import 'package:doctor_consultation/widgets/app_nav_bar/app_back_nav_bar.dart';
 import 'package:doctor_consultation/widgets/btn/btn_filled.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../user/patient/dashboard/dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -28,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(10.0),
           child: ListView(
             children: [
-              AppBackNavBar(
+              const AppBackNavBar(
                 imgUrl: AppImages.icBackArrow,
                 navColor: AppColors.primary,
                 bgColor: AppColors.greyLightest,
@@ -59,7 +57,9 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Enter the password',
                     labelText: 'Password',
                     suffixIcon: IconButton(
-                      icon: Icon(_securityText ? Icons.remove_red_eye:Icons.visibility_off),
+                      icon: Icon(_securityText
+                          ? Icons.remove_red_eye
+                          : Icons.visibility_off),
                       onPressed: () {
                         setState(() {
                           _securityText = !_securityText;

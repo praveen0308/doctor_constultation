@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/ui/user/patient/dashboard/patient_review/patient_review_list.dart';
 import 'package:doctor_consultation/widgets/template_patient_review.dart';
 import 'package:doctor_consultation/widgets/view_my_rich_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../res/app_colors.dart';
 import '../res/style_text.dart';
-import '../user/patient/dashboard/patient_review/patient_review_list.dart';
 
 class LayoutPatientReview extends StatefulWidget {
   const LayoutPatientReview({Key? key}) : super(key: key);
