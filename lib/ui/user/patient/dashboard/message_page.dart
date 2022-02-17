@@ -1,7 +1,6 @@
-import 'package:doctor_consultation/widgets/btn/btn_icon_tab.dart';
+import 'package:doctor_consultation/ui/user/patient/communication/chat_with_doctor/main_chat.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../communication/chat_with_doctor/main_chat.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage({Key? key}) : super(key: key);

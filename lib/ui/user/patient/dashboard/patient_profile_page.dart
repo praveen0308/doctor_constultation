@@ -1,7 +1,7 @@
 
 import 'package:doctor_consultation/ui/user/patient/profile/profile_body.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/profile_header.dart';
-import 'package:doctor_consultation/widgets/no_glow_behaviour.dart';
+import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

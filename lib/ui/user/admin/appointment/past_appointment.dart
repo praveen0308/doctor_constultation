@@ -1,10 +1,11 @@
 import 'package:doctor_consultation/res/image_path.dart';
-import 'package:doctor_consultation/widgets/app_nav_bar/app_back_filter_nav_bar.dart';
-import 'package:doctor_consultation/widgets/appointment/post_appointment_summery.dart';
-import 'package:doctor_consultation/widgets/no_glow_behaviour.dart';
-import 'package:doctor_consultation/widgets/view_my_rich_text2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../widgets/app_nav_bar/app_back_filter_nav_bar.dart';
+import '../../../widgets/appointment/post_appointment_summery.dart';
+import '../../../widgets/no_glow_behaviour.dart';
+import '../../../widgets/view_my_rich_text2.dart';
 
 class LayoutPastAppointment extends StatelessWidget {
   const LayoutPastAppointment({Key? key}) : super(key: key);

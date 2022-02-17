@@ -1,8 +1,8 @@
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/widgets/btn/info_chip.dart';
-import 'package:doctor_consultation/widgets/view_my_rich_text.dart';
+import 'package:doctor_consultation/ui/widgets/btn/info_chip.dart';
+import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

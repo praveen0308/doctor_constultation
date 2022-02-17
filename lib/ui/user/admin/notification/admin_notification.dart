@@ -1,7 +1,7 @@
 import 'package:doctor_consultation/res/image_path.dart';
-import 'package:doctor_consultation/widgets/app_nav_bar/app_back_filter_nav_bar.dart';
-import 'package:doctor_consultation/widgets/no_glow_behaviour.dart';
-import 'package:doctor_consultation/widgets/template_schedule_detail.dart';
+import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_back_filter_nav_bar.dart';
+import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
+import 'package:doctor_consultation/ui/widgets/template_schedule_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

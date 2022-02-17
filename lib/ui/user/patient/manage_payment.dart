@@ -2,8 +2,7 @@ import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/patient/payment/template_payment_body.dart';
-import 'package:doctor_consultation/widgets/app_nav_bar/app_back_nav_bar.dart';
-import 'package:doctor_consultation/widgets/btn/info_chip.dart';
+import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_back_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

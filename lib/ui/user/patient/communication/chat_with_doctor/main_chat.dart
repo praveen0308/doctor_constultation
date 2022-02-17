@@ -1,7 +1,7 @@
 import 'package:doctor_consultation/res/app_colors.dart';
-import 'package:doctor_consultation/widgets/app_nav_bar/chat_with_dr_nav_bar.dart';
-import 'package:doctor_consultation/widgets/bottom_nav_bar/bottom_chat_nav.dart';
-import 'package:doctor_consultation/widgets/no_glow_behaviour.dart';
+import 'package:doctor_consultation/ui/widgets/app_nav_bar/chat_with_dr_nav_bar.dart';
+import 'package:doctor_consultation/ui/widgets/bottom_nav_bar/bottom_chat_nav.dart';
+import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

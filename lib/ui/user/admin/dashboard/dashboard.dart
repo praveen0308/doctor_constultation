@@ -1,6 +1,6 @@
 import 'package:doctor_consultation/ui/user/admin/dashboard/patient_profile_page.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/schedule_history_page.dart';
-import 'package:doctor_consultation/widgets/bottom_nav_bar/bottom_nav.dart';
+import 'package:doctor_consultation/ui/widgets/bottom_nav_bar/bottom_nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

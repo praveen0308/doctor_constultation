@@ -1,9 +1,4 @@
-import 'package:doctor_consultation/common/auth/login.dart';
-import 'package:doctor_consultation/common/splash_screen.dart';
-import 'package:doctor_consultation/common/success_view.dart';
-import 'package:doctor_consultation/common/welcome_user_type.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
-import 'package:doctor_consultation/route/route.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

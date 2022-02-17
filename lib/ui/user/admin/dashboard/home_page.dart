@@ -2,25 +2,18 @@ import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/app_string.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/widgets/admin_today_task.dart';
+import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_nav_bar.dart';
+import 'package:doctor_consultation/ui/widgets/btn/btn_circle.dart';
+import 'package:doctor_consultation/ui/widgets/btn/search_patient_filter.dart';
+import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
+import 'package:doctor_consultation/ui/widgets/patient/alpha_patient.dart';
+import 'package:doctor_consultation/ui/widgets/patient/next_patient.dart';
+import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:doctor_consultation/util/date_time_helper.dart';
-import 'package:doctor_consultation/widgets/admin_today_task.dart';
-import 'package:doctor_consultation/widgets/app_nav_bar/app_nav_bar.dart';
-import 'package:doctor_consultation/widgets/btn/btn_circle.dart';
-import 'package:doctor_consultation/widgets/btn/search_patient_filter.dart';
-import 'package:doctor_consultation/widgets/fact_myth.dart';
-import 'package:doctor_consultation/widgets/no_glow_behaviour.dart';
-import 'package:doctor_consultation/widgets/patient/alpha_patient.dart';
-import 'package:doctor_consultation/widgets/patient/next_patient.dart';
-import 'package:doctor_consultation/widgets/patient_review.dart';
-import 'package:doctor_consultation/widgets/schedule/view_schedule_admin.dart';
-import 'package:doctor_consultation/widgets/template_achievement.dart';
-import 'package:doctor_consultation/widgets/view_my_rich_text.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 class DoctorHomePage extends StatefulWidget {
   const DoctorHomePage({Key? key}) : super(key: key);

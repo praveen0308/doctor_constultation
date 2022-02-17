@@ -1,22 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/youtube/youtube_video.dart';
-
-import 'package:doctor_consultation/widgets/btn/btn_circle.dart';
-import 'package:doctor_consultation/widgets/btn/btn_filled.dart';
-import 'package:doctor_consultation/widgets/btn/btn_outline.dart';
-import 'package:doctor_consultation/widgets/fact_myth.dart';
-import 'package:doctor_consultation/widgets/patient_review.dart';
-import 'package:doctor_consultation/widgets/template_achievement.dart';
+import 'package:doctor_consultation/ui/widgets/fact_myth.dart';
+import 'package:doctor_consultation/ui/widgets/patient_review.dart';
+import 'package:doctor_consultation/ui/widgets/template_schedule_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'res/image_path.dart';
-import '../../widgets/template_schedule_detail.dart';
 
 class HomePageTesting extends StatefulWidget {
   const HomePageTesting({Key? key}) : super(key: key);

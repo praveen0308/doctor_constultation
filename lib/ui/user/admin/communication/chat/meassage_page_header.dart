@@ -1,6 +1,6 @@
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/widgets/btn/search_patient_filter.dart';
+import 'package:doctor_consultation/ui/widgets/btn/search_patient_filter.dart';
 import 'package:flutter/cupertino.dart';
 
 class TemplateMessagePageHeader extends StatelessWidget {

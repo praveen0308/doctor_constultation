@@ -1,6 +1,5 @@
-import 'package:doctor_consultation/widgets/app_nav_bar/app_back_search_bar.dart';
-import 'package:doctor_consultation/widgets/btn/search_patient_filter.dart';
-import 'package:doctor_consultation/widgets/patient/alpha_patient.dart';
+import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_back_search_bar.dart';
+import 'package:doctor_consultation/ui/widgets/patient/alpha_patient.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

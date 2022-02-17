@@ -1,10 +1,10 @@
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/widgets/app_nav_bar/app_nav_bar.dart';
-import 'package:doctor_consultation/widgets/btn/btn_tab.dart';
-import 'package:doctor_consultation/widgets/no_glow_behaviour.dart';
-import 'package:doctor_consultation/widgets/template_schedule_detail.dart';
-import 'package:doctor_consultation/widgets/view_my_rich_text.dart';
+import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_nav_bar.dart';
+import 'package:doctor_consultation/ui/widgets/btn/btn_tab.dart';
+import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
+import 'package:doctor_consultation/ui/widgets/template_schedule_detail.dart';
+import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:flutter/cupertino.dart';
 
 class ScheduleHistoryPage extends StatefulWidget {

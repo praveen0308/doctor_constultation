@@ -2,8 +2,8 @@
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/youtube/youtube_video_list.dart';
-import 'package:doctor_consultation/widgets/view_my_rich_text.dart';
-import 'package:doctor_consultation/widgets/youtube/template_video_slider.dart';
+import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
+import 'package:doctor_consultation/ui/widgets/youtube/template_video_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

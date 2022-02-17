@@ -1,14 +1,12 @@
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/widgets/patient/chat_with_patient.dart';
+import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 
-import 'package:doctor_consultation/widgets/btn/search_patient_filter.dart';
-import 'package:doctor_consultation/widgets/patient/chat_with_patient.dart';
-import 'package:doctor_consultation/widgets/view_my_rich_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../payment_detail.dart';
+import 'package:doctor_consultation/route/route.dart' as route;
 
 class TemplateMessagePageBody extends StatelessWidget {
   const TemplateMessagePageBody({Key? key}) : super(key: key);
@@ -32,7 +30,7 @@ class TemplateMessagePageBody extends StatelessWidget {
           cType: AppColors.primary,
           bgType: AppColors.primaryLightest,
           txtIcon: AppImages.icUnMuteVideoCall,
-          onTab: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LayoutPaymentConfirmation())),
+          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
         ),
         TemplateChatWithPatient(
           txtTitle: "Mr. Sunil Yadav",
@@ -42,7 +40,7 @@ class TemplateMessagePageBody extends StatelessWidget {
           cType: AppColors.successDark,
           bgType: AppColors.successLightest,
           txtIcon: AppImages.icMessage,
-          onTab: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LayoutPaymentConfirmation())),
+          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
         ),
         TemplateChatWithPatient(
           txtTitle: "Mr. Sunil Yadav",
@@ -52,7 +50,7 @@ class TemplateMessagePageBody extends StatelessWidget {
           cType: AppColors.successDark,
           bgType: AppColors.successLightest,
           txtIcon: AppImages.icMessage,
-          onTab: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LayoutPaymentConfirmation())),
+          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
         ),
         ViewMyRichText(
           text1: "All",
@@ -68,7 +66,7 @@ class TemplateMessagePageBody extends StatelessWidget {
           cType: AppColors.primary,
           bgType: AppColors.primaryLightest,
           txtIcon: AppImages.icUnMuteVideoCall,
-          onTab: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LayoutPaymentConfirmation())),
+          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
         ),
         TemplateChatWithPatient(
           txtTitle: "Mr. Sunil Yadav",
@@ -78,7 +76,7 @@ class TemplateMessagePageBody extends StatelessWidget {
           cType: AppColors.successDark,
           bgType: AppColors.successLightest,
           txtIcon: AppImages.icMessage,
-          onTab: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LayoutPaymentConfirmation())),
+          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
         ),
       ],
     );

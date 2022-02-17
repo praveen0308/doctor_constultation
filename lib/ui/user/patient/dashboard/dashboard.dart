@@ -3,7 +3,7 @@ import 'package:doctor_consultation/models/user_roles.dart';
 import 'package:doctor_consultation/ui/user/patient/communication/chat_with_doctor/main_chat.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/patient_profile_page.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/schedule_history_page.dart';
-import 'package:doctor_consultation/widgets/bottom_nav_bar/bottom_nav.dart';
+import 'package:doctor_consultation/ui/widgets/bottom_nav_bar/bottom_nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

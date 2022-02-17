@@ -2,19 +2,14 @@ import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/youtube/youtube_video.dart';
+import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_nav_bar.dart';
+import 'package:doctor_consultation/ui/widgets/fact_myth.dart';
+import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
+import 'package:doctor_consultation/ui/widgets/patient_review.dart';
 import 'package:doctor_consultation/util/date_time_helper.dart';
-import 'package:doctor_consultation/widgets/app_nav_bar/app_nav_bar.dart';
-import 'package:doctor_consultation/widgets/btn/btn_circle.dart';
-import 'package:doctor_consultation/widgets/btn/btn_filled.dart';
-import 'package:doctor_consultation/widgets/btn/btn_outline.dart';
-import 'package:doctor_consultation/widgets/fact_myth.dart';
-import 'package:doctor_consultation/widgets/no_glow_behaviour.dart';
-import 'package:doctor_consultation/widgets/patient_review.dart';
-import 'package:doctor_consultation/widgets/template_achievement.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

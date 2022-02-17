@@ -5,8 +5,9 @@ import 'package:doctor_consultation/ui/user/patient/profile/util_pages/about_us.
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/contact_us.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/help_us.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/share_us.dart';
-import 'package:doctor_consultation/widgets/template_profile_menu.dart';
-import 'package:doctor_consultation/widgets/view_my_rich_text.dart';
+import 'package:doctor_consultation/ui/widgets/template_profile_menu.dart';
+import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
