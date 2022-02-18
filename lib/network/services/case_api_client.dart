@@ -1,0 +1,35 @@
+import 'package:dio/dio.dart';
+import 'package:doctor_consultation/models/api/case_doc_model.dart';
+import 'package:doctor_consultation/models/api/case_info_model.dart';
+import 'package:doctor_consultation/network/utils/api_constats.dart';
+import 'package:retrofit/http.dart';
+
+part 'case_api_client.g.dart';
+
+@RestApi(baseUrl: ApiConstants.baseUrl)
+abstract class CaseApiClient {
+  factory CaseApiClient(Dio dio,
+      {String baseUrl}) = _CaseApiClient;
+
+  //#region Case Info Detail Service
+  @GET("Case/GetAllCaseInfoDetails")
+  Future<List<CaseInfoModel>> fetchCaseInfoDetailList();
+
+  @GET("Case/GetCaseInfoDetailByID")
+  Future<CaseInfoModel> getCaseInfoDetailByID(@Query("ID") int id);
+
+  @POST("Case/AddUpdateCaseInfoDetail")
+  Future<bool> addUpdateCaseInfoDetail(@Body() CaseInfoModel caseInfoModel);
+  //#endregion
+
+  //#region Case Doc Detail Service
+  @GET("Case/GetAllCaseDocDetails")
+  Future<List<CaseDocModel>> fetchCaseDocDetailList();
+
+  @GET("Case/GetCaseDoctDetailByID")
+  Future<CaseDocModel> getCaseDocDetailByID(@Query("ID") int id);
+
+  @POST("Case/AddUpdateCaseDocDetail")
+  Future<bool> addUpdateCaseDocDetail(@Body() CaseDocModel caseDocModel);
+//#endregion
+}

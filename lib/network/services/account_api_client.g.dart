@@ -18,7 +18,26 @@ class _AccountApiClient implements AccountApiClient {
   String? baseUrl;
 
   @override
-  Future<DoctorDetailModel> getDoctorDetailsById(doctorId) async {
+  Future<List<DoctorDetailModel>> fetchDoctorDetailList() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<DoctorDetailModel>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'Account/GetAllDoctorDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) =>
+            DoctorDetailModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<DoctorDetailModel> getDoctorDetailById(doctorId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'DoctorID': doctorId};
     final _headers = <String, dynamic>{};
@@ -26,10 +45,26 @@ class _AccountApiClient implements AccountApiClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<DoctorDetailModel>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'Account/GetDoctorDetailsByID',
+                .compose(_dio.options, 'Account/GetDoctorDetailByID',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = DoctorDetailModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<bool> addUpdateDoctorDetail(doctorDetailModel) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(doctorDetailModel.toJson());
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'Account/AddUpdateDoctorDetail',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
     return value;
   }
 
@@ -65,6 +100,59 @@ class _AccountApiClient implements AccountApiClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UserModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<SubscriptionPlanModel>> fetchSubscriptionPlanList() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<SubscriptionPlanModel>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'Account/GetAllSubscriptionPlanDetails',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) =>
+            SubscriptionPlanModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<SubscriptionPlanModel> getSubscriptionPlanById(subscriptionID) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'SubscriptionID': subscriptionID
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SubscriptionPlanModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'Account/GetSubscriptionPlanDetailByID',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SubscriptionPlanModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<bool> addUpdateSubscriptionPlan(subscriptionPlanModel) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(subscriptionPlanModel.toJson());
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'Account/AddUpdateSubscriptionPlanDetail',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
     return value;
   }
 
