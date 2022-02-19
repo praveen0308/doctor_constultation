@@ -1,9 +1,15 @@
+import 'package:doctor_consultation/bloc/phone_auth/phone_auth_cubit.dart';
+import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -19,13 +25,18 @@ class MyApp extends StatelessWidget {
         systemNavigationBarColor: AppColors.greyLightest,
         systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarDividerColor: AppColors.greyLight));
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          primarySwatch: AppColors.primarySwatchColor,
-          scaffoldBackgroundColor: AppColors.greyLightest),
-      initialRoute: route.splashScreen,
-      onGenerateRoute: route.controller,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => PhoneAuthCubit(AccountRepository())),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            primarySwatch: AppColors.primarySwatchColor,
+            scaffoldBackgroundColor: AppColors.greyLightest),
+        initialRoute: route.splashScreen,
+        onGenerateRoute: route.controller,
+      ),
     );
   }
 }

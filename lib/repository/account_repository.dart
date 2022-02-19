@@ -24,9 +24,11 @@ class AccountRepository {
   Future<List<DoctorDetailModel>> fetchAllDoctors() {
     return _accountApiClient.fetchDoctorDetailList();
   }
+
   Future<DoctorDetailModel> getDoctorDetailsById(int doctorId) {
     return _accountApiClient.getDoctorDetailById(doctorId);
   }
+
   Future<bool> createUpdateDoctorDetail(DoctorDetailModel doctorDetailModel) {
     return _accountApiClient.addUpdateDoctorDetail(doctorDetailModel);
   }
@@ -37,8 +39,8 @@ class AccountRepository {
     return _accountApiClient.addUpdateUserDetails(userModel);
   }
 
-  Future<UserModel> checkLoginDetails(int doctorId) {
-    throw UnimplementedError();
+  Future<UserModel> checkLoginDetails(UserModel userModel) {
+    return _accountApiClient.checkLoginDetails(userModel);
   }
   //#endregion
 
@@ -46,10 +48,13 @@ class AccountRepository {
   Future<List<SubscriptionPlanModel>> fetchAllSubscriptionPlans() {
     return _accountApiClient.fetchSubscriptionPlanList();
   }
+
   Future<SubscriptionPlanModel> fetchSubscriptionPlanByID(int id) {
     return _accountApiClient.getSubscriptionPlanById(id);
   }
-  Future<bool> createUpdateSubscriptionPlan(SubscriptionPlanModel subscriptionPlanModel) {
+
+  Future<bool> createUpdateSubscriptionPlan(
+      SubscriptionPlanModel subscriptionPlanModel) {
     return _accountApiClient.addUpdateSubscriptionPlan(subscriptionPlanModel);
   }
 //#endregion

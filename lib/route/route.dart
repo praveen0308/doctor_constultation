@@ -1,3 +1,5 @@
+import 'package:doctor_consultation/ui/common/phone_auth/enter_mobile_number.dart';
+import 'package:doctor_consultation/ui/common/phone_auth/verify_otp_page.dart';
 import 'package:doctor_consultation/ui/common/splash_screen.dart';
 import 'package:doctor_consultation/ui/common/success_view.dart';
 import 'package:doctor_consultation/ui/common/welcome_user_type.dart';
@@ -17,12 +19,13 @@ import 'package:doctor_consultation/ui/user/patient/dashboard/patient_profile_pa
 import 'package:doctor_consultation/ui/user/patient/notification/patient_notification.dart';
 import 'package:flutter/material.dart';
 
-
 // importing our pages into our route.dart
 
 // variable for our route names
 const String splashScreen = '/';
+const String enterMobileNumber = '/enterMobileNumber';
 const String dashboardPatient = '/dashboardPatient';
+const String verifyOtp = '/verifyOtp';
 const String dashboardDoctor = '/dashboardDoctor';
 const String appointmentDetailPage = '/appointmentDetailPage';
 const String layoutSearchFilterPatient = '/layoutSearchFilterPatient';
@@ -33,7 +36,8 @@ const String messagePage = '/messagePage';
 const String patientProfilePage = '/patientProfilePage';
 
 //Admin
-const String patientPastAppointmentDetailPage = '/patientPastAppointmentDetailPage';
+const String patientPastAppointmentDetailPage =
+    '/patientPastAppointmentDetailPage';
 const String layoutPastAppointment = '/layoutPastAppointment';
 const String layoutPaymentConfirmation = '/layoutPaymentConfirmation';
 
@@ -54,7 +58,13 @@ Route<dynamic> controller(RouteSettings settings) {
     case splashScreen:
       return MaterialPageRoute(
           builder: (context) => const SplashScreen(), settings: settings);
+    case enterMobileNumber:
+      return MaterialPageRoute(
+          builder: (context) => const EnterMobileNumber(), settings: settings);
 
+    case verifyOtp:
+      return MaterialPageRoute(
+          builder: (context) => VerifyOtpPage(), settings: settings);
     case dashboardPatient:
       return MaterialPageRoute(
           builder: (context) => const DashboardPatient(), settings: settings);
@@ -63,10 +73,12 @@ Route<dynamic> controller(RouteSettings settings) {
           builder: (context) => const DashboardAdmin(), settings: settings);
     case appointmentDetailPage:
       return MaterialPageRoute(
-          builder: (context) => const AppointmentDetailPage(), settings: settings);
+          builder: (context) => const AppointmentDetailPage(),
+          settings: settings);
     case layoutSearchFilterPatient:
       return MaterialPageRoute(
-          builder: (context) => const LayoutSearchFilterPatient(), settings: settings);
+          builder: (context) => const LayoutSearchFilterPatient(),
+          settings: settings);
 
     case newAppointment:
       return MaterialPageRoute(
@@ -78,38 +90,41 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const PatientProfilePage(), settings: settings);
 
-      case patientPastAppointmentDetailPage:
+    case patientPastAppointmentDetailPage:
       return MaterialPageRoute(
-          builder: (context) => const PatientPastAppointmentDetailPage(), settings: settings);
-      case layoutPastAppointment:
+          builder: (context) => const PatientPastAppointmentDetailPage(),
+          settings: settings);
+    case layoutPastAppointment:
       return MaterialPageRoute(
-          builder: (context) => const LayoutPastAppointment(), settings: settings);
+          builder: (context) => const LayoutPastAppointment(),
+          settings: settings);
 
-      case notificationPage:
+    case notificationPage:
       return MaterialPageRoute(
           builder: (context) => const NotificationPage(), settings: settings);
 
-      case drProfilePage:
+    case drProfilePage:
       return MaterialPageRoute(
           builder: (context) => const DrProfilePage(), settings: settings);
 
-      case mainVoiceCall:
+    case mainVoiceCall:
       return MaterialPageRoute(
           builder: (context) => const MainVoiceCall(), settings: settings);
 
-      case mainVideoCall:
+    case mainVideoCall:
       return MaterialPageRoute(
           builder: (context) => const MainVideoCall(), settings: settings);
-      case layoutUserType:
+    case layoutUserType:
       return MaterialPageRoute(
           builder: (context) => const LayoutUserType(), settings: settings);
 
-      case successPage:
+    case successPage:
       return MaterialPageRoute(
           builder: (context) => const SuccessPage(), settings: settings);
-      case layoutPaymentConfirmation:
+    case layoutPaymentConfirmation:
       return MaterialPageRoute(
-          builder: (context) => const LayoutPaymentConfirmation(), settings: settings);
+          builder: (context) => const LayoutPaymentConfirmation(),
+          settings: settings);
 
     default:
       throw ('this route name does not exist');

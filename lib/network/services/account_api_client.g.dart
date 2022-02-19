@@ -85,14 +85,12 @@ class _AccountApiClient implements AccountApiClient {
   }
 
   @override
-  Future<UserModel> checkLoginDetails(userName, password) async {
+  Future<UserModel> checkLoginDetails(userModel) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'UserName': userName,
-      r'Password': password
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(userModel.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<UserModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)

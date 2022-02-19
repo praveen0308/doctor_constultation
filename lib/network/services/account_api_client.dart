@@ -15,10 +15,12 @@ abstract class AccountApiClient {
   Future<List<DoctorDetailModel>> fetchDoctorDetailList();
 
   @GET("Account/GetDoctorDetailByID")
-  Future<DoctorDetailModel> getDoctorDetailById(@Query("DoctorID") int doctorId);
+  Future<DoctorDetailModel> getDoctorDetailById(
+      @Query("DoctorID") int doctorId);
 
   @POST("Account/AddUpdateDoctorDetail")
-  Future<bool> addUpdateDoctorDetail(@Body() DoctorDetailModel doctorDetailModel);
+  Future<bool> addUpdateDoctorDetail(
+      @Body() DoctorDetailModel doctorDetailModel);
 
   //#endregion
   //#region User Details
@@ -26,8 +28,7 @@ abstract class AccountApiClient {
   Future<bool> addUpdateUserDetails(@Body() UserModel userModel);
 
   @POST("Account/CheckLoginDetails")
-  Future<UserModel> checkLoginDetails(
-      @Query("UserName") String userName, @Query("Password") String password);
+  Future<UserModel> checkLoginDetails(@Body() UserModel userModel);
   //#endregion
 
   //#region Subscription Plan
@@ -35,9 +36,11 @@ abstract class AccountApiClient {
   Future<List<SubscriptionPlanModel>> fetchSubscriptionPlanList();
 
   @GET("Account/GetSubscriptionPlanDetailByID")
-  Future<SubscriptionPlanModel> getSubscriptionPlanById(@Query("SubscriptionID") int subscriptionID);
+  Future<SubscriptionPlanModel> getSubscriptionPlanById(
+      @Query("SubscriptionID") int subscriptionID);
 
   @POST("Account/AddUpdateSubscriptionPlanDetail")
-  Future<bool> addUpdateSubscriptionPlan(@Body() SubscriptionPlanModel subscriptionPlanModel);
+  Future<bool> addUpdateSubscriptionPlan(
+      @Body() SubscriptionPlanModel subscriptionPlanModel);
   //#endregion
 }

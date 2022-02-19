@@ -1,5 +1,6 @@
 import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/achievement_model.dart';
+import 'package:doctor_consultation/models/user_roles.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
@@ -128,7 +129,11 @@ class _DrProfileBodyState extends State<DrProfileBody> {
             child: BtnFilled(
               title: "Book an Appointment",
               onBtnPressed: () {
-                Navigator.pushNamed(context, route.newAppointment);
+                if (_storage.getUserRoleId() == UserRoles.registeredPatient) {
+                  Navigator.pushNamed(context, route.newAppointment);
+                } else {
+                  Navigator.pushNamed(context, route.enterMobileNumber);
+                }
               },
             ),
           ),
