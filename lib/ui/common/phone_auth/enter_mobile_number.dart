@@ -22,6 +22,7 @@ class EnterMobileNumber extends StatefulWidget {
 class _EnterMobileNumberState extends State<EnterMobileNumber> {
   late PhoneAuthCubit _phoneAuthCubit;
   String selectedCountryCode = "+91";
+  String mobileNumber = "";
   var isLoading = false;
 
   @override
@@ -45,18 +46,20 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: BlocBuilder<PhoneAuthCubit, PhoneAuthState>(
         builder: (context, state) {
-          isLoading = false;
           if (state is Loading) {
             isLoading = true;
           }
 
           if (state is Error) {
+            isLoading = false;
             showToast(state.msg, ToastType.error);
           }
           if (state is OnVerificationCompleted) {
+            isLoading = false;
             showToast("Verification done!!!", ToastType.success);
           }
           if (state is LoginSuccessful) {
+            isLoading = false;
             WidgetsBinding.instance!.addPostFrameCallback((_) {
               if (state.roleId == UserRoles.registeredPatient) {
                 Navigator.pushReplacementNamed(context, route.dashboardPatient);
@@ -66,11 +69,13 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
             });
           }
           if (state is OtpSent) {
+            isLoading = false;
             WidgetsBinding.instance!.addPostFrameCallback((_) {
               Navigator.pushNamed(context, route.verifyOtp);
             });
           }
           if (state is InvalidPhoneNumber) {
+            isLoading = false;
             showToast("Invalid phone number!!!", ToastType.error);
           }
           return Column(
@@ -141,6 +146,12 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                           keyboardType: TextInputType.number,
                           style: AppTextStyle.captionOF1(),
                           maxLength: 10,
+                          onChanged: (text) {
+                            mobileNumber = text;
+                          },
+                          onSubmitted: (text) {
+                            mobileNumber = text;
+                          },
                           decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: "0000000000",
@@ -159,7 +170,9 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                 width: double.infinity,
                 child: CustomBtn(
                   title: "Continue",
-                  onBtnPressed: () {},
+                  onBtnPressed: () {
+                    _phoneAuthCubit.verifyMobileNumber(mobileNumber);
+                  },
                   isLoading: isLoading,
                 ),
               ),

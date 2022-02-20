@@ -13,10 +13,13 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   final _storage = SecureStorage();
   FirebaseAuth auth = FirebaseAuth.instance;
   final AccountRepository accountRepository;
-  late String _verificationId;
+  String _verificationId = "";
+  String phoneNumber = "";
+
   PhoneAuthCubit(this.accountRepository) : super(PhoneAuthInitial());
 
   void verifyMobileNumber(String mobileNumber) async {
+    phoneNumber = mobileNumber;
     emit(Loading());
     try {
       await auth.verifyPhoneNumber(
@@ -24,11 +27,13 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
         verificationCompleted: (PhoneAuthCredential credential) {
           _verificationId = credential.verificationId!;
 
-          auth.signInWithCredential(credential).then((value) {
+          auth.signInWithCredential(credential).then((userCredential) {
             emit(OnVerificationCompleted());
-            User user = value.user!;
+            User? user = userCredential.user;
+
+            user = auth.currentUser;
             checkLoginDetails(UserModel(
-                UserName: user.displayName,
+                UserName: user!.displayName,
                 EmailID: user.email,
                 MobileNo: user.phoneNumber));
           });
@@ -41,6 +46,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
           }
         },
         codeSent: (String verificationId, int? resendToken) {
+          _verificationId = verificationId;
           emit(OtpSent());
         },
         codeAutoRetrievalTimeout: (String verificationId) {
@@ -49,6 +55,31 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
       );
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    } on Exception catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    }
+  }
+
+  void verifyOtp(String code) async {
+    emit(Loading());
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: _verificationId, smsCode: code);
+    try {
+      var userCredential = await auth.signInWithCredential(credential);
+      User? user = userCredential.user;
+      await user?.reload();
+      user = auth.currentUser;
+      checkLoginDetails(UserModel(
+          UserName: user!.displayName,
+          EmailID: user.email,
+          MobileNo: user.phoneNumber));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "invalid-verification-code") {
+        emit(IncorrectOtp());
+      }
+
       debugPrint("Exception >>> $e");
     } on Exception catch (e) {
       emit(Error("Something went wrong !!!"));

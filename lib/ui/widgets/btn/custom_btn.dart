@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 class CustomBtn extends StatelessWidget {
   final String title;
-  final Function()? onBtnPressed;
+  final Function() onBtnPressed;
   final bool isLoading;
 
   const CustomBtn(
       {Key? key,
-      this.title = "Filled",
-      this.onBtnPressed,
+      required this.title,
+      required this.onBtnPressed,
       required this.isLoading})
       : super(key: key);
 
@@ -28,7 +28,7 @@ class CustomBtn extends StatelessWidget {
             child: Text(
               title.toUpperCase(),
             ),
-            onPressed: () => onBtnPressed!(),
+            onPressed: () => onBtnPressed(),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
             ),

@@ -27,6 +27,8 @@ class TimeOut extends PhoneAuthState {}
 
 class OtpSent extends PhoneAuthState {}
 
+class IncorrectOtp extends PhoneAuthState {}
+
 class InvalidPhoneNumber extends PhoneAuthState {}
 
 class WaitingForAutoVerification extends PhoneAuthState {}
