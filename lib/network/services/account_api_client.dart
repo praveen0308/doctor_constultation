@@ -29,6 +29,10 @@ abstract class AccountApiClient {
 
   @POST("Account/CheckLoginDetails")
   Future<UserModel> checkLoginDetails(@Body() UserModel userModel);
+
+  @POST("Account/CheckLoginDetails")
+  Future<UserModel> checkUserLogin(
+      @Query("username") String username, @Query("password") String password);
   //#endregion
 
   //#region Subscription Plan

@@ -15,14 +15,29 @@ class SecureStorage {
     return int.parse(readData ?? "0");
   }
 
-  Future updateLoginStatus(String roleId) async {
-    var writeData = await _storage.write(key: "roleId", value: roleId);
-    return writeData;
+  Future updateLoginStatus(bool status) async {
+    if (status) {
+      var writeData =
+          await _storage.write(key: "loginStatus", value: "loggedIn");
+      return writeData;
+    } else {
+      var writeData =
+          await _storage.write(key: "loginStatus", value: "loggedOut");
+      return writeData;
+    }
   }
 
-  Future<String?> getLoginStatus() async {
-    var readData = await _storage.read(key: "roleId");
-    return readData;
+  Future<bool> getLoginStatus() async {
+    var readData = await _storage.read(key: "loginStatus");
+    if (readData != null) {
+      if (readData == "loggedIn") {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   Future updateUserName(String name) async {

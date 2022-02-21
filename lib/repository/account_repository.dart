@@ -42,6 +42,10 @@ class AccountRepository {
   Future<UserModel> checkLoginDetails(UserModel userModel) {
     return _accountApiClient.checkLoginDetails(userModel);
   }
+
+  Future<UserModel> loginUser(String username, String password) {
+    return _accountApiClient.checkUserLogin(username, password);
+  }
   //#endregion
 
   //#region Subscription Plan

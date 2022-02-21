@@ -21,12 +21,14 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
           behavior: NoGlowBehaviour(),
           child: ListView(
             children: [
-              AppBackFilterNavBar(imgUrl1: AppImages.icBackArrow,txtTitle: "Reschedule",),
-              const Padding(
+              AppBackFilterNavBar(
+                imgUrl1: AppImages.icBackArrow,
+                txtTitle: "Reschedule",
+              ),
+              /* const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
                 child: TemplateScheduleDetail(),
-              ),
-
+              ),*/
             ],
           ),
         ),

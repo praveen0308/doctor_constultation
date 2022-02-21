@@ -30,6 +30,7 @@ class _HomePageTestingState extends State<HomePageTesting> {
 
     _fabHeight = _initFabHeight;
   }
+
   @override
   Widget build(BuildContext context) {
     _panelHeightOpen = MediaQuery.of(context).size.height * .80;
@@ -53,7 +54,6 @@ class _HomePageTestingState extends State<HomePageTesting> {
                   _initFabHeight;
             }),
           ),
-
         ],
       ),
     );
@@ -87,22 +87,14 @@ class _HomePageTestingState extends State<HomePageTesting> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                      "Your next appoinment",
-                      style: AppTextStyle.body3(txtColor: AppColors.greyDark)
-                  ),
+                  Text("Your next appoinment",
+                      style: AppTextStyle.body3(txtColor: AppColors.greyDark)),
                 ],
               ),
             ),
             SizedBox(
               height: 30.0,
             ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: TemplateScheduleDetail(),
-            ),
-
           ],
         ));
   }
@@ -114,7 +106,8 @@ class _HomePageTestingState extends State<HomePageTesting> {
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.symmetric(horizontal: 15),
         children: <Widget>[
-          Text("Mon, 03 Jan".toUpperCase(), style: (AppTextStyle.button1(txtColor: AppColors.primary))),
+          Text("Mon, 03 Jan".toUpperCase(),
+              style: (AppTextStyle.button1(txtColor: AppColors.primary))),
           const SizedBox(
             height: 5,
           ),
@@ -142,15 +135,11 @@ class _HomePageTestingState extends State<HomePageTesting> {
             height: 10,
           ),
           LayoutPatientReview(),
-
           const SizedBox(
             height: 10,
           ),
-
         ],
       ),
     );
-
   }
-
 }

@@ -1,9 +1,8 @@
-import 'package:doctor_consultation/bloc/phone_auth/phone_auth_cubit.dart';
+import 'package:doctor_consultation/ui/common/phone_auth/phone_auth_cubit.dart';
 import 'package:doctor_consultation/models/user_roles.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/country_picker_ddl.dart';
 import 'package:doctor_consultation/util/util_methods.dart';

@@ -8,9 +8,13 @@ import 'package:doctor_consultation/route/route.dart' as route;
 class BottomNav extends StatefulWidget {
   final int selectedTab;
   final Function(int) tabPressed;
+  final Function() onActionBtnClicked;
 
   const BottomNav(
-      {Key? key, required this.selectedTab, required this.tabPressed})
+      {Key? key,
+      required this.selectedTab,
+      required this.tabPressed,
+      required this.onActionBtnClicked})
       : super(key: key);
 
   @override
@@ -60,21 +64,25 @@ class _BottomNavState extends State<BottomNav> {
                         widget.tabPressed(1);
                       },
                     ),
-
                     const SizedBox(
                       width: 56,
                     ),
                     BottomTabBtn(
-                      imagePath: AppImages.icMessage,
-                      label: "Message",
-                      selected: _selectedTab == 2 ? true : false,
-                      onPressed: () => Navigator.pushNamed(context, route.messagePage),
-                    ),
+                        imagePath: AppImages.icMessage,
+                        label: "Message",
+                        selected: _selectedTab == 2 ? true : false,
+                        onPressed: () {
+                          widget.tabPressed(2);
+                          // Navigator.pushNamed(context, route.messagePage),
+                        }),
                     BottomTabBtn(
                       imagePath: AppImages.icUserProfile,
                       label: "Profile",
                       selected: _selectedTab == 3 ? true : false,
-                      onPressed: () => Navigator.pushNamed(context, route.patientProfilePage), //SlidingUpPanelExample()
+                      onPressed: () {
+                        widget.tabPressed(3);
+                        // Navigator.pushNamed(context, route.patientProfilePage)
+                      }, //SlidingUpPanelExample()
                     ),
                   ],
                 ),
@@ -84,7 +92,9 @@ class _BottomNavState extends State<BottomNav> {
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           InkWell(
-            onTap: () => Navigator.pushNamed(context, route.newAppointment),
+            onTap: () {
+              widget.onActionBtnClicked();
+            },
             borderRadius: BorderRadius.circular(28),
             child: Container(
                 height: 56,

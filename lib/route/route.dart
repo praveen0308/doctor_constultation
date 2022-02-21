@@ -1,3 +1,7 @@
+import 'package:doctor_consultation/ui/common/login/login.dart';
+import 'package:doctor_consultation/ui/common/register/register.dart';
+import 'package:doctor_consultation/ui/common/enter_user_detail/enter_user_detail.dart';
+import 'package:doctor_consultation/ui/common/phone_auth/phone_auth_cubit.dart';
 import 'package:doctor_consultation/ui/common/phone_auth/enter_mobile_number.dart';
 import 'package:doctor_consultation/ui/common/phone_auth/verify_otp_page.dart';
 import 'package:doctor_consultation/ui/common/splash_screen.dart';
@@ -9,8 +13,10 @@ import 'package:doctor_consultation/ui/user/admin/appointment/past_appointment.d
 import 'package:doctor_consultation/ui/user/admin/appointment/patient_past_appointment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/communication/payment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/dashboard.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/search_patient/search_filter_patient.dart';
 import 'package:doctor_consultation/ui/user/patient/appointment/new_appointment.dart';
+import 'package:doctor_consultation/ui/user/patient/communication/chat_with_doctor/main_chat.dart';
 import 'package:doctor_consultation/ui/user/patient/communication/video_call/main_video_call.dart';
 import 'package:doctor_consultation/ui/user/patient/communication/voice_call/main_voice_call.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/dashboard.dart';
@@ -27,12 +33,15 @@ const String enterMobileNumber = '/enterMobileNumber';
 const String dashboardPatient = '/dashboardPatient';
 const String verifyOtp = '/verifyOtp';
 const String dashboardDoctor = '/dashboardDoctor';
+const String enterUserDetails = '/enterUserDetails';
 const String appointmentDetailPage = '/appointmentDetailPage';
 const String layoutSearchFilterPatient = '/layoutSearchFilterPatient';
 
 //Bottom Nav
 const String newAppointment = '/newAppointment';
+const String manageSlots = '/manageSlots';
 const String messagePage = '/messagePage';
+const String patientsMessages = '/patientsMessages';
 const String patientProfilePage = '/patientProfilePage';
 
 //Admin
@@ -50,6 +59,8 @@ const String mainVideoCall = '/mainVideoCall';
 const String layoutUserType = '/layoutUserType';
 
 const String successPage = '/successPage';
+const String login = '/login';
+const String register = '/register';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -65,6 +76,15 @@ Route<dynamic> controller(RouteSettings settings) {
     case verifyOtp:
       return MaterialPageRoute(
           builder: (context) => VerifyOtpPage(), settings: settings);
+    case manageSlots:
+      return MaterialPageRoute(
+          builder: (context) => LayoutSetSchedule(), settings: settings);
+    case patientsMessages:
+      return MaterialPageRoute(
+          builder: (context) => MainChatPage(), settings: settings);
+    case enterUserDetails:
+      return MaterialPageRoute(
+          builder: (context) => EnterUserDetail(), settings: settings);
     case dashboardPatient:
       return MaterialPageRoute(
           builder: (context) => const DashboardPatient(), settings: settings);
@@ -83,6 +103,12 @@ Route<dynamic> controller(RouteSettings settings) {
     case newAppointment:
       return MaterialPageRoute(
           builder: (context) => const NewAppointment(), settings: settings);
+    case login:
+      return MaterialPageRoute(
+          builder: (context) => const LoginPage(), settings: settings);
+    case register:
+      return MaterialPageRoute(
+          builder: (context) => const RegisterPage(), settings: settings);
     case messagePage:
       return MaterialPageRoute(
           builder: (context) => const MessagePage(), settings: settings);

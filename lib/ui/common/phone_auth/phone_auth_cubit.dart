@@ -6,7 +6,6 @@ import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
-
 part 'phone_auth_state.dart';
 
 class PhoneAuthCubit extends Cubit<PhoneAuthState> {
@@ -67,14 +66,14 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: _verificationId, smsCode: code);
     try {
-      var userCredential = await auth.signInWithCredential(credential);
-      User? user = userCredential.user;
-      await user?.reload();
-      user = auth.currentUser;
-      checkLoginDetails(UserModel(
-          UserName: user!.displayName,
-          EmailID: user.email,
-          MobileNo: user.phoneNumber));
+      auth.signInWithCredential(credential).then((userCredential) {
+        User? user = userCredential.user;
+        user = auth.currentUser;
+        checkLoginDetails(UserModel(
+            UserName: user!.displayName,
+            EmailID: user.email,
+            MobileNo: user.phoneNumber));
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-verification-code") {
         emit(IncorrectOtp());
@@ -92,7 +91,11 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
     try {
       UserModel response = await accountRepository.checkLoginDetails(userModel);
       _storage.updateUserRoleId(response.UserRoleID!);
-      emit(LoginSuccessful(response.UserRoleID!));
+      if (response.EmailID == null || response.UserName == null) {
+        emit(EnterUserDetails());
+      } else {
+        emit(LoginSuccessful(response.UserRoleID!));
+      }
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");

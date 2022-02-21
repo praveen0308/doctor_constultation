@@ -1,6 +1,6 @@
 part of 'phone_auth_cubit.dart';
 
-@immutable
+
 abstract class PhoneAuthState {}
 
 class PhoneAuthInitial extends PhoneAuthState {}
@@ -18,6 +18,8 @@ class LoginSuccessful extends PhoneAuthState {
   final int roleId;
   LoginSuccessful(this.roleId);
 }
+
+class EnterUserDetails extends PhoneAuthState {}
 
 class OnVerificationCompleted extends PhoneAuthState {}
 

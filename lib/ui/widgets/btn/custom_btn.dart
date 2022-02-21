@@ -20,17 +20,20 @@ class CustomBtn extends StatelessWidget {
       children: [
         Visibility(
           visible: !isLoading,
-          child: MaterialButton(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            height: 50,
-            textColor: Colors.white,
-            color: AppColors.primary,
-            child: Text(
-              title.toUpperCase(),
-            ),
-            onPressed: () => onBtnPressed(),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: MaterialButton(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              height: 50,
+              textColor: Colors.white,
+              color: AppColors.primary,
+              child: Text(
+                title.toUpperCase(),
+              ),
+              onPressed: () => onBtnPressed(),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
             ),
           ),
         ),

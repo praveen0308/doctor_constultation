@@ -1,9 +1,11 @@
 import 'package:doctor_consultation/bloc/appointment/appointment_history_cubit.dart';
-import 'package:doctor_consultation/bloc/phone_auth/phone_auth_cubit.dart';
+import 'package:doctor_consultation/ui/common/login/login_cubit.dart';
+import 'package:doctor_consultation/ui/common/phone_auth/phone_auth_cubit.dart';
 import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
+import 'package:doctor_consultation/ui/common/register/register_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +32,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => PhoneAuthCubit(AccountRepository())),
-        BlocProvider(create: (_) => AppointmentHistoryCubit(AppointmentRepository())),
+        BlocProvider(
+            create: (_) => AppointmentHistoryCubit(AppointmentRepository())),
+        BlocProvider(create: (_) => LoginCubit(AccountRepository())),
+        BlocProvider(create: (_) => RegisterCubit(AccountRepository())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -6,6 +6,7 @@ import 'package:doctor_consultation/ui/user/patient/dashboard/schedule_history_p
 import 'package:doctor_consultation/ui/widgets/bottom_nav_bar/bottom_nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:doctor_consultation/route/route.dart' as route;
 
 import 'home_page.dart';
 
@@ -20,10 +21,19 @@ class _DashboardPatientState extends State<DashboardPatient> {
   late PageController _tabsPageController;
   int _selectedTab = 0;
   final _storage = SecureStorage();
+  bool isVisible = false;
 
   @override
   void initState() {
     _tabsPageController = PageController();
+    _storage.getUserRoleId().then((value) => {
+          if (value == UserRoles.registeredPatient)
+            {
+              setState(() {
+                isVisible = true;
+              })
+            }
+        });
     super.initState();
   }
 
@@ -57,13 +67,30 @@ class _DashboardPatientState extends State<DashboardPatient> {
               ],
             )),
             Visibility(
-              visible: _storage.getUserRoleId() == UserRoles.registeredPatient,
+              visible: isVisible,
               child: BottomNav(
                 selectedTab: _selectedTab,
                 tabPressed: (num) {
+                  switch (num) {
+                    case 2:
+                      {
+                        Navigator.pushNamed(context, route.messagePage);
+                      }
+                      break;
+                    case 3:
+                      {
+                        Navigator.pushNamed(context, route.patientProfilePage);
+                      }
+                      break;
+                    default:
+                      {}
+                  }
                   _tabsPageController.animateToPage(num,
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       curve: Curves.easeOutCubic);
+                },
+                onActionBtnClicked: () {
+                  Navigator.pushNamed(context, route.newAppointment);
                 },
               ),
             ),

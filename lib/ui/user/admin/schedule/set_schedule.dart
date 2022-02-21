@@ -6,7 +6,6 @@ import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/view_timing.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:doctor_consultation/ui/widgets/view_date_admin.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -155,7 +154,7 @@ class _LayoutSetScheduleState extends State<LayoutSetSchedule> {
                 runSpacing: 5,
                 children: List.generate(
                   aSlot.length,
-                      (index) => ViewTiming(
+                  (index) => ViewTiming(
                     txtTiming: aSlot[index],
                   ),
                 ),
@@ -173,7 +172,7 @@ class _LayoutSetScheduleState extends State<LayoutSetSchedule> {
                 runSpacing: 5,
                 children: List.generate(
                   eSlot.length,
-                      (index) => ViewTiming(
+                  (index) => ViewTiming(
                     txtTiming: eSlot[index],
                   ),
                 ),
@@ -184,8 +183,10 @@ class _LayoutSetScheduleState extends State<LayoutSetSchedule> {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: BtnFilled(onBtnPressed: (){},
-                  title: "Set Appointment",),
+                  child: BtnFilled(
+                    onBtnPressed: () {},
+                    title: "Set Appointment",
+                  ),
                 ),
               )
             ],

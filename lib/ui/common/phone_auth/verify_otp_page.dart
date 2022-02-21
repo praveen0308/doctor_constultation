@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:doctor_consultation/bloc/phone_auth/phone_auth_cubit.dart';
+import 'package:doctor_consultation/ui/common/phone_auth/phone_auth_cubit.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
@@ -68,6 +68,10 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                 Navigator.pushReplacementNamed(context, route.dashboardDoctor);
               }
             });
+          }
+
+          if (state is EnterUserDetails) {
+            Navigator.pushReplacementNamed(context, route.enterUserDetails);
           }
 
           return Scaffold(

@@ -128,11 +128,12 @@ class _DrProfileBodyState extends State<DrProfileBody> {
             width: MediaQuery.of(context).size.width,
             child: BtnFilled(
               title: "Book an Appointment",
-              onBtnPressed: () {
-                if (_storage.getUserRoleId() == UserRoles.registeredPatient) {
+              onBtnPressed: () async {
+                var isLoggedIn = await _storage.getLoginStatus();
+                if (isLoggedIn) {
                   Navigator.pushNamed(context, route.newAppointment);
                 } else {
-                  Navigator.pushNamed(context, route.enterMobileNumber);
+                  Navigator.pushNamed(context, route.login);
                 }
               },
             ),

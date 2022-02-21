@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../models/api/appointment_detail_model.dart';
+
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
 
@@ -24,26 +26,29 @@ class _NotificationPageState extends State<NotificationPage> {
           behavior: NoGlowBehaviour(),
           child: ListView(
             children: [
-              AppBackFilterNavBar(imgUrl1: AppImages.icBackArrow,txtTitle: "Notification",),
+              AppBackFilterNavBar(
+                imgUrl1: AppImages.icBackArrow,
+                txtTitle: "Notification",
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                        "Your next appoinment",
-                        style: AppTextStyle.body3(txtColor: AppColors.greyDark)
-                    ),
+                    Text("Your next appoinment",
+                        style:
+                            AppTextStyle.body3(txtColor: AppColors.greyDark)),
                   ],
                 ),
               ),
               SizedBox(
                 height: 10.0,
               ),
-
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: TemplateScheduleDetail(appointmentDetailModel: null,),
+                child: TemplateScheduleDetail(
+                  appointmentDetailModel: AppointmentDetailModel(),
+                ),
               ),
             ],
           ),
