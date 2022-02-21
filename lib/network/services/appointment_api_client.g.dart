@@ -18,9 +18,10 @@ class _AppointmentApiClient implements AppointmentApiClient {
   String? baseUrl;
 
   @override
-  Future<List<AppointmentDetailModel>> fetchAppointmentDetailList() async {
+  Future<List<AppointmentDetailModel>> fetchAppointmentDetailList(
+      userID) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'userId': userID};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(

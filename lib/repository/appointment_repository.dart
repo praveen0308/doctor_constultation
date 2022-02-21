@@ -20,8 +20,8 @@ class AppointmentRepository {
     _appointmentApiClient = AppointmentApiClient(_dio);
   }
   //#region Appointment Detail Repo
-  Future<List<AppointmentDetailModel>> fetchAllAppointmentDetail() {
-    return _appointmentApiClient.fetchAppointmentDetailList();
+  Future<List<AppointmentDetailModel>> fetchAllAppointmentDetails(int userId) {
+    return _appointmentApiClient.fetchAppointmentDetailList(userId);
   }
 
   Future<AppointmentDetailModel> fetchAppointmentDetailByID(int id) {

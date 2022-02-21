@@ -43,7 +43,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: TemplateScheduleDetail(),
+                child: TemplateScheduleDetail(appointmentDetailModel: null,),
               ),
             ],
           ),

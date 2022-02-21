@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/app_string.dart';
 import 'package:doctor_consultation/res/image_path.dart';
@@ -11,7 +12,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TemplateScheduleDetail extends StatelessWidget {
-  const TemplateScheduleDetail({Key? key}) : super(key: key);
+
+  final AppointmentDetailModel appointmentDetailModel;
+  const TemplateScheduleDetail({Key? key, required this.appointmentDetailModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +70,14 @@ class TemplateScheduleDetail extends StatelessWidget {
                         imgURL: AppImages.icSchedulePrimary,
                         imgSize: 18,
                         dtColor: AppColors.greyBefore,
-                        title: "03 Jan 2022".toUpperCase()),
+                        title: "${appointmentDetailModel.Date}".toUpperCase()),
                     TemplateDateTime(
                         imgURL: AppImages.icTimingPrimary,
                         imgSize: 18,
                         dtColor: AppColors.greyBefore,
-                        title: "09:30 am".toUpperCase()),
-                    const TemplateStatus(
-                      title: "Rejected",
+                        title: "${appointmentDetailModel.Bill_Amount}".toUpperCase()),
+                     TemplateStatus(
+                      title: appointmentDetailModel.Appointment_Status.toString(),
                       sColor: AppColors.error,
                       sSize: 5,
                     ),
@@ -83,21 +86,24 @@ class TemplateScheduleDetail extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(
-                      width: 130,
-                      child: BtnOutline(title: "Cancel"),
-                    ),
-                    SizedBox(
-                      width: 130,
-                      child: BtnFilled(
-                        title: "Reschedule",
-                        onBtnPressed: () {},
+                Visibility(
+                  visible: appointmentDetailModel.Appointment_Status!=1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(
+                        width: 130,
+                        child: BtnOutline(title: "Cancel"),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        width: 130,
+                        child: BtnFilled(
+                          title: "Reschedule",
+                          onBtnPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

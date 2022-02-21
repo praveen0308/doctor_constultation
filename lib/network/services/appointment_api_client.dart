@@ -12,7 +12,7 @@ abstract class AppointmentApiClient {
 
   //#region Appointment Detail Service
   @GET("Appointment/GetAllAppointmentDetails")
-  Future<List<AppointmentDetailModel>> fetchAppointmentDetailList();
+  Future<List<AppointmentDetailModel>> fetchAppointmentDetailList(@Query("userId") int userID);
 
   @GET("Appointment/GetAppointmentDetailByID")
   Future<AppointmentDetailModel> getAppointmentDetailByID(@Query("ID") int id);
