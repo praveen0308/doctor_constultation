@@ -146,6 +146,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     onBtnPressed: () {
                       _userModel.ID = 0;
                       _userModel.RegisteredOn = DateTime.now().toString();
+                      _userModel.LangCulture = "";
                       _userModel.IsActive = true;
                       _userModel.UserRoleID = UserRoles.registeredPatient;
 
