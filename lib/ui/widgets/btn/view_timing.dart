@@ -1,14 +1,17 @@
+import 'package:doctor_consultation/models/api/slot_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ViewTiming extends StatefulWidget {
-  final String txtTiming;
+  final SlotModel slotModel;
+  final Function() onClick;
 
   const ViewTiming({
     Key? key,
-    this.txtTiming = "Timing",
+    required this.slotModel,
+    required this.onClick,
   }) : super(key: key);
 
   @override
@@ -16,32 +19,29 @@ class ViewTiming extends StatefulWidget {
 }
 
 class _ViewTimingState extends State<ViewTiming> {
-    bool _isSelected = false;
-
   @override
   Widget build(BuildContext context) {
     return FittedBox(
       fit: BoxFit.contain,
       child: InkWell(
-        onTap: () {
-          setState(() {
-            _isSelected = !_isSelected;
-          });
-        },
+        onTap: () {},
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           decoration: BoxDecoration(
-              color: _isSelected ? AppColors.primary : AppColors.greyLightest,
+              color: widget.slotModel.IsAvailable!
+                  ? AppColors.primary
+                  : AppColors.greyLightest,
               borderRadius: const BorderRadius.all(Radius.circular(20)),
               border: Border.all(
-                  color: _isSelected
+                  color: widget.slotModel.IsAvailable!
                       ? AppColors.greyLightest
                       : AppColors.primary)),
-          child: Text(widget.txtTiming.toUpperCase(),
+          child: Text(
+            widget.slotModel.StartTime ?? "",
             style: AppTextStyle.captionOF2(
-                txtColor:
-                    _isSelected ? AppColors.greyLightest : AppColors.primary),
+                txtColor: widget.slotModel.IsAvailable!
+                    ? AppColors.greyLightest
+                    : AppColors.primary),
           ),
         ),
       ),

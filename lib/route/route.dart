@@ -14,7 +14,7 @@ import 'package:doctor_consultation/ui/user/admin/appointment/patient_past_appoi
 import 'package:doctor_consultation/ui/user/admin/communication/payment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/dashboard.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_new_slot.dart';
-import 'package:doctor_consultation/ui/user/admin/schedule/create_schedule.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/search_patient/search_filter_patient.dart';
 import 'package:doctor_consultation/ui/user/patient/appointment/new_appointment.dart';
@@ -83,10 +83,10 @@ Route<dynamic> controller(RouteSettings settings) {
     case manageSlots:
       return MaterialPageRoute(
           builder: (context) => ManageSlot(), settings: settings);
-      case addSlot:
+    case addSlot:
       return MaterialPageRoute(
           builder: (context) => AddNewSlot(), settings: settings);
-      case manageSetSlots:
+    case manageSetSlots:
       return MaterialPageRoute(
           builder: (context) => LayoutSetSchedule(), settings: settings);
     case patientsMessages:

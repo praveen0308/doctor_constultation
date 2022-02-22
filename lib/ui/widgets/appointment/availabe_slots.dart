@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/slot_model.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_tab.dart';
 import 'package:doctor_consultation/ui/widgets/btn/view_timing.dart';
@@ -56,8 +57,8 @@ class _TemplateAvailableSlotState extends State<TemplateAvailableSlot> {
                   children: List.generate(
                     6, //length
                     (index) => ViewTiming(
-                      txtTiming:
-                      mList[index],
+                      slotModel: SlotModel(),
+                      onClick: () {},
                     ),
                   )),
             )

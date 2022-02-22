@@ -11,10 +11,16 @@ class SlotModel {
   String? EndTime;
   bool? IsAvailable;
 
-  SlotModel({this.ID, this.DayID, this.BatchID, this.StartTime, this.EndTime, this.IsAvailable});
+  SlotModel(
+      {this.ID,
+      this.DayID,
+      this.BatchID,
+      this.StartTime,
+      this.EndTime,
+      this.IsAvailable});
 
-  factory SlotModel.fromJson(Map<String, dynamic> json) => _$SlotModelFromJson(json);
+  factory SlotModel.fromJson(Map<String, dynamic> json) =>
+      _$SlotModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SlotModelToJson(this);
 }
-

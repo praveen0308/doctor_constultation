@@ -3,15 +3,17 @@ import 'package:doctor_consultation/res/style_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ViewDayAdminContent extends StatefulWidget {
+class DayChip1 extends StatefulWidget {
   final String title;
   final String subTitle;
   final String caption;
   final Color mainColor;
   final Color outerColor;
   final Color innerColor;
+  final Function() onClick;
+  final bool isSelected;
 
-  const ViewDayAdminContent({
+  const DayChip1({
     Key? key,
     this.title = "",
     this.subTitle = "",
@@ -19,15 +21,15 @@ class ViewDayAdminContent extends StatefulWidget {
     this.mainColor = AppColors.primary,
     this.innerColor = AppColors.primary,
     this.outerColor = AppColors.primaryLightest,
+    required this.onClick,
+    required this.isSelected,
   }) : super(key: key);
 
   @override
-  State<ViewDayAdminContent> createState() => _ViewDateContentState();
+  State<DayChip1> createState() => _DayChip1State();
 }
 
-class _ViewDateContentState extends State<ViewDayAdminContent> {
-  bool _selectDate = false;
-
+class _DayChip1State extends State<DayChip1> {
   @override
   Widget build(BuildContext context) {
     double sHeight = 60;
@@ -36,29 +38,28 @@ class _ViewDateContentState extends State<ViewDayAdminContent> {
       children: [
         InkWell(
           onTap: () {
-            setState(() {
-              _selectDate = !_selectDate;
-            });
+            widget.onClick();
           },
           child: FittedBox(
             fit: BoxFit.contain,
             child: Container(
               width: sWidth,
-              height: sHeight/2*2-10,
+              height: sHeight / 2 * 2 - 10,
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                  color:
-                      _selectDate ? widget.mainColor : AppColors.greyLightest,
+                  color: widget.isSelected
+                      ? widget.mainColor
+                      : AppColors.greyLightest,
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
-                      color: _selectDate
+                      color: widget.isSelected
                           ? widget.outerColor
                           : AppColors.primary)),
               child: Text(
                 widget.title,
                 style: AppTextStyle.body1(
-                  wFont: FontWeight.w500,
-                    txtColor: _selectDate
+                    wFont: FontWeight.w500,
+                    txtColor: widget.isSelected
                         ? widget.outerColor
                         : AppColors.primary),
                 textAlign: TextAlign.center,
@@ -73,7 +74,6 @@ class _ViewDateContentState extends State<ViewDayAdminContent> {
           widget.caption,
           style: AppTextStyle.captionRF2(txtColor: AppColors.grey),
         ),
-
       ],
     );
   }

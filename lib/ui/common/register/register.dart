@@ -121,7 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       _userModel.Password = text;
                     },
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         hintText: 'Enter the password',
                         labelText: 'Password',
                         suffixIcon: IconButton(

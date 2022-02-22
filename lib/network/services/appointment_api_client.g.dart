@@ -70,9 +70,9 @@ class _AppointmentApiClient implements AppointmentApiClient {
   }
 
   @override
-  Future<List<SlotModel>> fetchSlotDetailList() async {
+  Future<List<SlotModel>> fetchSlotDetailList(dayID) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'dayID': dayID};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(

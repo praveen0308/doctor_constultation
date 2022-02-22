@@ -28,14 +28,16 @@ class AppointmentRepository {
     return _appointmentApiClient.getAppointmentDetailByID(id);
   }
 
-  Future<bool> createUpdateAppointmentDetail(AppointmentDetailModel appointmentDetailModel) {
-    return _appointmentApiClient.addUpdateAppointmentDetail(appointmentDetailModel);
+  Future<bool> createUpdateAppointmentDetail(
+      AppointmentDetailModel appointmentDetailModel) {
+    return _appointmentApiClient
+        .addUpdateAppointmentDetail(appointmentDetailModel);
   }
 //#endregion
 
   //#region Slot Detail Repo
-  Future<List<SlotModel>> fetchAllSlotDetail() {
-    return _appointmentApiClient.fetchSlotDetailList();
+  Future<List<SlotModel>> fetchAllSlotDetail({int dayId = 0}) {
+    return _appointmentApiClient.fetchSlotDetailList(dayId);
   }
 
   Future<SlotModel> fetchSlotDetailByID(int id) {

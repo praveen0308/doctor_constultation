@@ -52,29 +52,29 @@ class _DashboardAdminState extends State<DashboardAdmin> {
                 DoctorHomePage(),
                 DoctorScheduleHistoryPage(),
                 DoctorMessagePage(),
-                DoctorProfilePage(),
               ],
             )),
             BottomNav(
               selectedTab: _selectedTab,
               tabPressed: (num) {
                 switch (num) {
-                  case 2:
+                  /* case 2:
                     {
                       Navigator.pushNamed(context, route.patientsMessages);
                     }
-                    break;
+                    break;*/
                   case 3:
                     {
                       Navigator.pushNamed(context, route.drProfilePage);
                     }
                     break;
                   default:
-                    {}
+                    {
+                      _tabsPageController.animateToPage(num,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeOutCubic);
+                    }
                 }
-                _tabsPageController.animateToPage(num,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeOutCubic);
               },
               onActionBtnClicked: () {
                 Navigator.pushNamed(context, route.manageSlots);

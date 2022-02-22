@@ -121,10 +121,8 @@ class _LayoutSetScheduleState extends State<LayoutSetSchedule> {
               ),
               Text(
                 "Set Slot".toUpperCase(),
-                style:
-                    AppTextStyle.captionRF1(txtColor: AppColors.greyDark),
+                style: AppTextStyle.captionRF1(txtColor: AppColors.greyDark),
               ),
-
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
@@ -133,7 +131,7 @@ class _LayoutSetScheduleState extends State<LayoutSetSchedule> {
                       txtColor: AppColors.greyBefore, wFont: FontWeight.w500),
                 ),
               ),
-              Wrap(
+              /*Wrap(
                 spacing: 20,
                 runSpacing: 5,
                 children: List.generate(
@@ -178,7 +176,7 @@ class _LayoutSetScheduleState extends State<LayoutSetSchedule> {
                     txtTiming: eSlot[index],
                   ),
                 ),
-              ),
+              ),*/
               const Spacer(),
               FittedBox(
                 fit: BoxFit.contain,
