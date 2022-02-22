@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
@@ -7,8 +8,6 @@ import 'package:doctor_consultation/ui/widgets/template_schedule_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../../../models/api/appointment_detail_model.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -26,29 +25,26 @@ class _NotificationPageState extends State<NotificationPage> {
           behavior: NoGlowBehaviour(),
           child: ListView(
             children: [
-              AppBackFilterNavBar(
-                imgUrl1: AppImages.icBackArrow,
-                txtTitle: "Notification",
-              ),
+              AppBackFilterNavBar(imgUrl1: AppImages.icBackArrow,txtTitle: "Notification",),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Text("Your next appoinment",
-                        style:
-                            AppTextStyle.body3(txtColor: AppColors.greyDark)),
+                    Text(
+                        "Your next appoinment",
+                        style: AppTextStyle.body3(txtColor: AppColors.greyDark)
+                    ),
                   ],
                 ),
               ),
               SizedBox(
                 height: 10.0,
               ),
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: TemplateScheduleDetail(
-                  appointmentDetailModel: AppointmentDetailModel(),
-                ),
+                child: TemplateScheduleDetail(appointmentDetailModel: AppointmentDetailModel(),),
               ),
             ],
           ),

@@ -38,6 +38,7 @@ class _DrProfileBodyState extends State<DrProfileBody> {
         AppColors.errorLightest, AppColors.error, "20+ Yrs", "Experience"));
     achievements.add(AchievementModel(AppImages.icStarEmpty,
         AppColors.warningLightest, AppColors.warning, "4.5+", "Rating"));
+
     setState(() {});
   }
 

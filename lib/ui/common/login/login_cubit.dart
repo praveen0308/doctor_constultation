@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/user_model.dart';
+import 'package:doctor_consultation/network/utils/network_exceptions.dart';
 import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
-import '../../../network/utils/network_exceptions.dart';
 
 part 'login_state.dart';
 

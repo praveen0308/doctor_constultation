@@ -45,6 +45,8 @@ class AppImages{
       //#region Single Color
         static const String icLocation = '$rootIconSinglePath/ic_my_location.svg';
         static const String icNotification = '$rootIconSinglePath/ic_notification.svg';
+        static const String icPlus = '$rootIconSinglePath/ic_plus.svg';
+        static const String icCross = '$rootIconSinglePath/ic_cross.svg';
       //#endregion
 
       //#region Primary Color

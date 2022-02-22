@@ -23,64 +23,67 @@ class _ScheduleHistoryPageState extends State<ScheduleHistoryPage> {
   @override
   void initState() {
     super.initState();
-    _appointmentHistoryCubit = BlocProvider.of<AppointmentHistoryCubit>(context);
+    _appointmentHistoryCubit =
+        BlocProvider.of<AppointmentHistoryCubit>(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppointmentHistoryCubit, AppointmentHistoryState>(
-  builder: (context, state) {
-    if(state is Error){
-      return Center(
-        child: Text(state.msg),
-      );
-    }
-    if(state is ReceivedAppointHistory){
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: ScrollConfiguration(
-          behavior: NoGlowBehaviour(),
-          child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppNavBar(
-                txtAddress: "Jari Mari, Sakinaka",
+      builder: (context, state) {
+        if (state is Error) {
+          return Center(
+            child: Text(state.msg),
+          );
+        }
+        if (state is ReceivedAppointHistory) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: ScrollConfiguration(
+              behavior: NoGlowBehaviour(),
+              child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppNavBar(
+                    txtAddress: "Jari Mari, Sakinaka",
+                  ),
+                  Text(
+                    "Let's check",
+                    style: AppTextStyle.headline6(txtColor: AppColors.primary),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Your Schedule",
+                    style: AppTextStyle.headline5(txtColor: AppColors.greyDark),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const BtnTabView(
+                    txtTab1: "Upcoming",
+                    txtTab2: "Completed",
+                    txtTab3: "Canceled",
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ListView.builder(
+                      itemCount: state.appointments.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return TemplateScheduleDetail(
+                            appointmentDetailModel: state.appointments[index]);
+                      })
+                ],
               ),
-              Text(
-                "Let's check",
-                style: AppTextStyle.headline6(txtColor: AppColors.primary),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "Your Schedule",
-                style: AppTextStyle.headline5(txtColor: AppColors.greyDark),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const BtnTabView(txtTab1: "Upcoming",txtTab2: "Completed",txtTab3: "Canceled",),
-              const SizedBox(
-                height: 10,
-              ),
-
-              ListView.builder(
-                itemCount: state.appointments.length,
-                  itemBuilder: (BuildContext context,int index){
-                return TemplateScheduleDetail(appointmentDetailModel: state.appointments[index]);
-              })
-
-            ],
-          ),
-        ),
-      );
-    }
-    return Center(
-      child: SpinKitCircle(),
+            ),
+          );
+        }
+        return Center(
+          child: SpinKitCircle(),
+        );
+      },
     );
-
-  },
-);
   }
 }

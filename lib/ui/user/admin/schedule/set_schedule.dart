@@ -121,8 +121,10 @@ class _LayoutSetScheduleState extends State<LayoutSetSchedule> {
               ),
               Text(
                 "Set Slot".toUpperCase(),
-                style: AppTextStyle.captionRF1(txtColor: AppColors.greyDark),
+                style:
+                    AppTextStyle.captionRF1(txtColor: AppColors.greyDark),
               ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(

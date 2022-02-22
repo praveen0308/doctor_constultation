@@ -20,7 +20,7 @@ class AppBackNavBar extends StatelessWidget {
       elevation: 0,
       backgroundColor: bgColor,
       leading: IconButton(
-        icon: SvgPicture.asset(imgUrl,color: navColor),
+        icon: SvgPicture.asset(imgUrl,color: navColor,height: 16,),
         onPressed: () => Navigator.pop(context),
       ),
       title: Text(txtTitle,style: AppTextStyle.headline6(txtColor: navColor),)

@@ -13,6 +13,8 @@ import 'package:doctor_consultation/ui/user/admin/appointment/past_appointment.d
 import 'package:doctor_consultation/ui/user/admin/appointment/patient_past_appointment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/communication/payment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/dashboard.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_new_slot.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/create_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/search_patient/search_filter_patient.dart';
 import 'package:doctor_consultation/ui/user/patient/appointment/new_appointment.dart';
@@ -39,7 +41,9 @@ const String layoutSearchFilterPatient = '/layoutSearchFilterPatient';
 
 //Bottom Nav
 const String newAppointment = '/newAppointment';
+const String manageSetSlots = '/manageSetSlots';
 const String manageSlots = '/manageSlots';
+const String addSlot = '/addSlot';
 const String messagePage = '/messagePage';
 const String patientsMessages = '/patientsMessages';
 const String patientProfilePage = '/patientProfilePage';
@@ -77,6 +81,12 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => VerifyOtpPage(), settings: settings);
     case manageSlots:
+      return MaterialPageRoute(
+          builder: (context) => ManageSlot(), settings: settings);
+      case addSlot:
+      return MaterialPageRoute(
+          builder: (context) => AddNewSlot(), settings: settings);
+      case manageSetSlots:
       return MaterialPageRoute(
           builder: (context) => LayoutSetSchedule(), settings: settings);
     case patientsMessages:

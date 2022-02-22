@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_back_filter_nav_bar.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
@@ -21,14 +22,12 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
           behavior: NoGlowBehaviour(),
           child: ListView(
             children: [
-              AppBackFilterNavBar(
-                imgUrl1: AppImages.icBackArrow,
-                txtTitle: "Reschedule",
-              ),
-              /* const Padding(
+              AppBackFilterNavBar(imgUrl1: AppImages.icBackArrow,txtTitle: "Reschedule",),
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: TemplateScheduleDetail(),
-              ),*/
+                child: TemplateScheduleDetail(appointmentDetailModel: AppointmentDetailModel(),),
+              ),
+
             ],
           ),
         ),

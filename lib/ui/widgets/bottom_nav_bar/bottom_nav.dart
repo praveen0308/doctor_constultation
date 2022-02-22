@@ -28,7 +28,7 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     _selectedTab = widget.selectedTab;
 
-    return Container(
+    return SizedBox(
       height: 60,
       child: Stack(children: [
         Column(
