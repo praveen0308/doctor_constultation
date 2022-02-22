@@ -62,8 +62,6 @@ class _DashboardPatientState extends State<DashboardPatient> {
               children: [
                 HomePage(),
                 ScheduleHistoryPage(),
-                MainChatPage(),
-                PatientProfilePage(),
               ],
             )),
             Visibility(
@@ -83,11 +81,12 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       }
                       break;
                     default:
-                      {}
+                      {
+                        _tabsPageController.animateToPage(num,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeOutCubic);
+                      }
                   }
-                  _tabsPageController.animateToPage(num,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeOutCubic);
                 },
                 onActionBtnClicked: () {
                   Navigator.pushNamed(context, route.newAppointment);
