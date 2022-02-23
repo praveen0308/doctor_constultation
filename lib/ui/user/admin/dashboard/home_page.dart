@@ -5,6 +5,7 @@ import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/widgets/admin_today_task.dart';
 import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_nav_bar.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_circle.dart';
+import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/search_patient_filter.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:doctor_consultation/ui/widgets/patient/alpha_patient.dart';
@@ -167,7 +168,16 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               // ),
             ],
           ),
-          TemplateNextPatient()
+          TemplateNextPatient(),
+          BtnFilled(
+            title: "Create Schedule",
+            onBtnPressed: () {
+              Navigator.pushNamed(context, "/createNewSchedule");
+            },
+          ),
+          const SizedBox(
+            height: 100,
+          )
         ],
       ),
     );

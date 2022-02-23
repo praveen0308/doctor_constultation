@@ -15,6 +15,18 @@ class SecureStorage {
     return int.parse(readData ?? "0");
   }
 
+  Future updateUserId(int userId) async {
+    var writeData =
+        await _storage.write(key: "userID", value: userId.toString());
+    return writeData;
+  }
+
+  Future<int> getUserId() async {
+    var readData = await _storage.read(key: "userID");
+
+    return int.parse(readData ?? "0");
+  }
+
   Future updateLoginStatus(bool status) async {
     if (status) {
       var writeData =

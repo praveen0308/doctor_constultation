@@ -68,7 +68,7 @@ dependencies:
   pin_code_fields: ^7.3.0
   #  time picker
   time_picker_sheet: ^0.0.2+1
-
+  date_picker_timeline: ^1.2.3
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.2"

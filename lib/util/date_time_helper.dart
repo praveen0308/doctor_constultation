@@ -65,6 +65,19 @@ class DateTimeHelper {
     return days;
   }
 
+  static int getDayIdByName(DateTime dateTime) {
+    var day = DateFormat("EEEE").format(dateTime).toString();
+    var days = getWeekdays();
+    int dayId = 0;
+    for (var item in days) {
+      if (item.name == day) {
+        dayId = item.id;
+      }
+    }
+
+    return dayId;
+  }
+
   static List<BatchModel> getBatches() {
     List<BatchModel> batches = [];
     batches.add(BatchModel(1, "Morning"));

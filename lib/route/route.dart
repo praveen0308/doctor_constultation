@@ -13,6 +13,7 @@ import 'package:doctor_consultation/ui/user/admin/appointment/past_appointment.d
 import 'package:doctor_consultation/ui/user/admin/appointment/patient_past_appointment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/communication/payment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/dashboard.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_new_slot.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
@@ -55,6 +56,7 @@ const String layoutPastAppointment = '/layoutPastAppointment';
 const String layoutPaymentConfirmation = '/layoutPaymentConfirmation';
 
 const String notificationPage = '/notificationPage';
+const String createNewSchedule = '/createNewSchedule';
 
 const String drProfilePage = '/drProfilePage';
 const String mainVoiceCall = '/mainVoiceCall';
@@ -125,6 +127,9 @@ Route<dynamic> controller(RouteSettings settings) {
     case patientProfilePage:
       return MaterialPageRoute(
           builder: (context) => const PatientProfilePage(), settings: settings);
+    case createNewSchedule:
+      return MaterialPageRoute(
+          builder: (context) => const CreateNewSchedule(), settings: settings);
 
     case patientPastAppointmentDetailPage:
       return MaterialPageRoute(

@@ -7,17 +7,18 @@ part 'patient_api_client.g.dart';
 
 @RestApi(baseUrl: ApiConstants.baseUrl)
 abstract class PatientApiClient {
-  factory PatientApiClient(Dio dio,
-      {String baseUrl}) = _PatientApiClient;
+  factory PatientApiClient(Dio dio, {String baseUrl}) = _PatientApiClient;
 
   //#region Patient Detail Service
   @GET("Patient/GetAllPatientDetails")
   Future<List<PatientDetailModel>> fetchPatientDetailList();
 
   @GET("Patient/GetPatientDetailByUserID")
-  Future<PatientDetailModel> getPatientDetailByID(@Query("ID") int id);
+  Future<List<PatientDetailModel>> getPatientDetailByID(
+      @Query("UserID") int userId);
 
   @POST("Patient/AddUpdatePatientDetails")
-  Future<bool> addUpdatePatientDetail(@Body() PatientDetailModel patientDetailModel);
+  Future<bool> addUpdatePatientDetail(
+      @Body() PatientDetailModel patientDetailModel);
 //#endregion
 }

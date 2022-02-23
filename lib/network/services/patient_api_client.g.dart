@@ -37,18 +37,21 @@ class _PatientApiClient implements PatientApiClient {
   }
 
   @override
-  Future<PatientDetailModel> getPatientDetailByID(id) async {
+  Future<List<PatientDetailModel>> getPatientDetailByID(userId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'ID': id};
+    final queryParameters = <String, dynamic>{r'UserID': userId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PatientDetailModel>(
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<PatientDetailModel>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, 'Patient/GetPatientDetailByUserID',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PatientDetailModel.fromJson(_result.data!);
+    var value = _result.data!
+        .map((dynamic i) =>
+            PatientDetailModel.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

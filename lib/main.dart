@@ -6,6 +6,7 @@ import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
 import 'package:doctor_consultation/ui/common/register/register_cubit.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_slot_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,12 +41,25 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => RegisterCubit(AccountRepository())),
         BlocProvider(create: (_) => ManageSlotCubit(AppointmentRepository())),
         BlocProvider(create: (_) => AddSlotCubit(AppointmentRepository())),
+        BlocProvider(
+            create: (_) => CreateNewScheduleCubit(AppointmentRepository())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primarySwatch: AppColors.primarySwatchColor,
-            scaffoldBackgroundColor: AppColors.greyLightest),
+            scaffoldBackgroundColor: AppColors.greyLightest,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              iconTheme: IconThemeData(
+                color: AppColors.primary,
+              ),
+              titleTextStyle: TextStyle(
+                  color: AppColors.primary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600),
+            )),
         initialRoute: route.splashScreen,
         onGenerateRoute: route.controller,
       ),

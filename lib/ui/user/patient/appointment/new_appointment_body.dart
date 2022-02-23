@@ -33,7 +33,7 @@ class NewAppointmentBody extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          TemplateAvailableSlot(),
+          // TemplateAvailableSlot(),
           const SizedBox(
             height: 10,
           ),
@@ -41,7 +41,6 @@ class NewAppointmentBody extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-
         ],
       ),
     );
