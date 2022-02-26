@@ -6,7 +6,6 @@ import 'package:doctor_consultation/ui/widgets/btn/view_timing.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:doctor_consultation/util/date_time_helper.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
