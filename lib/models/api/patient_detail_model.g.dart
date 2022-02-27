@@ -8,17 +8,17 @@ part of 'patient_detail_model.dart';
 
 PatientDetailModel _$PatientDetailModelFromJson(Map<String, dynamic> json) =>
     PatientDetailModel(
-      ID: json['ID'] as int?,
-      UserID: json['UserID'] as int?,
-      FullName: json['FullName'] as String?,
-      MobileNo: json['MobileNo'] as String?,
-      DOB: json['DOB'] as int?,
-      Age: json['Age'] as String?,
-      GenderID: json['GenderID'] as int?,
-      TypeID: json['TypeID'] as int?,
-      RelationID: json['RelationID'] as int?,
-      CreateDateTime: json['CreateDateTime'] as int?,
-      IsActive: json['IsActive'] as bool?,
+      ID: json['ID'] as int? ?? 0,
+      UserID: json['UserID'] as int? ?? 0,
+      FullName: json['FullName'] as String? ?? "",
+      MobileNo: json['MobileNo'] as String? ?? "",
+      DOB: json['DOB'] as String? ?? "",
+      Age: json['Age'] as int? ?? 0,
+      GenderID: json['GenderID'] as int? ?? 0,
+      TypeID: json['TypeID'] as int? ?? 0,
+      RelationID: json['RelationID'] as int? ?? 0,
+      CreateDateTime: json['CreateDateTime'] as String? ?? "",
+      IsActive: json['IsActive'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$PatientDetailModelToJson(PatientDetailModel instance) =>

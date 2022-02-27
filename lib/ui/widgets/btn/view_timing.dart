@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class ViewTiming extends StatefulWidget {
   final SlotModel slotModel;
-  final Function() onClick;
+  final Function(SlotModel slotModel) onClick;
 
   const ViewTiming({
     Key? key,
@@ -24,7 +24,12 @@ class _ViewTimingState extends State<ViewTiming> {
     return FittedBox(
       fit: BoxFit.contain,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          setState(() {
+            widget.slotModel.IsAvailable = !widget.slotModel.IsAvailable!;
+            widget.onClick(widget.slotModel);
+          });
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           decoration: BoxDecoration(

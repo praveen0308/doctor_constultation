@@ -176,6 +176,15 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
             },
           ),
           const SizedBox(
+            height: 16,
+          ),
+          BtnFilled(
+            title: "View Schedule",
+            onBtnPressed: () {
+              Navigator.pushNamed(context, "/viewSchedule");
+            },
+          ),
+          const SizedBox(
             height: 100,
           )
         ],

@@ -8,18 +8,29 @@ class PatientDetailModel {
   int? UserID;
   String? FullName;
   String? MobileNo;
-  int? DOB;
-  String? Age;
+  String? DOB;
+  int? Age;
   int? GenderID;
   int? TypeID;
   int? RelationID;
-  int? CreateDateTime;
+  String? CreateDateTime;
   bool? IsActive;
 
-  PatientDetailModel({this.ID, this.UserID, this.FullName, this.MobileNo, this.DOB, this.Age, this.GenderID, this.TypeID, this.RelationID, this.CreateDateTime, this.IsActive});
+  PatientDetailModel(
+      {this.ID = 0,
+      this.UserID = 0,
+      this.FullName = "",
+      this.MobileNo = "",
+      this.DOB = "",
+      this.Age = 0,
+      this.GenderID = 0,
+      this.TypeID = 0,
+      this.RelationID = 0,
+      this.CreateDateTime = "",
+      this.IsActive = true});
 
-  factory PatientDetailModel.fromJson(Map<String, dynamic> json) => _$PatientDetailModelFromJson(json);
+  factory PatientDetailModel.fromJson(Map<String, dynamic> json) =>
+      _$PatientDetailModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$PatientDetailModelToJson(this);
 }
-

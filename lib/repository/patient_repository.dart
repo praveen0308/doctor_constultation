@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:doctor_consultation/local/app_storage.dart';
+import 'package:doctor_consultation/models/api/patient_address_model.dart';
 import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/network/services/patient_api_client.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -29,9 +30,16 @@ class PatientRepository {
     return _patientApiClient.getPatientDetailByID(userId);
   }
 
-  Future<bool> createUpdatePatientDetail(
-      PatientDetailModel patientDetailModel) {
+  Future<int> createUpdatePatientDetail(
+      PatientDetailModel patientDetailModel) async {
+    patientDetailModel.UserID = await _storage.getUserId();
     return _patientApiClient.addUpdatePatientDetail(patientDetailModel);
+  }
+
+  Future<bool> createUpdatePatientAddress(
+      PatientAddressModel patientAddressModel) async {
+    patientAddressModel.AddedBy = await _storage.getUserId();
+    return _patientApiClient.addUpdatePatientAddress(patientAddressModel);
   }
 //#endregion
 }

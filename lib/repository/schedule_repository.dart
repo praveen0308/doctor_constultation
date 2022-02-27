@@ -31,5 +31,22 @@ class ScheduleRepository {
   Future<bool> createUpdateScheduleDetail(ScheduleModel scheduleModel) {
     return _scheduleApiClient.addUpdateSchedule(scheduleModel);
   }
+
+  Future<bool> addScheduleDetails(String date, List<int> slots) {
+    Map<String, dynamic> bodyObj = {};
+    bodyObj["UserId"] = 1;
+    bodyObj["ScheduleDate"] = date;
+    bodyObj["SlotIDs"] = slots;
+    return _scheduleApiClient.addScheduleDetails(bodyObj);
+  }
+
+  Future<List<ScheduleModel>> getAvailableSlotsByDate(String date) {
+    return _scheduleApiClient.getAvailableSlotsByDate(date);
+  }
+
+  Future<List<ScheduleModel>> getAvailableSlotsByDateRange(
+      String startDate, String endDate) {
+    return _scheduleApiClient.getAvailableSlotsByDateRange(startDate, endDate);
+  }
 //#endregion
 }

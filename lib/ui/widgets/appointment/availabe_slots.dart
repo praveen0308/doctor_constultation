@@ -58,7 +58,7 @@ class _TemplateAvailableSlotState extends State<TemplateAvailableSlot> {
                     6, //length
                     (index) => ViewTiming(
                       slotModel: SlotModel(),
-                      onClick: () {},
+                      onClick: (slot) {},
                     ),
                   )),
             )

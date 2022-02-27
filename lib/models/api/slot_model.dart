@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'slot_model.g.dart';
@@ -23,4 +24,11 @@ class SlotModel {
       _$SlotModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SlotModelToJson(this);
+
+  String getFStartTime() =>
+      DateFormat.jm().format(DateFormat("HH:mm:ss").parse(StartTime!));
+  String getFEndTime() =>
+      DateFormat.jm().format(DateFormat("HH:mm:ss").parse(EndTime!));
+
+  String getTiming() => "${getFStartTime()} - ${getFEndTime()}";
 }

@@ -1,3 +1,5 @@
+import 'package:doctor_consultation/repository/appointment_repository.dart';
+import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:doctor_consultation/ui/common/login/login.dart';
 import 'package:doctor_consultation/ui/common/register/register.dart';
 import 'package:doctor_consultation/ui/common/enter_user_detail/enter_user_detail.dart';
@@ -17,7 +19,12 @@ import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_n
 import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_new_slot.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/search_patient/search_filter_patient.dart';
+import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment.dart';
+import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment_cubit.dart';
+import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient.dart';
+import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/appointment/new_appointment.dart';
 import 'package:doctor_consultation/ui/user/patient/communication/chat_with_doctor/main_chat.dart';
 import 'package:doctor_consultation/ui/user/patient/communication/video_call/main_video_call.dart';
@@ -27,6 +34,7 @@ import 'package:doctor_consultation/ui/user/patient/dashboard/message_page.dart'
 import 'package:doctor_consultation/ui/user/patient/dashboard/patient_profile_page.dart';
 import 'package:doctor_consultation/ui/user/patient/notification/patient_notification.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // importing our pages into our route.dart
 
@@ -67,6 +75,9 @@ const String layoutUserType = '/layoutUserType';
 const String successPage = '/successPage';
 const String login = '/login';
 const String register = '/register';
+const String viewSchedule = '/viewSchedule';
+const String addNewAppointment = '/addNewAppointment';
+const String addPatientInfo = '/addPatientInfo';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -85,6 +96,24 @@ Route<dynamic> controller(RouteSettings settings) {
     case manageSlots:
       return MaterialPageRoute(
           builder: (context) => ManageSlot(), settings: settings);
+    case viewSchedule:
+      return MaterialPageRoute(
+          builder: (context) => ViewSchedule(), settings: settings);
+    case addNewAppointment:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) =>
+                    AddNewAppointmentCubit(AppointmentRepository()),
+                child: AddNewAppointment(),
+              ),
+          settings: settings);
+    case addPatientInfo:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) => AddPatientCubit(PatientRepository()),
+                child: AddPatientInfo(),
+              ),
+          settings: settings);
     case addSlot:
       return MaterialPageRoute(
           builder: (context) => AddNewSlot(), settings: settings);
@@ -129,7 +158,8 @@ Route<dynamic> controller(RouteSettings settings) {
           builder: (context) => const PatientProfilePage(), settings: settings);
     case createNewSchedule:
       return MaterialPageRoute(
-          builder: (context) => const CreateNewSchedule(), settings: settings);
+          builder: (context) => CreateNewSchedule(scheduleDate: args as String),
+          settings: settings);
 
     case patientPastAppointmentDetailPage:
       return MaterialPageRoute(

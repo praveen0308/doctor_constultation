@@ -6,12 +6,14 @@ class CustomBtn extends StatelessWidget {
   final String title;
   final Function() onBtnPressed;
   final bool isLoading;
+  final bool isOutlined;
 
   const CustomBtn(
       {Key? key,
       required this.title,
       required this.onBtnPressed,
-      required this.isLoading})
+      required this.isLoading,
+      this.isOutlined = false})
       : super(key: key);
 
   @override

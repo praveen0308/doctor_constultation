@@ -1,4 +1,6 @@
 import 'package:doctor_consultation/bloc/appointment/appointment_history_cubit.dart';
+import 'package:doctor_consultation/repository/patient_repository.dart';
+import 'package:doctor_consultation/repository/schedule_repository.dart';
 import 'package:doctor_consultation/ui/common/login/login_cubit.dart';
 import 'package:doctor_consultation/ui/common/phone_auth/phone_auth_cubit.dart';
 import 'package:doctor_consultation/repository/account_repository.dart';
@@ -9,6 +11,10 @@ import 'package:doctor_consultation/ui/common/register/register_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_slot_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot_cubit.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule_cubit.dart';
+import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment.dart';
+import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment_cubit.dart';
+import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,8 +47,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => RegisterCubit(AccountRepository())),
         BlocProvider(create: (_) => ManageSlotCubit(AppointmentRepository())),
         BlocProvider(create: (_) => AddSlotCubit(AppointmentRepository())),
+        BlocProvider(create: (_) => ViewScheduleCubit(ScheduleRepository())),
+        // BlocProvider(create: (_) => AddPatientCubit(PatientRepository())),
+
         BlocProvider(
-            create: (_) => CreateNewScheduleCubit(AppointmentRepository())),
+            create: (_) => CreateNewScheduleCubit(
+                AppointmentRepository(), ScheduleRepository())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

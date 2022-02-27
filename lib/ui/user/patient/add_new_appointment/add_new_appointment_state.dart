@@ -7,6 +7,10 @@ class AddNewAppointmentInitial extends AddNewAppointmentState {}
 
 class Loading extends AddNewAppointmentState {}
 
+class LoadingAvailableSlots extends AddNewAppointmentState {}
+class AppointmentAddedSuccessfully extends AddNewAppointmentState {}
+class AddAppointmentFailed extends AddNewAppointmentState {}
+
 class Error extends AddNewAppointmentState {
   final String msg;
   Error(this.msg);
@@ -18,6 +22,6 @@ class ReceivedPatientList extends AddNewAppointmentState {
 }
 
 class ReceivedAvailableSlots extends AddNewAppointmentState {
-  final List<SlotModel> availableSlots;
+  final List<ScheduleModel> availableSlots;
   ReceivedAvailableSlots(this.availableSlots);
 }

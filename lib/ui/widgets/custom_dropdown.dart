@@ -5,14 +5,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomDropDown extends StatefulWidget {
   final String hint;
+  final bool isOutlined;
   final List<dynamic> itemList;
   final Function(dynamic) onItemSelected;
 
   const CustomDropDown(
       {Key? key,
-        required this.hint,
-        required this.itemList,
-        required this.onItemSelected})
+      required this.hint,
+      required this.itemList,
+      required this.onItemSelected,
+      this.isOutlined = false})
       : super(key: key);
 
   @override
@@ -28,11 +30,15 @@ class _CustomDropDownState extends State<CustomDropDown> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(bottom: BorderSide(color: AppColors.primary, width: 2.0)),
+        borderRadius: widget.isOutlined
+            ? BorderRadius.circular(5)
+            : BorderRadius.circular(0),
+        border: widget.isOutlined
+            ? Border.all(color: AppColors.primary, width: 2.0)
+            : Border(bottom: BorderSide(color: AppColors.primary, width: 2.0)),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<dynamic>(
-
           icon: SvgPicture.asset(AppImages.icArrowDown),
           iconEnabledColor: AppColors.primary,
           value: selectedDocument,

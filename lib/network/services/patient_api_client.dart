@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:doctor_consultation/models/api/patient_address_model.dart';
 import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/network/utils/api_constats.dart';
 import 'package:retrofit/http.dart';
@@ -18,7 +19,11 @@ abstract class PatientApiClient {
       @Query("UserID") int userId);
 
   @POST("Patient/AddUpdatePatientDetails")
-  Future<bool> addUpdatePatientDetail(
+  Future<int> addUpdatePatientDetail(
       @Body() PatientDetailModel patientDetailModel);
+
+  @POST("Patient/AddUpdatePatientAddress")
+  Future<bool> addUpdatePatientAddress(
+      @Body() PatientAddressModel patientAddressModel);
 //#endregion
 }

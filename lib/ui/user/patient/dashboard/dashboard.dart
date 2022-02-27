@@ -89,7 +89,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                   }
                 },
                 onActionBtnClicked: () {
-                  Navigator.pushNamed(context, route.newAppointment);
+                  Navigator.pushNamed(context, route.addNewAppointment);
                 },
               ),
             ),

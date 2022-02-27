@@ -145,7 +145,7 @@ class _ManageSlotState extends State<ManageSlot> {
                                             (index) => ViewTiming(
                                               slotModel:
                                                   state.batches[i].slots[index],
-                                              onClick: () {},
+                                              onClick: (slot) {},
                                             ),
                                           ),
                                         ),

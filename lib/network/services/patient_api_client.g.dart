@@ -56,15 +56,31 @@ class _PatientApiClient implements PatientApiClient {
   }
 
   @override
-  Future<bool> addUpdatePatientDetail(patientDetailModel) async {
+  Future<int> addUpdatePatientDetail(patientDetailModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(patientDetailModel.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, 'Patient/AddUpdatePatientDetails',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<bool> addUpdatePatientAddress(patientAddressModel) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(patientAddressModel.toJson());
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'Patient/AddUpdatePatientAddress',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

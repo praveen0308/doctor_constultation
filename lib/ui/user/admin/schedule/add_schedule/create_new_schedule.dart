@@ -1,17 +1,16 @@
-import 'package:date_picker_timeline/date_picker_widget.dart';
-import 'package:doctor_consultation/models/day_model.dart';
-import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule_cubit.dart';
+import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/btn/view_timing.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
-import 'package:doctor_consultation/util/date_time_helper.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 class CreateNewSchedule extends StatefulWidget {
-  const CreateNewSchedule({Key? key}) : super(key: key);
+  final String scheduleDate;
+
+  const CreateNewSchedule({Key? key, required this.scheduleDate})
+      : super(key: key);
 
   @override
   _CreateNewScheduleState createState() => _CreateNewScheduleState();
@@ -19,84 +18,74 @@ class CreateNewSchedule extends StatefulWidget {
 
 class _CreateNewScheduleState extends State<CreateNewSchedule> {
   late CreateNewScheduleCubit _createNewScheduleCubit;
-  late List<DayModel> dayNList = DateTimeHelper.getWeekdays();
+  final List<int> selectedSlots = [];
 
   @override
   void initState() {
     super.initState();
     _createNewScheduleCubit = BlocProvider.of<CreateNewScheduleCubit>(context);
-
-    _createNewScheduleCubit
-        .fetchSlotsByDayId(DateTimeHelper.getDayIdByName(DateTime.now()));
+    _createNewScheduleCubit.fetchSlotsByDayId(1);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add schedule"),
+        title: const Text("Add schedule"),
       ),
       body: Column(
         children: [
-          DatePicker(
-            DateTime.now(),
-            height: 90,
-            initialSelectedDate: DateTime.now(),
-            selectionColor: AppColors.primary,
-            selectedTextColor: Colors.white,
-            daysCount: 30,
-            onDateChange: (date) {
-              _createNewScheduleCubit
-                  .fetchSlotsByDayId(DateTimeHelper.getDayIdByName(date));
-              setState(() {});
-            },
-          ),
           BlocBuilder<CreateNewScheduleCubit, CreateNewScheduleState>(
             builder: (context, state) {
               if (state is Error) {
                 showToast(state.msg, ToastType.error);
-                /*return Center(
-                              child: Text("No slots for the day!!!"),
-                            )*/
               }
-              if (state is ReceivedSlots) {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemCount: state.batches.length,
-                    itemBuilder: (BuildContext context, int i) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Text(state.batches[i].name),
-                          ),
-                          if (state.batches[i].slots.isEmpty)
-                            const SizedBox(
-                              height: 150,
-                              child: Center(
-                                child: Text("No slots !!!!"),
-                              ),
-                            ),
-                          if (state.batches[i].slots.isNotEmpty)
-                            Wrap(
-                              spacing: 20,
-                              runSpacing: 5,
-                              children: List.generate(
-                                state.batches[i].slots.length,
-                                (index) => ViewTiming(
-                                  slotModel: state.batches[i].slots[index],
-                                  onClick: () {},
-                                ),
-                              ),
-                            ),
-                        ],
-                      );
-                    });
+              if (state is SubmissionSuccess) {
+                showToast(
+                    "Schedule submitted successfully !!!", ToastType.success);
+                Navigator.pop(context);
+              }
+              if (state is SubmissionFailure) {
+                showToast("Schedule submitted failed !!!", ToastType.error);
               }
 
-              return LoadingView(isVisible: true);
+              if (state is ReceivedSlots) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text("Available slots"),
+                    ),
+                    Wrap(
+                      spacing: 20,
+                      runSpacing: 5,
+                      children: List.generate(
+                        state.slots.length,
+                        (index) => ViewTiming(
+                          slotModel: state.slots[index],
+                          onClick: (slot) {
+                            if (slot.IsAvailable!) {
+                              selectedSlots.add(slot.ID!);
+                            } else {
+                              selectedSlots.remove(slot.ID);
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                    CustomBtn(
+                        title: "Submit",
+                        onBtnPressed: () {
+                          _createNewScheduleCubit.submitSlots(
+                              widget.scheduleDate, selectedSlots);
+                        },
+                        isLoading: state is SubmittingSlots)
+                  ],
+                );
+              }
+
+              return const LoadingView(isVisible: true);
             },
           ),
         ],

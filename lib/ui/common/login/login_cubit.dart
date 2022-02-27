@@ -6,7 +6,6 @@ import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
-
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -20,6 +19,7 @@ class LoginCubit extends Cubit<LoginState> {
       UserModel response =
           await _accountRepository.loginUser(username, password);
       _storage.updateUserRoleId(response.UserRoleID!);
+      _storage.updateUserId(response.ID!);
       _storage.updateUserName(response.UserName!);
       _storage.updateUserEmail(response.EmailID!);
       _storage.updateUserEmail(response.MobileNo!);
