@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/schedule_model.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:doctor_consultation/ui/common/login/login.dart';
@@ -191,7 +192,10 @@ Route<dynamic> controller(RouteSettings settings) {
 
     case successPage:
       return MaterialPageRoute(
-          builder: (context) => const SuccessPage(), settings: settings);
+          builder: (context) => SuccessPage(
+                scheduleModel: args as ScheduleModel,
+              ),
+          settings: settings);
     case layoutPaymentConfirmation:
       return MaterialPageRoute(
           builder: (context) => const LayoutPaymentConfirmation(),

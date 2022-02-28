@@ -1,4 +1,4 @@
-import 'package:doctor_consultation/bloc/appointment/appointment_history_cubit.dart';
+import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_history/patient_appointment_history_cubit.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:doctor_consultation/repository/schedule_repository.dart';
 import 'package:doctor_consultation/ui/common/login/login_cubit.dart';
@@ -42,7 +42,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => PhoneAuthCubit(AccountRepository())),
         BlocProvider(
-            create: (_) => AppointmentHistoryCubit(AppointmentRepository())),
+            create: (_) =>
+                PatientAppointmentHistoryCubit(AppointmentRepository())),
         BlocProvider(create: (_) => LoginCubit(AccountRepository())),
         BlocProvider(create: (_) => RegisterCubit(AccountRepository())),
         BlocProvider(create: (_) => ManageSlotCubit(AppointmentRepository())),

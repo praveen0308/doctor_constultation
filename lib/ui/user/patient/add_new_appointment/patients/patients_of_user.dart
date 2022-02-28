@@ -1,6 +1,7 @@
 import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_new_appointment/patients/patients_of_user_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
@@ -17,7 +18,7 @@ class PatientsOfUser extends StatefulWidget {
 
 class _PatientsOfUserState extends State<PatientsOfUser> {
   late PatientsOfUserCubit _cubit;
-
+  late AddNewAppointmentCubit _addNewAppointmentCubit;
   final List<PatientDetailModel> _patients = [];
   int selectedIndex = 0;
 
@@ -25,6 +26,7 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<PatientsOfUserCubit>(context);
+    _addNewAppointmentCubit = BlocProvider.of<AddNewAppointmentCubit>(context);
     _cubit.fetchPatientsByUserId();
   }
 
@@ -58,6 +60,8 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
                         onTap: () {
                           setState(() {
                             selectedIndex = index;
+                            _addNewAppointmentCubit.selectedPatientId =
+                                state.patients[selectedIndex].ID!;
                           });
                         },
                         child: Container(

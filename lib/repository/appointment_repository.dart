@@ -4,10 +4,12 @@ import 'package:doctor_consultation/models/api/slot_model.dart';
 import 'package:doctor_consultation/network/services/appointment_api_client.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../local/app_storage.dart';
+
 class AppointmentRepository {
   late Dio _dio;
   late AppointmentApiClient _appointmentApiClient;
-
+  final _storage = SecureStorage();
   AppointmentRepository() {
     _dio = Dio();
     _dio.interceptors.add(PrettyDioLogger(
@@ -20,8 +22,15 @@ class AppointmentRepository {
     _appointmentApiClient = AppointmentApiClient(_dio);
   }
   //#region Appointment Detail Repo
-  Future<List<AppointmentDetailModel>> fetchAllAppointmentDetails(int userId) {
-    return _appointmentApiClient.fetchAppointmentDetailList(userId);
+  Future<List<AppointmentDetailModel>>
+      fetchAllAppointmentDetailsByUserId() async {
+    var userId = await _storage.getUserId();
+    return _appointmentApiClient.getAppointmentDetailsByUserID(userId);
+  }
+
+  Future<List<AppointmentDetailModel>> fetchAllAppointmentDetailsByDate(
+      String date) async {
+    return _appointmentApiClient.getAppointmentDetailsByDate(date);
   }
 
   Future<AppointmentDetailModel> fetchAppointmentDetailByID(int id) {

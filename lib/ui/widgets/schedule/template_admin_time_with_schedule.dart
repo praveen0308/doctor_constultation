@@ -40,7 +40,7 @@ class TemplateAdminTimeSchedule extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Flexible(
+          /*Flexible(
             flex: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +58,7 @@ class TemplateAdminTimeSchedule extends StatelessWidget {
                 )
               ],
             ),
-          ),
+          ),*/
           Flexible(
             flex: 7,
             child: ViewScheduleAdmin(

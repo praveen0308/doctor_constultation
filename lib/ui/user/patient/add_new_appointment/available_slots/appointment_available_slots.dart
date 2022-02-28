@@ -1,6 +1,7 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_new_appointment/available_slots/appointment_available_slots_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/custom_chip_group.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
@@ -18,6 +19,7 @@ class AppointmentAvailableSlots extends StatefulWidget {
 
 class _AppointmentAvailableSlotsState extends State<AppointmentAvailableSlots> {
   late AppointmentAvailableSlotsCubit _cubit;
+  late AddNewAppointmentCubit _addNewAppointmentCubit;
 
   DateTime selectedDate = DateTime.now();
 
@@ -25,6 +27,7 @@ class _AppointmentAvailableSlotsState extends State<AppointmentAvailableSlots> {
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<AppointmentAvailableSlotsCubit>(context);
+    _addNewAppointmentCubit = BlocProvider.of<AddNewAppointmentCubit>(context);
     _cubit.fetchSlotsByDate(DateFormat("yyyy-MM-dd").format(selectedDate));
   }
 
@@ -51,7 +54,9 @@ class _AppointmentAvailableSlotsState extends State<AppointmentAvailableSlots> {
             if (state is ReceivedAvailableSlots) {
               return CustomChipGroup(
                   data: state.availableSlots,
-                  onItemSelected: (slot) {},
+                  onItemSelected: (slot) {
+                    _addNewAppointmentCubit.slot = slot;
+                  },
                   onSubmitted: (slots) {});
             }
             if (state is Error) {

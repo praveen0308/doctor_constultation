@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/schedule_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
@@ -6,9 +7,12 @@ import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 class SuccessPage extends StatelessWidget {
-  const SuccessPage({Key? key}) : super(key: key);
+  final ScheduleModel scheduleModel;
+
+  const SuccessPage({Key? key, required this.scheduleModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,7 @@ class SuccessPage extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                '''You booked an appoinment with \n Dr. Priyanaka Yaduwanshi \n on 01 January, 2022 at 09:30 AM''',
+                '''You booked an appoinment with \n Dr. Priyanaka Yaduwanshi \n on ${DateFormat("dd MMMM, yyyy").format(DateTime.parse(scheduleModel.ScheduleDate!))} at ${scheduleModel.getFStartTime()}''',
                 textAlign: TextAlign.center,
                 style: AppTextStyle.overlieOF1(txtColor: AppColors.greyBefore),
               ),
@@ -44,11 +48,16 @@ class SuccessPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width*0.42,
-                      child: BtnOutline(title: "Go to Home"),
+                      width: MediaQuery.of(context).size.width * 0.42,
+                      child: BtnOutline(
+                        title: "Go to Home",
+                        onBtnPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width*0.42,
+                      width: MediaQuery.of(context).size.width * 0.42,
                       child:
                           BtnFilled(title: "Set reminder", onBtnPressed: () {}),
                     ),

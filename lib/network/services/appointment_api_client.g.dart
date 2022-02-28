@@ -18,18 +18,39 @@ class _AppointmentApiClient implements AppointmentApiClient {
   String? baseUrl;
 
   @override
-  Future<List<AppointmentDetailModel>> fetchAppointmentDetailList(
-      userID) async {
+  Future<List<AppointmentDetailModel>> getAppointmentDetailsByDate(date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'userId': userID};
+    final queryParameters = <String, dynamic>{r'date': date};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<AppointmentDetailModel>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'Appointment/GetAllAppointmentDetails',
+                .compose(
+                    _dio.options, 'Appointment/GetAllAppointmentDetailsByDate',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) =>
+            AppointmentDetailModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<AppointmentDetailModel>> getAppointmentDetailsByUserID(
+      userId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'userID': userId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<AppointmentDetailModel>>(Options(
+                method: 'GET', headers: _headers, extra: _extra)
+            .compose(
+                _dio.options, 'Appointment/GetAllAppointmentDetailsByUserID',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
         .map((dynamic i) =>
             AppointmentDetailModel.fromJson(i as Map<String, dynamic>))

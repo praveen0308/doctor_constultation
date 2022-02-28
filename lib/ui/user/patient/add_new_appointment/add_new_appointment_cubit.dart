@@ -17,25 +17,19 @@ class AddNewAppointmentCubit extends Cubit<AddNewAppointmentState> {
   AddNewAppointmentCubit(this._appointmentRepository)
       : super(AddNewAppointmentInitial());
 
-  /* void fetchSlotsByDate(String date) async {
-    emit(LoadingAvailableSlots());
-    try {
-      List<ScheduleModel> response =
-          await _scheduleRepository.getAvailableSlotsByDate(date);
+  late ScheduleModel slot;
+  late int selectedPatientId;
+  late String problemDescription;
 
-      emit(ReceivedAvailableSlots(response));
-    } on NetworkExceptions catch (e) {
-      emit(Error("Something went wrong !!!"));
-      debugPrint("Exception >>> $e");
-    } on Exception catch (e) {
-      emit(Error("Something went wrong !!!"));
-      debugPrint("Exception >>> $e");
-    }
-  }
-*/
-  void addNewAppointment(AppointmentDetailModel appointmentDetailModel) async {
-    emit(LoadingAvailableSlots());
+  void addNewAppointment() async {
+    emit(AddingNewAppointment());
     try {
+      var appointmentDetailModel = AppointmentDetailModel();
+      appointmentDetailModel.PatientID = selectedPatientId;
+      appointmentDetailModel.DoctorID = 1;
+      appointmentDetailModel.Disease = problemDescription;
+      appointmentDetailModel.ScheduleID = slot.ScheduleID!;
+      appointmentDetailModel.Date = slot.ScheduleDate!;
       bool response = await _appointmentRepository
           .createUpdateAppointmentDetail(appointmentDetailModel);
 
@@ -45,10 +39,10 @@ class AddNewAppointmentCubit extends Cubit<AddNewAppointmentState> {
         emit(AddAppointmentFailed());
       }
     } on NetworkExceptions catch (e) {
-      emit(Error("Something went wrong !!!"));
+      emit(AddNewAppointmentError("Something went wrong !!!"));
       debugPrint("Exception >>> $e");
     } on Exception catch (e) {
-      emit(Error("Something went wrong !!!"));
+      emit(AddNewAppointmentError("Something went wrong !!!"));
       debugPrint("Exception >>> $e");
     }
   }

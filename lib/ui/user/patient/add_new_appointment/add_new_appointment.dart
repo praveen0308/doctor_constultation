@@ -1,5 +1,3 @@
-import 'package:date_picker_timeline/date_picker_widget.dart';
-import 'package:doctor_consultation/models/api/schedule_model.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
@@ -11,6 +9,7 @@ import 'package:doctor_consultation/ui/user/patient/add_new_appointment/patients
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
+import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../repository/schedule_repository.dart';
@@ -67,6 +66,10 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                   height: 8,
                 ),
                 TextFormField(
+                  onChanged: (text) =>
+                      _addNewAppointmentCubit.problemDescription = text,
+                  onFieldSubmitted: (text) =>
+                      _addNewAppointmentCubit.problemDescription = text,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       fillColor: AppColors.greyLight,
@@ -79,30 +82,48 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                 const SizedBox(
                   height: 64,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.42,
-                      child: BtnOutline(
-                        title: "Cancel",
-                        onBtnPressed: () {
-                          WidgetsBinding.instance!.addPostFrameCallback((_) {
-                            Navigator.pop(context);
-                          });
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.42,
-                      child: CustomBtn(
-                        title: "Set Appointment",
-                        onBtnPressed: () =>
-                            Navigator.pushNamed(context, "/successPage"),
-                        isLoading: false,
-                      ),
-                    ),
-                  ],
+                BlocBuilder<AddNewAppointmentCubit, AddNewAppointmentState>(
+                  builder: (context, state) {
+                    if (state is AppointmentAddedSuccessfully) {
+                      showToast("Appointment booked successfully !!!",
+                          ToastType.success);
+                      WidgetsBinding.instance!.addPostFrameCallback((_) {
+                        Navigator.pushReplacementNamed(context, "/successPage",
+                            arguments: _addNewAppointmentCubit.slot);
+                      });
+                    }
+                    if (state is AddAppointmentFailed) {
+                      showToast("Failed !!!", ToastType.success);
+                    }
+
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.42,
+                          child: BtnOutline(
+                            title: "Cancel",
+                            onBtnPressed: () {
+                              WidgetsBinding.instance!
+                                  .addPostFrameCallback((_) {
+                                Navigator.pop(context);
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.42,
+                          child: CustomBtn(
+                            title: "Set Appointment",
+                            onBtnPressed: () {
+                              _addNewAppointmentCubit.addNewAppointment();
+                            },
+                            isLoading: state is AddingNewAppointment,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),
