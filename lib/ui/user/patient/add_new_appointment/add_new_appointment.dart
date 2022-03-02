@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
@@ -6,6 +7,8 @@ import 'package:doctor_consultation/ui/user/patient/add_new_appointment/availabl
 import 'package:doctor_consultation/ui/user/patient/add_new_appointment/available_slots/appointment_available_slots_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_new_appointment/patients/patients_of_user.dart';
 import 'package:doctor_consultation/ui/user/patient/add_new_appointment/patients/patients_of_user_cubit.dart';
+import 'package:doctor_consultation/ui/user/patient/add_new_appointment/patients_address/addresses_of_user.dart';
+import 'package:doctor_consultation/ui/user/patient/add_new_appointment/patients_address/addresses_of_user_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
@@ -50,9 +53,20 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                       AppointmentAvailableSlotsCubit(ScheduleRepository()),
                   child: AppointmentAvailableSlots(),
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
                 BlocProvider(
                   create: (context) => PatientsOfUserCubit(PatientRepository()),
                   child: const PatientsOfUser(),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      AddressesOfUserCubit(AccountRepository()),
+                  child: const AddressesOfUser(),
                 ),
                 const SizedBox(
                   height: 16,

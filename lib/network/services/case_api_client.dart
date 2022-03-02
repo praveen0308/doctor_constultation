@@ -8,8 +8,7 @@ part 'case_api_client.g.dart';
 
 @RestApi(baseUrl: ApiConstants.baseUrl)
 abstract class CaseApiClient {
-  factory CaseApiClient(Dio dio,
-      {String baseUrl}) = _CaseApiClient;
+  factory CaseApiClient(Dio dio, {String baseUrl}) = _CaseApiClient;
 
   //#region Case Info Detail Service
   @GET("Case/GetAllCaseInfoDetails")
@@ -20,6 +19,10 @@ abstract class CaseApiClient {
 
   @POST("Case/AddUpdateCaseInfoDetail")
   Future<bool> addUpdateCaseInfoDetail(@Body() CaseInfoModel caseInfoModel);
+
+  @POST("Case/GetCaseDetailsByPatientID")
+  Future<List<CaseInfoModel>> getCaseDetailsByPatientID(
+      @Query("PatientID") int patientId);
   //#endregion
 
   //#region Case Doc Detail Service

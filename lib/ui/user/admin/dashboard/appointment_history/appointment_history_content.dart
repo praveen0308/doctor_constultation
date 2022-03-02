@@ -88,7 +88,7 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                         );
                       },
                       separatorBuilder: (_, index) {
-                        return SizedBox(height: 8);
+                        return const SizedBox(height: 8);
                       },
                       itemCount: state.appointments.length)
               ],

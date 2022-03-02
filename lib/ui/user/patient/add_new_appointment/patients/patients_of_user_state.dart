@@ -16,5 +16,3 @@ class ReceivedPatientList extends PatientsOfUserState {
   final List<PatientDetailModel> patients;
   ReceivedPatientList(this.patients);
 }
-
-class NoSlots extends PatientsOfUserState {}

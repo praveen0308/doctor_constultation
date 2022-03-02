@@ -25,8 +25,13 @@ abstract class ScheduleApiClient {
   Future<List<ScheduleModel>> getAvailableSlotsByDate(
       @Query("scheduleDate") String scheduleDate);
 
-  @GET("/Schedule/GetAvailableSlotByDateRange")
+  @GET("Schedule/GetAvailableSlotByDateRange")
   Future<List<ScheduleModel>> getAvailableSlotsByDateRange(
       @Query("startDate") String startDate, @Query("endDate") String endDate);
+
+  @POST("Schedule/CancelScheduleAndAppointment")
+  Future<bool> cancelScheduleAndAppointment(
+      @Query("scheduleDate") String scheduleDate,
+      @Query("scheduleID") int scheduleID);
 //#endregion
 }

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:doctor_consultation/local/app_storage.dart';
+import 'package:doctor_consultation/models/api/address_model.dart';
 import 'package:doctor_consultation/models/api/doctor_detail_model.dart';
 import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
 import 'package:doctor_consultation/models/api/user_model.dart';
@@ -8,7 +10,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class AccountRepository {
   late Dio _dio;
   late AccountApiClient _accountApiClient;
-
+  final _storage = SecureStorage();
   AccountRepository() {
     _dio = Dio();
     _dio.interceptors.add(PrettyDioLogger(
@@ -46,6 +48,17 @@ class AccountRepository {
   Future<UserModel> loginUser(String username, String password) {
     return _accountApiClient.checkUserLogin(username, password);
   }
+
+  Future<List<AddressModel>> getAppointmentLocationByUserID() async {
+    var userId = await _storage.getUserId();
+    return _accountApiClient.getAppointmentLocationByUserID(userId);
+  }
+
+  Future<List<AddressModel>> getUserAddressByUserID() async {
+    var userId = await _storage.getUserId();
+    return _accountApiClient.getUserAddressByUserID(userId);
+  }
+
   //#endregion
 
   //#region Subscription Plan

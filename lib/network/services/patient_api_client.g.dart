@@ -72,15 +72,15 @@ class _PatientApiClient implements PatientApiClient {
   }
 
   @override
-  Future<bool> addUpdatePatientAddress(patientAddressModel) async {
+  Future<bool> addUpdateUserAddress(addressModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(patientAddressModel.toJson());
+    _data.addAll(addressModel.toJson());
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, 'Patient/AddUpdatePatientAddress',
+            .compose(_dio.options, 'Patient/AddUpdateUserAddress',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

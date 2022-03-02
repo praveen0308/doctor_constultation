@@ -34,7 +34,15 @@ class _AppointmentAvailableSlotsState extends State<AppointmentAvailableSlots> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          "Available Slots",
+          style: AppTextStyle.headline6(),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
         DatePicker(
           DateTime.now(),
           height: 90,
@@ -47,6 +55,9 @@ class _AppointmentAvailableSlotsState extends State<AppointmentAvailableSlots> {
             _cubit.fetchSlotsByDate(DateFormat("yyyy-MM-dd").format(date));
             setState(() {});
           },
+        ),
+        const SizedBox(
+          height: 8,
         ),
         BlocBuilder<AppointmentAvailableSlotsCubit,
             AppointmentAvailableSlotsState>(

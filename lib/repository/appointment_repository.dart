@@ -42,6 +42,12 @@ class AppointmentRepository {
     return _appointmentApiClient
         .addUpdateAppointmentDetail(appointmentDetailModel);
   }
+
+  Future<bool> updateAppointmentStatus(int appointmentId, int statusId) async {
+    var userId = await _storage.getUserId();
+    return _appointmentApiClient.updateAppointmentStatus(
+        appointmentId, statusId, userId);
+  }
 //#endregion
 
   //#region Slot Detail Repo

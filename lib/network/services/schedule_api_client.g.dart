@@ -114,12 +114,30 @@ class _ScheduleApiClient implements ScheduleApiClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<ScheduleModel>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/Schedule/GetAvailableSlotByDateRange',
+                .compose(_dio.options, 'Schedule/GetAvailableSlotByDateRange',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
         .map((dynamic i) => ScheduleModel.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<bool> cancelScheduleAndAppointment(scheduleDate, scheduleID) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'scheduleDate': scheduleDate,
+      r'scheduleID': scheduleID
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'Schedule/CancelScheduleAndAppointment',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
     return value;
   }
 

@@ -91,6 +91,25 @@ class _AppointmentApiClient implements AppointmentApiClient {
   }
 
   @override
+  Future<bool> updateAppointmentStatus(appointmentID, statusID, userId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'AppointmentID': appointmentID,
+      r'StatusID': statusID,
+      r'UserID': userId
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'Appointment/UpdateAppointmentStatus',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
   Future<List<SlotModel>> fetchSlotDetailList(dayID) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'dayID': dayID};

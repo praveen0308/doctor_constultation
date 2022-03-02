@@ -48,5 +48,11 @@ class ScheduleRepository {
       String startDate, String endDate) {
     return _scheduleApiClient.getAvailableSlotsByDateRange(startDate, endDate);
   }
+
+  Future<bool> cancelScheduleAndAppointment(
+      String scheduleDate, int scheduleID) async {
+    return _scheduleApiClient.cancelScheduleAndAppointment(
+        scheduleDate, scheduleID);
+  }
 //#endregion
 }

@@ -1,33 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'patient_address_model.dart';
+part of 'address_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PatientAddressModel _$PatientAddressModelFromJson(Map<String, dynamic> json) =>
-    PatientAddressModel(
+AddressModel _$AddressModelFromJson(Map<String, dynamic> json) => AddressModel(
       ID: json['ID'] as int? ?? 0,
-      PatientID: json['PatientID'] as int? ?? 0,
+      UserID: json['UserID'] as int? ?? 0,
       City: json['City'] as String? ?? "",
+      LocationName: json['LocationName'] as String? ?? "",
       State: json['State'] as String? ?? "",
       Country: json['Country'] as String? ?? "",
       AddressLine1: json['AddressLine1'] as String? ?? "",
       AddressLine2: json['AddressLine2'] as String? ?? "",
       AddressType: json['AddressType'] as int? ?? 0,
-      PinCode: json['PinCode'] as int? ?? 0,
+      PinCode: json['PinCode'] as String? ?? "",
       AddedBy: json['AddedBy'] as int? ?? 0,
-      AddedOn: json['AddedOn'] as String? ?? "",
+      AddedOn: json['AddedOn'] as String?,
       IsActive: json['IsActive'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$PatientAddressModelToJson(
-        PatientAddressModel instance) =>
+Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
     <String, dynamic>{
       'ID': instance.ID,
-      'PatientID': instance.PatientID,
+      'UserID': instance.UserID,
       'City': instance.City,
+      'LocationName': instance.LocationName,
       'State': instance.State,
       'Country': instance.Country,
       'AddressLine1': instance.AddressLine1,

@@ -1,26 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:doctor_consultation/models/api/address_model.dart';
-import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/network/utils/network_exceptions.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+part 'add_update_address_state.dart';
 
-part 'add_patient_state.dart';
-
-class AddPatientCubit extends Cubit<AddPatientState> {
+class AddUpdateAddressCubit extends Cubit<AddUpdateAddressState> {
   final PatientRepository _patientRepository;
-  AddPatientCubit(this._patientRepository) : super(AddPatientInitial());
+  AddUpdateAddressCubit(this._patientRepository)
+      : super(AddUpdateAddressInitial());
 
-  void addNewPatient(PatientDetailModel patientDetailModel) async {
+  void addNewAddress(AddressModel patientAddressModel) async {
     emit(Loading());
     try {
-      int response = await _patientRepository
-          .createUpdatePatientDetail(patientDetailModel);
-      if (response != 0) {
-        emit(PatientAddedSuccessfully());
+      bool response =
+          await _patientRepository.createUpdateUserAddress(patientAddressModel);
+      if (response) {
+        emit(AddressAddedSuccessfully());
       } else {
-        emit(Error("Add Patient Failed !!!"));
+        emit(Error("Failed !!!"));
       }
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));

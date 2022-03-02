@@ -20,4 +20,10 @@ class AppConstants {
 
     return data;
   }
+
+  static const pending = 0;
+  static const approved = 1;
+  static const cancelled = 2;
+  static const ongoing = 3;
+  static const closed = 4;
 }

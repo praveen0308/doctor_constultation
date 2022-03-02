@@ -1,36 +1,26 @@
 import 'package:doctor_consultation/models/api/address_model.dart';
-import 'package:doctor_consultation/models/api/patient_detail_model.dart';
-import 'package:doctor_consultation/models/relation_model.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient_cubit.dart';
-import 'package:doctor_consultation/ui/widgets/btn/btn_outline_tab.dart';
+import 'package:doctor_consultation/ui/user/patient/add_address/add_update_address_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
-import 'package:doctor_consultation/ui/widgets/custom_dropdown.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
-import 'package:doctor_consultation/ui/widgets/view_custom_dropdown.dart';
-import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddPatientInfo extends StatefulWidget {
-  const AddPatientInfo({Key? key}) : super(key: key);
+class AddUpdateAddress extends StatefulWidget {
+  const AddUpdateAddress({Key? key}) : super(key: key);
 
   @override
-  _AddPatientInfoState createState() => _AddPatientInfoState();
+  _AddUpdateAddressState createState() => _AddUpdateAddressState();
 }
 
-class _AddPatientInfoState extends State<AddPatientInfo> {
-  late AddPatientCubit _addPatientCubit;
-  final _addPatientInfoFormKey = GlobalKey<FormState>();
-  final List<RelationModel> relations = AppConstants.getRelations();
-  final PatientDetailModel _patientDetailModel = PatientDetailModel();
+class _AddUpdateAddressState extends State<AddUpdateAddress> {
+  late AddUpdateAddressCubit _addUpdateAddressCubit;
   final AddressModel _addressModel = AddressModel();
-
   @override
   void initState() {
     super.initState();
-    _addPatientCubit = BlocProvider.of<AddPatientCubit>(context);
+    _addUpdateAddressCubit = BlocProvider.of<AddUpdateAddressCubit>(context);
   }
 
   @override
@@ -38,17 +28,17 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Add Patient"),
+          title: const Text("Add Address"),
         ),
-        body: BlocBuilder<AddPatientCubit, AddPatientState>(
+        body: BlocBuilder<AddUpdateAddressCubit, AddUpdateAddressState>(
           builder: (context, state) {
             if (state is Error) {
               showToast(state.msg, ToastType.error);
             }
-            if (state is PatientAddedSuccessfully) {
-              showToast("Patient added successfully !!!", ToastType.success);
+            if (state is AddressAddedSuccessfully) {
+              showToast("Added successfully !!!", ToastType.success);
 
-              _addPatientCubit.close();
+              _addUpdateAddressCubit.close();
               WidgetsBinding.instance!.addPostFrameCallback((_) {
                 Navigator.pop(context);
               });
@@ -61,67 +51,25 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Container(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Text(
-                            "Patient Details",
-                            style: AppTextStyle.headline6(),
-                          )),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      CustomDropDown(
-                          hint: "Select Relation",
-                          itemList: relations,
-                          isOutlined: true,
-                          onItemSelected: (item) {
-                            _patientDetailModel.RelationID =
-                                (item as RelationModel).relationId;
-                          }),
-                      TextFormField(
-                        onChanged: (text) =>
-                            _patientDetailModel.FullName = text,
-                        onFieldSubmitted: (text) =>
-                            _patientDetailModel.FullName = text,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Enter patient\'s name',
-                          labelText: 'Name',
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        onChanged: (text) =>
-                            _patientDetailModel.Age = int.tryParse(text),
-                        onFieldSubmitted: (text) =>
-                            _patientDetailModel.Age = int.tryParse(text),
-                        keyboardType: TextInputType.number,
-                        maxLength: 3,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Enter patient\'s age',
-                          labelText: 'Age',
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: BtnOutlineTabView(
-                          txtTab1: "Male",
-                          txtTab2: "Female",
-                          txtTab3: "Other",
-                          onTabSelected: (int index) {
-                            _patientDetailModel.GenderID = index + 1;
-                          },
-                        ),
-                      ),
-                      /*Container(
+                      /* Container(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
                             "Address Details",
                             style: AppTextStyle.headline5(),
-                          )),
+                          )),*/
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFormField(
+                        onChanged: (text) => _addressModel.LocationName = text,
+                        onFieldSubmitted: (text) =>
+                            _addressModel.LocationName = text,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter name',
+                          labelText: 'Name',
+                        ),
+                      ),
                       const SizedBox(
                         height: 16,
                       ),
@@ -132,7 +80,20 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Enter your address',
-                          labelText: 'Address',
+                          labelText: 'Address line 1',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFormField(
+                        onChanged: (text) => _addressModel.AddressLine2 = text,
+                        onFieldSubmitted: (text) =>
+                            _addressModel.AddressLine2 = text,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter your address',
+                          labelText: 'Address line 2',
                         ),
                       ),
                       const SizedBox(
@@ -163,10 +124,9 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
                         height: 16,
                       ),
                       TextFormField(
-                        onChanged: (text) =>
-                            _addressModel.PinCode = int.parse(text),
+                        onChanged: (text) => _addressModel.PinCode = text,
                         onFieldSubmitted: (text) =>
-                            _addressModel.PinCode = int.parse(text),
+                            _addressModel.PinCode = text,
                         keyboardType: TextInputType.number,
                         maxLength: 6,
                         decoration: const InputDecoration(
@@ -174,14 +134,14 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
                           hintText: 'Enter your pincode',
                           labelText: 'Pincode',
                         ),
-                      ),*/
+                      ),
                       const SizedBox(
                         height: 64,
                       ),
                       CustomBtn(
                           title: "Submit",
                           onBtnPressed: () {
-                            _addPatientCubit.addNewPatient(_patientDetailModel);
+                            _addUpdateAddressCubit.addNewAddress(_addressModel);
                           },
                           isLoading: state is Loading)
                     ],

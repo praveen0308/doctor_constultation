@@ -17,56 +17,59 @@ class ViewAddressDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FittedBox(
-            fit: BoxFit.contain,
-            child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 80,
-                padding: const EdgeInsets.all(12),
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                decoration: const BoxDecoration(
-                    color: AppColors.greyLight,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.contain,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 2 + 150,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              txtTitle,
-                              style: AppTextStyle.captionRF1(
-                                  txtColor: AppColors.greyDark,
-                                  wFont: FontWeight.w500),
-                            ),
-                            Text(
-                              txtSubTitle,
-                              style: AppTextStyle.captionRF2(
-                                  txtColor: AppColors.greyBefore,
-                                  wFont: FontWeight.w500),
-                            ),
-                          ],
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 80),
+        child: Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 15),
+            decoration: const BoxDecoration(
+                color: AppColors.greyLight,
+                borderRadius: BorderRadius.all(Radius.circular(5))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          txtTitle,
+                          style: AppTextStyle.captionRF1(
+                              txtColor: AppColors.greyDark,
+                              wFont: FontWeight.w500),
                         ),
-                      ),
+                        Text(
+                          txtSubTitle,
+                          style: AppTextStyle.captionRF2(
+                              txtColor: AppColors.greyBefore,
+                              wFont: FontWeight.w500),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 15,
-                      child: Icon(
-                        Icons.more_vert,
-                        color: AppColors.greyBefore,
-                      ),
+                  ),
+                ),
+                PopupMenuButton(
+                    color: AppColors.greyLightest,
+                    padding: const EdgeInsets.all(0),
+                    icon: const Icon(
+                      Icons.more_vert,
+                      color: AppColors.greyBefore,
                     ),
-                  ],
-                )),
-          )
-        ],
+                    itemBuilder: (context) => [
+                          PopupMenuItem(
+                            child: Text("Update"),
+                            value: 1,
+                          ),
+                          PopupMenuItem(
+                            child: Text("Delete"),
+                            value: 2,
+                          ),
+                        ])
+              ],
+            )),
       ),
     );
   }

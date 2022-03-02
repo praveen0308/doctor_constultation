@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:doctor_consultation/models/api/address_model.dart';
 import 'package:doctor_consultation/models/api/doctor_detail_model.dart';
 import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
 import 'package:doctor_consultation/models/api/user_model.dart';
@@ -33,6 +34,14 @@ abstract class AccountApiClient {
   @POST("Account/CheckLoginDetails")
   Future<UserModel> checkUserLogin(
       @Query("username") String username, @Query("password") String password);
+
+  @GET("Account/GetAppointmentLocationByUserID")
+  Future<List<AddressModel>> getAppointmentLocationByUserID(
+      @Query("UserID") int userId);
+
+  @GET("Account/GetUserAddressByUserID")
+  Future<List<AddressModel>> getUserAddressByUserID(
+      @Query("UserID") int userId);
   //#endregion
 
   //#region Subscription Plan

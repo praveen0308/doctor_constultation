@@ -19,6 +19,7 @@ class AddNewAppointmentCubit extends Cubit<AddNewAppointmentState> {
 
   late ScheduleModel slot;
   late int selectedPatientId;
+  late int selectedLocationId;
   late String problemDescription;
 
   void addNewAppointment() async {
@@ -26,6 +27,7 @@ class AddNewAppointmentCubit extends Cubit<AddNewAppointmentState> {
     try {
       var appointmentDetailModel = AppointmentDetailModel();
       appointmentDetailModel.PatientID = selectedPatientId;
+      appointmentDetailModel.AddressID = selectedLocationId;
       appointmentDetailModel.DoctorID = 1;
       appointmentDetailModel.Disease = problemDescription;
       appointmentDetailModel.ScheduleID = slot.ScheduleID!;

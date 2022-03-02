@@ -1,4 +1,5 @@
 import 'package:doctor_consultation/models/api/schedule_model.dart';
+import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:doctor_consultation/ui/common/login/login.dart';
@@ -22,6 +23,8 @@ import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_s
 import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/search_patient/search_filter_patient.dart';
+import 'package:doctor_consultation/ui/user/patient/add_address/add_update_address.dart';
+import 'package:doctor_consultation/ui/user/patient/add_address/add_update_address_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment.dart';
 import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient.dart';
@@ -34,6 +37,8 @@ import 'package:doctor_consultation/ui/user/patient/dashboard/dashboard.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/message_page.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/patient_profile_page.dart';
 import 'package:doctor_consultation/ui/user/patient/notification/patient_notification.dart';
+import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses.dart';
+import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -79,6 +84,8 @@ const String register = '/register';
 const String viewSchedule = '/viewSchedule';
 const String addNewAppointment = '/addNewAppointment';
 const String addPatientInfo = '/addPatientInfo';
+const String addUpdateAddress = '/addUpdateAddress';
+const String userAddresses = '/userAddresses';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -113,6 +120,13 @@ Route<dynamic> controller(RouteSettings settings) {
           builder: (context) => BlocProvider(
                 create: (context) => AddPatientCubit(PatientRepository()),
                 child: AddPatientInfo(),
+              ),
+          settings: settings);
+    case addUpdateAddress:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) => AddUpdateAddressCubit(PatientRepository()),
+                child: AddUpdateAddress(),
               ),
           settings: settings);
     case addSlot:
@@ -199,6 +213,13 @@ Route<dynamic> controller(RouteSettings settings) {
     case layoutPaymentConfirmation:
       return MaterialPageRoute(
           builder: (context) => const LayoutPaymentConfirmation(),
+          settings: settings);
+    case userAddresses:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) => UserAddressesCubit(AccountRepository()),
+                child: UserAddresses(),
+              ),
           settings: settings);
 
     default:

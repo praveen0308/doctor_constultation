@@ -26,6 +26,13 @@ abstract class AppointmentApiClient {
   Future<bool> addUpdateAppointmentDetail(
       @Body() AppointmentDetailModel appointmentDetailModel);
 
+  @GET("Appointment/UpdateAppointmentStatus")
+  Future<bool> updateAppointmentStatus(
+    @Query("AppointmentID") int appointmentID,
+    @Query("StatusID") int statusID,
+    @Query("UserID") int userId,
+  );
+
 //#endregion
 
   //#region Slot Detail Service

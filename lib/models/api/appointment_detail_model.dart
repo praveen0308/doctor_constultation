@@ -1,12 +1,15 @@
+import 'package:doctor_consultation/models/api/address_model.dart';
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'appointment_detail_model.g.dart';
 
 @JsonSerializable()
 class AppointmentDetailModel {
-  int AppointID;
+  int AppointmentID;
   int DoctorID;
   int PatientID;
+  int AddressID;
   String Date;
   int Appointment_Status;
   double Bill_Amount;
@@ -24,11 +27,13 @@ class AppointmentDetailModel {
   String StartTime;
   String EndTime;
   String PatientName;
+  AddressModel? UserAddress;
 
   AppointmentDetailModel({
-    this.AppointID = 0,
+    this.AppointmentID = 0,
     this.DoctorID = 0,
     this.PatientID = 0,
+    this.AddressID = 0,
     this.Date = "",
     this.Appointment_Status = 0,
     this.Bill_Amount = 0,
@@ -46,10 +51,18 @@ class AppointmentDetailModel {
     this.StartTime = "",
     this.EndTime = "",
     this.PatientName = "",
+    this.UserAddress,
   });
 
   factory AppointmentDetailModel.fromJson(Map<String, dynamic> json) =>
       _$AppointmentDetailModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppointmentDetailModelToJson(this);
+
+  String getFStartTime() =>
+      DateFormat.jm().format(DateFormat("HH:mm").parse(StartTime));
+  String getFEndTime() =>
+      DateFormat.jm().format(DateFormat("HH:mm").parse(EndTime));
+
+  String getTiming() => "${getFStartTime()} - ${getFEndTime()}";
 }

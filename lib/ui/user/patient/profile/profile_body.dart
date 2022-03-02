@@ -1,6 +1,8 @@
+import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/about_us.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/contact_us.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/help_us.dart';
@@ -10,9 +12,10 @@ import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'account_pages/my_addresses.dart';
+import 'my_addresses/user_addresses.dart';
 import 'account_pages/my_booking.dart';
 import 'account_pages/my_plan.dart';
 import 'account_pages/personl_data.dart';
@@ -51,8 +54,7 @@ class ProfileBody extends StatelessWidget {
           TemplateProfileMenu(
               imgURL: AppImages.icAddresses,
               title: "My Addresses",
-              tabPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyAddresses()))),
+              tabPressed: () => Navigator.pushNamed(context, "/userAddresses")),
           // const SizedBox(
           //   height: 10,
           // ),
@@ -102,42 +104,42 @@ class ProfileBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: SvgPicture.asset(
                     AppImages.imgInstagram,
                     height: 24,
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: SvgPicture.asset(
                     AppImages.imgFacebook,
                     height: 24,
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: SvgPicture.asset(
                     AppImages.imgWhatsApp,
                     height: 24,
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: SvgPicture.asset(
                     AppImages.imgLinkedin,
                     height: 24,
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: SvgPicture.asset(
                     AppImages.imgTwitter,
                     height: 24,
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: SvgPicture.asset(
                     AppImages.imgYouTube,
                     height: 20,

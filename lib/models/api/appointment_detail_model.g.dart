@@ -9,9 +9,10 @@ part of 'appointment_detail_model.dart';
 AppointmentDetailModel _$AppointmentDetailModelFromJson(
         Map<String, dynamic> json) =>
     AppointmentDetailModel(
-      AppointID: json['AppointID'] as int? ?? 0,
+      AppointmentID: json['AppointmentID'] as int? ?? 0,
       DoctorID: json['DoctorID'] as int? ?? 0,
       PatientID: json['PatientID'] as int? ?? 0,
+      AddressID: json['AddressID'] as int? ?? 0,
       Date: json['Date'] as String? ?? "",
       Appointment_Status: json['Appointment_Status'] as int? ?? 0,
       Bill_Amount: (json['Bill_Amount'] as num?)?.toDouble() ?? 0,
@@ -29,14 +30,18 @@ AppointmentDetailModel _$AppointmentDetailModelFromJson(
       StartTime: json['StartTime'] as String? ?? "",
       EndTime: json['EndTime'] as String? ?? "",
       PatientName: json['PatientName'] as String? ?? "",
+      UserAddress: json['UserAddress'] == null
+          ? null
+          : AddressModel.fromJson(json['UserAddress'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AppointmentDetailModelToJson(
         AppointmentDetailModel instance) =>
     <String, dynamic>{
-      'AppointID': instance.AppointID,
+      'AppointmentID': instance.AppointmentID,
       'DoctorID': instance.DoctorID,
       'PatientID': instance.PatientID,
+      'AddressID': instance.AddressID,
       'Date': instance.Date,
       'Appointment_Status': instance.Appointment_Status,
       'Bill_Amount': instance.Bill_Amount,
@@ -54,4 +59,5 @@ Map<String, dynamic> _$AppointmentDetailModelToJson(
       'StartTime': instance.StartTime,
       'EndTime': instance.EndTime,
       'PatientName': instance.PatientName,
+      'UserAddress': instance.UserAddress,
     };
