@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/models/api/schedule_model.dart';
 import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
@@ -12,7 +13,7 @@ import 'package:doctor_consultation/ui/common/splash_screen.dart';
 import 'package:doctor_consultation/ui/common/success_view.dart';
 import 'package:doctor_consultation/ui/common/welcome_user_type.dart';
 import 'package:doctor_consultation/ui/doctor/dr_profile.dart';
-import 'package:doctor_consultation/ui/user/admin/appointment/appointment_detail.dart';
+import 'package:doctor_consultation/ui/user/admin/appointment_detail/appointment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/appointment/past_appointment.dart';
 import 'package:doctor_consultation/ui/user/admin/appointment/patient_past_appointment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/communication/payment_detail.dart';
@@ -149,7 +150,7 @@ Route<dynamic> controller(RouteSettings settings) {
           builder: (context) => const DashboardAdmin(), settings: settings);
     case appointmentDetailPage:
       return MaterialPageRoute(
-          builder: (context) => const AppointmentDetailPage(),
+          builder: (context) => AppointmentDetailPage(appointmentDetailModel: args as AppointmentDetailModel,),
           settings: settings);
     case layoutSearchFilterPatient:
       return MaterialPageRoute(

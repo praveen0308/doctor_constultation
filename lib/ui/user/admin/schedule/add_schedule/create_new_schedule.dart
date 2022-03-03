@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/btn/view_timing.dart';
@@ -33,36 +34,47 @@ class _CreateNewScheduleState extends State<CreateNewSchedule> {
       appBar: AppBar(
         title: const Text("Add schedule"),
       ),
-      body: Column(
-        children: [
-          BlocBuilder<CreateNewScheduleCubit, CreateNewScheduleState>(
-            builder: (context, state) {
-              if (state is Error) {
-                showToast(state.msg, ToastType.error);
-              }
-              if (state is SubmissionSuccess) {
-                showToast(
-                    "Schedule submitted successfully !!!", ToastType.success);
-                Navigator.pop(context);
-              }
-              if (state is SubmissionFailure) {
-                showToast("Schedule submitted failed !!!", ToastType.error);
-              }
+      body: BlocBuilder<CreateNewScheduleCubit, CreateNewScheduleState>(
+        builder: (context, state) {
+          if (state is Error) {
+            showToast(state.msg, ToastType.error);
+          }
+          if (state is SubmissionSuccess) {
+            showToast("Schedule submitted successfully !!!", ToastType.success);
+            WidgetsBinding.instance!.addPostFrameCallback((_) {
+              Navigator.pop(context);
+            });
 
-              if (state is ReceivedSlots) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text("Available slots"),
-                    ),
-                    Wrap(
-                      spacing: 20,
-                      runSpacing: 5,
-                      children: List.generate(
-                        state.slots.length,
-                        (index) => ViewTiming(
+          }
+          if (state is SubmissionFailure) {
+            showToast("Schedule submitted failed !!!", ToastType.error);
+          }
+
+          if (state is ReceivedSlots) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Select slots you want add",
+                    style: AppTextStyle.captionOF1(),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Expanded(
+                    child: GridView.builder(
+
+                      itemCount: state.slots.length,
+                      gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
+                        crossAxisCount: 2,
+                        childAspectRatio: 4
+                      ),
+                      itemBuilder: (_, index) {
+                        return ViewTiming(
                           slotModel: state.slots[index],
                           onClick: (slot) {
                             if (slot.IsAvailable!) {
@@ -71,24 +83,24 @@ class _CreateNewScheduleState extends State<CreateNewSchedule> {
                               selectedSlots.remove(slot.ID);
                             }
                           },
-                        ),
-                      ),
+                        );
+                      },
                     ),
-                    CustomBtn(
-                        title: "Submit",
-                        onBtnPressed: () {
-                          _createNewScheduleCubit.submitSlots(
-                              widget.scheduleDate, selectedSlots);
-                        },
-                        isLoading: state is SubmittingSlots)
-                  ],
-                );
-              }
+                  ),
+                  CustomBtn(
+                      title: "Submit",
+                      onBtnPressed: () {
+                        _createNewScheduleCubit.submitSlots(
+                            widget.scheduleDate, selectedSlots);
+                      },
+                      isLoading: state is SubmittingSlots)
+                ],
+              ),
+            );
+          }
 
-              return const LoadingView(isVisible: true);
-            },
-          ),
-        ],
+          return const LoadingView(isVisible: true);
+        },
       ),
     );
   }

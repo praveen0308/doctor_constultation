@@ -28,7 +28,7 @@ class ViewTimelineLast extends StatelessWidget {
     return SizedBox(
       child: TimelineTile(
         afterLineStyle:
-        LineStyle(thickness: 2.5, color: AppColors.primaryLight),
+        const LineStyle(thickness: 2.5, color: AppColors.primaryLight),
         endChild:   Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(

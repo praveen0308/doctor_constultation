@@ -38,5 +38,14 @@ class AddressModel {
 
   Map<String, dynamic> toJson() => _$AddressModelToJson(this);
 
-  String getPreparedAddress() => "$AddressLine1,$AddressLine2,";
+  String getPreparedAddress(){
+    var address = "";
+    if(LocationName.isNotEmpty) address = "$LocationName, ";
+    if(AddressLine1.isNotEmpty) address = address + "$AddressLine1, ";
+    if(AddressLine2.isNotEmpty) address = address + "$AddressLine2, ";
+    return address;
+  }
+
+  String getCityPin() => "$City - $PinCode";
+
 }

@@ -8,106 +8,143 @@ import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
 import 'package:doctor_consultation/ui/widgets/schedule/temp_date.dart';
 import 'package:doctor_consultation/ui/widgets/schedule/temp_status.dart';
 import 'package:doctor_consultation/ui/widgets/template_ic_text1.dart';
+import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TemplateScheduleDetail extends StatelessWidget {
-
   final AppointmentDetailModel appointmentDetailModel;
-  const TemplateScheduleDetail({Key? key, required this.appointmentDetailModel}) : super(key: key);
+  final Function() onCancelClick;
+  final Function() onRescheduleClick;
+  final Function() onViewDetailsClick;
+
+  const TemplateScheduleDetail(
+      {Key? key,
+      required this.appointmentDetailModel,
+      required this.onCancelClick,
+      required this.onRescheduleClick,
+      required this.onViewDetailsClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.contain,
-    child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: 240,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
-            decoration: BoxDecoration(
-                color: AppColors.greyLightest,
-                boxShadow: const [BoxShadow(
-                  color: AppColors.grey,
-                  blurRadius: 5.0,
-                ),],
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(AppStrings.drName, style: AppTextStyle.headline6()),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  AppStrings.speciaList.toUpperCase(),
-                  style: AppTextStyle.body3(txtColor: AppColors.greyBefore),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const TemplateICText(
-                  imgURL: AppImages.icClinicPrimary,
-                  txtTitle: "Address",
-                  txtSubTitle: AppStrings.clinicAddress,
-                  txtCaption: AppStrings.clinicPlace,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: AppColors.grey,
-                ),
+    return GestureDetector(
+      onTap: () {
+        onViewDetailsClick();
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TemplateDateTime(
-                        imgURL: AppImages.icSchedulePrimary,
-                        imgSize: 18,
-                        dtColor: AppColors.greyBefore,
-                        title: "${appointmentDetailModel.Date}".toUpperCase()),
-                    TemplateDateTime(
-                        imgURL: AppImages.icTimingPrimary,
-                        imgSize: 18,
-                        dtColor: AppColors.greyBefore,
-                        title: "${appointmentDetailModel.Bill_Amount}".toUpperCase()),
-                     TemplateStatus(
-                      title: appointmentDetailModel.Appointment_Status.toString(),
-                      sColor: AppColors.error,
-                      sSize: 5,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Visibility(
-                  visible: appointmentDetailModel.Appointment_Status!=1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(
-                        width: 130,
-                        child: BtnOutline(title: "Cancel"),
-                      ),
-                      SizedBox(
-                        width: 130,
-                        child: BtnFilled(
-                          title: "Reschedule",
-                          onBtnPressed: () {},
-                        ),
-                      ),
-                    ],
-                  ),
+      },
+      child: Container(
+        padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
+        decoration: BoxDecoration(
+            color: AppColors.greyLightest,
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.grey,
+                blurRadius: 5.0,
+              ),
+            ],
+            borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(appointmentDetailModel.PatientName,
+                style: AppTextStyle.headline6()),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              AppStrings.speciaList.toUpperCase(),
+              style: AppTextStyle.body3(txtColor: AppColors.greyBefore),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TemplateICText(
+              imgURL: AppImages.icClinicPrimary,
+              txtTitle: "Location",
+              txtSubTitle: appointmentDetailModel.UserAddress!.AddressLine1,
+              txtCaption: appointmentDetailModel.UserAddress!.City,
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const Divider(
+              thickness: 1,
+              color: AppColors.grey,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TemplateDateTime(
+                    imgURL: AppImages.icSchedulePrimary,
+                    imgSize: 18,
+                    dtColor: AppColors.greyBefore,
+                    title: "${appointmentDetailModel.getAppointmentDate()}".toUpperCase()),
+                TemplateDateTime(
+                    imgURL: AppImages.icTimingPrimary,
+                    imgSize: 18,
+                    dtColor: AppColors.greyBefore,
+                    title: appointmentDetailModel.getTiming().toUpperCase()),
+                /*TemplateStatus(
+                  title: appointmentDetailModel
+                      .getAppointmentStats()
+                      .toString(),
+                  sColor: AppColors.greyLightest,
+                  sSize: 5,
+                ),*/
+
+                Text(
+                  appointmentDetailModel.getAppointmentStats(),
+                  style: AppTextStyle.overlieRF1(),
                 )
               ],
             ),
-          ),
+            const SizedBox(
+              height: 24,
+            ),
+            if (appointmentDetailModel.Appointment_Status ==
+                AppConstants.pending)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      child: BtnOutline(
+                    title: "Cancel",
+                    onBtnPressed: () {},
+                  )),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    child: BtnFilled(
+                      title: "Reschedule",
+                      onBtnPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+            if (appointmentDetailModel.Appointment_Status ==
+                AppConstants.approved)
+              BtnFilled(
+                title: "View Appointment",
+                onBtnPressed: () {},
+              ),
+            if (appointmentDetailModel.Appointment_Status ==
+                AppConstants.closed)
+              BtnFilled(
+                title: "View Appointment",
+                onBtnPressed: () {},
+              ),
+            if (appointmentDetailModel.Appointment_Status ==
+                AppConstants.ongoing)
+              BtnFilled(
+                title: "Add Case Info",
+                onBtnPressed: () {},
+              ),
+            const SizedBox(
+              height: 24,
+            )
+          ],
         ),
       ),
     );

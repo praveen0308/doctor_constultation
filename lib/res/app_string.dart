@@ -3,7 +3,7 @@ class AppStrings{
   static const String drName = 'Dr. Priyanaka Yaduvanshi';
   static const String drFName = 'Dr. Priyanaka';
   static const String drLName = ' Yaduvanshi';
-  static const String speciaList = 'Ayurveda';
+  static const String speciaList = 'Homeopathy';
   static const String slogan1 = '“I am your Doctor - ';
   static const String slogan2 = 'A friend for life”';
   static const String clinicAddress = 'Vrindavan Clinic';

@@ -1,6 +1,7 @@
 import 'package:doctor_consultation/models/api/slot_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/widgets/slot_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/api/schedule_model.dart';
@@ -37,9 +38,29 @@ class _CustomChipGroupState extends State<CustomChipGroup> {
             ? Wrap(
                 spacing: 10,
                 runSpacing: 10,
-                children: List.generate(
-                  widget.data.length, //length
-                  (index) => SlotView(
+                children: List.generate(widget.data.length, //length
+                    (index) {
+                  var slot = widget.data[index];
+
+                  return SlotView(
+                      onClick: (id) {
+                        if (widget.type == ChipGroupType.single) {
+                          for (var element in widget.data) {
+                            element.isSelected = false;
+                          }
+                        }
+                        widget.onItemSelected(widget.data[index]);
+                        widget.onSubmitted(widget.data);
+                        widget.data[index].isSelected = true;
+                        setState(() {});
+                      },
+                      id: index,
+                      title: slot.getTiming(),
+                      isBooked: slot.IsBooked,
+                      isAvailable: slot.IsAvailable,
+                      isSelected: slot.isSelected);
+                }
+                    /*SlotView1(
                       index: index,
                       title: widget.data[index].getTiming(),
                       onTap: (index, status) {
@@ -53,8 +74,10 @@ class _CustomChipGroupState extends State<CustomChipGroup> {
                         widget.onSubmitted(widget.data);
                         setState(() {});
                       },
-                      isSelected: widget.data[index].IsAvailable!),
-                ))
+                      isSelected: widget.data[index].IsAvailable),
+*/
+
+                    ))
             : Container(
                 margin: const EdgeInsets.symmetric(vertical: 12),
                 width: double.infinity,
@@ -74,13 +97,13 @@ class _CustomChipGroupState extends State<CustomChipGroup> {
   }
 }
 
-class SlotView extends StatelessWidget {
+class SlotView1 extends StatelessWidget {
   final String title;
   final Function(int index, bool isSelected) onTap;
   final bool isSelected;
   final int index;
 
-  const SlotView(
+  const SlotView1(
       {Key? key,
       required this.index,
       required this.title,

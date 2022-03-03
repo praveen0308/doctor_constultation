@@ -31,7 +31,7 @@ class _ViewTimingState extends State<ViewTiming> {
           });
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           decoration: BoxDecoration(
               color: widget.slotModel.IsAvailable!
                   ? AppColors.primary
@@ -42,7 +42,7 @@ class _ViewTimingState extends State<ViewTiming> {
                       ? AppColors.greyLightest
                       : AppColors.primary)),
           child: Text(
-            widget.slotModel.StartTime ?? "",
+            widget.slotModel.getTiming(),
             style: AppTextStyle.captionOF2(
                 txtColor: widget.slotModel.IsAvailable!
                     ? AppColors.greyLightest

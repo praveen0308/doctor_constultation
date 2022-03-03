@@ -3,6 +3,8 @@ import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
+import 'package:doctor_consultation/ui/widgets/no_records_view.dart';
+import 'package:doctor_consultation/ui/widgets/slot_view.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +23,7 @@ class ViewSchedule extends StatefulWidget {
 class _ViewScheduleState extends State<ViewSchedule> {
   late ViewScheduleCubit _viewScheduleCubit;
   DateTime selectedDate = DateTime.now();
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +36,7 @@ class _ViewScheduleState extends State<ViewSchedule> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add schedule"),
+        title: Text("View schedule"),
       ),
       body: Column(
         children: [
@@ -56,28 +59,48 @@ class _ViewScheduleState extends State<ViewSchedule> {
               builder: (context, state) {
                 if (state is Error) {
                   showToast(state.msg, ToastType.error);
+                  return NoRecordsView(
+                    title: state.msg,
+                    onBtnClick: () {},
+                  );
                   /*return Center(
                                 child: Text("No slots for the day!!!"),
                               )*/
                 }
                 if (state is ReceivedAvailableSlots) {
                   if (state.slots.isNotEmpty) {
-                    return Wrap(
-                      spacing: 20,
-                      runSpacing: 5,
-                      children: List.generate(
-                        state.slots.length,
-                        (index) => Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 12),
-                          margin: const EdgeInsets.all(8),
-                          child: Text(
-                              "${state.slots[index].StartTime}-${state.slots[index].StartTime}"),
-                        ),
-                      ),
+                    return GridView.builder(
+                      itemCount: state.slots.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisSpacing: 2,
+                              crossAxisSpacing: 8,
+                              crossAxisCount: 2,
+                              childAspectRatio: 3),
+                      itemBuilder: (_, index) {
+                        var slot = state.slots[index];
+
+                        return SlotView(
+                            onClick: (id) {},
+                            id: slot.ScheduleID!,
+                            title: slot.getTiming(),
+                            isBooked: slot.IsBooked,
+                            isAvailable: slot.IsAvailable,
+                            isSelected: false);
+                      },
                     );
                   } else {
-                    return Container(
+                    return NoRecordsView(
+                      title: "Not schedule yet !!!",
+                      requiredBtn: true,
+                      btnText: "Create New Schedule",
+                      onBtnClick: () {
+                        Navigator.pushNamed(context, "/createNewSchedule",
+                            arguments:
+                                DateFormat("yyyy-MM-dd").format(selectedDate));
+                      },
+                    );
+                    /*return Container(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,7 +117,7 @@ class _ViewScheduleState extends State<ViewSchedule> {
                               isLoading: false)
                         ],
                       ),
-                    );
+                    );*/
                   }
                 }
 

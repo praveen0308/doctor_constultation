@@ -31,7 +31,7 @@ class CreateNewScheduleCubit extends Cubit<CreateNewScheduleState> {
           }
         }
       }
-*/
+*/    response.forEach((element) { element.IsAvailable = false;});
       emit(ReceivedSlots(response));
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));

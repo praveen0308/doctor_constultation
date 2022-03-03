@@ -29,37 +29,34 @@ class TemplateICText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 160,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SvgPicture.asset(
-            imgURL,
-            height: iSize,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                txtTitle,
-                style: AppTextStyle.body1(txtColor: txtTColor,wFont: FontWeight.w500),
-              ),
-              const SizedBox(
-                height: 2,
-              ),
-              Text(txtSubTitle, style: AppTextStyle.subtitle2(txtColor: txtSTColor)),
-              Text(
-                txtCaption.toUpperCase(),
-                style: AppTextStyle.body2(txtColor: txtCapColor),
-              ),
-            ],
-          )
-        ],
-      ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SvgPicture.asset(
+          imgURL,
+          height: iSize,
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              txtTitle,
+              style: AppTextStyle.body1(txtColor: txtTColor,wFont: FontWeight.w500),
+            ),
+            const SizedBox(
+              height: 2,
+            ),
+            Text(txtSubTitle, style: AppTextStyle.subtitle2(txtColor: txtSTColor)),
+            Text(
+              txtCaption.toUpperCase(),
+              style: AppTextStyle.body2(txtColor: txtCapColor),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

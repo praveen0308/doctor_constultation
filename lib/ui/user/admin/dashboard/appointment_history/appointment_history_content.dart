@@ -2,6 +2,7 @@ import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:doctor_consultation/ui/widgets/schedule/template_admin_time_with_schedule.dart';
+import 'package:doctor_consultation/ui/widgets/template_schedule_detail.dart';
 import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/cupertino.dart';
@@ -76,15 +77,13 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
                       itemBuilder: (_, index) {
-                        return TemplateAdminTimeSchedule(
-                          txtMainTime: "09:00 am",
-                          txtFrom: state.appointments[index].StartTime,
-                          txtTo: state.appointments[index].EndTime,
-                          txtTitle: state.appointments[index].PatientName,
-                          txtSubTitle: state.appointments[index].Disease,
-                          txtCaption: "General",
-                          txtColor: AppColors.errorDark,
-                          bgColor: AppColors.errorLightest,
+                        return TemplateScheduleDetail(
+                          appointmentDetailModel: state.appointments[index],
+                          onCancelClick: () {},
+                          onRescheduleClick: () {},
+                          onViewDetailsClick: () {
+                            Navigator.pushNamed(context, "/appointmentDetailPage",arguments: state.appointments[index]);
+                          },
                         );
                       },
                       separatorBuilder: (_, index) {

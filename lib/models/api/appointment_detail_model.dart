@@ -1,4 +1,5 @@
 import 'package:doctor_consultation/models/api/address_model.dart';
+import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -65,4 +66,16 @@ class AppointmentDetailModel {
       DateFormat.jm().format(DateFormat("HH:mm").parse(EndTime));
 
   String getTiming() => "${getFStartTime()} - ${getFEndTime()}";
+  String getAppointmentDate() => DateFormat("dd MMM yy").format(DateFormat("yyyy-mm-dd'T'hh:mm:ss").parse(Date));
+  String getAppointmentStats(){
+    var status = "Pending";
+    switch(Appointment_Status){
+      case AppConstants.pending:status = "Pending";break;
+      case AppConstants.approved:status = "Approved";break;
+      case AppConstants.cancelled:status = "Cancelled";break;
+      case AppConstants.ongoing:status = "Ongoing";break;
+      case AppConstants.closed:status = "Closed";break;
+    }
+    return status;
+  }
 }

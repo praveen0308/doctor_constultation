@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/case_info_model.dart';
 import 'package:doctor_consultation/res/app_string.dart';
 import 'package:doctor_consultation/ui/widgets/timeline/view_timeline_first.dart';
 import 'package:doctor_consultation/ui/widgets/timeline/view_timeline_last.dart';
@@ -6,8 +7,8 @@ import 'package:flutter/material.dart';
 
 
 class ViewTimeline extends StatelessWidget {
-  final String? title;
-  const ViewTimeline({Key? key, this.title}) : super(key: key);
+
+  const ViewTimeline({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

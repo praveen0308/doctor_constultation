@@ -84,7 +84,9 @@ class _PatientAppointmentHistoryPageState
                         itemBuilder: (BuildContext context, int index) {
                           return TemplateScheduleDetail(
                               appointmentDetailModel:
-                                  state.appointments[index]);
+                                  state.appointments[index], onViewDetailsClick: () {
+
+                          }, onCancelClick: () {  }, onRescheduleClick: () {  },);
                         });
                   }
                   return const LoadingView(isVisible: true);

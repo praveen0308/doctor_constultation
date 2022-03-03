@@ -19,13 +19,16 @@ class ScheduleModel {
   int? ScheduleStatus;
   bool? IsCompleted;
   bool? IsCancel;
-  bool? IsAvailable;
+  bool IsAvailable;
+  bool IsBooked;
   String? AddenOn;
   int? AddedBy;
   bool? IsModified;
   String? ModifiedOn;
   int? ModifiedBy;
   bool? IsActive;
+  @JsonKey(ignore: true)
+  bool isSelected;
 
   ScheduleModel(
       {this.ScheduleID,
@@ -41,7 +44,9 @@ class ScheduleModel {
       this.ScheduleStatus,
       this.IsCompleted,
       this.IsCancel,
-      this.IsAvailable,
+      this.IsAvailable=false,
+      this.IsBooked=false,
+      this.isSelected=false,
       this.AddenOn,
       this.AddedBy,
       this.IsModified,

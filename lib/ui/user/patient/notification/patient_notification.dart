@@ -44,7 +44,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: TemplateScheduleDetail(appointmentDetailModel: AppointmentDetailModel(),),
+                child: TemplateScheduleDetail(appointmentDetailModel: AppointmentDetailModel(), onViewDetailsClick: () {  }, onCancelClick: () {  }, onRescheduleClick: () {  },),
               ),
             ],
           ),

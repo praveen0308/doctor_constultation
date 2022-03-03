@@ -26,4 +26,5 @@ class AppConstants {
   static const cancelled = 2;
   static const ongoing = 3;
   static const closed = 4;
+
 }
