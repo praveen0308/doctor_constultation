@@ -75,7 +75,7 @@ class _CaseApiClient implements CaseApiClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<CaseInfoModel>>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
+            Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, 'Case/GetCaseDetailsByPatientID',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));

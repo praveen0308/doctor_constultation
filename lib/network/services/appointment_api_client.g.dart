@@ -101,7 +101,7 @@ class _AppointmentApiClient implements AppointmentApiClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
-        Options(method: 'GET', headers: _headers, extra: _extra)
+        Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, 'Appointment/UpdateAppointmentStatus',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));

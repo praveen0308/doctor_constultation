@@ -26,7 +26,7 @@ abstract class AppointmentApiClient {
   Future<bool> addUpdateAppointmentDetail(
       @Body() AppointmentDetailModel appointmentDetailModel);
 
-  @GET("Appointment/UpdateAppointmentStatus")
+  @POST("Appointment/UpdateAppointmentStatus")
   Future<bool> updateAppointmentStatus(
     @Query("AppointmentID") int appointmentID,
     @Query("StatusID") int statusID,

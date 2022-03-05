@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_history/appointment_history_item.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_history/patient_appointment_history_cubit.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
@@ -82,11 +83,15 @@ class _PatientAppointmentHistoryPageState
                     return ListView.builder(
                         itemCount: state.appointments.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return TemplateScheduleDetail(
-                              appointmentDetailModel:
-                                  state.appointments[index], onViewDetailsClick: () {
-
-                          }, onCancelClick: () {  }, onRescheduleClick: () {  },);
+                          return AppointmentHistoryItem(
+                            appointmentDetailModel: state.appointments[index],
+                            onViewDetailsClick: (int appointmentId) {
+                                Navigator.pushNamed(context, "/appointmentDetailForPatient",arguments: appointmentId);
+                            },
+                            onCancelClick: (int appointmentId) {
+                              _appointmentHistoryCubit.cancelAppointment(appointmentId);
+                            },
+                          );
                         });
                   }
                   return const LoadingView(isVisible: true);
@@ -99,3 +104,5 @@ class _PatientAppointmentHistoryPageState
     );
   }
 }
+
+

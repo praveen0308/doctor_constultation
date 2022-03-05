@@ -34,6 +34,10 @@ class CaseRepository {
     return _caseApiClient.getCaseInfoDetailByID(id);
   }
 
+  Future<List<CaseInfoModel>> getCaseHistoryByPatientID(int patientId) {
+    return _caseApiClient.getCaseDetailsByPatientID(patientId);
+  }
+
   Future<bool> createUpdateCaseInfo(CaseInfoModel caseInfoModel) {
     return _caseApiClient.addUpdateCaseInfoDetail(caseInfoModel);
   }

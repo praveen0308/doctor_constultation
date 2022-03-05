@@ -82,7 +82,7 @@ class AppointmentItemView extends StatelessWidget {
                             appointmentDetailModel.getTiming().toUpperCase()),
                     TemplateStatus(
                       title:
-                          appointmentDetailModel.Appointment_Status.toString(),
+                          appointmentDetailModel.AppointmentStatusID.toString(),
                       sColor: AppColors.error,
                       sSize: 5,
                     ),
@@ -92,7 +92,7 @@ class AppointmentItemView extends StatelessWidget {
                   height: 10,
                 ),
                 Visibility(
-                  visible: appointmentDetailModel.Appointment_Status !=
+                  visible: appointmentDetailModel.AppointmentStatusID !=
                       AppConstants.approved,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

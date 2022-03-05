@@ -25,7 +25,11 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
               AppBackFilterNavBar(imgUrl1: AppImages.icBackArrow,txtTitle: "Reschedule",),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: TemplateScheduleDetail(appointmentDetailModel: AppointmentDetailModel(), onViewDetailsClick: () {  }, onCancelClick: () {  }, onRescheduleClick: () {  },),
+                child: TemplateScheduleDetail(appointmentDetailModel: AppointmentDetailModel(),onCancelClick: (int appointmentId) {},
+                  onAddCaseInfoClick: (appointment) {},
+                  onViewDetailsClick: (int appointmentId) {
+                    // Navigator.pushNamed(context, "/appointmentDetailPage",arguments: state.appointments[index]);
+                  }, onStartSessionClick: (int appointmentId) {  },),
               ),
 
             ],

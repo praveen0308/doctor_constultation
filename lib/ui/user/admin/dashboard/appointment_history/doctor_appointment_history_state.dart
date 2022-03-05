@@ -18,3 +18,7 @@ class ReceivedAppointments extends DoctorAppointmentHistoryState {
   final List<AppointmentDetailModel> appointments;
   ReceivedAppointments(this.appointments);
 }
+class CancellingAppointment extends DoctorAppointmentHistoryState {}
+class AppointmentCancelled extends DoctorAppointmentHistoryState {}
+class StartingSession extends DoctorAppointmentHistoryState {}
+class SessionStarted extends DoctorAppointmentHistoryState {}

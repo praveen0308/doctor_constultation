@@ -7,7 +7,10 @@ class AppointmentHistoryInitial extends PatientAppointmentHistoryState {}
 
 class Loading extends PatientAppointmentHistoryState {}
 
+
 class NoAppointmentHistory extends PatientAppointmentHistoryState {}
+class CancellingAppointment extends PatientAppointmentHistoryState {}
+class AppointmentCancelled extends PatientAppointmentHistoryState {}
 
 class Error extends PatientAppointmentHistoryState {
   final String msg;

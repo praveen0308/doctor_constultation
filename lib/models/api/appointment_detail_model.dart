@@ -12,7 +12,7 @@ class AppointmentDetailModel {
   int PatientID;
   int AddressID;
   String Date;
-  int Appointment_Status;
+  int AppointmentStatusID;
   double Bill_Amount;
   String Bill_Status;
   int DoctorNotification;
@@ -36,7 +36,7 @@ class AppointmentDetailModel {
     this.PatientID = 0,
     this.AddressID = 0,
     this.Date = "",
-    this.Appointment_Status = 0,
+    this.AppointmentStatusID = 0,
     this.Bill_Amount = 0,
     this.Bill_Status = "",
     this.DoctorNotification = 0,
@@ -67,14 +67,14 @@ class AppointmentDetailModel {
 
   String getTiming() => "${getFStartTime()} - ${getFEndTime()}";
   String getAppointmentDate() => DateFormat("dd MMM yy").format(DateFormat("yyyy-mm-dd'T'hh:mm:ss").parse(Date));
-  String getAppointmentStats(){
+  String getAppointmentStatus(){
     var status = "Pending";
-    switch(Appointment_Status){
-      case AppConstants.pending:status = "Pending";break;
-      case AppConstants.approved:status = "Approved";break;
-      case AppConstants.cancelled:status = "Cancelled";break;
-      case AppConstants.ongoing:status = "Ongoing";break;
-      case AppConstants.closed:status = "Closed";break;
+    switch(AppointmentStatusID){
+      case AppConstants.pending:{status = "Pending";}break;
+      case AppConstants.approved:{status = "Approved";}break;
+      case AppConstants.cancelled:{status = "Cancelled";}break;
+      case AppConstants.ongoing:{status = "Ongoing";}break;
+      case AppConstants.closed:{status = "Closed";}break;
     }
     return status;
   }

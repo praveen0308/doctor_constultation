@@ -28,7 +28,9 @@ class CustomBtn extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               height: 50,
               textColor: Colors.white,
+
               color: AppColors.primary,
+
               child: Text(
                 title.toUpperCase(),
               ),

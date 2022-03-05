@@ -25,26 +25,33 @@ class _NotificationPageState extends State<NotificationPage> {
           behavior: NoGlowBehaviour(),
           child: ListView(
             children: [
-              AppBackFilterNavBar(imgUrl1: AppImages.icBackArrow,txtTitle: "Notification",),
+              AppBackFilterNavBar(
+                imgUrl1: AppImages.icBackArrow,
+                txtTitle: "Notification",
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                        "Your next appoinment",
-                        style: AppTextStyle.body3(txtColor: AppColors.greyDark)
-                    ),
+                    Text("Your next appoinment",
+                        style:
+                            AppTextStyle.body3(txtColor: AppColors.greyDark)),
                   ],
                 ),
               ),
               SizedBox(
                 height: 10.0,
               ),
-
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: TemplateScheduleDetail(appointmentDetailModel: AppointmentDetailModel(), onViewDetailsClick: () {  }, onCancelClick: () {  }, onRescheduleClick: () {  },),
+                child: TemplateScheduleDetail(
+                  appointmentDetailModel: AppointmentDetailModel(),
+                  onCancelClick: (int appointmentId) {},
+                  onStartSessionClick: (int appointmentId) {},
+                  onAddCaseInfoClick: ( appointment) {},
+                  onViewDetailsClick: (int appointmentId) {},
+                ),
               ),
             ],
           ),

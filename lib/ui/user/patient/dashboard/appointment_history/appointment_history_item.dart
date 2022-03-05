@@ -1,3 +1,4 @@
+
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/app_string.dart';
@@ -5,28 +6,21 @@ import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
-import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/schedule/temp_date.dart';
-import 'package:doctor_consultation/ui/widgets/schedule/temp_status.dart';
 import 'package:doctor_consultation/ui/widgets/template_ic_text1.dart';
 import 'package:doctor_consultation/util/app_constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class TemplateScheduleDetail extends StatelessWidget {
+class AppointmentHistoryItem extends StatelessWidget {
   final AppointmentDetailModel appointmentDetailModel;
   final Function(int appointmentId) onCancelClick;
-  final Function(int appointmentId) onStartSessionClick;
-  final Function(AppointmentDetailModel appointmentDetailModel) onAddCaseInfoClick;
   final Function(int appointmentId) onViewDetailsClick;
 
-  const TemplateScheduleDetail(
+  const AppointmentHistoryItem(
       {Key? key,
-      required this.appointmentDetailModel,
-      required this.onCancelClick,
-      required this.onStartSessionClick,
-      required this.onAddCaseInfoClick,
-      required this.onViewDetailsClick})
+        required this.appointmentDetailModel,
+        required this.onCancelClick,
+        required this.onViewDetailsClick})
       : super(key: key);
 
   @override
@@ -105,46 +99,32 @@ class TemplateScheduleDetail extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-            if (appointmentDetailModel.AppointmentStatusID ==
-                AppConstants.pending)
+
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  if (appointmentDetailModel.AppointmentStatusID ==
+                      AppConstants.pending)
                   Expanded(
                       child: BtnOutline(
-                    title: "Cancel",
-                    onBtnPressed: () {
-                      onCancelClick(appointmentDetailModel.AppointmentID);
-                    },
-                  )),
+                        title: "Cancel",
+                        onBtnPressed: () {
+                          onCancelClick(appointmentDetailModel.AppointmentID);
+                        },
+                      )),
                   const SizedBox(
                     width: 16,
                   ),
                   Expanded(
                     child: BtnFilled(
-                      title: "Start Session",
+                      title: "View Appointment",
                       onBtnPressed: () {
-                        onStartSessionClick(appointmentDetailModel.AppointmentID);
+                        onViewDetailsClick(appointmentDetailModel.AppointmentID);
                       },
                     ),
                   ),
                 ],
-              ),
-            if (appointmentDetailModel.AppointmentStatusID ==
-                AppConstants.closed)
-              BtnFilled(
-                title: "View Appointment",
-                onBtnPressed: () {
-                  onViewDetailsClick(appointmentDetailModel.AppointmentID);
-                },
-              ),
-            if (appointmentDetailModel.AppointmentStatusID ==
-                AppConstants.ongoing)
-              CustomBtn(
-                title: "Add Case Info",
-                onBtnPressed: () {
-                  onAddCaseInfoClick(appointmentDetailModel);
-                }, isLoading: false,
               ),
             const SizedBox(
               height: 24,

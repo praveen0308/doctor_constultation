@@ -1,7 +1,6 @@
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
-import 'package:doctor_consultation/ui/widgets/schedule/template_admin_time_with_schedule.dart';
 import 'package:doctor_consultation/ui/widgets/template_schedule_detail.dart';
 import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
@@ -48,6 +47,15 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
       child: BlocBuilder<DoctorAppointmentHistoryCubit,
           DoctorAppointmentHistoryState>(
         builder: (context, state) {
+          if(state is CancellingAppointment){
+            showToast("Appointment cancelled",ToastType.success);
+
+
+          }
+          if(state is SessionStarted){
+            showToast("Session started",ToastType.success);
+          }
+
           if (state is Error) {
             showToast(state.msg, ToastType.error);
           }
@@ -73,23 +81,31 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                     ),
                   )
                 else
-                  ListView.separated(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemBuilder: (_, index) {
-                        return TemplateScheduleDetail(
-                          appointmentDetailModel: state.appointments[index],
-                          onCancelClick: () {},
-                          onRescheduleClick: () {},
-                          onViewDetailsClick: () {
-                            Navigator.pushNamed(context, "/appointmentDetailPage",arguments: state.appointments[index]);
+                  Expanded(
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemBuilder: (_, index) {
+                          return TemplateScheduleDetail(
+                            appointmentDetailModel: state.appointments[index],
+                            onCancelClick: (int appointmentId) {
+                              _appointmentHistoryCubit.cancelAppointment(appointmentId);
+                            },
+                            onAddCaseInfoClick: (appointment) {
+                              Navigator.pushNamed(context, "/addCaseInfo",arguments: appointment.PatientID);
+                            },
+                            onViewDetailsClick: (int appointmentId) {
+                              Navigator.pushNamed(context, "/appointmentDetailPage",arguments: state.appointments[index]);
+                            }, onStartSessionClick: (int appointmentId) {
+                            _appointmentHistoryCubit.startSession(appointmentId);
                           },
-                        );
-                      },
-                      separatorBuilder: (_, index) {
-                        return const SizedBox(height: 8);
-                      },
-                      itemCount: state.appointments.length)
+                          );
+                        },
+                        separatorBuilder: (_, index) {
+                          return const SizedBox(height: 8);
+                        },
+                        itemCount: state.appointments.length),
+                  )
               ],
             );
           }

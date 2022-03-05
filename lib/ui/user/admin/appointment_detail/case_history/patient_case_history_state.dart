@@ -6,6 +6,10 @@ abstract class PatientCaseHistoryState {}
 class PatientCaseHistoryInitial extends PatientCaseHistoryState {}
 class Loading extends PatientCaseHistoryState {}
 class NoCaseHistory extends PatientCaseHistoryState {}
+class Error extends PatientCaseHistoryState {
+  final String msg;
+  Error(this.msg);
+}
 class ReceivedCaseHistory extends PatientCaseHistoryState {
   final List<CaseInfoModel> caseHistory;
 

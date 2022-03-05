@@ -5,21 +5,20 @@ import 'package:doctor_consultation/repository/case_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-part 'patient_case_history_state.dart';
+part 'add_case_info_state.dart';
 
-class PatientCaseHistoryCubit extends Cubit<PatientCaseHistoryState> {
+class AddCaseInfoCubit extends Cubit<AddCaseInfoState> {
   final CaseRepository _caseRepository;
-  PatientCaseHistoryCubit(this._caseRepository) : super(PatientCaseHistoryInitial());
 
-  void getCaseHistoryOfPatient(int patientId) async {
+  AddCaseInfoCubit(this._caseRepository) : super(AddCaseInfoInitial());
+  void addCaseInfo(CaseInfoModel caseInfoModel) async {
     emit(Loading());
     try {
-      List<CaseInfoModel> response =
-      await _caseRepository.getCaseHistoryByPatientID(patientId);
-      if(response.isNotEmpty){
-        emit(ReceivedCaseHistory(response));
+      bool response = await _caseRepository.createUpdateCaseInfo(caseInfoModel);
+      if(response){
+        emit(AddedSuccessfully());
       }else{
-        emit(NoCaseHistory());
+        emit(Error("Failed to add case!!!"));
       }
 
     } on NetworkExceptions catch (e) {

@@ -3,27 +3,21 @@ import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/network/utils/network_exceptions.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/util/app_constants.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 
-part 'patient_appointment_history_state.dart';
+part 'appointment_detail_state.dart';
 
-class PatientAppointmentHistoryCubit
-    extends Cubit<PatientAppointmentHistoryState> {
+class AppointmentDetailCubit extends Cubit<AppointmentDetailState> {
   final AppointmentRepository _appointmentRepository;
-  PatientAppointmentHistoryCubit(this._appointmentRepository)
-      : super(AppointmentHistoryInitial());
+  AppointmentDetailCubit(this._appointmentRepository) : super(AppointmentDetailInitial());
+  void getAppointmentDetail(int appointmentId) async {
 
-  void fetchAppointHistory() async {
-    emit(Loading());
+    emit(LoadingAppointmentDetail());
     try {
-      List<AppointmentDetailModel> response =
-          await _appointmentRepository.fetchAllAppointmentDetailsByUserId();
-      if (response.isNotEmpty) {
-        emit(ReceivedAppointmentHistory(response));
-      } else {
-        emit(NoAppointmentHistory());
-      }
+      AppointmentDetailModel response =
+      await _appointmentRepository.fetchAppointmentDetailByID(appointmentId);
+
+      emit(ReceivedAppointmentDetail(response));
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");
@@ -32,14 +26,31 @@ class PatientAppointmentHistoryCubit
       debugPrint("Exception >>> $e");
     }
   }
+  void startSession(int appointmentId) async {
+    emit(StartingSession());
+    try {
+      bool response = await _appointmentRepository.updateAppointmentStatus(appointmentId,AppConstants.ongoing);
+      if(response){
+        emit(SessionStarted());
+      }else{
+        emit(Error("Failed to start session!!!"));
+      }
+
+    } on NetworkExceptions catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    } on Exception catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    }
+  }
+
   void cancelAppointment(int appointmentId) async {
-    emit(Loading());
+    emit(CancellingAppointment());
     try {
       bool response = await _appointmentRepository.updateAppointmentStatus(appointmentId,AppConstants.cancelled);
       if(response){
-
         emit(AppointmentCancelled());
-        fetchAppointHistory();
       }else{
         emit(Error("Failed!!"));
       }
@@ -52,5 +63,4 @@ class PatientAppointmentHistoryCubit
       debugPrint("Exception >>> $e");
     }
   }
-
 }
