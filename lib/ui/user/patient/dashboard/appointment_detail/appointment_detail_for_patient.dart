@@ -78,7 +78,7 @@ class _AppointmentDetailForPatientPageState extends State<AppointmentDetailForPa
                                   wFont: FontWeight.w500),
                             ),
                             Text(
-                              _appointmentDetailModel.AppointmentID.toString(),
+                              _appointmentDetailModel.AppointmentNumber.toString(),
                               style: AppTextStyle.subtitle1(
                                   txtColor: AppColors.greyDark,
                                   wFont: FontWeight.w500),

@@ -39,6 +39,7 @@ class _TemplateFactSliderState extends State<TemplateFactSlider> {
     factSliders = factList
         .map((item) => Container(
               padding: const EdgeInsets.only(left: 10, top: 5),
+              margin: const EdgeInsets.only(left: 10, top: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[

@@ -8,6 +8,7 @@ part 'appointment_detail_model.g.dart';
 @JsonSerializable()
 class AppointmentDetailModel {
   int AppointmentID;
+  String AppointmentNumber;
   int DoctorID;
   int PatientID;
   int AddressID;
@@ -32,6 +33,7 @@ class AppointmentDetailModel {
 
   AppointmentDetailModel({
     this.AppointmentID = 0,
+    this.AppointmentNumber = "",
     this.DoctorID = 0,
     this.PatientID = 0,
     this.AddressID = 0,

@@ -10,6 +10,7 @@ AppointmentDetailModel _$AppointmentDetailModelFromJson(
         Map<String, dynamic> json) =>
     AppointmentDetailModel(
       AppointmentID: json['AppointmentID'] as int? ?? 0,
+      AppointmentNumber: json['AppointmentNumber'] as String? ?? "",
       DoctorID: json['DoctorID'] as int? ?? 0,
       PatientID: json['PatientID'] as int? ?? 0,
       AddressID: json['AddressID'] as int? ?? 0,
@@ -39,6 +40,7 @@ Map<String, dynamic> _$AppointmentDetailModelToJson(
         AppointmentDetailModel instance) =>
     <String, dynamic>{
       'AppointmentID': instance.AppointmentID,
+      'AppointmentNumber': instance.AppointmentNumber,
       'DoctorID': instance.DoctorID,
       'PatientID': instance.PatientID,
       'AddressID': instance.AddressID,

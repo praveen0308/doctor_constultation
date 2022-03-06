@@ -11,7 +11,7 @@ class VideoModel {
   String? VideoPath;
   String? Thumbnail;
   String? VideoUrl;
-  bool? IsPaid;
+  bool IsPaid;
   int? SubscriptionID;
   int? AddedBy;
   int? AddedOn;
@@ -27,7 +27,7 @@ class VideoModel {
       this.VideoPath,
       this.Thumbnail,
       this.VideoUrl,
-      this.IsPaid,
+      this.IsPaid=false,
       this.SubscriptionID,
       this.AddedBy,
       this.AddedOn,

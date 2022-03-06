@@ -6,10 +6,17 @@ import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+class AddCaseInfoArgs{
+  final int patientId;
+  final int appointmentId;
+
+  AddCaseInfoArgs(this.patientId, this.appointmentId);
+}
+
 class AddCaseInfo extends StatefulWidget {
 
-  final int patientId;
-  const AddCaseInfo({Key? key, required this.patientId}) : super(key: key);
+  final AddCaseInfoArgs caseInfoArgs;
+  const AddCaseInfo({Key? key, required this.caseInfoArgs}) : super(key: key);
 
   @override
   State<AddCaseInfo> createState() => _AddCaseInfoState();
@@ -24,7 +31,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<AddCaseInfoCubit>(context);
-    _caseInfoModel.PatientInfoID = widget.patientId;
+    _caseInfoModel.PatientInfoID = widget.caseInfoArgs.patientId;
+    _caseInfoModel.AppointmentID = widget.caseInfoArgs.appointmentId;
   }
 
   @override

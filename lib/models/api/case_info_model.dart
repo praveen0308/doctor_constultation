@@ -9,6 +9,7 @@ class CaseInfoModel {
   String CaseNo;
   int PatientInfoID;
   int DoctorID;
+  int AppointmentID;
   String RecordDate;
   String LastModifiedDate;
   String ChiefComplaints;
@@ -29,6 +30,7 @@ class CaseInfoModel {
       this.CaseNo = "",
       this.PatientInfoID = 0,
       this.DoctorID=0,
+      this.AppointmentID=0,
       this.RecordDate="",
       this.LastModifiedDate="",
       this.ChiefComplaints="",

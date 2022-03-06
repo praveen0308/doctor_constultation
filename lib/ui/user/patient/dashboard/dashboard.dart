@@ -5,7 +5,7 @@ import 'package:doctor_consultation/ui/widgets/bottom_nav_bar/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
 
-import 'home_page.dart';
+import 'home_page/home_page.dart';
 
 class DashboardPatient extends StatefulWidget {
   const DashboardPatient({Key? key}) : super(key: key);

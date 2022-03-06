@@ -1,6 +1,8 @@
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
+import 'package:doctor_consultation/ui/widgets/no_records_view.dart';
 import 'package:doctor_consultation/ui/widgets/template_schedule_detail.dart';
 import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
@@ -57,7 +59,8 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
           }
 
           if (state is Error) {
-            showToast(state.msg, ToastType.error);
+            // showToast(state.msg, ToastType.error);
+            return NoRecordsView(title:state.msg, onBtnClick: (){});
           }
           if (state is ReceivedAppointments) {
             return Column(
@@ -75,10 +78,8 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                   ),
                 ),
                 if (state.appointments.isEmpty)
-                  const Expanded(
-                    child: Center(
-                      child: Text("No Appointments today!!!"),
-                    ),
+                  Expanded(
+                    child: NoRecordsView(title:"No appointments today !!!", onBtnClick: (){})
                   )
                 else
                   Expanded(
@@ -92,10 +93,10 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                               _appointmentHistoryCubit.cancelAppointment(appointmentId);
                             },
                             onAddCaseInfoClick: (appointment) {
-                              Navigator.pushNamed(context, "/addCaseInfo",arguments: appointment.PatientID);
+                              Navigator.pushNamed(context, "/addCaseInfo",arguments: AddCaseInfoArgs(appointment.PatientID, appointment.AppointmentID));
                             },
                             onViewDetailsClick: (int appointmentId) {
-                              Navigator.pushNamed(context, "/appointmentDetailPage",arguments: state.appointments[index]);
+                              Navigator.pushNamed(context, "/appointmentDetailPage",arguments: state.appointments[index].AppointmentID);
                             }, onStartSessionClick: (int appointmentId) {
                             _appointmentHistoryCubit.startSession(appointmentId);
                           },

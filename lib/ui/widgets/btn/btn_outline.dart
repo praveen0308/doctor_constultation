@@ -14,6 +14,7 @@ class BtnOutline extends StatelessWidget {
       children: [
         MaterialButton(
           height: 50,
+          minWidth:MediaQuery.of(context).size.width,
           color: AppColors.greyLightest,
           onPressed: () => onBtnPressed!(),
           child: Text(title.toUpperCase(), style: const TextStyle(

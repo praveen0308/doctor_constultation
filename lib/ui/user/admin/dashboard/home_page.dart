@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/action_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/app_string.dart';
 import 'package:doctor_consultation/res/image_path.dart';
@@ -10,7 +11,9 @@ import 'package:doctor_consultation/ui/widgets/btn/search_patient_filter.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:doctor_consultation/ui/widgets/patient/alpha_patient.dart';
 import 'package:doctor_consultation/ui/widgets/patient/next_patient.dart';
+import 'package:doctor_consultation/ui/widgets/quick_action_item.dart';
 import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
+import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:doctor_consultation/util/date_time_helper.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -29,6 +32,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
   double _panelHeightOpen = 0;
   double _panelHeightClosed = 95.0;
 
+  final List<ActionModel> quickActions = AppConstants.getQuickActions();
   @override
   void initState() {
     super.initState();
@@ -46,6 +50,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
     return ScrollConfiguration(
       behavior: NoGlowBehaviour(),
       child: ListView(
+        shrinkWrap: true,
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.symmetric(horizontal: 15),
         children: <Widget>[
@@ -81,52 +86,13 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
             txtStyle1: AppTextStyle.subtitle1(txtColor: AppColors.greyDark),
             txtStyle2: AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
           ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            children: [
-              Column(
-                children: [
-                  BtnCircle(
-                    tabPressed: () {},
-                    iconImage: AppImages.icSchedule,
-                    iconColor: AppColors.primary,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      "Request",
-                      style: AppTextStyle.captionRF3(
-                          txtColor: AppColors.greyDark, wFont: FontWeight.w500),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Column(
-                children: [
-                  BtnCircle(
-                    tabPressed: () {},
-                    iconImage: AppImages.icSchedule,
-                    iconColor: AppColors.primary,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      "Request",
-                      style: AppTextStyle.captionRF3(
-                          txtColor: AppColors.greyDark, wFont: FontWeight.w500),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
+          SizedBox(
+            height: 120,
+            child: ListView.builder(shrinkWrap:true,physics: ClampingScrollPhysics(),scrollDirection: Axis.horizontal,itemCount: quickActions.length,itemBuilder: (_,index){
+              return QuickActionItem(actionModel: quickActions[index], onClick: (action){
+              navigateQuickActions(action);
+              });
+            }),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,7 +115,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
             ],
           ),
           TemplateAlphaPatient(),
-          Row(
+          /*Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               ViewMyRichText(
@@ -159,36 +125,37 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                 txtStyle2:
                     AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
               ),
-              // GestureDetector(
-              //   onTap: () {}, //=>Navigator.push(context, MaterialPageRoute(builder: (context) => YouTubeList()))
-              //   child: Text(
-              //     "View all",
-              //     style: AppTextStyle.subtitle2(txtColor: AppColors.primary),
-              //   ),
-              // ),
+
             ],
           ),
-          TemplateNextPatient(),
-          BtnFilled(
-            title: "Create Schedule",
-            onBtnPressed: () {
-              Navigator.pushNamed(context, "/createNewSchedule");
-            },
-          ),
+          TemplateNextPatient(),*/
+
           const SizedBox(
             height: 16,
           ),
-          BtnFilled(
+          /*BtnFilled(
             title: "View Schedule",
             onBtnPressed: () {
               Navigator.pushNamed(context, "/viewSchedule");
             },
-          ),
+          ),*/
           const SizedBox(
             height: 100,
           )
         ],
       ),
     );
+  }
+
+  void navigateQuickActions(AppNavActions action){
+    switch(action){
+
+      case AppNavActions.viewSchedule:
+        Navigator.pushNamed(context, "/viewSchedule");
+        break;
+      case AppNavActions.uploadVideo:
+        Navigator.pushNamed(context, "/uploadVideo");
+        break;
+    }
   }
 }

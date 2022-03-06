@@ -4,6 +4,7 @@ import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/repository/case_repository.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
+import 'package:doctor_consultation/repository/util_repository.dart';
 import 'package:doctor_consultation/ui/common/login/login.dart';
 import 'package:doctor_consultation/ui/common/register/register.dart';
 import 'package:doctor_consultation/ui/common/enter_user_detail/enter_user_detail.dart';
@@ -28,6 +29,8 @@ import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_s
 import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/search_patient/search_filter_patient.dart';
+import 'package:doctor_consultation/ui/user/admin/upload_videos/upload_video.dart';
+import 'package:doctor_consultation/ui/user/admin/upload_videos/upload_video_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_address/add_update_address.dart';
 import 'package:doctor_consultation/ui/user/patient/add_address/add_update_address_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment.dart';
@@ -95,6 +98,7 @@ const String addUpdateAddress = '/addUpdateAddress';
 const String userAddresses = '/userAddresses';
 const String addCaseInfo = '/addCaseInfo';
 const String appointmentDetailForPatient = '/appointmentDetailForPatient';
+const String uploadVideo = '/uploadVideo';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -116,6 +120,14 @@ Route<dynamic> controller(RouteSettings settings) {
     case viewSchedule:
       return MaterialPageRoute(
           builder: (context) => ViewSchedule(), settings: settings);
+    case uploadVideo:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) =>
+                UploadVideoCubit(UtilRepository()),
+            child: UploadVideo(),
+          ),
+          settings: settings);
     case addNewAppointment:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -136,7 +148,7 @@ Route<dynamic> controller(RouteSettings settings) {
           builder: (context) => BlocProvider(
                 create: (context) => AddCaseInfoCubit(CaseRepository()),
                 child: AddCaseInfo(
-                  patientId: args as int,
+                  caseInfoArgs: args as AddCaseInfoArgs,
                 ),
               ),
           settings: settings);
@@ -181,7 +193,7 @@ Route<dynamic> controller(RouteSettings settings) {
                 create: (context) =>
                     AppointmentDetailCubit(AppointmentRepository()),
                 child: AppointmentDetailPage(
-                  appointmentDetailModel: args as AppointmentDetailModel,
+                  appointmentId: args as int,
                 ),
               ),
           settings: settings);

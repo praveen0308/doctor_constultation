@@ -14,7 +14,7 @@ VideoModel _$VideoModelFromJson(Map<String, dynamic> json) => VideoModel(
       VideoPath: json['VideoPath'] as String?,
       Thumbnail: json['Thumbnail'] as String?,
       VideoUrl: json['VideoUrl'] as String?,
-      IsPaid: json['IsPaid'] as bool?,
+      IsPaid: json['IsPaid'] as bool? ?? false,
       SubscriptionID: json['SubscriptionID'] as int?,
       AddedBy: json['AddedBy'] as int?,
       AddedOn: json['AddedOn'] as int?,

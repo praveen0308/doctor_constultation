@@ -5,9 +5,6 @@ import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/app_string.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/user/admin/dashboard/dashboard.dart';
-import 'package:doctor_consultation/ui/user/patient/dashboard/dashboard.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +32,12 @@ class _SplashScreenState extends State<SplashScreen> {
       var roleID = await _storage.getUserRoleId();
       if (loginStatus) {
         if (roleID == UserRoles.doctor) {
-          Navigator.pushNamed(context, route.dashboardDoctor);
+          Navigator.pushReplacementNamed(context, route.dashboardDoctor);
         } else {
-          Navigator.pushNamed(context, route.dashboardPatient);
+          Navigator.pushReplacementNamed(context, route.dashboardPatient);
         }
       } else {
-        Navigator.pushNamed(context, route.dashboardPatient);
+        Navigator.pushReplacementNamed(context, route.dashboardPatient);
       }
     });
   }
