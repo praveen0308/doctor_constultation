@@ -9,14 +9,24 @@ class SubscriptionPlanModel {
   String? PlanDescription;
   int? PlanType;
   String? CurrencyType;
-  int? Amount;
+  double Amount;
   String? Country;
   bool? IsActive;
+  @JsonKey(ignore: true)
+  bool isSelected = false;
 
-  SubscriptionPlanModel({this.SubscriptionID, this.PlanName, this.PlanDescription, this.PlanType, this.CurrencyType, this.Amount, this.Country, this.IsActive});
+  SubscriptionPlanModel(
+      {this.SubscriptionID,
+      this.PlanName,
+      this.PlanDescription,
+      this.PlanType,
+      this.CurrencyType,
+      this.Amount = 0.0,
+      this.Country,
+      this.IsActive});
 
-  factory SubscriptionPlanModel.fromJson(Map<String, dynamic> json) => _$SubscriptionPlanModelFromJson(json);
+  factory SubscriptionPlanModel.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionPlanModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SubscriptionPlanModelToJson(this);
 }
-

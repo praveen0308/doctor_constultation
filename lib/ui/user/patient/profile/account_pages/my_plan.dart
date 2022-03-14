@@ -6,7 +6,6 @@ import 'package:doctor_consultation/ui/widgets/membership.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class MyPlan extends StatelessWidget {
   const MyPlan({Key? key}) : super(key: key);
 
@@ -26,6 +25,8 @@ class MyPlan extends StatelessWidget {
               txtTitle: AppStrings.planTitle1,
               txtSubTitle: AppStrings.planSubTitle1,
               txtCaption: AppStrings.planCaption1,
+              mIndex: 0,
+              onSelected: (int index) {},
             ),
             TemplateMembership(
               txtTitle: AppStrings.planTitle2,
@@ -33,6 +34,8 @@ class MyPlan extends StatelessWidget {
               txtCaption: AppStrings.planCaption2,
               checkColor: AppColors.greyLightest,
               borderColor: AppColors.greyLightest,
+              mIndex: 0,
+              onSelected: (int index) {},
             )
           ],
         ),

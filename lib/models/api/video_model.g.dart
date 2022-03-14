@@ -7,20 +7,20 @@ part of 'video_model.dart';
 // **************************************************************************
 
 VideoModel _$VideoModelFromJson(Map<String, dynamic> json) => VideoModel(
-      VideoID: json['VideoID'] as int?,
-      DoctorID: json['DoctorID'] as int?,
-      Title: json['Title'] as String?,
-      Description: json['Description'] as String?,
-      VideoPath: json['VideoPath'] as String?,
-      Thumbnail: json['Thumbnail'] as String?,
-      VideoUrl: json['VideoUrl'] as String?,
+      VideoID: json['VideoID'] as int? ?? 0,
+      DoctorID: json['DoctorID'] as int? ?? 0,
+      Title: json['Title'] as String? ?? "",
+      Description: json['Description'] as String? ?? "",
+      VideoPath: json['VideoPath'] as String? ?? "",
+      Thumbnail: json['Thumbnail'] as String? ?? "",
+      VideoUrl: json['VideoUrl'] as String? ?? "",
       IsPaid: json['IsPaid'] as bool? ?? false,
-      SubscriptionID: json['SubscriptionID'] as int?,
-      AddedBy: json['AddedBy'] as int?,
-      AddedOn: json['AddedOn'] as int?,
-      UpdatedBy: json['UpdatedBy'] as int?,
-      UpdatedOn: json['UpdatedOn'] as int?,
-      IsActive: json['IsActive'] as bool?,
+      SubscriptionID: json['SubscriptionID'] as int? ?? 0,
+      AddedBy: json['AddedBy'] as int? ?? 0,
+      AddedOn: json['AddedOn'] as String? ?? "",
+      UpdatedBy: json['UpdatedBy'] as int? ?? 0,
+      UpdatedOn: json['UpdatedOn'] as String? ?? "",
+      IsActive: json['IsActive'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$VideoModelToJson(VideoModel instance) =>

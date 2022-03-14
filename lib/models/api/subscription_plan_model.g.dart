@@ -14,7 +14,7 @@ SubscriptionPlanModel _$SubscriptionPlanModelFromJson(
       PlanDescription: json['PlanDescription'] as String?,
       PlanType: json['PlanType'] as int?,
       CurrencyType: json['CurrencyType'] as String?,
-      Amount: json['Amount'] as int?,
+      Amount: (json['Amount'] as num?)?.toDouble() ?? 0.0,
       Country: json['Country'] as String?,
       IsActive: json['IsActive'] as bool?,
     );

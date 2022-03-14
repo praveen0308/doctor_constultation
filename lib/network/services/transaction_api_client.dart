@@ -9,8 +9,8 @@ part 'transaction_api_client.g.dart';
 
 @RestApi(baseUrl: ApiConstants.baseUrl)
 abstract class TransactionApiClient {
-  factory TransactionApiClient(Dio dio,
-      {String baseUrl}) = _TransactionApiClient;
+  factory TransactionApiClient(Dio dio, {String baseUrl}) =
+      _TransactionApiClient;
 
   //#region Video Call Payment History Service
   @GET("Transaction/GetAllVCPaymentHistory")
@@ -20,7 +20,8 @@ abstract class TransactionApiClient {
   Future<VcPaymentHistoryModel> getVCPaymentHistoryByID(@Query("ID") int id);
 
   @POST("Transaction/AddUpdateVCPaymentHistory")
-  Future<bool> addUpdateVCPaymentHistory(@Body() VcPaymentHistoryModel vcPaymentHistoryModel);
+  Future<bool> addUpdateVCPaymentHistory(
+      @Body() VcPaymentHistoryModel vcPaymentHistoryModel);
 //#endregion
 
   //#region User Subscription Service
@@ -31,7 +32,12 @@ abstract class TransactionApiClient {
   Future<UserSubscriptionModel> getUserSubscriptionByID(@Query("ID") int id);
 
   @POST("Transaction/AddUpdateUserSubscriptionDetails")
-  Future<bool> addUpdateUserSubscription(@Body() UserSubscriptionModel userSubscriptionModel);
+  Future<bool> addUpdateUserSubscription(
+      @Body() UserSubscriptionModel userSubscriptionModel);
+
+  @POST("Transaction/AddUpdateUserSubscriptionDetails")
+  Future<bool> updateUserSubscription(
+      @Query("userID") int userID, @Query("planID") int planId);
 //#endregion
 
   //#region Payment Option Service
@@ -42,7 +48,8 @@ abstract class TransactionApiClient {
   Future<PaymentOptionModel> getPaymentOptByID(@Query("ID") int id);
 
   @POST("Transaction/AddUpdatePaymentOptDetails")
-  Future<bool> addUpdatePaymentOpt(@Body() PaymentOptionModel paymentOptionModel);
+  Future<bool> addUpdatePaymentOpt(
+      @Body() PaymentOptionModel paymentOptionModel);
 //#endregion
 
   //#region Doctor Payment Detail Service
@@ -53,7 +60,8 @@ abstract class TransactionApiClient {
   Future<DoctorPaymentModel> getDoctorPaymentByID(@Query("ID") int id);
 
   @POST("Transaction/AddUpdateDoctPaymentDetails")
-  Future<bool> addUpdateDoctorPayment(@Body() DoctorPaymentModel doctorPaymentModel);
+  Future<bool> addUpdateDoctorPayment(
+      @Body() DoctorPaymentModel doctorPaymentModel);
   //#endregion
 
 }

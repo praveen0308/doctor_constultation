@@ -123,6 +123,25 @@ class _TransactionApiClient implements TransactionApiClient {
   }
 
   @override
+  Future<bool> updateUserSubscription(userID, planId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'userID': userID,
+      r'planID': planId
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(
+                _dio.options, 'Transaction/AddUpdateUserSubscriptionDetails',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
   Future<List<PaymentOptionModel>> fetchPaymentOptList() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

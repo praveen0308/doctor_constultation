@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/doctor_payment_model.dart';
 import 'package:doctor_consultation/models/api/payment_option_model.dart';
 import 'package:doctor_consultation/models/api/user_subscription_model.dart';
@@ -9,7 +10,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class TransactionRepository {
   late Dio _dio;
   late TransactionApiClient _transactionApiClient;
-
+  final _storage = SecureStorage();
   TransactionRepository() {
     _dio = Dio();
     _dio.interceptors.add(PrettyDioLogger(
@@ -30,8 +31,10 @@ class TransactionRepository {
     return _transactionApiClient.getVCPaymentHistoryByID(id);
   }
 
-  Future<bool> createUpdateVCPaymentHistoryDetail(VcPaymentHistoryModel vcPaymentHistoryModel) {
-    return _transactionApiClient.addUpdateVCPaymentHistory(vcPaymentHistoryModel);
+  Future<bool> createUpdateVCPaymentHistoryDetail(
+      VcPaymentHistoryModel vcPaymentHistoryModel) {
+    return _transactionApiClient
+        .addUpdateVCPaymentHistory(vcPaymentHistoryModel);
   }
 //#endregion
 
@@ -44,11 +47,19 @@ class TransactionRepository {
     return _transactionApiClient.getUserSubscriptionByID(id);
   }
 
-  Future<bool> createUpdateUserSubscriptionDetail(UserSubscriptionModel userSubscriptionModel) {
-    return _transactionApiClient.addUpdateUserSubscription(userSubscriptionModel);
+  Future<bool> createUpdateUserSubscriptionDetail(
+      UserSubscriptionModel userSubscriptionModel) {
+    return _transactionApiClient
+        .addUpdateUserSubscription(userSubscriptionModel);
+  }
+
+  Future<bool> updateUserSubscriptionDetail(int subscriptionPlanId) async {
+    int userId = await _storage.getUserId();
+    return _transactionApiClient.updateUserSubscription(
+        userId, subscriptionPlanId);
   }
   //#endregion
-  
+
   //#region Payment Option Repo
   Future<List<PaymentOptionModel>> fetchAllPaymentOption() {
     return _transactionApiClient.fetchPaymentOptList();
@@ -58,7 +69,8 @@ class TransactionRepository {
     return _transactionApiClient.getPaymentOptByID(id);
   }
 
-  Future<bool> createUpdatePaymentOptionDetail(PaymentOptionModel paymentOptionModel) {
+  Future<bool> createUpdatePaymentOptionDetail(
+      PaymentOptionModel paymentOptionModel) {
     return _transactionApiClient.addUpdatePaymentOpt(paymentOptionModel);
   }
 //#endregion
@@ -72,7 +84,8 @@ class TransactionRepository {
     return _transactionApiClient.getDoctorPaymentByID(id);
   }
 
-  Future<bool> createUpdateDoctorPaymentDetail(DoctorPaymentModel doctorPaymentModel) {
+  Future<bool> createUpdateDoctorPaymentDetail(
+      DoctorPaymentModel doctorPaymentModel) {
     return _transactionApiClient.addUpdateDoctorPayment(doctorPaymentModel);
   }
 //#endregion

@@ -67,9 +67,8 @@ class ProfileHeader extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.symmetric(vertical: 10),
           decoration: const BoxDecoration(
-            color: AppColors.primaryLightest,
-            borderRadius: BorderRadius.all(Radius.circular(5))
-          ),
+              color: AppColors.primaryLightest,
+              borderRadius: BorderRadius.all(Radius.circular(5))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,12 +80,19 @@ class ProfileHeader extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("₹0.00",style: AppTextStyle.subtitle1(txtColor: AppColors.greyDarkest),),
+                  Text(
+                    "₹0.00",
+                    style:
+                        AppTextStyle.subtitle1(txtColor: AppColors.greyDarkest),
+                  ),
                   ViewInfoChip(
                     title: "Manage",
                     bgColor: AppColors.primary,
                     txtColor: AppColors.greyLightest,
-                    onClick: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LayoutManagePayment())),
+                    onClick: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LayoutManagePayment())),
                   )
                 ],
               )
