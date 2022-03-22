@@ -52,4 +52,7 @@ class AppConstants {
   static const closed = 4;
 }
 
-enum AppNavActions { viewSchedule, uploadVideo }
+enum AppNavActions {
+  viewSchedule,
+  uploadVideo,
+}
