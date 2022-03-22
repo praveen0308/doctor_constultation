@@ -96,12 +96,14 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
             plans.addAll(state.plans);
           }
           if (state is Error) {
-            return NoRecordsView(
-                title: state.msg,
-                btnText: "Retry",
-                onBtnClick: () {
-                  _cubit.getSubscriptionPlans();
-                });
+            return Expanded(
+              child: NoRecordsView(
+                  title: state.msg,
+                  btnText: "Retry",
+                  onBtnClick: () {
+                    _cubit.getSubscriptionPlans();
+                  }),
+            );
           }
           return Stack(
             children: [
@@ -109,11 +111,15 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
               Column(
                 children: [
                   if (plans.isEmpty)
-                    NoRecordsView(
-                        title: "No subscription available !!!",
-                        onBtnClick: () {}),
+                    Expanded(
+                      child: NoRecordsView(
+                          title: "No subscription available !!!",
+                          onBtnClick: () {}),
+                    ),
                   if (plans.isNotEmpty)
                     ListView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
                         itemCount: plans.length,
                         itemBuilder: (_, index) {
                           var plan = plans[index];
@@ -121,6 +127,7 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
                             txtTitle: plan.PlanName,
                             txtSubTitle: plan.PlanDescription,
                             selectionEnabled: true,
+                            txtCaption: plan.Amount.toString(),
                             isSelected: plan.isSelected,
                             mIndex: index,
                             onSelected: (id) {
@@ -135,17 +142,23 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
                             },
                           );
                         }),
-                  if (state is Loading) const LoadingView(isVisible: true)
+                  if (state is Loading)
+                    Expanded(child: const LoadingView(isVisible: true))
                 ],
               ),
 
               // btn action
-              CustomBtn(
-                  title: "Continue",
-                  onBtnPressed: () {
-                    _payUsingRazorpay();
-                  },
-                  isLoading: state is UpdatingPlan)
+              Positioned(
+                bottom: 0,
+                left: 16,
+                right: 16,
+                child: CustomBtn(
+                    title: "Continue",
+                    onBtnPressed: () {
+                      _payUsingRazorpay();
+                    },
+                    isLoading: state is UpdatingPlan),
+              )
             ],
           );
         },

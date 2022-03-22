@@ -131,6 +131,8 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                             title: "Set Appointment",
                             onBtnPressed: () {
                               _addNewAppointmentCubit.addNewAppointment();
+                              // Navigator.pushNamed(
+                              //     context, "/purchaseSubscriptionPlan");
                             },
                             isLoading: state is AddingNewAppointment,
                           ),

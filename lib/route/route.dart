@@ -4,6 +4,7 @@ import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/repository/case_repository.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
+import 'package:doctor_consultation/repository/transaction_repository.dart';
 import 'package:doctor_consultation/repository/util_repository.dart';
 import 'package:doctor_consultation/ui/common/login/login.dart';
 import 'package:doctor_consultation/ui/common/register/register.dart';
@@ -14,6 +15,7 @@ import 'package:doctor_consultation/ui/common/phone_auth/verify_otp_page.dart';
 import 'package:doctor_consultation/ui/common/splash_screen.dart';
 import 'package:doctor_consultation/ui/common/success_view.dart';
 import 'package:doctor_consultation/ui/common/welcome_user_type.dart';
+import 'package:doctor_consultation/ui/communication/chat_with_doctor/main_chat.dart';
 import 'package:doctor_consultation/ui/doctor/dr_profile.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info_cubit.dart';
@@ -38,21 +40,22 @@ import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_
 import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient.dart';
 import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/appointment/new_appointment.dart';
-import 'package:doctor_consultation/ui/user/patient/communication/chat_with_doctor/main_chat.dart';
-import 'package:doctor_consultation/ui/user/patient/communication/video_call/main_video_call.dart';
-import 'package:doctor_consultation/ui/user/patient/communication/voice_call/main_voice_call.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_detail/appointment_detail_for_patient.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_detail/appointment_detail_for_patient_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/dashboard.dart';
-import 'package:doctor_consultation/ui/user/patient/dashboard/message_page.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/patient_profile_page.dart';
 import 'package:doctor_consultation/ui/user/patient/manage_patients/manage_patients.dart';
 import 'package:doctor_consultation/ui/user/patient/manage_patients/manage_patients_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/notification/patient_notification.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses_cubit.dart';
+import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan.dart';
+import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../ui/communication/video_call/main_video_call.dart';
+import '../ui/communication/voice_call/main_voice_call.dart';
 
 // importing our pages into our route.dart
 
@@ -102,6 +105,7 @@ const String addCaseInfo = '/addCaseInfo';
 const String appointmentDetailForPatient = '/appointmentDetailForPatient';
 const String uploadVideo = '/uploadVideo';
 const String managePatients = '/managePatients';
+const String purchaseSubscriptionPlan = '/purchaseSubscriptionPlan';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -136,6 +140,15 @@ Route<dynamic> controller(RouteSettings settings) {
                 create: (context) =>
                     AddNewAppointmentCubit(AppointmentRepository()),
                 child: AddNewAppointment(),
+              ),
+          settings: settings);
+
+    case purchaseSubscriptionPlan:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) => PurchaseSubscriptionPlanCubit(
+                    AccountRepository(), TransactionRepository()),
+                child: PurchaseSubscriptionPlan(),
               ),
           settings: settings);
     case addPatientInfo:
@@ -221,9 +234,6 @@ Route<dynamic> controller(RouteSettings settings) {
     case register:
       return MaterialPageRoute(
           builder: (context) => const RegisterPage(), settings: settings);
-    case messagePage:
-      return MaterialPageRoute(
-          builder: (context) => const MessagePage(), settings: settings);
     case patientProfilePage:
       return MaterialPageRoute(
           builder: (context) => const PatientProfilePage(), settings: settings);

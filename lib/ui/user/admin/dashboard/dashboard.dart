@@ -7,8 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../communication/chat/message_page.dart';
 import 'home_page.dart';
-import 'message_page.dart';
+
 import 'package:doctor_consultation/route/route.dart' as route;
 
 class DashboardAdmin extends StatefulWidget {

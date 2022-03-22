@@ -94,7 +94,7 @@ class _TemplateMembershipState extends State<TemplateMembership> {
               ),
             ),
             Text(
-              widget.txtCaption ?? "",
+              "₹${widget.txtCaption}",
               style: AppTextStyle.headline6(txtColor: AppColors.primary),
             ),
           ],
