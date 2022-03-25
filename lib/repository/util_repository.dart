@@ -31,6 +31,10 @@ class UtilRepository {
     return _utilApiClient.getVideoByID(id);
   }
 
+  Future<bool> deleteVideoById(int id) {
+    return _utilApiClient.deleteVideoById(id);
+  }
+
   Future<bool> createUpdateVideoDetail(VideoModel videoModel) {
     return _utilApiClient.addUpdateVideoUrlDetail(videoModel);
   }

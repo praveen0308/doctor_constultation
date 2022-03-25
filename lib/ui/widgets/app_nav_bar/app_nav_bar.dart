@@ -33,17 +33,24 @@ class AppNavBar extends StatelessWidget {
           const Spacer(
             flex: 4,
           ),
-          SizedBox(
-            child: SvgPicture.asset(AppImages.icLocationPrimary),
-            height: 20,
-            width: 20,
-          ),
-          const SizedBox(
-            width: 4,
-          ),
-          Text(
-            txtAddress,
-            style: TextStyle(color: AppColors.greyDark, fontSize: 16),
+          Visibility(
+            visible: false,
+            child: Row(
+              children: [
+                SizedBox(
+                  child: SvgPicture.asset(AppImages.icLocationPrimary),
+                  height: 20,
+                  width: 20,
+                ),
+                const SizedBox(
+                  width: 4,
+                ),
+                Text(
+                  txtAddress,
+                  style: TextStyle(color: AppColors.greyDark, fontSize: 16),
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             width: 4,
@@ -58,7 +65,8 @@ class AppNavBar extends StatelessWidget {
           ),
           IconButton(
             icon: SvgPicture.asset(AppImages.icNotificationPrimary),
-            onPressed: () => Navigator.pushNamed(context, route.notificationPage),
+            onPressed: () =>
+                Navigator.pushNamed(context, route.notificationPage),
           ),
         ],
       ),

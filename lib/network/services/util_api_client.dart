@@ -14,6 +14,9 @@ abstract class UtilApiClient {
   @GET("Utils/GetAllVideoUrlDetails")
   Future<List<VideoModel>> getAllVideos();
 
+  @POST("/Utils/DeleteVideoDetailsByID")
+  Future<bool> deleteVideoById(@Query("ID") int videoId);
+
   @GET("Utils/GetVideoUrlDetailByID")
   Future<VideoModel> getVideoByID(@Query("ID") int id);
 
@@ -41,5 +44,5 @@ abstract class UtilApiClient {
 
   @POST("Utils/AddUpdateReviewInfoDetails")
   Future<bool> addUpdateReviewDetail(@Body() UserReviewModel userReviewModel);
- //#endregion
+  //#endregion
 }

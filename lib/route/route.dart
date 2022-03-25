@@ -1,5 +1,6 @@
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/models/api/schedule_model.dart';
+import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/repository/case_repository.dart';
@@ -25,6 +26,10 @@ import 'package:doctor_consultation/ui/user/admin/appointment/patient_past_appoi
 import 'package:doctor_consultation/ui/user/admin/appointment_detail/appointment_detail_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/communication/payment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/dashboard.dart';
+import 'package:doctor_consultation/ui/user/admin/manage_users/manage_users.dart';
+import 'package:doctor_consultation/ui/user/admin/manage_users/manage_users_cubit.dart';
+import 'package:doctor_consultation/ui/user/admin/manage_videos/manage_videos.dart';
+import 'package:doctor_consultation/ui/user/admin/manage_videos/manage_videos_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_new_slot.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot.dart';
@@ -51,6 +56,8 @@ import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_ad
 import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan.dart';
 import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan_cubit.dart';
+import 'package:doctor_consultation/ui/video_player/video_player.dart';
+import 'package:doctor_consultation/ui/video_player/youtube_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -105,7 +112,11 @@ const String addCaseInfo = '/addCaseInfo';
 const String appointmentDetailForPatient = '/appointmentDetailForPatient';
 const String uploadVideo = '/uploadVideo';
 const String managePatients = '/managePatients';
+const String manageVideos = '/manageVideos';
+const String manageUsers = '/manageUsers';
 const String purchaseSubscriptionPlan = '/purchaseSubscriptionPlan';
+const String videoPlayer = '/videoPlayer';
+const String youtubePlayer = '/youtubePlayer';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -131,7 +142,9 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
                 create: (context) => UploadVideoCubit(UtilRepository()),
-                child: UploadVideo(),
+                child: UploadVideo(
+                  videoModel: args as VideoModel,
+                ),
               ),
           settings: settings);
     case addNewAppointment:
@@ -287,7 +300,28 @@ Route<dynamic> controller(RouteSettings settings) {
                 child: UserAddresses(),
               ),
           settings: settings);
-
+    case manageVideos:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) => ManageVideosCubit(UtilRepository()),
+                child: ManageVideos(),
+              ),
+          settings: settings);
+    case manageUsers:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) => ManageUsersCubit(AccountRepository()),
+                child: ManageUsers(),
+              ),
+          settings: settings);
+    case videoPlayer:
+      return MaterialPageRoute(
+          builder: (context) => VideoPlayer(videoUrl: args as String),
+          settings: settings);
+    case youtubePlayer:
+      return MaterialPageRoute(
+          builder: (context) => MyYoutubePlayer(videoId: args as String),
+          settings: settings);
     default:
       throw ('this route name does not exist');
   }

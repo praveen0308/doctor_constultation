@@ -5,6 +5,7 @@ import 'package:doctor_consultation/models/api/doctor_detail_model.dart';
 import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
 import 'package:doctor_consultation/models/api/user_model.dart';
 import 'package:doctor_consultation/network/services/account_api_client.dart';
+import 'package:doctor_consultation/ui/user/patient/profile/util_pages/help_us_body.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class AccountRepository {
@@ -39,6 +40,10 @@ class AccountRepository {
   //#region User Detail
   Future<bool> addUpdateUserDetails(UserModel userModel) {
     return _accountApiClient.addUpdateUserDetails(userModel);
+  }
+
+  Future<List<UserModel>> getAllUserDetails() {
+    return _accountApiClient.getAllUserDetails();
   }
 
   Future<UserModel> checkLoginDetails(UserModel userModel) {

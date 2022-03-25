@@ -24,10 +24,14 @@ class DrProfileBody extends StatefulWidget {
 class _DrProfileBodyState extends State<DrProfileBody> {
   List<AchievementModel> achievements = [];
   final _storage = SecureStorage();
-
+  int roleId = 0;
   @override
   void initState() {
     populateAchievements();
+    _storage.getUserRoleId().then((value) {
+      roleId = value;
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -125,18 +129,21 @@ class _DrProfileBodyState extends State<DrProfileBody> {
           const SizedBox(
             height: 20,
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: BtnFilled(
-              title: "Book an Appointment",
-              onBtnPressed: () async {
-                var isLoggedIn = await _storage.getLoginStatus();
-                if (isLoggedIn) {
-                  Navigator.pushNamed(context, route.newAppointment);
-                } else {
-                  Navigator.pushNamed(context, route.login);
-                }
-              },
+          Visibility(
+            visible: roleId != UserRoles.doctor,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: BtnFilled(
+                title: "Book an Appointment",
+                onBtnPressed: () async {
+                  var isLoggedIn = await _storage.getLoginStatus();
+                  if (isLoggedIn) {
+                    Navigator.pushNamed(context, route.newAppointment);
+                  } else {
+                    Navigator.pushNamed(context, route.login);
+                  }
+                },
+              ),
             ),
           ),
           const SizedBox(

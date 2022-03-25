@@ -1,33 +1,44 @@
 import 'package:awesome_circular_chart/awesome_circular_chart.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/util/date_time_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ViewTodayTask extends StatelessWidget {
-  const ViewTodayTask({Key? key}) : super(key: key);
+  final int remainingAppointment;
+  final int totalAppointment;
+  final int completedAppointment;
+
+  const ViewTodayTask(
+      {Key? key,
+      required this.remainingAppointment,
+      required this.completedAppointment,
+      required this.totalAppointment})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final double cSize = 160.0;
+    const double cSize = 160.0;
     final GlobalKey<AnimatedCircularChartState> _chartKey =
-        new GlobalKey<AnimatedCircularChartState>();
-    final Size _chartSize = new Size(cSize, cSize);
+        GlobalKey<AnimatedCircularChartState>();
+    const Size _chartSize = Size(cSize, cSize);
     return FittedBox(
       fit: BoxFit.contain,
       child: Container(
-          padding: const EdgeInsets.only(left: 20,right: 40),
+          padding: const EdgeInsets.only(left: 20, right: 40),
           margin: const EdgeInsets.symmetric(vertical: 10),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               color: AppColors.greyLightest,
-              boxShadow: const [BoxShadow(
-                color: AppColors.grey,
-                blurRadius: 10.0,
-              ),],
+              boxShadow: const [
+                BoxShadow(
+                  color: AppColors.grey,
+                  blurRadius: 10.0,
+                ),
+              ],
               borderRadius: BorderRadius.circular(5)),
           child: Row(
-
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
@@ -40,15 +51,17 @@ class ViewTodayTask extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "03 Jan, 2022",
-                    style: AppTextStyle.headline5(txtColor: AppColors.primary,wFont: FontWeight.w700),
+                    DateTimeHelper.getCurrentDate(),
+                    style: AppTextStyle.headline5(
+                        txtColor: AppColors.primary, wFont: FontWeight.w700),
                   ),
                   const SizedBox(
                     height: 50,
                   ),
                   Text(
-                    "Need to complete appoinment",
-                    style: AppTextStyle.body1(txtColor: AppColors.greyBefore,wFont: FontWeight.w500),
+                    "Need to complete appointment",
+                    style: AppTextStyle.body1(
+                        txtColor: AppColors.greyBefore, wFont: FontWeight.w500),
                   ),
                 ],
               ),
@@ -61,15 +74,15 @@ class ViewTodayTask extends StatelessWidget {
                   key: _chartKey,
                   size: _chartSize,
                   initialChartData: <CircularStackEntry>[
-                    new CircularStackEntry(
+                    CircularStackEntry(
                       <CircularSegmentEntry>[
-                        new CircularSegmentEntry(
-                          13.33,
+                        CircularSegmentEntry(
+                          completedAppointment.toDouble(),
                           AppColors.primary,
                           rankKey: 'completed',
                         ),
-                        new CircularSegmentEntry(
-                          86.67,
+                        CircularSegmentEntry(
+                          remainingAppointment.toDouble(),
                           AppColors.primaryLight,
                           rankKey: 'remaining',
                         ),
@@ -79,9 +92,9 @@ class ViewTodayTask extends StatelessWidget {
                   ],
                   chartType: CircularChartType.Radial,
                   percentageValues: true,
-                  holeLabel: '2/15',
-                  labelStyle: AppTextStyle.headline6(txtColor: AppColors.primary, wFont: FontWeight.w500
-                  ),
+                  holeLabel: '$completedAppointment/$totalAppointment',
+                  labelStyle: AppTextStyle.headline6(
+                      txtColor: AppColors.primary, wFont: FontWeight.w500),
                 ),
               ),
             ],

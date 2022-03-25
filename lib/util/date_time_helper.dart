@@ -29,10 +29,10 @@ class DateTimeHelper {
     return date2.toString();
   }
 
-  static String getCurrentDate() {
+  static String getCurrentDate({String format = 'EEE,dd MMM'}) {
     var date1 = DateTime.now();
 
-    var outputFormat = DateFormat('EEE,dd MMM');
+    var outputFormat = DateFormat(format);
     var date2 = outputFormat.format(date1);
     return date2.toString();
   }

@@ -39,9 +39,12 @@ class AppConstants {
     List<ActionModel> data = [];
     data.add(ActionModel(
         "View Schedule", AppImages.icSchedule, AppNavActions.viewSchedule));
+    /* data.add(ActionModel(
+        "Upload Video", AppImages.icVoiceCall, AppNavActions.uploadVideo));*/
     data.add(ActionModel(
-        "Upload Video", AppImages.icVoiceCall, AppNavActions.uploadVideo));
-
+        "Manage Videos", AppImages.icVoiceCall, AppNavActions.manageVideos));
+    data.add(ActionModel(
+        "Manage Users", AppImages.icVoiceCall, AppNavActions.manageUsers));
     return data;
   }
 
@@ -52,7 +55,5 @@ class AppConstants {
   static const closed = 4;
 }
 
-enum AppNavActions {
-  viewSchedule,
-  uploadVideo,
-}
+enum IOperations { create, read, update, delete }
+enum AppNavActions { viewSchedule, uploadVideo, manageVideos, manageUsers }
