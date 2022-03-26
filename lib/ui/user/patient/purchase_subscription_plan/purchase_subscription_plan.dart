@@ -1,4 +1,7 @@
+import 'package:doctor_consultation/models/api/schedule_model.dart';
+import 'package:doctor_consultation/models/api/slot_model.dart';
 import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
+import 'package:doctor_consultation/ui/common/success_view.dart';
 import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
@@ -10,8 +13,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
+class PurchaseSubscriptionPlanArgs {
+  final ScheduleModel slotModel;
+  final int patientId;
+  final String description;
+
+  PurchaseSubscriptionPlanArgs(
+      {required this.slotModel,
+      required this.patientId,
+      required this.description});
+}
+
 class PurchaseSubscriptionPlan extends StatefulWidget {
-  const PurchaseSubscriptionPlan({Key? key}) : super(key: key);
+  final PurchaseSubscriptionPlanArgs args;
+
+  const PurchaseSubscriptionPlan({Key? key, required this.args})
+      : super(key: key);
 
   @override
   State<PurchaseSubscriptionPlan> createState() =>
@@ -21,7 +38,7 @@ class PurchaseSubscriptionPlan extends StatefulWidget {
 class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
   late PurchaseSubscriptionPlanCubit _cubit;
   final List<SubscriptionPlanModel> plans = [];
-  var amountPayable = 0.0;
+  var amountPayable = 0;
   var subscriptionID = 0;
   late Razorpay _razorpay;
 
@@ -45,12 +62,14 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
     }
 
     _cubit = BlocProvider.of<PurchaseSubscriptionPlanCubit>(context);
-    _cubit.getSubscriptionPlans();
+    _cubit.getSubscriptionPlanByLocation();
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Going to update user's subscription plan
-    if (subscriptionID != 0) _cubit.upgradeUserSubscriptionPlan(subscriptionID);
+    showToast("Payment successful!!!", ToastType.success);
+    if (subscriptionID != 0)
+      _cubit.upgradeUserSubscriptionPlan(subscriptionID, widget.args.patientId);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -69,9 +88,9 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     var options = {
       'key': AppConstants.RAZORPAY_KEY_ID,
-      'amount': 0 * 100,
+      'amount': amountPayable * 100,
       'name': 'Dr. Priyanka Yaduwanshi',
-      'order_id': 'order_${AppConstants.getRandomString(14)}',
+      // 'order_id': 'order_${AppConstants.getRandomString(14)}',
       'retry': {'enabled': true, 'max_count': 3},
       'description': 'Purchase Plan',
       'timeout': 60,
@@ -94,16 +113,43 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
           if (state is ReceivedSubscriptionPlans) {
             plans.clear();
             plans.addAll(state.plans);
+            if (plans.isNotEmpty) {
+              amountPayable = plans[0].Amount.toInt();
+              subscriptionID = plans[0].SubscriptionID!;
+            }
+          }
+          if (state is AddAppointmentFailed) {
+            showToast("Failed booking appointment!!!", ToastType.error);
+          }
+          if (state is AppointmentAddedSuccessfully) {
+            showToast("Appointment booked successfully!!!", ToastType.success);
+            WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/successPage", (route) => route.isFirst,
+                  arguments: SuccessPageArgs(
+                      scheduleModel: widget.args.slotModel,
+                      patientId: widget.args.patientId,
+                      appointmentId: state.appointmentID));
+            });
+          }
+          if (state is PlanUpdatedSuccessfully) {
+            showToast("Plan updated successfully!!!", ToastType.success);
+            _cubit.addNewAppointment(
+                widget.args.patientId,
+                widget.args.description,
+                widget.args.slotModel.ScheduleID!,
+                widget.args.slotModel.ScheduleDate!);
           }
           if (state is Error) {
-            return Expanded(
+            showToast(state.msg, ToastType.error);
+            /*return Expanded(
               child: NoRecordsView(
                   title: state.msg,
                   btnText: "Retry",
                   onBtnClick: () {
                     _cubit.getSubscriptionPlans();
                   }),
-            );
+            );*/
           }
           return Stack(
             children: [
@@ -136,14 +182,14 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
                                   element.isSelected = false;
                                 }
                                 plans[index].isSelected = true;
-                                amountPayable = plans[index].Amount;
+                                amountPayable = plans[index].Amount.toInt();
                                 subscriptionID = plans[index].SubscriptionID!;
                               });
                             },
                           );
                         }),
                   if (state is Loading)
-                    Expanded(child: const LoadingView(isVisible: true))
+                    const Expanded(child: LoadingView(isVisible: true))
                 ],
               ),
 

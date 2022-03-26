@@ -46,7 +46,7 @@ class _ManagePatientsState extends State<ManagePatients> {
               } else {
                 return ListView.builder(itemBuilder: (_, index) {
                   return PatientRow(
-                      name: state.patients[index].FullName,
+                      name: state.patients[index].FullName!,
                       onRowClick: () {
                         // todo visit patient detail history
                       });

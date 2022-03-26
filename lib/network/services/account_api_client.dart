@@ -58,5 +58,9 @@ abstract class AccountApiClient {
   @POST("Account/AddUpdateSubscriptionPlanDetail")
   Future<bool> addUpdateSubscriptionPlan(
       @Body() SubscriptionPlanModel subscriptionPlanModel);
+
+  @GET("Account/FetchSubscriptionByLocation")
+  Future<SubscriptionPlanModel> fetchSubscriptionByLocation(
+      @Query("pincode") String pinCode);
   //#endregion
 }

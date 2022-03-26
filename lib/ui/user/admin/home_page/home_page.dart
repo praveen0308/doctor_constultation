@@ -21,6 +21,7 @@ import 'package:doctor_consultation/util/date_time_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:doctor_consultation/route/route.dart' as route;
 
 class DoctorHomePage extends StatefulWidget {
   const DoctorHomePage({Key? key}) : super(key: key);
@@ -68,7 +69,11 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               const SizedBox(
                 height: 5,
               ),
-              const ViewSearchPatientFilter(),
+              ViewSearchPatientFilter(
+                isDisabled: true,
+                onClick: () => Navigator.pushNamed(context, route.searchUser),
+                onTextUpdated: (String text) {},
+              ),
               const SizedBox(
                 height: 5,
               ),

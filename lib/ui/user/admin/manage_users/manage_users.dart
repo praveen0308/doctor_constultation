@@ -32,7 +32,9 @@ class _ManageUsersState extends State<ManageUsers> {
       ),
       body: Column(
         children: [
-          ViewSearchPatientFilter(),
+          ViewSearchPatientFilter(
+            onTextUpdated: (String text) {},
+          ),
           Expanded(
             child: BlocBuilder<ManageUsersCubit, ManageUsersState>(
               builder: (context, state) {
@@ -64,7 +66,7 @@ class _ManageUsersState extends State<ManageUsers> {
                         itemBuilder: (_, index) {
                           var user = state.users[index];
                           return PatientRow(
-                              name: user.UserName, onRowClick: () {});
+                              name: user.UserName!, onRowClick: () {});
                         });
                   }
                 }

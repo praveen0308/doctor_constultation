@@ -6,7 +6,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TemplateAlphaPatient extends StatelessWidget {
-  const TemplateAlphaPatient({Key? key}) : super(key: key);
+  final String name;
+  final String subtitle;
+  final String age;
+  final String gender;
+
+  const TemplateAlphaPatient(
+      {Key? key,
+      required this.name,
+      required this.subtitle,
+      required this.age,
+      required this.gender})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +26,7 @@ class TemplateAlphaPatient extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.symmetric(vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         decoration: BoxDecoration(
             color: AppColors.greyLightest,
             boxShadow: const [
@@ -40,18 +51,17 @@ class TemplateAlphaPatient extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Aakash Yadav",
+                    name,
                     style: AppTextStyle.subtitle1(txtColor: AppColors.primary),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
-                    "Health Checkup",
+                    subtitle,
                     style:
                         AppTextStyle.captionRF1(txtColor: AppColors.greyBefore),
                   ),
-
                 ],
               ),
             ),
@@ -59,14 +69,14 @@ class TemplateAlphaPatient extends StatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Video Call",
+                  age,
                   style: AppTextStyle.captionRF2(txtColor: AppColors.greyDark),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                const ViewInfoChip(
-                  title: "On going",
+                ViewInfoChip(
+                  title: gender,
                   bgColor: AppColors.successLightest,
                   txtColor: AppColors.successDark,
                 )

@@ -5,11 +5,12 @@ import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-part 'manage_users_state.dart';
+part 'search_user_state.dart';
 
-class ManageUsersCubit extends Cubit<ManageUsersState> {
+class SearchUserCubit extends Cubit<SearchUserState> {
   final AccountRepository _accountRepository;
-  ManageUsersCubit(this._accountRepository) : super(ManageUsersInitial());
+  SearchUserCubit(this._accountRepository) : super(SearchUserInitial());
+
   final List<UserModel> users = [];
   void getAllUsers() async {
     emit(Loading());
@@ -34,7 +35,7 @@ class ManageUsersCubit extends Cubit<ManageUsersState> {
       filteredUsers.addAll(users);
     } else {
       for (var user in users) {
-        if (user.UserName!.contains(q)) {
+        if (user.UserName!.toLowerCase().contains(q.toLowerCase())) {
           filteredUsers.add(user);
         }
       }

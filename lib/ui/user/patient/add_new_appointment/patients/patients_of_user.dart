@@ -68,6 +68,8 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
               _patients.clear();
               _patients.addAll(state.patients);
               if (_patients.isNotEmpty) {
+                _addNewAppointmentCubit.selectedPatientId = _patients[0].ID!;
+
                 return ListView.separated(
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),

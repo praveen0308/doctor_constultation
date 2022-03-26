@@ -9,10 +9,22 @@ class Loading extends PurchaseSubscriptionPlanState {}
 
 class UpdatingPlan extends PurchaseSubscriptionPlanState {}
 
-class OnUpdated extends PurchaseSubscriptionPlanState {
-  final bool result;
+class PlanUpdatedSuccessfully extends PurchaseSubscriptionPlanState {}
 
-  OnUpdated(this.result);
+class AddingNewAppointment extends PurchaseSubscriptionPlanState {}
+
+class AppointmentAddedSuccessfully extends PurchaseSubscriptionPlanState {
+  final int appointmentID;
+
+  AppointmentAddedSuccessfully(this.appointmentID);
+}
+
+class AddAppointmentFailed extends PurchaseSubscriptionPlanState {}
+
+class ReceivedSubscriptionPlan extends PurchaseSubscriptionPlanState {
+  final SubscriptionPlanModel plan;
+
+  ReceivedSubscriptionPlan(this.plan);
 }
 
 class ReceivedSubscriptionPlans extends PurchaseSubscriptionPlanState {

@@ -1,4 +1,3 @@
-
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/app_string.dart';
@@ -18,9 +17,9 @@ class AppointmentHistoryItem extends StatelessWidget {
 
   const AppointmentHistoryItem(
       {Key? key,
-        required this.appointmentDetailModel,
-        required this.onCancelClick,
-        required this.onViewDetailsClick})
+      required this.appointmentDetailModel,
+      required this.onCancelClick,
+      required this.onViewDetailsClick})
       : super(key: key);
 
   @override
@@ -28,7 +27,6 @@ class AppointmentHistoryItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         onViewDetailsClick(appointmentDetailModel.AppointmentID);
-
       },
       child: Container(
         padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
@@ -59,8 +57,12 @@ class AppointmentHistoryItem extends StatelessWidget {
             TemplateICText(
               imgURL: AppImages.icClinicPrimary,
               txtTitle: "Location",
-              txtSubTitle: appointmentDetailModel.UserAddress!.AddressLine1,
-              txtCaption: appointmentDetailModel.UserAddress!.City,
+              txtSubTitle: appointmentDetailModel.UserAddress != null
+                  ? appointmentDetailModel.UserAddress!.AddressLine1
+                  : "N.A.",
+              txtCaption: appointmentDetailModel.UserAddress != null
+                  ? appointmentDetailModel.UserAddress!.City
+                  : "N.A.",
             ),
             const SizedBox(
               height: 5,
@@ -76,7 +78,8 @@ class AppointmentHistoryItem extends StatelessWidget {
                     imgURL: AppImages.icSchedulePrimary,
                     imgSize: 18,
                     dtColor: AppColors.greyBefore,
-                    title: "${appointmentDetailModel.getAppointmentDate()}".toUpperCase()),
+                    title: "${appointmentDetailModel.getAppointmentDate()}"
+                        .toUpperCase()),
                 TemplateDateTime(
                     imgURL: AppImages.icTimingPrimary,
                     imgSize: 18,
@@ -99,33 +102,31 @@ class AppointmentHistoryItem extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (appointmentDetailModel.AppointmentStatusID ==
-                      AppConstants.pending)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (appointmentDetailModel.AppointmentStatusID ==
+                    AppConstants.pending)
                   Expanded(
                       child: BtnOutline(
-                        title: "Cancel",
-                        onBtnPressed: () {
-                          onCancelClick(appointmentDetailModel.AppointmentID);
-                        },
-                      )),
-                  const SizedBox(
-                    width: 16,
+                    title: "Cancel",
+                    onBtnPressed: () {
+                      onCancelClick(appointmentDetailModel.AppointmentID);
+                    },
+                  )),
+                const SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: BtnFilled(
+                    title: "View Appointment",
+                    onBtnPressed: () {
+                      onViewDetailsClick(appointmentDetailModel.AppointmentID);
+                    },
                   ),
-                  Expanded(
-                    child: BtnFilled(
-                      title: "View Appointment",
-                      onBtnPressed: () {
-                        onViewDetailsClick(appointmentDetailModel.AppointmentID);
-                      },
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
+            ),
             const SizedBox(
               height: 24,
             )

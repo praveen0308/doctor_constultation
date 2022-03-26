@@ -28,7 +28,7 @@ class AppNavBar extends StatelessWidget {
         onPressed: () => Navigator.pushNamed(context, route.drProfilePage),
       ),
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           const Spacer(
             flex: 4,
@@ -49,19 +49,16 @@ class AppNavBar extends StatelessWidget {
                   txtAddress,
                   style: TextStyle(color: AppColors.greyDark, fontSize: 16),
                 ),
+                const SizedBox(
+                  width: 4,
+                ),
+                SizedBox(
+                  child: SvgPicture.asset(AppImages.icArrowDown),
+                  height: 15,
+                  width: 10,
+                ),
               ],
             ),
-          ),
-          const SizedBox(
-            width: 4,
-          ),
-          SizedBox(
-            child: SvgPicture.asset(AppImages.icArrowDown),
-            height: 15,
-            width: 10,
-          ),
-          const Spacer(
-            flex: 6,
           ),
           IconButton(
             icon: SvgPicture.asset(AppImages.icNotificationPrimary),

@@ -37,16 +37,17 @@ class AppointmentRepository {
     return _appointmentApiClient.getAppointmentDetailByID(id);
   }
 
-  Future<bool> createUpdateAppointmentDetail(
+  Future<int> createUpdateAppointmentDetail(
       AppointmentDetailModel appointmentDetailModel) {
     return _appointmentApiClient
         .addUpdateAppointmentDetail(appointmentDetailModel);
   }
 
-  Future<bool> updateAppointmentStatus(int appointmentId, int statusId) async {
+  Future<bool> updateAppointmentStatus(int appointmentId, int statusId,
+      {String meetingId = ""}) async {
     var userId = await _storage.getUserId();
     return _appointmentApiClient.updateAppointmentStatus(
-        appointmentId, statusId, userId);
+        appointmentId, statusId, userId, meetingId);
   }
 //#endregion
 

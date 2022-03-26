@@ -33,11 +33,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: AppColors.greyLightest,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: AppColors.greyLightest,
-        systemNavigationBarIconBrightness: Brightness.dark,
-        systemNavigationBarDividerColor: AppColors.greyLight));
+      statusBarColor: AppColors.greyLightest,
+      statusBarIconBrightness: Brightness.dark,
+      // systemNavigationBarColor: AppColors.greyLightest,
+      // systemNavigationBarIconBrightness: Brightness.dark,
+      // systemNavigationBarDividerColor: AppColors.greyLight
+    ));
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => PhoneAuthCubit(AccountRepository())),

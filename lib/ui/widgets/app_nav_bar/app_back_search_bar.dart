@@ -33,20 +33,19 @@ class AppBackSearchNavBar extends StatelessWidget {
       title: Padding(
         padding: const EdgeInsets.only(right: 15.0),
         child: Container(
-          decoration: BoxDecoration(
-            color: AppColors.primaryLight,
-            borderRadius: BorderRadius.all(Radius.circular(50))
-          ),
+          decoration: const BoxDecoration(
+              color: AppColors.primaryLight,
+              borderRadius: BorderRadius.all(Radius.circular(50))),
           child: TextField(
             decoration: InputDecoration(
                 prefixIcon: IconButton(
-                  icon: SvgPicture.asset(AppImages.icSearchPrimary,height: 22),
+                  icon: SvgPicture.asset(AppImages.icSearchPrimary, height: 22),
                   onPressed: () {
                     /* Clear the search field */
                   },
                 ),
                 suffixIcon: IconButton(
-                  icon: SvgPicture.asset(AppImages.icFilterPrimary,height: 15),
+                  icon: const Icon(Icons.clear),
                   onPressed: () {
                     /* Clear the search field */
                   },

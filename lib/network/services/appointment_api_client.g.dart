@@ -75,13 +75,13 @@ class _AppointmentApiClient implements AppointmentApiClient {
   }
 
   @override
-  Future<bool> addUpdateAppointmentDetail(appointmentDetailModel) async {
+  Future<int> addUpdateAppointmentDetail(appointmentDetailModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(appointmentDetailModel.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, 'Appointment/AddUpdateAppointmentDetails',
                 queryParameters: queryParameters, data: _data)
@@ -91,12 +91,14 @@ class _AppointmentApiClient implements AppointmentApiClient {
   }
 
   @override
-  Future<bool> updateAppointmentStatus(appointmentID, statusID, userId) async {
+  Future<bool> updateAppointmentStatus(
+      appointmentID, statusID, userId, meetingId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'AppointmentID': appointmentID,
       r'StatusID': statusID,
-      r'UserID': userId
+      r'UserID': userId,
+      r'MeetingID': meetingId
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

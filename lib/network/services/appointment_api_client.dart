@@ -23,7 +23,7 @@ abstract class AppointmentApiClient {
   Future<AppointmentDetailModel> getAppointmentDetailByID(@Query("ID") int id);
 
   @POST("Appointment/AddUpdateAppointmentDetails")
-  Future<bool> addUpdateAppointmentDetail(
+  Future<int> addUpdateAppointmentDetail(
       @Body() AppointmentDetailModel appointmentDetailModel);
 
   @POST("Appointment/UpdateAppointmentStatus")
@@ -31,6 +31,7 @@ abstract class AppointmentApiClient {
     @Query("AppointmentID") int appointmentID,
     @Query("StatusID") int statusID,
     @Query("UserID") int userId,
+    @Query("MeetingID") String meetingId,
   );
 
 //#endregion

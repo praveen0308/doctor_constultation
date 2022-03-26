@@ -19,8 +19,9 @@ class HomePageCubit extends Cubit<HomePageState> {
       List<AppointmentDetailModel> response =
           await _appointmentRepository.fetchAllAppointmentDetailsByDate(
               DateTimeHelper.getCurrentDate(format: "yyyy-MM-dd"));
-
-      emit(ReceivedAppointments(response));
+      var ra = ReceivedAppointments(response);
+      ra.calculateAppointments();
+      emit(ra);
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");

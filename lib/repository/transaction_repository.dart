@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/doctor_payment_model.dart';
+import 'package:doctor_consultation/models/api/patient_subscription_model.dart';
 import 'package:doctor_consultation/models/api/payment_option_model.dart';
 import 'package:doctor_consultation/models/api/user_subscription_model.dart';
 import 'package:doctor_consultation/models/api/vc_payment_history_model.dart';
@@ -22,6 +23,13 @@ class TransactionRepository {
     ));
     _transactionApiClient = TransactionApiClient(_dio);
   }
+
+  Future<bool> addUpdateSubscriptionModel(
+      PatientSubscriptionModel patientSubscriptionModel) {
+    return _transactionApiClient
+        .addUpdateUserSubscriptionDetails(patientSubscriptionModel);
+  }
+
   //#region Video Call Payment History Repo
   Future<List<VcPaymentHistoryModel>> fetchAllVCPaymentHistory() {
     return _transactionApiClient.fetchVCPaymentHistoryList();

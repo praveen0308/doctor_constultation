@@ -79,5 +79,9 @@ class AccountRepository {
       SubscriptionPlanModel subscriptionPlanModel) {
     return _accountApiClient.addUpdateSubscriptionPlan(subscriptionPlanModel);
   }
+
+  Future<SubscriptionPlanModel> getSubscriptionPlanByLocation(String pinCode) {
+    return _accountApiClient.fetchSubscriptionByLocation(pinCode);
+  }
 //#endregion
 }

@@ -5,7 +5,8 @@ import 'package:doctor_consultation/models/relation_model.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 
 class AppConstants {
-  static const RAZORPAY_KEY_ID = "rzp_test_AbgCshi1ASlOF0";
+  static const RAZORPAY_KEY_ID = "rzp_test_WK75xX84FGDTsB";
+  // static const RAZORPAY_KEY_ID = "rzp_live_8aAdWb0YdmkzxG";
 
   static String getRandomString(int length) {
     var _chars =
@@ -41,10 +42,10 @@ class AppConstants {
         "View Schedule", AppImages.icSchedule, AppNavActions.viewSchedule));
     /* data.add(ActionModel(
         "Upload Video", AppImages.icVoiceCall, AppNavActions.uploadVideo));*/
+    data.add(ActionModel("Manage Videos", AppImages.icUnMuteVideoCall,
+        AppNavActions.manageVideos));
     data.add(ActionModel(
-        "Manage Videos", AppImages.icVoiceCall, AppNavActions.manageVideos));
-    data.add(ActionModel(
-        "Manage Users", AppImages.icVoiceCall, AppNavActions.manageUsers));
+        "Manage Users", AppImages.icUserProfile, AppNavActions.manageUsers));
     return data;
   }
 

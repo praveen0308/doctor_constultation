@@ -42,9 +42,12 @@ class _LoginPageState extends State<LoginPage> {
           if (state is LoginSuccessful) {
             WidgetsBinding.instance!.addPostFrameCallback((_) {
               if (state.userModel.UserRoleID == UserRoles.registeredPatient) {
-                Navigator.pushReplacementNamed(context, route.dashboardPatient);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, route.dashboardPatient, (route) => false);
               } else if (state.userModel.UserRoleID == UserRoles.doctor) {
-                Navigator.pushReplacementNamed(context, route.dashboardDoctor);
+                // Navigator.pushReplacementNamed(context, route.dashboardDoctor);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, route.dashboardDoctor, (route) => false);
               }
             });
           }

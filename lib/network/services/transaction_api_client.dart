@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:doctor_consultation/models/api/doctor_payment_model.dart';
+import 'package:doctor_consultation/models/api/patient_subscription_model.dart';
 import 'package:doctor_consultation/models/api/payment_option_model.dart';
+import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
 import 'package:doctor_consultation/models/api/user_subscription_model.dart';
 import 'package:doctor_consultation/models/api/vc_payment_history_model.dart';
 import 'package:doctor_consultation/network/utils/api_constats.dart';
@@ -11,6 +13,10 @@ part 'transaction_api_client.g.dart';
 abstract class TransactionApiClient {
   factory TransactionApiClient(Dio dio, {String baseUrl}) =
       _TransactionApiClient;
+
+  @POST("Transaction/AddUpdatePatientSubscriptionDetails")
+  Future<bool> addUpdateUserSubscriptionDetails(
+      @Body() PatientSubscriptionModel patientSubscriptionModel);
 
   //#region Video Call Payment History Service
   @GET("Transaction/GetAllVCPaymentHistory")

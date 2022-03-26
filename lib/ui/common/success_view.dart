@@ -2,6 +2,7 @@ import 'package:doctor_consultation/models/api/schedule_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,10 +10,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
-class SuccessPage extends StatelessWidget {
+class SuccessPageArgs {
   final ScheduleModel scheduleModel;
+  final int patientId;
+  final int appointmentId;
 
-  const SuccessPage({Key? key, required this.scheduleModel}) : super(key: key);
+  SuccessPageArgs(
+      {required this.scheduleModel,
+      required this.patientId,
+      required this.appointmentId});
+}
+
+class SuccessPage extends StatelessWidget {
+  final SuccessPageArgs args;
+
+  const SuccessPage({Key? key, required this.args}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +47,7 @@ class SuccessPage extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                '''You booked an appoinment with \n Dr. Priyanaka Yaduwanshi \n on ${DateFormat("dd MMMM, yyyy").format(DateTime.parse(scheduleModel.ScheduleDate!))} at ${scheduleModel.getFStartTime()}''',
+                '''You booked an appoinment with \n Dr. Priyanaka Yaduwanshi \n on ${DateFormat("dd MMMM, yyyy").format(DateTime.parse(args.scheduleModel.ScheduleDate!))} at ${args.scheduleModel.getFStartTime()}''',
                 textAlign: TextAlign.center,
                 style: AppTextStyle.overlieOF1(txtColor: AppColors.greyBefore),
               ),
@@ -58,8 +70,13 @@ class SuccessPage extends StatelessWidget {
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.42,
-                      child:
-                          BtnFilled(title: "Set reminder", onBtnPressed: () {}),
+                      child: BtnFilled(
+                          title: "Add Case Info",
+                          onBtnPressed: () {
+                            Navigator.pushNamed(context, "/addCaseInfo",
+                                arguments: AddCaseInfoArgs(
+                                    args.patientId, args.appointmentId));
+                          }),
                     ),
                   ],
                 ),

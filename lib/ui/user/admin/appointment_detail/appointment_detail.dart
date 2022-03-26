@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:doctor_consultation/jitsee/jitsi_meet_methods.dart';
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/repository/case_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
@@ -34,14 +37,22 @@ class AppointmentDetailPage extends StatefulWidget {
 class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
   late AppointmentDetailModel _appointmentDetailModel;
   late AppointmentDetailCubit _cubit;
-
+  JitsiMeetMethods meetMethods = JitsiMeetMethods();
   @override
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<AppointmentDetailCubit>(context);
     _cubit.getAppointmentDetail(widget.appointmentId);
-
   }
+
+/*
+  createNewMeeting() async {
+    var random = Random();
+    String roomName = (random.nextInt(10000000) + 10000000).toString();
+    meetMethods.createMeeting(
+        roomName: roomName, isAudioMuted: true, isVideoMuted: true);
+  }
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -55,17 +66,19 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: BlocBuilder<AppointmentDetailCubit, AppointmentDetailState>(
             builder: (context, state) {
-
-              if(state is AppointmentCancelled){
-                showToast("Appointment cancelled",ToastType.success);
-                _cubit.getAppointmentDetail(_appointmentDetailModel.AppointmentID);
+              if (state is AppointmentCancelled) {
+                showToast("Appointment cancelled", ToastType.success);
+                _cubit.getAppointmentDetail(
+                    _appointmentDetailModel.AppointmentID);
+              }
+              if (state is SessionStarted) {
+                _cubit.getAppointmentDetail(
+                    _appointmentDetailModel.AppointmentID);
+                showToast("Session started", ToastType.success);
+                // createNewMeeting();
 
               }
-              if(state is SessionStarted){
-                showToast("Session started",ToastType.success);
-                _cubit.getAppointmentDetail(_appointmentDetailModel.AppointmentID);
-              }
-              if(state is ReceivedAppointmentDetail){
+              if (state is ReceivedAppointmentDetail) {
                 _appointmentDetailModel = state.appointmentDetailModel;
                 return Stack(
                   children: [
@@ -81,7 +94,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                   wFont: FontWeight.w500),
                             ),
                             Text(
-                              _appointmentDetailModel.AppointmentNumber.toString(),
+                              _appointmentDetailModel.AppointmentNumber
+                                  .toString(),
                               style: AppTextStyle.subtitle1(
                                   txtColor: AppColors.greyDark,
                                   wFont: FontWeight.w500),
@@ -119,15 +133,16 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                   ),*/
                         Text(
                           _appointmentDetailModel.PatientName,
-                          style: AppTextStyle.subtitle1(txtColor: AppColors.greyDark),
+                          style: AppTextStyle.subtitle1(
+                              txtColor: AppColors.greyDark),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
                           AppStrings.speciaList.toUpperCase(),
-                          style:
-                          AppTextStyle.subtitle2(txtColor: AppColors.greyBefore),
+                          style: AppTextStyle.subtitle2(
+                              txtColor: AppColors.greyBefore),
                         ),
                         const SizedBox(
                           height: 10,
@@ -140,7 +155,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                               imgSize: 18,
                               dtColor: AppColors.greyBefore,
                               title:
-                              _appointmentDetailModel.getAppointmentDate(),
+                                  _appointmentDetailModel.getAppointmentDate(),
                             ),
                             TemplateDateTime(
                               imgURL: AppImages.icTimingPrimary,
@@ -155,10 +170,16 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                         ),
                         TemplateICText(
                           txtTitle: "Location",
-                          txtSubTitle: _appointmentDetailModel.UserAddress!
-                              .getPreparedAddress(),
+                          txtSubTitle:
+                              _appointmentDetailModel.UserAddress != null
+                                  ? _appointmentDetailModel.UserAddress!
+                                      .getPreparedAddress()
+                                  : "N.A.",
                           txtCaption:
-                          _appointmentDetailModel.UserAddress!.getCityPin(),
+                              _appointmentDetailModel.UserAddress != null
+                                  ? _appointmentDetailModel.UserAddress!
+                                      .getCityPin()
+                                  : "N.A.",
                           txtTColor: AppColors.greyBefore,
                         ),
                         const SizedBox(
@@ -192,7 +213,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                           create: (context) =>
                               PatientCaseHistoryCubit(CaseRepository()),
                           child: PatientCaseHistory(
-                            patientId:_appointmentDetailModel.PatientID,
+                            patientId: _appointmentDetailModel.PatientID,
                           ),
                         ),
                         const SizedBox(
@@ -210,10 +231,12 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                   fit: FlexFit.tight,
                                   child: BtnOutline(
                                     title: "Cancel",
-
                                     onBtnPressed: () {
-                                      _cubit.cancelAppointment(_appointmentDetailModel.AppointmentID);
-                                    }, isLoading: state is CancellingAppointment,
+                                      _cubit.cancelAppointment(
+                                          _appointmentDetailModel
+                                              .AppointmentID);
+                                    },
+                                    isLoading: state is CancellingAppointment,
                                   ),
                                 ),
                                 const SizedBox(
@@ -223,7 +246,9 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                   child: CustomBtn(
                                     title: "Start Session",
                                     onBtnPressed: () {
-                                      _cubit.startSession(_appointmentDetailModel.AppointmentID);
+                                      _cubit.startSession(
+                                          _appointmentDetailModel.AppointmentID,
+                                          meetMethods.generateMeetingId());
                                     },
                                     isLoading: state is StartingSession,
                                   ),
@@ -233,12 +258,37 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                           ),
                         if (_appointmentDetailModel.AppointmentStatusID ==
                             AppConstants.ongoing)
-                          CustomBtn(
-                            title: "Add Case Info",
-                            onBtnPressed: () {
-                              Navigator.pushNamed(context, "/addCaseInfo",arguments: AddCaseInfoArgs(_appointmentDetailModel.PatientID, _appointmentDetailModel.AppointmentID));
-                            },
-                            isLoading: false,
+                          Column(
+                            children: [
+                              CustomBtn(
+                                title: "Add Case Info",
+                                onBtnPressed: () {
+                                  Navigator.pushNamed(context, "/addCaseInfo",
+                                      arguments: AddCaseInfoArgs(
+                                          _appointmentDetailModel.PatientID,
+                                          _appointmentDetailModel
+                                              .AppointmentID));
+                                },
+                                isLoading: false,
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              CustomBtn(
+                                title: "Join Meeting",
+                                onBtnPressed: () {
+                                  meetMethods.createMeeting(
+                                      roomName:
+                                          _appointmentDetailModel.MeetingID!,
+                                      isAudioMuted: true,
+                                      isVideoMuted: true);
+                                },
+                                isLoading: false,
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                            ],
                           ),
                       ],
                     ),
@@ -247,7 +297,9 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                 );
               }
 
-              return const LoadingView(isVisible: true,);
+              return const LoadingView(
+                isVisible: true,
+              );
             },
           ),
         ),

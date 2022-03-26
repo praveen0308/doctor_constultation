@@ -9,13 +9,13 @@ part 'appointment_detail_state.dart';
 
 class AppointmentDetailCubit extends Cubit<AppointmentDetailState> {
   final AppointmentRepository _appointmentRepository;
-  AppointmentDetailCubit(this._appointmentRepository) : super(AppointmentDetailInitial());
+  AppointmentDetailCubit(this._appointmentRepository)
+      : super(AppointmentDetailInitial());
   void getAppointmentDetail(int appointmentId) async {
-
     emit(LoadingAppointmentDetail());
     try {
-      AppointmentDetailModel response =
-      await _appointmentRepository.fetchAppointmentDetailByID(appointmentId);
+      AppointmentDetailModel response = await _appointmentRepository
+          .fetchAppointmentDetailByID(appointmentId);
 
       emit(ReceivedAppointmentDetail(response));
     } on NetworkExceptions catch (e) {
@@ -26,16 +26,18 @@ class AppointmentDetailCubit extends Cubit<AppointmentDetailState> {
       debugPrint("Exception >>> $e");
     }
   }
-  void startSession(int appointmentId) async {
+
+  void startSession(int appointmentId, String meetingID) async {
     emit(StartingSession());
     try {
-      bool response = await _appointmentRepository.updateAppointmentStatus(appointmentId,AppConstants.ongoing);
-      if(response){
-        emit(SessionStarted());
-      }else{
+      bool response = await _appointmentRepository.updateAppointmentStatus(
+          appointmentId, AppConstants.ongoing,
+          meetingId: meetingID);
+      if (response) {
+        emit(SessionStarted(meetingID));
+      } else {
         emit(Error("Failed to start session!!!"));
       }
-
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");
@@ -48,13 +50,13 @@ class AppointmentDetailCubit extends Cubit<AppointmentDetailState> {
   void cancelAppointment(int appointmentId) async {
     emit(CancellingAppointment());
     try {
-      bool response = await _appointmentRepository.updateAppointmentStatus(appointmentId,AppConstants.cancelled);
-      if(response){
+      bool response = await _appointmentRepository.updateAppointmentStatus(
+          appointmentId, AppConstants.cancelled);
+      if (response) {
         emit(AppointmentCancelled());
-      }else{
+      } else {
         emit(Error("Failed!!"));
       }
-
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");

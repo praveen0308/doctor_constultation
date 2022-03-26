@@ -6,6 +6,10 @@ part 'user_model.g.dart';
 class UserModel {
   int? ID;
   String? UserName;
+  String Gender;
+  int Age;
+  int NoOfPatients;
+  int NoOfAppointments;
   String? MobileNo;
   String? EmailID;
   String? Password;
@@ -18,6 +22,10 @@ class UserModel {
       {this.ID,
       this.UserName,
       this.MobileNo,
+      this.Gender = "N.A.",
+      this.Age = 0,
+      this.NoOfPatients = 0,
+      this.NoOfAppointments = 0,
       this.EmailID,
       this.Password,
       this.UserRoleID,

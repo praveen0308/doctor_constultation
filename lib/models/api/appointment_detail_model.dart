@@ -8,6 +8,7 @@ part 'appointment_detail_model.g.dart';
 @JsonSerializable()
 class AppointmentDetailModel {
   int AppointmentID;
+  String? MeetingID;
   String AppointmentNumber;
   int DoctorID;
   int PatientID;
@@ -33,6 +34,7 @@ class AppointmentDetailModel {
 
   AppointmentDetailModel({
     this.AppointmentID = 0,
+    this.MeetingID,
     this.AppointmentNumber = "",
     this.DoctorID = 0,
     this.PatientID = 0,
@@ -68,15 +70,36 @@ class AppointmentDetailModel {
       DateFormat.jm().format(DateFormat("HH:mm").parse(EndTime));
 
   String getTiming() => "${getFStartTime()} - ${getFEndTime()}";
-  String getAppointmentDate() => DateFormat("dd MMM yy").format(DateFormat("yyyy-mm-dd'T'hh:mm:ss").parse(Date));
-  String getAppointmentStatus(){
+  String getAppointmentDate() => DateFormat("dd MMM yy")
+      .format(DateFormat("yyyy-MM-dd'T'hh:mm:ss").parse(Date));
+  String getAppointmentStatus() {
     var status = "Pending";
-    switch(AppointmentStatusID){
-      case AppConstants.pending:{status = "Pending";}break;
-      case AppConstants.approved:{status = "Approved";}break;
-      case AppConstants.cancelled:{status = "Cancelled";}break;
-      case AppConstants.ongoing:{status = "Ongoing";}break;
-      case AppConstants.closed:{status = "Closed";}break;
+    switch (AppointmentStatusID) {
+      case AppConstants.pending:
+        {
+          status = "Pending";
+        }
+        break;
+      case AppConstants.approved:
+        {
+          status = "Approved";
+        }
+        break;
+      case AppConstants.cancelled:
+        {
+          status = "Cancelled";
+        }
+        break;
+      case AppConstants.ongoing:
+        {
+          status = "Ongoing";
+        }
+        break;
+      case AppConstants.closed:
+        {
+          status = "Closed";
+        }
+        break;
     }
     return status;
   }

@@ -18,6 +18,24 @@ class _TransactionApiClient implements TransactionApiClient {
   String? baseUrl;
 
   @override
+  Future<bool> addUpdateUserSubscriptionDetails(
+      patientSubscriptionModel) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(patientSubscriptionModel.toJson());
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(
+                _dio.options, 'Transaction/AddUpdatePatientSubscriptionDetails',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
   Future<List<VcPaymentHistoryModel>> fetchVCPaymentHistoryList() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

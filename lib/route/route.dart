@@ -35,7 +35,8 @@ import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_new_slot
 import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule.dart';
-import 'package:doctor_consultation/ui/user/admin/search_patient/search_filter_patient.dart';
+import 'package:doctor_consultation/ui/user/admin/search_user/search_user.dart';
+import 'package:doctor_consultation/ui/user/admin/search_user/search_user_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/upload_videos/upload_video.dart';
 import 'package:doctor_consultation/ui/user/admin/upload_videos/upload_video_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_address/add_update_address.dart';
@@ -75,6 +76,7 @@ const String dashboardDoctor = '/dashboardDoctor';
 const String enterUserDetails = '/enterUserDetails';
 const String appointmentDetailPage = '/appointmentDetailPage';
 const String layoutSearchFilterPatient = '/layoutSearchFilterPatient';
+const String searchUser = '/searchUser';
 
 //Bottom Nav
 const String newAppointment = '/newAppointment';
@@ -150,8 +152,8 @@ Route<dynamic> controller(RouteSettings settings) {
     case addNewAppointment:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-                create: (context) =>
-                    AddNewAppointmentCubit(AppointmentRepository()),
+                create: (context) => AddNewAppointmentCubit(
+                    AppointmentRepository(), AccountRepository()),
                 child: AddNewAppointment(),
               ),
           settings: settings);
@@ -160,8 +162,12 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
                 create: (context) => PurchaseSubscriptionPlanCubit(
-                    AccountRepository(), TransactionRepository()),
-                child: PurchaseSubscriptionPlan(),
+                    AccountRepository(),
+                    TransactionRepository(),
+                    AppointmentRepository()),
+                child: PurchaseSubscriptionPlan(
+                  args: args as PurchaseSubscriptionPlanArgs,
+                ),
               ),
           settings: settings);
     case addPatientInfo:
@@ -233,9 +239,13 @@ Route<dynamic> controller(RouteSettings settings) {
                 ),
               ),
           settings: settings);
-    case layoutSearchFilterPatient:
+
+    case searchUser:
       return MaterialPageRoute(
-          builder: (context) => const LayoutSearchFilterPatient(),
+          builder: (context) => BlocProvider(
+                create: (context) => SearchUserCubit(AccountRepository()),
+                child: SearchUser(),
+              ),
           settings: settings);
 
     case newAppointment:
@@ -286,7 +296,7 @@ Route<dynamic> controller(RouteSettings settings) {
     case successPage:
       return MaterialPageRoute(
           builder: (context) => SuccessPage(
-                scheduleModel: args as ScheduleModel,
+                args: args as SuccessPageArgs,
               ),
           settings: settings);
     case layoutPaymentConfirmation:

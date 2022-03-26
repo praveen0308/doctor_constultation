@@ -22,7 +22,9 @@ class TemplateMessagePageHeader extends StatelessWidget {
           "With Patients",
           style: AppTextStyle.headline5(txtColor: AppColors.greyDark),
         ),
-        ViewSearchPatientFilter()
+        ViewSearchPatientFilter(
+          onTextUpdated: (String text) {},
+        )
       ],
     );
   }

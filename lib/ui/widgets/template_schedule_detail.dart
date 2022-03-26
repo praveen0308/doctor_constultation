@@ -17,7 +17,8 @@ class TemplateScheduleDetail extends StatelessWidget {
   final AppointmentDetailModel appointmentDetailModel;
   final Function(int appointmentId) onCancelClick;
   final Function(int appointmentId) onStartSessionClick;
-  final Function(AppointmentDetailModel appointmentDetailModel) onAddCaseInfoClick;
+  final Function(AppointmentDetailModel appointmentDetailModel)
+      onAddCaseInfoClick;
   final Function(int appointmentId) onViewDetailsClick;
 
   const TemplateScheduleDetail(
@@ -34,7 +35,6 @@ class TemplateScheduleDetail extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         onViewDetailsClick(appointmentDetailModel.AppointmentID);
-
       },
       child: Container(
         padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
@@ -65,8 +65,12 @@ class TemplateScheduleDetail extends StatelessWidget {
             TemplateICText(
               imgURL: AppImages.icClinicPrimary,
               txtTitle: "Location",
-              txtSubTitle: appointmentDetailModel.UserAddress!.AddressLine1,
-              txtCaption: appointmentDetailModel.UserAddress!.City,
+              txtSubTitle: appointmentDetailModel.UserAddress != null
+                  ? appointmentDetailModel.UserAddress!.AddressLine1
+                  : "N.A.",
+              txtCaption: appointmentDetailModel.UserAddress != null
+                  ? appointmentDetailModel.UserAddress!.City
+                  : "N.A.",
             ),
             const SizedBox(
               height: 5,
@@ -82,7 +86,8 @@ class TemplateScheduleDetail extends StatelessWidget {
                     imgURL: AppImages.icSchedulePrimary,
                     imgSize: 18,
                     dtColor: AppColors.greyBefore,
-                    title: "${appointmentDetailModel.getAppointmentDate()}".toUpperCase()),
+                    title: "${appointmentDetailModel.getAppointmentDate()}"
+                        .toUpperCase()),
                 TemplateDateTime(
                     imgURL: AppImages.icTimingPrimary,
                     imgSize: 18,
@@ -124,7 +129,8 @@ class TemplateScheduleDetail extends StatelessWidget {
                     child: BtnFilled(
                       title: "Start Session",
                       onBtnPressed: () {
-                        onStartSessionClick(appointmentDetailModel.AppointmentID);
+                        onStartSessionClick(
+                            appointmentDetailModel.AppointmentID);
                       },
                     ),
                   ),
@@ -144,7 +150,8 @@ class TemplateScheduleDetail extends StatelessWidget {
                 title: "Add Case Info",
                 onBtnPressed: () {
                   onAddCaseInfoClick(appointmentDetailModel);
-                }, isLoading: false,
+                },
+                isLoading: false,
               ),
             const SizedBox(
               height: 24,
