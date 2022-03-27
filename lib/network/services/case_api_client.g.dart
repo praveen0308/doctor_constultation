@@ -52,13 +52,13 @@ class _CaseApiClient implements CaseApiClient {
   }
 
   @override
-  Future<bool> addUpdateCaseInfoDetail(caseInfoModel) async {
+  Future<int> addUpdateCaseInfoDetail(caseInfoModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(caseInfoModel.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, 'Case/AddUpdateCaseInfoDetail',
                 queryParameters: queryParameters, data: _data)
@@ -129,6 +129,21 @@ class _CaseApiClient implements CaseApiClient {
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, 'Case/AddUpdateCaseDocDetail',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<String> uploadCaseDocument(formData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'Case/CaseDocumentUpload',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

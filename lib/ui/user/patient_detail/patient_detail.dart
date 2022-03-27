@@ -7,6 +7,9 @@ import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:doctor_consultation/ui/widgets/no_records_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timeline_tile/timeline_tile.dart';
+
+import '../admin/appointment_detail/case_history/patient_case_history.dart';
 
 class PatientDetailScreen extends StatefulWidget {
   final int patientId;
@@ -25,6 +28,7 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<PatientDetailCubit>(context);
+    _cubit.getPatientDetailById(widget.patientId);
   }
 
   @override
@@ -88,20 +92,56 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
                 ),
                 if (state is LoadingAppointmentHistory)
                   const LoadingView(isVisible: true),
-                if (state is ReceivedAppointmentHistory)
+                if (state is ReceivedCaseHistory)
                   (() {
-                    if (state.appointments.isEmpty) {
+                    if (state.caseHistory.isEmpty) {
                       return NoRecordsView(
                           title: "No history!!!", onBtnClick: () {});
                     } else {
+                      var lastIndex = state.caseHistory.length - 1;
                       return ListView.builder(
                           shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemCount: state.appointments.length,
-                          scrollDirection: Axis.vertical,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.caseHistory.length,
                           itemBuilder: (_, index) {
-                            var appointment = state.appointments[index];
-                            return Container();
+                            var caseInfo = state.caseHistory[index];
+                            if (index == lastIndex) {
+                              return TimelineTile(
+                                afterLineStyle: const LineStyle(
+                                    thickness: 2.5,
+                                    color: AppColors.primaryLight),
+                                endChild: TemplateTimelineChild(
+                                  txtDate: caseInfo.getCaseDate(),
+                                  txtTiming: caseInfo.getCaseTiming(),
+                                  txtTitle: caseInfo.ChiefComplaints,
+                                  txtCaption1: caseInfo.InvestigationNotes,
+                                ),
+                                isLast: true,
+                                indicatorStyle: const IndicatorStyle(
+                                    color: AppColors.primaryLight,
+                                    width: 18,
+                                    height: 18,
+                                    indicatorXY: 0.0),
+                              );
+                            } else {
+                              return TimelineTile(
+                                afterLineStyle: const LineStyle(
+                                    thickness: 2.5,
+                                    color: AppColors.primaryLight),
+                                endChild: TemplateTimelineChild(
+                                  txtDate: caseInfo.getCaseDate(),
+                                  txtTiming: caseInfo.getCaseTiming(),
+                                  txtTitle: caseInfo.ChiefComplaints,
+                                  txtCaption1: caseInfo.InvestigationNotes,
+                                ),
+                                isFirst: true,
+                                indicatorStyle: const IndicatorStyle(
+                                    color: AppColors.primaryLight,
+                                    width: 18,
+                                    height: 18,
+                                    indicatorXY: 0.0),
+                              );
+                            }
                           });
                     }
                   }())

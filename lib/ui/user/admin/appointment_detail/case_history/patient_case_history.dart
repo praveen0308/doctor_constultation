@@ -12,7 +12,8 @@ import 'package:timeline_tile/timeline_tile.dart';
 
 class PatientCaseHistory extends StatefulWidget {
   final int patientId;
-  const PatientCaseHistory({Key? key, required this.patientId}) : super(key: key);
+  const PatientCaseHistory({Key? key, required this.patientId})
+      : super(key: key);
 
   @override
   State<PatientCaseHistory> createState() => _PatientCaseHistoryState();
@@ -46,12 +47,16 @@ class _PatientCaseHistoryState extends State<PatientCaseHistory> {
         BlocBuilder<PatientCaseHistoryCubit, PatientCaseHistoryState>(
           builder: (context, state) {
             if (state is Error) {
-              return Center(child: Text(state.msg),);
+              return Center(
+                child: Text(state.msg),
+              );
             }
             if (state is NoCaseHistory) {
               return Container(
                 padding: const EdgeInsets.symmetric(vertical: 24),
-                decoration:  BoxDecoration(color: AppColors.primaryLight,borderRadius:  BorderRadius.circular(8)),
+                decoration: BoxDecoration(
+                    color: AppColors.primaryLight,
+                    borderRadius: BorderRadius.circular(8)),
                 child: Center(
                   child: Text(
                     "No Case history!!!!",
@@ -69,38 +74,52 @@ class _PatientCaseHistoryState extends State<PatientCaseHistory> {
                   itemBuilder: (_, index) {
                     var caseInfo = state.caseHistory[index];
                     if (index == lastIndex) {
-                      return TimelineTile(
-                        afterLineStyle: const LineStyle(
-                            thickness: 2.5, color: AppColors.primaryLight),
-                        endChild: TemplateTimelineChild(
-                          txtDate: caseInfo.getCaseDate(),
-                          txtTiming: caseInfo.getCaseTiming(),
-                          txtTitle: caseInfo.ChiefComplaints,
-                          txtCaption1: caseInfo.InvestigationNotes,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/appointmentDetailPage",
+                              arguments:
+                                  state.caseHistory[index].AppointmentID);
+                        },
+                        child: TimelineTile(
+                          afterLineStyle: const LineStyle(
+                              thickness: 2.5, color: AppColors.primaryLight),
+                          endChild: TemplateTimelineChild(
+                            txtDate: caseInfo.getCaseDate(),
+                            txtTiming: caseInfo.getCaseTiming(),
+                            txtTitle: caseInfo.ChiefComplaints,
+                            txtCaption1: caseInfo.InvestigationNotes,
+                          ),
+                          isLast: true,
+                          indicatorStyle: const IndicatorStyle(
+                              color: AppColors.primaryLight,
+                              width: 18,
+                              height: 18,
+                              indicatorXY: 0.0),
                         ),
-                        isLast: true,
-                        indicatorStyle: const IndicatorStyle(
-                            color: AppColors.primaryLight,
-                            width: 18,
-                            height: 18,
-                            indicatorXY: 0.0),
                       );
                     } else {
-                      return TimelineTile(
-                        afterLineStyle: const LineStyle(
-                            thickness: 2.5, color: AppColors.primaryLight),
-                        endChild: TemplateTimelineChild(
-                          txtDate: caseInfo.getCaseDate(),
-                          txtTiming: caseInfo.getCaseTiming(),
-                          txtTitle: caseInfo.ChiefComplaints,
-                          txtCaption1: caseInfo.InvestigationNotes,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/appointmentDetailPage",
+                              arguments:
+                                  state.caseHistory[index].AppointmentID);
+                        },
+                        child: TimelineTile(
+                          afterLineStyle: const LineStyle(
+                              thickness: 2.5, color: AppColors.primaryLight),
+                          endChild: TemplateTimelineChild(
+                            txtDate: caseInfo.getCaseDate(),
+                            txtTiming: caseInfo.getCaseTiming(),
+                            txtTitle: caseInfo.ChiefComplaints,
+                            txtCaption1: caseInfo.InvestigationNotes,
+                          ),
+                          isFirst: true,
+                          indicatorStyle: const IndicatorStyle(
+                              color: AppColors.primaryLight,
+                              width: 18,
+                              height: 18,
+                              indicatorXY: 0.0),
                         ),
-                        isFirst: true,
-                        indicatorStyle: const IndicatorStyle(
-                            color: AppColors.primaryLight,
-                            width: 18,
-                            height: 18,
-                            indicatorXY: 0.0),
                       );
                     }
                   });
@@ -175,44 +194,6 @@ class TemplateTimelineChild extends StatelessWidget {
                     style: AppTextStyle.captionRF1(
                         txtColor: AppColors.greyDark, wFont: FontWeight.w500),
                   ),
-                  /*Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            txtSubTitle1,
-                            style: AppTextStyle.captionRF2(
-                                txtColor: AppColors.greyBefore),
-                          ),
-                          Text(
-                            txtCaption1,
-                            style: AppTextStyle.captionRF1(
-                                txtColor: AppColors.greyDark,
-                                wFont: FontWeight.w500),
-                          )
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            txtSubTitle2,
-                            style: AppTextStyle.captionRF2(
-                                txtColor: AppColors.greyBefore),
-                          ),
-                          Text(
-                            txtCaption2,
-                            style: AppTextStyle.captionRF1(
-                                txtColor: AppColors.greyDark,
-                                wFont: FontWeight.w500),
-                          )
-                        ],
-                      ),
-                    ],
-                  )*/
                 ],
               ),
             ),

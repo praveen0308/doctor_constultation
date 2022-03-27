@@ -18,7 +18,7 @@ abstract class CaseApiClient {
   Future<CaseInfoModel> getCaseInfoDetailByID(@Query("ID") int id);
 
   @POST("Case/AddUpdateCaseInfoDetail")
-  Future<bool> addUpdateCaseInfoDetail(@Body() CaseInfoModel caseInfoModel);
+  Future<int> addUpdateCaseInfoDetail(@Body() CaseInfoModel caseInfoModel);
 
   @GET("Case/GetCaseDetailsByPatientID")
   Future<List<CaseInfoModel>> getCaseDetailsByPatientID(
@@ -34,5 +34,8 @@ abstract class CaseApiClient {
 
   @POST("Case/AddUpdateCaseDocDetail")
   Future<bool> addUpdateCaseDocDetail(@Body() CaseDocModel caseDocModel);
+
+  @POST("Case/CaseDocumentUpload")
+  Future<String> uploadCaseDocument(@Body() FormData formData);
 //#endregion
 }

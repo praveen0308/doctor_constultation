@@ -1,20 +1,20 @@
-
+import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/user/patient/dashboard/youtube/youtube_video_list.dart';
+import 'package:doctor_consultation/ui/user/patient/dashboard/home_page/video_carousel/all_videos.dart';
 import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:doctor_consultation/ui/widgets/youtube/template_video_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LayoutYouTubeList extends StatefulWidget {
-  const LayoutYouTubeList({Key? key}) : super(key: key);
+class VideoCarousel extends StatefulWidget {
+  final List<VideoModel> videos;
+  const VideoCarousel({Key? key, required this.videos}) : super(key: key);
 
   @override
-  _LayoutYouTubeListState createState() => _LayoutYouTubeListState();
+  _VideoCarouselState createState() => _VideoCarouselState();
 }
 
-class _LayoutYouTubeListState extends State<LayoutYouTubeList> {
+class _VideoCarouselState extends State<VideoCarousel> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +29,8 @@ class _LayoutYouTubeListState extends State<LayoutYouTubeList> {
               txtStyle2: AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
             ),
             GestureDetector(
-              onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => YouTubeList())),
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AllVideos())),
               child: Text(
                 "See more",
                 style: AppTextStyle.subtitle2(txtColor: AppColors.primary),
@@ -38,11 +39,10 @@ class _LayoutYouTubeListState extends State<LayoutYouTubeList> {
           ],
         ),
         Container(
-          // color: AppColors.error,
-          // width: MediaQuery.of(context).size.width,
-
-          margin: EdgeInsets.symmetric(vertical: 10),
-          child: TemplateVideoSlider(),
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          child: TemplateVideoSlider(
+            videos: widget.videos,
+          ),
         )
       ],
     );

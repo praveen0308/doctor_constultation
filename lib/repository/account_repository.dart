@@ -46,6 +46,10 @@ class AccountRepository {
     return _accountApiClient.getAllUserDetails();
   }
 
+  Future<UserModel> getUserDetailsByUserId(int userId) {
+    return _accountApiClient.getUserDetailsById(userId);
+  }
+
   Future<UserModel> checkLoginDetails(UserModel userModel) {
     return _accountApiClient.checkLoginDetails(userModel);
   }

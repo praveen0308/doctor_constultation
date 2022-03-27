@@ -26,6 +26,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<UserDetailCubit>(context);
+    _cubit.getUserDetailByUserID(widget.userID);
   }
 
   @override

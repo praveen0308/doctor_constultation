@@ -33,6 +33,8 @@ abstract class AccountApiClient {
 
   @POST("Account/CheckLoginDetails")
   Future<UserModel> checkLoginDetails(@Body() UserModel userModel);
+  @POST("Account/GetUserDetailsByUserID")
+  Future<UserModel> getUserDetailsById(@Query("UserID") int userID);
 
   @POST("Account/CheckLoginDetails")
   Future<UserModel> checkUserLogin(

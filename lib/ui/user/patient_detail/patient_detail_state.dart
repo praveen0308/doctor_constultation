@@ -15,10 +15,10 @@ class Error extends PatientDetailState {
   Error(this.msg);
 }
 
-class ReceivedAppointmentHistory extends PatientDetailState {
-  final List<AppointmentDetailModel> appointments;
+class ReceivedCaseHistory extends PatientDetailState {
+  final List<CaseInfoModel> caseHistory;
 
-  ReceivedAppointmentHistory(this.appointments);
+  ReceivedCaseHistory(this.caseHistory);
 }
 
 class ReceivedPatientDetails extends PatientDetailState {

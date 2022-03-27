@@ -5,9 +5,8 @@ import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-class YouTubeList extends StatelessWidget {
-  const YouTubeList({Key? key}) : super(key: key);
+class AllVideos extends StatelessWidget {
+  const AllVideos({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

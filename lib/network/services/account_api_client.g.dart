@@ -120,6 +120,22 @@ class _AccountApiClient implements AccountApiClient {
   }
 
   @override
+  Future<UserModel> getUserDetailsById(userID) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'UserID': userID};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserModel>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'Account/GetUserDetailsByUserID',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<UserModel> checkUserLogin(username, password) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{

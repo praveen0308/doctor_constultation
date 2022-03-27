@@ -18,6 +18,10 @@ abstract class PatientApiClient {
   Future<List<PatientDetailModel>> getPatientDetailByID(
       @Query("UserID") int userId);
 
+  @GET("Patient/GetPatientDetailByPatientID")
+  Future<PatientDetailModel> getPatientDetailByPatientID(
+      @Query("PatientID") int patientId);
+
   @POST("Patient/AddUpdatePatientDetails")
   Future<int> addUpdatePatientDetail(
       @Body() PatientDetailModel patientDetailModel);

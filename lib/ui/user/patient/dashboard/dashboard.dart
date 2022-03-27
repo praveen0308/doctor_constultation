@@ -1,11 +1,14 @@
 import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/user_roles.dart';
+import 'package:doctor_consultation/repository/util_repository.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_history/patient_appointment_history.dart';
 import 'package:doctor_consultation/ui/widgets/bottom_nav_bar/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'home_page/home_page.dart';
+import 'home_page/home_page_cubit.dart';
 
 class DashboardPatient extends StatefulWidget {
   const DashboardPatient({Key? key}) : super(key: key);
@@ -57,7 +60,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
                 });
               },
               children: [
-                HomePage(),
+                BlocProvider(
+                  create: (context) => HomePageCubit(UtilRepository()),
+                  child: HomePage(),
+                ),
                 PatientAppointmentHistory(),
               ],
             )),

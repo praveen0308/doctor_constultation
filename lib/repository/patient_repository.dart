@@ -25,9 +25,13 @@ class PatientRepository {
     return _patientApiClient.fetchPatientDetailList();
   }
 
-  Future<List<PatientDetailModel>> fetchPatientByID() async {
-    var userId = await _storage.getUserId();
+  Future<List<PatientDetailModel>> fetchPatientByID({int userId = 0}) async {
+    if (userId == 0) userId = await _storage.getUserId();
     return _patientApiClient.getPatientDetailByID(userId);
+  }
+
+  Future<PatientDetailModel> getPatientDetailsByPatientId(int patientID) async {
+    return _patientApiClient.getPatientDetailByPatientID(patientID);
   }
 
   Future<int> createUpdatePatientDetail(

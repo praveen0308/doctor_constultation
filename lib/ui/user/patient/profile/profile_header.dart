@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
@@ -8,8 +9,32 @@ import 'package:flutter/material.dart';
 
 import '../manage_payment.dart';
 
-class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({Key? key}) : super(key: key);
+class ProfileHeader extends StatefulWidget {
+  ProfileHeader({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileHeader> createState() => _ProfileHeaderState();
+}
+
+class _ProfileHeaderState extends State<ProfileHeader> {
+  final _storage = SecureStorage();
+  String userName = "";
+  String mobileNo = "";
+  @override
+  void initState() {
+    _storage.getUserName().then((value) {
+      setState(() {
+        userName = value ?? "N.A.";
+      });
+    });
+
+    _storage.getPhoneNumber().then((value) {
+      setState(() {
+        mobileNo = value ?? "N.A.";
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +66,15 @@ class ProfileHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Sunil Yadav",
+                  userName,
                   style: AppTextStyle.headline6(txtColor: AppColors.greyDark),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 ViewMyRichText(
-                  text1: "ID",
-                  text2: "DJM10001",
+                  text1: "Mobile No.",
+                  text2: mobileNo,
                 ),
               ],
             )
@@ -63,7 +88,7 @@ class ProfileHeader extends StatelessWidget {
         //   thickness: 2.0,
         //   color: AppColors.grey,
         // )
-        Container(
+        /*Container(
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.symmetric(vertical: 10),
           decoration: const BoxDecoration(
@@ -98,7 +123,7 @@ class ProfileHeader extends StatelessWidget {
               )
             ],
           ),
-        )
+        )*/
       ],
     );
   }

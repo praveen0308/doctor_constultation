@@ -10,7 +10,7 @@ import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'account_pages/my_plan.dart';
-import 'account_pages/personl_data.dart';
+import 'personal_data/personl_data.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({Key? key}) : super(key: key);
@@ -43,15 +43,15 @@ class ProfileBody extends StatelessWidget {
               title: "Manage Patients",
               tabPressed: () =>
                   Navigator.pushNamed(context, "/managePatients")),
-          TemplateProfileMenu(
+          /*TemplateProfileMenu(
               imgURL: AppImages.icMyPlan,
               title: "My Plan",
               tabPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MyPlan()))),
-          TemplateProfileMenu(
+                  context, MaterialPageRoute(builder: (context) => MyPlan()))),*/
+          /*TemplateProfileMenu(
               imgURL: AppImages.icAddresses,
               title: "My Addresses",
-              tabPressed: () => Navigator.pushNamed(context, "/userAddresses")),
+              tabPressed: () => Navigator.pushNamed(context, "/userAddresses")),*/
           // const SizedBox(
           //   height: 10,
           // ),
