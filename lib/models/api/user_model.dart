@@ -8,8 +8,8 @@ class UserModel {
   String? UserName;
   String Gender;
   int Age;
-  int NoOfPatients;
-  int NoOfAppointments;
+  int PatientCount;
+  int AppointmentCount;
   String? MobileNo;
   String? EmailID;
   String? Password;
@@ -24,8 +24,8 @@ class UserModel {
       this.MobileNo,
       this.Gender = "N.A.",
       this.Age = 0,
-      this.NoOfPatients = 0,
-      this.NoOfAppointments = 0,
+      this.PatientCount = 0,
+      this.AppointmentCount = 0,
       this.EmailID,
       this.Password,
       this.UserRoleID,

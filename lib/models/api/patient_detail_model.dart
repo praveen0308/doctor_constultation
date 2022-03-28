@@ -33,4 +33,20 @@ class PatientDetailModel {
       _$PatientDetailModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$PatientDetailModelToJson(this);
+
+  String getGender() {
+    String gender = "";
+    switch (GenderID) {
+      case 0:
+        gender = "Others";
+        break;
+      case 1:
+        gender = "Male";
+        break;
+      case 2:
+        gender = "Female";
+        break;
+    }
+    return gender;
+  }
 }

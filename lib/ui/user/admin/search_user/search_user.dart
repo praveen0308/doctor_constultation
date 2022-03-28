@@ -55,11 +55,17 @@ class _SearchUserState extends State<SearchUser> {
                     scrollDirection: Axis.vertical,
                     itemBuilder: (_, index) {
                       var user = state.users[index];
-                      return TemplateAlphaPatient(
-                        name: user.UserName!,
-                        age: "${user.Age} Years",
-                        gender: user.Gender,
-                        subtitle: user.MobileNo!,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/userDetails",
+                              arguments: user.ID);
+                        },
+                        child: TemplateAlphaPatient(
+                          name: user.UserName!,
+                          age: "${user.Age} Years",
+                          gender: user.Gender,
+                          subtitle: user.MobileNo!,
+                        ),
                       );
                     });
               }

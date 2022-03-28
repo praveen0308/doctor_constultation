@@ -22,6 +22,7 @@ class UserDetailCubit extends Cubit<UserDetailState> {
           await _accountRepository.getUserDetailsByUserId(userId);
       if (response != null) {
         emit(ReceivedUserDetails(response));
+        await Future.delayed(const Duration(seconds: 1));
         getPatients(response.ID!);
       } else {
         emit(Error("Failed to get user details!!!"));
@@ -36,7 +37,7 @@ class UserDetailCubit extends Cubit<UserDetailState> {
   }
 
   void getPatients(int userId) async {
-    emit(Loading());
+    emit(LoadingPatients());
     try {
       List<PatientDetailModel> response =
           await _patientRepository.fetchPatientByID(userId: userId);

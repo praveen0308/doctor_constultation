@@ -53,10 +53,15 @@ import 'package:doctor_consultation/ui/user/patient/dashboard/patient_profile_pa
 import 'package:doctor_consultation/ui/user/patient/manage_patients/manage_patients.dart';
 import 'package:doctor_consultation/ui/user/patient/manage_patients/manage_patients_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/notification/patient_notification.dart';
+
 import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan.dart';
 import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan_cubit.dart';
+import 'package:doctor_consultation/ui/user/patient_detail/patient_detail.dart';
+import 'package:doctor_consultation/ui/user/patient_detail/patient_detail_cubit.dart';
+import 'package:doctor_consultation/ui/user/user_detail/user_detail.dart';
+import 'package:doctor_consultation/ui/user/user_detail/user_detail_cubit.dart';
 import 'package:doctor_consultation/ui/video_player/video_player.dart';
 import 'package:doctor_consultation/ui/video_player/youtube_player.dart';
 import 'package:flutter/material.dart';
@@ -119,6 +124,8 @@ const String manageUsers = '/manageUsers';
 const String purchaseSubscriptionPlan = '/purchaseSubscriptionPlan';
 const String videoPlayer = '/videoPlayer';
 const String youtubePlayer = '/youtubePlayer';
+const String userDetails = '/userDetails';
+const String patientDetails = '/patientDetails';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -331,6 +338,22 @@ Route<dynamic> controller(RouteSettings settings) {
     case youtubePlayer:
       return MaterialPageRoute(
           builder: (context) => MyYoutubePlayer(videoId: args as String),
+          settings: settings);
+    case userDetails:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) =>
+                    UserDetailCubit(AccountRepository(), PatientRepository()),
+                child: UserDetailScreen(userID: args as int),
+              ),
+          settings: settings);
+    case patientDetails:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) =>
+                    PatientDetailCubit(PatientRepository(), CaseRepository()),
+                child: PatientDetailScreen(patientId: args as int),
+              ),
           settings: settings);
     default:
       throw ('this route name does not exist');
