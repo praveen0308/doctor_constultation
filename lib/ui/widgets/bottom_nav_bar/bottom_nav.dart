@@ -9,12 +9,13 @@ class BottomNav extends StatefulWidget {
   final int selectedTab;
   final Function(int) tabPressed;
   final Function() onActionBtnClicked;
-
+  final bool requiredActionBtn;
   const BottomNav(
       {Key? key,
       required this.selectedTab,
       required this.tabPressed,
-      required this.onActionBtnClicked})
+      required this.onActionBtnClicked,
+      this.requiredActionBtn = true})
       : super(key: key);
 
   @override
@@ -64,9 +65,10 @@ class _BottomNavState extends State<BottomNav> {
                         widget.tabPressed(1);
                       },
                     ),
-                    const SizedBox(
-                      width: 56,
-                    ),
+                    if (widget.requiredActionBtn)
+                      const SizedBox(
+                        width: 56,
+                      ),
                     BottomTabBtn(
                         imagePath: AppImages.icMessage,
                         label: "Message",
@@ -90,27 +92,30 @@ class _BottomNavState extends State<BottomNav> {
             ),
           ],
         ),
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          InkWell(
-            onTap: () {
-              widget.onActionBtnClicked();
-            },
-            borderRadius: BorderRadius.circular(28),
-            child: Container(
-                height: 56,
-                width: 56,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  border: Border.all(color: AppColors.greyLight, width: 4),
-                  color: AppColors.primary,
-                ),
-                child: SvgPicture.asset(
-                  AppImages.icAddAppointment,
-                  color: AppColors.greyLightest,
-                )),
-          )
-        ])
+        Visibility(
+          visible: widget.requiredActionBtn,
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            InkWell(
+              onTap: () {
+                widget.onActionBtnClicked();
+              },
+              borderRadius: BorderRadius.circular(28),
+              child: Container(
+                  height: 56,
+                  width: 56,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(28),
+                    border: Border.all(color: AppColors.greyLight, width: 4),
+                    color: AppColors.primary,
+                  ),
+                  child: SvgPicture.asset(
+                    AppImages.icAddAppointment,
+                    color: AppColors.greyLightest,
+                  )),
+            )
+          ]),
+        )
       ]),
     );
   }

@@ -7,6 +7,7 @@ import 'package:doctor_consultation/ui/widgets/btn/btn_tab.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:doctor_consultation/ui/widgets/template_schedule_detail.dart';
+import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,7 +42,7 @@ class _PatientAppointmentHistoryPageState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppNavBar(
-              txtAddress: "Jari Mari, Sakinaka",
+              txtAddress: "",
             ),
             Text(
               "Let's check",
@@ -57,10 +58,14 @@ class _PatientAppointmentHistoryPageState
             const SizedBox(
               height: 10,
             ),
-            const BtnTabView(
+            BtnTabView(
               txtTab1: "Upcoming",
               txtTab2: "Completed",
               txtTab3: "Canceled",
+              onSwitched: (index) {
+                showToast("$index", ToastType.info);
+                _appointmentHistoryCubit.filterAppointment(index);
+              },
             ),
             const SizedBox(
               height: 10,
@@ -86,10 +91,13 @@ class _PatientAppointmentHistoryPageState
                           return AppointmentHistoryItem(
                             appointmentDetailModel: state.appointments[index],
                             onViewDetailsClick: (int appointmentId) {
-                                Navigator.pushNamed(context, "/appointmentDetailForPatient",arguments: appointmentId);
+                              Navigator.pushNamed(
+                                  context, "/appointmentDetailForPatient",
+                                  arguments: appointmentId);
                             },
                             onCancelClick: (int appointmentId) {
-                              _appointmentHistoryCubit.cancelAppointment(appointmentId);
+                              _appointmentHistoryCubit
+                                  .cancelAppointment(appointmentId);
                             },
                           );
                         });
@@ -104,5 +112,3 @@ class _PatientAppointmentHistoryPageState
     );
   }
 }
-
-

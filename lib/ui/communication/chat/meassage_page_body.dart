@@ -17,8 +17,8 @@ class TemplateMessagePageBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ViewMyRichText(
-          text1: "Today's",
-          text2: "Consult",
+          text1: "Patient's",
+          text2: "Messages",
           txtStyle1: AppTextStyle.subtitle1(),
           txtStyle2: AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
         ),
@@ -30,9 +30,10 @@ class TemplateMessagePageBody extends StatelessWidget {
           cType: AppColors.primary,
           bgType: AppColors.primaryLightest,
           txtIcon: AppImages.icUnMuteVideoCall,
-          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
+          onTab: () =>
+              Navigator.pushNamed(context, route.layoutPaymentConfirmation),
         ),
-        TemplateChatWithPatient(
+        /*TemplateChatWithPatient(
           txtTitle: "Mr. Sunil Yadav",
           txtSubTitle: "Daily Checkup",
           txtAmt: "₹20",
@@ -40,44 +41,9 @@ class TemplateMessagePageBody extends StatelessWidget {
           cType: AppColors.successDark,
           bgType: AppColors.successLightest,
           txtIcon: AppImages.icMessage,
-          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
-        ),
-        TemplateChatWithPatient(
-          txtTitle: "Mr. Sunil Yadav",
-          txtSubTitle: "Daily Checkup",
-          txtAmt: "₹20",
-          txtType: "Chat",
-          cType: AppColors.successDark,
-          bgType: AppColors.successLightest,
-          txtIcon: AppImages.icMessage,
-          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
-        ),
-        ViewMyRichText(
-          text1: "All",
-          text2: "Consult's",
-          txtStyle1: AppTextStyle.subtitle1(),
-          txtStyle2: AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
-        ),
-        TemplateChatWithPatient(
-          txtTitle: "Mr. Sunil Yadav",
-          txtSubTitle: "Daily Checkup",
-          txtAmt: "₹200",
-          txtType: "Video",
-          cType: AppColors.primary,
-          bgType: AppColors.primaryLightest,
-          txtIcon: AppImages.icUnMuteVideoCall,
-          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
-        ),
-        TemplateChatWithPatient(
-          txtTitle: "Mr. Sunil Yadav",
-          txtSubTitle: "Daily Checkup",
-          txtAmt: "₹20",
-          txtType: "Chat",
-          cType: AppColors.successDark,
-          bgType: AppColors.successLightest,
-          txtIcon: AppImages.icMessage,
-          onTab: () => Navigator.pushNamed(context, route.layoutPaymentConfirmation),
-        ),
+          onTab: () =>
+              Navigator.pushNamed(context, route.layoutPaymentConfirmation),
+        ),*/
       ],
     );
   }

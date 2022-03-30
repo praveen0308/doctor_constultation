@@ -11,16 +11,13 @@ class AboutUs extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: ListView(
-          children: [
-            AppBackNavBar(
-              imgUrl: AppImages.icBackArrow,
-              txtTitle: "About Us",
-              navColor: AppColors.primary,
-              bgColor: AppColors.greyLightest,
-            ),
-
-          ],
+        appBar: AppBar(
+          title: Text("About Us"),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [],
+          ),
         ),
       ),
     );

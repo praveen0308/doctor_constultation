@@ -6,7 +6,14 @@ class BtnTabView extends StatelessWidget {
   final String txtTab1;
   final String txtTab2;
   final String txtTab3;
-  const BtnTabView({Key? key, this.txtTab1 = "Tab1", this.txtTab2 = "Tab2", this.txtTab3 = "Tab3"}) : super(key: key);
+  final Function(int index)? onSwitched;
+  const BtnTabView(
+      {Key? key,
+      this.txtTab1 = "Tab1",
+      this.txtTab2 = "Tab2",
+      this.txtTab3 = "Tab3",
+      this.onSwitched})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +25,7 @@ class BtnTabView extends StatelessWidget {
             height: 50,
             decoration: BoxDecoration(
               //Main Tab Outline Color
-              border:Border.all(color: AppColors.primary, width: 1),
+              border: Border.all(color: AppColors.primary, width: 1),
 
               //Main Tab Background Color
               color: AppColors.greyLightest,
@@ -26,8 +33,8 @@ class BtnTabView extends StatelessWidget {
               borderRadius: BorderRadius.circular(25.0),
             ),
             child: TabBar(
+              onTap: onSwitched,
               indicator: BoxDecoration(
-
                 color: AppColors.primary,
                 borderRadius: BorderRadius.circular(25.0),
               ),

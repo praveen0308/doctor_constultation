@@ -69,6 +69,7 @@ class _DashboardAdminState extends State<DashboardAdmin> {
             )),
             BottomNav(
               selectedTab: _selectedTab,
+              requiredActionBtn: false,
               tabPressed: (num) {
                 switch (num) {
                   /* case 2:

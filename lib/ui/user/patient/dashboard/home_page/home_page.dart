@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
@@ -24,11 +25,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late HomePageCubit _cubit;
-
+  List<VideoModel> videos = [];
   @override
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<HomePageCubit>(context);
+    _cubit.getAllVideos();
   }
 
   @override
@@ -39,6 +41,11 @@ class _HomePageState extends State<HomePage> {
         builder: (context, state) {
           if (state is Error) {
             showToast(state.msg, ToastType.error);
+          }
+
+          if (state is ReceivedVideos) {
+            videos.clear();
+            videos.addAll(state.videos);
           }
           return ListView(
             scrollDirection: Axis.vertical,
@@ -68,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                 height: 10,
               ),
               if (state is LoadingVideos) const LoadingView(isVisible: true),
-              if (state is ReceivedVideos) VideoCarousel(videos: state.videos),
+              if (videos.isNotEmpty) VideoCarousel(videos: videos),
               const SizedBox(
                 height: 10,
               ),

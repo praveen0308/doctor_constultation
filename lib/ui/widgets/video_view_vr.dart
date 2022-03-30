@@ -6,19 +6,21 @@ import 'package:flutter/material.dart';
 class VideoView extends StatelessWidget {
   final VideoModel videoModel;
   final Function() onItemClick;
-  final Function() onUpdateClick;
-  final Function() onDeleteClick;
+  final VoidCallback? onUpdateClick;
+  final VoidCallback? onDeleteClick;
+  final bool isActionEnabled;
   const VideoView(
       {Key? key,
       required this.videoModel,
       required this.onItemClick,
-      required this.onUpdateClick,
-      required this.onDeleteClick})
+      this.onUpdateClick,
+      this.onDeleteClick,
+      this.isActionEnabled = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         onItemClick();
       },
@@ -63,30 +65,33 @@ class VideoView extends StatelessWidget {
                 Text(videoModel.Description)
               ],
             )),
-            PopupMenuButton(
-                onSelected: (index) {
-                  if (index == 1) {
-                    onUpdateClick();
-                  } else {
-                    onDeleteClick();
-                  }
-                },
-                color: AppColors.greyLightest,
-                padding: const EdgeInsets.all(0),
-                icon: const Icon(
-                  Icons.more_vert,
-                  color: AppColors.greyBefore,
-                ),
-                itemBuilder: (context) => [
-                      PopupMenuItem(
-                        child: const Text("Update"),
-                        value: 1,
-                      ),
-                      PopupMenuItem(
-                        child: const Text("Delete"),
-                        value: 2,
-                      ),
-                    ])
+            Visibility(
+              visible: isActionEnabled,
+              child: PopupMenuButton(
+                  onSelected: (index) {
+                    if (index == 1) {
+                      onUpdateClick;
+                    } else {
+                      onDeleteClick;
+                    }
+                  },
+                  color: AppColors.greyLightest,
+                  padding: const EdgeInsets.all(0),
+                  icon: const Icon(
+                    Icons.more_vert,
+                    color: AppColors.greyBefore,
+                  ),
+                  itemBuilder: (context) => const [
+                        PopupMenuItem(
+                          child: Text("Update"),
+                          value: 1,
+                        ),
+                        PopupMenuItem(
+                          child: Text("Delete"),
+                          value: 2,
+                        ),
+                      ]),
+            )
           ],
         ),
       ),

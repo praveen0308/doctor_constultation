@@ -1,4 +1,6 @@
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/video_model.dart';
+import 'package:doctor_consultation/models/user_roles.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/ui/user/admin/manage_videos/manage_videos_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
@@ -19,10 +21,12 @@ class ManageVideos extends StatefulWidget {
 class _ManageVideosState extends State<ManageVideos> {
   late ManageVideosCubit _cubit;
 
+  var roleId = UserRoles.nonRegisteredPatient;
   @override
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<ManageVideosCubit>(context);
+    _cubit.getUserRole();
     _cubit.getAllVideos();
   }
 
@@ -31,13 +35,17 @@ class _ManageVideosState extends State<ManageVideos> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text("Manage Videos"),
+        title:
+            Text(roleId == UserRoles.doctor ? "Manage Videos" : "All videos"),
       ),
       body: Container(
         child: BlocBuilder<ManageVideosCubit, ManageVideosState>(
           builder: (context, state) {
             if (state is DeletedSuccessfully) {
               showToast("Deleted successfully !!!", ToastType.success);
+            }
+            if (state is ReceivedRoleId) {
+              roleId = state.roleId;
             }
             if (state is Error) {
               return NoRecordsView(
@@ -67,10 +75,8 @@ class _ManageVideosState extends State<ManageVideos> {
                       return VideoView(
                         videoModel: state.videos[index],
                         onItemClick: () {
-                          String? videoId = YoutubePlayer.convertUrlToId(
-                              state.videos[index].VideoUrl);
                           Navigator.pushNamed(context, "/youtubePlayer",
-                              arguments: videoId);
+                              arguments: state.videos[index].VideoUrl);
                         },
                         onUpdateClick: () {
                           Navigator.pushNamed(context, "/uploadVideo",
@@ -79,6 +85,7 @@ class _ManageVideosState extends State<ManageVideos> {
                         onDeleteClick: () {
                           _cubit.deleteVideo(state.videos[index].VideoID);
                         },
+                        isActionEnabled: roleId == UserRoles.doctor,
                       );
                     });
               }
@@ -87,13 +94,16 @@ class _ManageVideosState extends State<ManageVideos> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primary,
-        onPressed: () {
-          Navigator.pushNamed(context, "/uploadVideo", arguments: VideoModel());
-        },
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: roleId != UserRoles.doctor
+          ? null
+          : FloatingActionButton(
+              backgroundColor: AppColors.primary,
+              onPressed: () {
+                Navigator.pushNamed(context, "/uploadVideo",
+                    arguments: VideoModel());
+              },
+              child: Icon(Icons.add),
+            ),
     ));
   }
 }

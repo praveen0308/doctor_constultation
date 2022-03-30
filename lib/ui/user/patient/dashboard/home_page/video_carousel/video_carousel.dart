@@ -1,7 +1,6 @@
 import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/user/patient/dashboard/home_page/video_carousel/all_videos.dart';
 import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:doctor_consultation/ui/widgets/youtube/template_video_slider.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +28,7 @@ class _VideoCarouselState extends State<VideoCarousel> {
               txtStyle2: AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
             ),
             GestureDetector(
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AllVideos())),
+              onTap: () => Navigator.pushNamed(context, "/manageVideos"),
               child: Text(
                 "See more",
                 style: AppTextStyle.subtitle2(txtColor: AppColors.primary),

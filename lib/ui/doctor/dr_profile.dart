@@ -17,14 +17,24 @@ class DrProfilePage extends StatefulWidget {
 
 class _DrProfilePageState extends State<DrProfilePage> {
   @override
+  void dispose() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: AppColors.greyLightest,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: AppColors.greyLightest,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        systemNavigationBarDividerColor: AppColors.greyLight));
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: AppColors.primary,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarColor: AppColors.greyLight,
         systemNavigationBarIconBrightness: Brightness.dark,
-        systemNavigationBarDividerColor: AppColors.greyLight
-    ));
+        systemNavigationBarDividerColor: AppColors.greyLight));
     return SafeArea(
       child: Scaffold(
         body: ScrollConfiguration(
@@ -32,7 +42,11 @@ class _DrProfilePageState extends State<DrProfilePage> {
           child: ListView(
             scrollDirection: Axis.vertical,
             children: const <Widget>[
-              AppBackNavBar(imgUrl: AppImages.icBackArrow,navColor: AppColors.greyLightest,bgColor: AppColors.primary,),
+              AppBackNavBar(
+                imgUrl: AppImages.icBackArrow,
+                navColor: AppColors.greyLightest,
+                bgColor: AppColors.primary,
+              ),
               DrProfileHeader(),
               DrProfileBody(),
             ],

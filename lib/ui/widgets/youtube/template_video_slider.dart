@@ -29,7 +29,10 @@ class _TemplateVideoSliderState extends State<TemplateVideoSlider> {
       ),
       itemBuilder: (BuildContext context, int index, int realIndex) {
         return GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, "/youtubePlayer",
+                arguments: widget.videos[index].VideoUrl);
+          },
           child: Container(
             margin: const EdgeInsets.all(5.0),
             decoration: BoxDecoration(

@@ -13,14 +13,17 @@ class PatientAppointmentHistoryCubit
   final AppointmentRepository _appointmentRepository;
   PatientAppointmentHistoryCubit(this._appointmentRepository)
       : super(AppointmentHistoryInitial());
-
+  final List<AppointmentDetailModel> appointments = [];
   void fetchAppointHistory() async {
     emit(Loading());
     try {
       List<AppointmentDetailModel> response =
           await _appointmentRepository.fetchAllAppointmentDetailsByUserId();
+      appointments.clear();
+      appointments.addAll(response);
       if (response.isNotEmpty) {
-        emit(ReceivedAppointmentHistory(response));
+        filterAppointment(0);
+        // emit(ReceivedAppointmentHistory(response));
       } else {
         emit(NoAppointmentHistory());
       }
@@ -32,18 +35,18 @@ class PatientAppointmentHistoryCubit
       debugPrint("Exception >>> $e");
     }
   }
+
   void cancelAppointment(int appointmentId) async {
     emit(Loading());
     try {
-      bool response = await _appointmentRepository.updateAppointmentStatus(appointmentId,AppConstants.cancelled);
-      if(response){
-
+      bool response = await _appointmentRepository.updateAppointmentStatus(
+          appointmentId, AppConstants.cancelled);
+      if (response) {
         emit(AppointmentCancelled());
         fetchAppointHistory();
-      }else{
+      } else {
         emit(Error("Failed!!"));
       }
-
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");
@@ -53,4 +56,35 @@ class PatientAppointmentHistoryCubit
     }
   }
 
+  void filterAppointment(int status) {
+    final List<AppointmentDetailModel> result = [];
+    for (var item in appointments) {
+      switch (status) {
+        case 0:
+          {
+            if (item.AppointmentStatusID != AppConstants.closed &&
+                item.AppointmentStatusID != AppConstants.cancelled) {
+              result.add(item);
+            }
+          }
+          break;
+        case 1:
+          {
+            if (item.AppointmentStatusID == AppConstants.closed) {
+              result.add(item);
+            }
+          }
+          break;
+        case 2:
+          {
+            if (item.AppointmentStatusID == AppConstants.cancelled) {
+              result.add(item);
+            }
+          }
+          break;
+      }
+    }
+
+    emit(ReceivedAppointmentHistory(result));
+  }
 }

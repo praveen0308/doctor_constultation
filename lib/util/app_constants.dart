@@ -5,6 +5,9 @@ import 'package:doctor_consultation/models/relation_model.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 
 class AppConstants {
+  static const doctorName = "Dr. Priyanka Yaduwanshi";
+  static const appName = "Dr. Priyanka Yaduwanshi";
+
   static const RAZORPAY_KEY_ID = "rzp_test_WK75xX84FGDTsB";
   // static const RAZORPAY_KEY_ID = "rzp_live_8aAdWb0YdmkzxG";
 
@@ -58,3 +61,10 @@ class AppConstants {
 
 enum IOperations { create, read, update, delete }
 enum AppNavActions { viewSchedule, uploadVideo, manageVideos, manageUsers }
+
+class SocialLink {
+  static const instagram = "https://www.google.com/";
+  static const facebook = "https://www.google.com/";
+  static const youtube = "https://www.google.com/";
+  static const twitter = "https://www.google.com/";
+}

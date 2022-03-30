@@ -3,8 +3,10 @@ import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_back_nav_bar.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
+import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ShareUs extends StatelessWidget {
@@ -54,12 +56,11 @@ class ShareUs extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0 / 2 * 30,left: 15,right: 15),
+                        padding: const EdgeInsets.only(
+                            top: 8.0 / 2 * 30, left: 15, right: 15),
                         child: BtnFilled(
                           title: "Invite Now",
-                          onBtnPressed: () {
-                            // Share.share('check out my website https://example.com', subject: 'Look what I made!');
-                          },
+                          onBtnPressed: share,
                         ),
                       ),
                     )
@@ -71,5 +72,14 @@ class ShareUs extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> share() async {
+    await FlutterShare.share(
+        title: AppConstants.doctorName,
+        text:
+            'Check out this application for booking appointment for the consultation with ${AppConstants.doctorName}',
+        linkUrl: 'https://flutter.dev/',
+        chooserTitle: 'Share with');
   }
 }

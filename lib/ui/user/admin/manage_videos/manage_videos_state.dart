@@ -7,6 +7,12 @@ class ManageVideosInitial extends ManageVideosState {}
 
 class Loading extends ManageVideosState {}
 
+class ReceivedRoleId extends ManageVideosState {
+  final int roleId;
+
+  ReceivedRoleId(this.roleId);
+}
+
 class DeletedSuccessfully extends ManageVideosState {}
 
 class Error extends ManageVideosState {

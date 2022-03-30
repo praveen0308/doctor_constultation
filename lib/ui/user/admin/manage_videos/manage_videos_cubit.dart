@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/user_model.dart';
 import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/network/utils/network_exceptions.dart';
@@ -10,7 +11,12 @@ part 'manage_videos_state.dart';
 
 class ManageVideosCubit extends Cubit<ManageVideosState> {
   final UtilRepository _utilRepository;
+  final _storage = SecureStorage();
   ManageVideosCubit(this._utilRepository) : super(ManageVideosInitial());
+  void getUserRole() async {
+    var roleId = await _storage.getUserRoleId();
+    emit(ReceivedRoleId(roleId));
+  }
 
   void getAllVideos() async {
     emit(Loading());

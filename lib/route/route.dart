@@ -26,8 +26,6 @@ import 'package:doctor_consultation/ui/user/admin/appointment/patient_past_appoi
 import 'package:doctor_consultation/ui/user/admin/appointment_detail/appointment_detail_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/communication/payment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/dashboard.dart';
-import 'package:doctor_consultation/ui/user/admin/manage_users/manage_users.dart';
-import 'package:doctor_consultation/ui/user/admin/manage_users/manage_users_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/manage_videos/manage_videos.dart';
 import 'package:doctor_consultation/ui/user/admin/manage_videos/manage_videos_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule.dart';
@@ -46,8 +44,6 @@ import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_
 import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient.dart';
 import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/appointment/new_appointment.dart';
-import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_detail/appointment_detail_for_patient.dart';
-import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_detail/appointment_detail_for_patient_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/dashboard.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/patient_profile_page.dart';
 import 'package:doctor_consultation/ui/user/patient/manage_patients/manage_patients.dart';
@@ -66,9 +62,6 @@ import 'package:doctor_consultation/ui/video_player/video_player.dart';
 import 'package:doctor_consultation/ui/video_player/youtube_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../ui/communication/video_call/main_video_call.dart';
-import '../ui/communication/voice_call/main_voice_call.dart';
 
 // importing our pages into our route.dart
 
@@ -226,16 +219,6 @@ Route<dynamic> controller(RouteSettings settings) {
     case dashboardDoctor:
       return MaterialPageRoute(
           builder: (context) => const DashboardAdmin(), settings: settings);
-    case appointmentDetailForPatient:
-      return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-                create: (context) =>
-                    AppointmentDetailForPatientCubit(AppointmentRepository()),
-                child: AppointmentDetailForPatientPage(
-                  appointmentId: args as int,
-                ),
-              ),
-          settings: settings);
     case appointmentDetailPage:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -289,13 +272,6 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const DrProfilePage(), settings: settings);
 
-    case mainVoiceCall:
-      return MaterialPageRoute(
-          builder: (context) => const MainVoiceCall(), settings: settings);
-
-    case mainVideoCall:
-      return MaterialPageRoute(
-          builder: (context) => const MainVideoCall(), settings: settings);
     case layoutUserType:
       return MaterialPageRoute(
           builder: (context) => const LayoutUserType(), settings: settings);
@@ -324,20 +300,14 @@ Route<dynamic> controller(RouteSettings settings) {
                 child: ManageVideos(),
               ),
           settings: settings);
-    case manageUsers:
-      return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-                create: (context) => ManageUsersCubit(AccountRepository()),
-                child: ManageUsers(),
-              ),
-          settings: settings);
+
     case videoPlayer:
       return MaterialPageRoute(
           builder: (context) => VideoPlayer(videoUrl: args as String),
           settings: settings);
     case youtubePlayer:
       return MaterialPageRoute(
-          builder: (context) => MyYoutubePlayer(videoId: args as String),
+          builder: (context) => MyYoutubePlayer(videoUrl: args as String),
           settings: settings);
     case userDetails:
       return MaterialPageRoute(

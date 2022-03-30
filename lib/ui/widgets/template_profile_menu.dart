@@ -35,42 +35,44 @@ class _TemplateProfileMenuState extends State<TemplateProfileMenu> {
           onTap: () {
             widget.tabPressed!();
           },
-          child: Row(
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  // Container(
-                  //   height: 45,
-                  //   width: 45,
-                  //   decoration: BoxDecoration(
-                  //     color: AppColors.primaryLight,
-                  //     borderRadius: BorderRadius.circular(25)
-                  //   ),
-                  // ),
-                  SizedBox(
-                      height: 40,
-                      child: SvgPicture.asset(
-                        widget.imgURL,
-                        color: widget.tColor,
-                      ))
-                ],
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                  flex: 7,
-                  child: Text(
-                    widget.title,
-                    style: AppTextStyle.subtitle1(
-                        txtColor: widget.tColor, wFont: FontWeight.w400),
-                  )),
-              // Expanded(
-              //   child: SvgPicture.asset(AppImages.icArrowRight,
-              //       color: widget.tColor, height: 15),
-              // ),
-            ],
+          child: Container(
+            child: Row(
+              children: [
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    // Container(
+                    //   height: 45,
+                    //   width: 45,
+                    //   decoration: BoxDecoration(
+                    //     color: AppColors.primaryLight,
+                    //     borderRadius: BorderRadius.circular(25)
+                    //   ),
+                    // ),
+                    SizedBox(
+                        height: 40,
+                        child: SvgPicture.asset(
+                          widget.imgURL,
+                          color: widget.tColor,
+                        ))
+                  ],
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                    flex: 7,
+                    child: Text(
+                      widget.title,
+                      style: AppTextStyle.subtitle1(
+                          txtColor: widget.tColor, wFont: FontWeight.w400),
+                    )),
+                // Expanded(
+                //   child: SvgPicture.asset(AppImages.icArrowRight,
+                //       color: widget.tColor, height: 15),
+                // ),
+              ],
+            ),
           ),
         ),
         Divider(
