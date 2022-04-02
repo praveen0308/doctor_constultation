@@ -77,12 +77,14 @@ class ViewTodayTask extends StatelessWidget {
                     CircularStackEntry(
                       <CircularSegmentEntry>[
                         CircularSegmentEntry(
-                          completedAppointment.toDouble(),
+                          (completedAppointment.toDouble() / totalAppointment) *
+                              100,
                           AppColors.primary,
                           rankKey: 'completed',
                         ),
                         CircularSegmentEntry(
-                          remainingAppointment.toDouble(),
+                          (remainingAppointment.toDouble() / totalAppointment) *
+                              100,
                           AppColors.primaryLight,
                           rankKey: 'remaining',
                         ),

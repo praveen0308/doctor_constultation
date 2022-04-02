@@ -16,9 +16,9 @@ class AddCaseInfoCubit extends Cubit<AddCaseInfoState> {
     emit(Loading());
     try {
       int response = await _caseRepository.createUpdateCaseInfo(caseInfoModel);
-      if (response!=0) {
-        emit(AddedSuccessfully());
-        uploadAttachments(response,"N/A",files);
+      if (response != 0) {
+        // emit(AddedSuccessfully());
+        uploadAttachments(response, "N/A", files);
       } else {
         emit(Error("Failed to add case!!!"));
       }
@@ -47,9 +47,7 @@ class AddCaseInfoCubit extends Cubit<AddCaseInfoState> {
   }
 
   void uploadAttachments(
-    int caseInfoId, String comment,
-    List<File> files
-  ) async {
+      int caseInfoId, String comment, List<File> files) async {
     files.asMap().forEach((index, file) async {
       emit(UploadingDocument(index));
       try {
@@ -72,5 +70,24 @@ class AddCaseInfoCubit extends Cubit<AddCaseInfoState> {
         debugPrint("Exception >>> $e");
       }
     });
+    emit(AddedSuccessfully());
+  }
+
+  void getCaseInfoDetail(int caseID) async {
+    emit(LoadingCaseInfo());
+    try {
+      CaseInfoModel response = await _caseRepository.fetchCaseInfoByID(caseID);
+      if (response != null) {
+        emit(ReceivedCaseInfo(response));
+      } else {
+        emit(Error("Failed to get case info!!!"));
+      }
+    } on NetworkExceptions catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    } on Exception catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    }
   }
 }

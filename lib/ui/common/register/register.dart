@@ -41,6 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
             if (state is RegistrationSuccessful) {
               WidgetsBinding.instance!.addPostFrameCallback((_) {
                 Navigator.pushReplacementNamed(context, route.login);
+                _registerCubit.emit(RegisterInitial());
               });
             }
             if (state is UserAlreadyExist) {

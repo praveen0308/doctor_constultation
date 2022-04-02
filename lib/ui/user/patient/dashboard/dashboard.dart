@@ -1,6 +1,10 @@
 import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/user_roles.dart';
+import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:doctor_consultation/repository/util_repository.dart';
+import 'package:doctor_consultation/ui/communication/chat_screen/chat_screen.dart';
+import 'package:doctor_consultation/ui/communication/user_patient_chats/user_patient_chats.dart';
+import 'package:doctor_consultation/ui/communication/user_patient_chats/user_patient_chats_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_history/patient_appointment_history.dart';
 import 'package:doctor_consultation/ui/widgets/bottom_nav_bar/bottom_nav.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +69,11 @@ class _DashboardPatientState extends State<DashboardPatient> {
                   child: HomePage(),
                 ),
                 PatientAppointmentHistory(),
+                BlocProvider(
+                  create: (context) =>
+                      UserPatientChatsCubit(PatientRepository()),
+                  child: UserPatientChats(),
+                ),
               ],
             )),
             Visibility(
@@ -73,11 +82,6 @@ class _DashboardPatientState extends State<DashboardPatient> {
                 selectedTab: _selectedTab,
                 tabPressed: (num) {
                   switch (num) {
-                    case 2:
-                      {
-                        Navigator.pushNamed(context, route.messagePage);
-                      }
-                      break;
                     case 3:
                       {
                         Navigator.pushNamed(context, route.patientProfilePage);

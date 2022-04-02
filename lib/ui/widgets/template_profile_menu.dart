@@ -32,9 +32,7 @@ class _TemplateProfileMenuState extends State<TemplateProfileMenu> {
     return Column(
       children: [
         GestureDetector(
-          onTap: () {
-            widget.tabPressed!();
-          },
+          onTap: widget.tabPressed,
           child: Container(
             child: Row(
               children: [

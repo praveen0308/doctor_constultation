@@ -22,6 +22,7 @@ class AddNewAppointmentCubit extends Cubit<AddNewAppointmentState> {
 
   ScheduleModel? slot;
   late int selectedPatientId;
+  late String selectedPatientName;
   int selectedLocationId = 0;
   String problemDescription = "";
   bool validateAppointment() {

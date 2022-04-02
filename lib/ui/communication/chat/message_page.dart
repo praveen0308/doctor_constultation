@@ -27,7 +27,7 @@ class _DoctorMessagePageState extends State<DoctorMessagePage> {
           scrollDirection: Axis.vertical,
           children: [
             AppNavBar(
-              txtAddress: "Marine Line, Mumbai",
+              txtAddress: "",
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),

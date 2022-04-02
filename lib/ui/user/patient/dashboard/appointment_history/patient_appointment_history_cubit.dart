@@ -19,8 +19,9 @@ class PatientAppointmentHistoryCubit
     try {
       List<AppointmentDetailModel> response =
           await _appointmentRepository.fetchAllAppointmentDetailsByUserId();
+
       appointments.clear();
-      appointments.addAll(response);
+      appointments.addAll(response.reversed);
       if (response.isNotEmpty) {
         filterAppointment(0);
         // emit(ReceivedAppointmentHistory(response));

@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CustomDropDown extends StatefulWidget {
   final String hint;
   final bool isOutlined;
+  final int? selectedIndex;
   final List<dynamic> itemList;
   final Function(dynamic) onItemSelected;
 
@@ -14,7 +15,8 @@ class CustomDropDown extends StatefulWidget {
       required this.hint,
       required this.itemList,
       required this.onItemSelected,
-      this.isOutlined = false})
+      this.isOutlined = false,
+      this.selectedIndex})
       : super(key: key);
 
   @override
@@ -23,6 +25,15 @@ class CustomDropDown extends StatefulWidget {
 
 class _CustomDropDownState extends State<CustomDropDown> {
   dynamic selectedDocument;
+
+  @override
+  void initState() {
+    if (widget.selectedIndex != null) {
+      selectedDocument = widget.itemList[widget.selectedIndex!];
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

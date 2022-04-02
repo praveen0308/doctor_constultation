@@ -6,6 +6,7 @@ import 'package:doctor_consultation/ui/user/add_case_info/add_case_info_cubit.da
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/empty_data_container.dart';
 import 'package:doctor_consultation/ui/widgets/file_view.dart';
+import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:file_picker/file_picker.dart';
@@ -15,8 +16,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AddCaseInfoArgs {
   final int patientId;
   final int appointmentId;
+  final int caseId;
 
-  AddCaseInfoArgs(this.patientId, this.appointmentId);
+  AddCaseInfoArgs(this.patientId, this.appointmentId, {this.caseId = 0});
 }
 
 class AddCaseInfo extends StatefulWidget {
@@ -30,7 +32,7 @@ class AddCaseInfo extends StatefulWidget {
 class _AddCaseInfoState extends State<AddCaseInfo> {
   late AddCaseInfoCubit _cubit;
 
-  final CaseInfoModel _caseInfoModel = CaseInfoModel();
+  late CaseInfoModel _caseInfoModel = CaseInfoModel();
 
   @override
   void initState() {
@@ -38,6 +40,9 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
     _cubit = BlocProvider.of<AddCaseInfoCubit>(context);
     _caseInfoModel.PatientInfoID = widget.caseInfoArgs.patientId;
     _caseInfoModel.AppointmentID = widget.caseInfoArgs.appointmentId;
+    if (widget.caseInfoArgs.caseId != 0) {
+      _cubit.getCaseInfoDetail(widget.caseInfoArgs.caseId);
+    }
   }
 
   @override
@@ -60,6 +65,13 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                 Navigator.pop(context);
               });
             }
+
+            if (state is LoadingCaseInfo) {
+              return const LoadingView(isVisible: true);
+            }
+            if (state is ReceivedCaseInfo) {
+              _caseInfoModel = state.caseInfoModel;
+            }
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               child: Form(
@@ -72,6 +84,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         height: 16,
                       ),
                       TextFormField(
+                        controller: TextEditingController()
+                          ..text = _caseInfoModel.ChiefComplaints,
                         onChanged: (text) =>
                             _caseInfoModel.ChiefComplaints = text,
                         onFieldSubmitted: (text) =>
@@ -89,6 +103,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         children: [
                           Flexible(
                             child: TextFormField(
+                              controller: TextEditingController()
+                                ..text = _caseInfoModel.Pulse,
                               onChanged: (text) => _caseInfoModel.Pulse = text,
                               onFieldSubmitted: (text) =>
                                   _caseInfoModel.Pulse = text,
@@ -104,6 +120,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                           ),
                           Flexible(
                             child: TextFormField(
+                              controller: TextEditingController()
+                                ..text = _caseInfoModel.Temperature,
                               onChanged: (text) =>
                                   _caseInfoModel.Temperature = text,
                               onFieldSubmitted: (text) =>
@@ -121,6 +139,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         height: 16,
                       ),
                       TextFormField(
+                        controller: TextEditingController()
+                          ..text = _caseInfoModel.PastHistory,
                         onChanged: (text) => _caseInfoModel.PastHistory = text,
                         onFieldSubmitted: (text) =>
                             _caseInfoModel.PastHistory = text,
@@ -134,6 +154,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         height: 16,
                       ),
                       TextFormField(
+                        controller: TextEditingController()
+                          ..text = _caseInfoModel.FamilyHistory,
                         onChanged: (text) =>
                             _caseInfoModel.FamilyHistory = text,
                         onFieldSubmitted: (text) =>
@@ -148,6 +170,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         height: 16,
                       ),
                       TextFormField(
+                        controller: TextEditingController()
+                          ..text = _caseInfoModel.ClinicalObservations,
                         onChanged: (text) =>
                             _caseInfoModel.ClinicalObservations = text,
                         onFieldSubmitted: (text) =>
@@ -162,6 +186,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         height: 16,
                       ),
                       TextFormField(
+                        controller: TextEditingController()
+                          ..text = _caseInfoModel.InvestigationNotes,
                         onChanged: (text) =>
                             _caseInfoModel.InvestigationNotes = text,
                         onFieldSubmitted: (text) =>
@@ -176,6 +202,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         height: 16,
                       ),
                       TextFormField(
+                        controller: TextEditingController()
+                          ..text = _caseInfoModel.Diagnosis,
                         onChanged: (text) => _caseInfoModel.Diagnosis = text,
                         onFieldSubmitted: (text) =>
                             _caseInfoModel.Diagnosis = text,

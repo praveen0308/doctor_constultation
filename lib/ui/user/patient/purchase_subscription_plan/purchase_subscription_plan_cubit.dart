@@ -2,9 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/models/api/patient_subscription_model.dart';
 import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
+import 'package:doctor_consultation/models/fb_models/chat_response.dart';
 import 'package:doctor_consultation/network/utils/network_exceptions.dart';
 import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
+import 'package:doctor_consultation/repository/chat_repository.dart';
 import 'package:doctor_consultation/repository/transaction_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -16,11 +18,14 @@ class PurchaseSubscriptionPlanCubit
   final AccountRepository _accountRepository;
   final TransactionRepository _transactionRepository;
   final AppointmentRepository _appointmentRepository;
+  final ChatRepository _chatRepository = ChatRepository();
   PurchaseSubscriptionPlanCubit(this._accountRepository,
       this._transactionRepository, this._appointmentRepository)
       : super(PurchaseSubscriptionPlanInitial());
-  void addNewAppointment(
-      int patientID, String description, int scheduleID, String date) async {
+
+  final String subscriptionExpiry = "";
+  void addNewAppointment(int patientID, String patientName, String description,
+      int scheduleID, String date) async {
     emit(Loading());
     try {
       var appointmentDetailModel = AppointmentDetailModel();
@@ -36,6 +41,14 @@ class PurchaseSubscriptionPlanCubit
           .createUpdateAppointmentDetail(appointmentDetailModel);
 
       if (response != 0) {
+        var now = DateTime.now();
+        var exp = DateTime(now.year, now.month + 1, now.day);
+        var chat = ChatResponse(
+            userId: patientID.toString(),
+            patientId: patientID.toString(),
+            expiry: exp,
+            patientName: patientName);
+        await _chatRepository.createChat(chat);
         emit(AppointmentAddedSuccessfully(response));
       } else {
         emit(AddAppointmentFailed());

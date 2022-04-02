@@ -63,7 +63,6 @@ class _PatientAppointmentHistoryPageState
               txtTab2: "Completed",
               txtTab3: "Canceled",
               onSwitched: (index) {
-                showToast("$index", ToastType.info);
                 _appointmentHistoryCubit.filterAppointment(index);
               },
             ),
@@ -92,7 +91,7 @@ class _PatientAppointmentHistoryPageState
                             appointmentDetailModel: state.appointments[index],
                             onViewDetailsClick: (int appointmentId) {
                               Navigator.pushNamed(
-                                  context, "/appointmentDetailForPatient",
+                                  context, "/appointmentDetailPage",
                                   arguments: appointmentId);
                             },
                             onCancelClick: (int appointmentId) {

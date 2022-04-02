@@ -1,12 +1,16 @@
 import 'dart:math';
 
 import 'package:doctor_consultation/jitsee/jitsi_meet_methods.dart';
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
+import 'package:doctor_consultation/models/user_roles.dart';
 import 'package:doctor_consultation/repository/case_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/app_string.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/appointment_case_info/appointment_case_info.dart';
+import 'package:doctor_consultation/ui/appointment_case_info/appointment_case_info_cubit.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
@@ -38,11 +42,18 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
   late AppointmentDetailModel _appointmentDetailModel;
   late AppointmentDetailCubit _cubit;
   JitsiMeetMethods meetMethods = JitsiMeetMethods();
+  final _storage = SecureStorage();
+  int userRoleId = 0;
   @override
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<AppointmentDetailCubit>(context);
     _cubit.getAppointmentDetail(widget.appointmentId);
+    _storage.getUserRoleId().then((value) {
+      setState(() {
+        userRoleId = value;
+      });
+    });
   }
 
 /*
@@ -211,6 +222,15 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                         ),
                         BlocProvider(
                           create: (context) =>
+                              AppointmentCaseInfoCubit(CaseRepository()),
+                          child: AppointmentCaseInfo(
+                              args: AppointmentCaseInfoArgs(
+                                  _appointmentDetailModel.PatientID,
+                                  _appointmentDetailModel.AppointmentID,
+                                  _appointmentDetailModel.CaseID)),
+                        ),
+                        BlocProvider(
+                          create: (context) =>
                               PatientCaseHistoryCubit(CaseRepository()),
                           child: PatientCaseHistory(
                             patientId: _appointmentDetailModel.PatientID,
@@ -242,17 +262,19 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                 const SizedBox(
                                   width: 16,
                                 ),
-                                Flexible(
-                                  child: CustomBtn(
-                                    title: "Start Session",
-                                    onBtnPressed: () {
-                                      _cubit.startSession(
-                                          _appointmentDetailModel.AppointmentID,
-                                          meetMethods.generateMeetingId());
-                                    },
-                                    isLoading: state is StartingSession,
+                                if (userRoleId == UserRoles.doctor)
+                                  Flexible(
+                                    child: CustomBtn(
+                                      title: "Start Session",
+                                      onBtnPressed: () {
+                                        _cubit.startSession(
+                                            _appointmentDetailModel
+                                                .AppointmentID,
+                                            meetMethods.generateMeetingId());
+                                      },
+                                      isLoading: state is StartingSession,
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                           ),

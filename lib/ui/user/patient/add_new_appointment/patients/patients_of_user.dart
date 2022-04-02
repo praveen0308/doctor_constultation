@@ -69,6 +69,8 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
               _patients.addAll(state.patients);
               if (_patients.isNotEmpty) {
                 _addNewAppointmentCubit.selectedPatientId = _patients[0].ID!;
+                _addNewAppointmentCubit.selectedPatientName =
+                    _patients[0].FullName!;
 
                 return ListView.separated(
                     shrinkWrap: true,
@@ -80,6 +82,8 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
                             selectedIndex = index;
                             _addNewAppointmentCubit.selectedPatientId =
                                 state.patients[selectedIndex].ID!;
+                            _addNewAppointmentCubit.selectedPatientName =
+                                state.patients[selectedIndex].FullName!;
                           });
                         },
                         child: Container(

@@ -69,13 +69,13 @@ class _AccountApiClient implements AccountApiClient {
   }
 
   @override
-  Future<bool> addUpdateUserDetails(userModel) async {
+  Future<int> addUpdateUserDetails(userModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(userModel.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, 'Account/AddUpdateUserDetails',
                 queryParameters: queryParameters, data: _data)

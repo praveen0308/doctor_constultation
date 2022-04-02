@@ -4,7 +4,15 @@ import 'package:doctor_consultation/ui/widgets/btn/search_patient_filter.dart';
 import 'package:flutter/cupertino.dart';
 
 class TemplateMessagePageHeader extends StatelessWidget {
-  const TemplateMessagePageHeader({Key? key}) : super(key: key);
+  final String firstLine;
+  final String secondLine;
+  final bool isSearch;
+  const TemplateMessagePageHeader(
+      {Key? key,
+      this.firstLine = "Let’s Consult",
+      this.secondLine = "With Patients",
+      this.isSearch = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +20,21 @@ class TemplateMessagePageHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Let’s Consult",
+          firstLine,
           style: AppTextStyle.headline6(txtColor: AppColors.primary),
         ),
         const SizedBox(
           height: 5,
         ),
         Text(
-          "With Patients",
+          secondLine,
           style: AppTextStyle.headline5(txtColor: AppColors.greyDark),
         ),
-        ViewSearchPatientFilter(
-          onTextUpdated: (String text) {},
+        Visibility(
+          visible: isSearch,
+          child: ViewSearchPatientFilter(
+            onTextUpdated: (String text) {},
+          ),
         )
       ],
     );

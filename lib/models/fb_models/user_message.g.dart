@@ -8,21 +8,19 @@ part of 'user_message.dart';
 
 UserMessage _$UserMessageFromJson(Map<String, dynamic> json) => UserMessage(
       messageId: json['messageId'] as int?,
-      sentBy: json['sentBy'] as String?,
       senderId: json['senderId'] as String?,
-      receiverId: json['receiverId'] as String?,
       msg: json['msg'] as String?,
-      addedOn: json['addedOn'] as String?,
-      isSeen: json['isSeen'] as String?,
+      addedOn: json['addedOn'] == null
+          ? null
+          : const TimestampConverter().fromJson(json['addedOn']),
+      isSeen: json['isSeen'] as bool?,
     );
 
 Map<String, dynamic> _$UserMessageToJson(UserMessage instance) =>
     <String, dynamic>{
       'messageId': instance.messageId,
-      'sentBy': instance.sentBy,
       'senderId': instance.senderId,
-      'receiverId': instance.receiverId,
       'msg': instance.msg,
-      'addedOn': instance.addedOn,
+      'addedOn': const TimestampConverter().toJson(instance.addedOn!),
       'isSeen': instance.isSeen,
     };

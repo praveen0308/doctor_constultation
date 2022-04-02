@@ -87,6 +87,7 @@ dependencies:
   file_picker: ^4.5.1
 
   url_launcher: ^6.0.20
+  flutterfire_ui: ^0.4.0
 dev_dependencies:
   flutter_launcher_icons: "^0.9.2"
 

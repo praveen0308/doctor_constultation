@@ -16,7 +16,9 @@ import 'package:doctor_consultation/ui/common/phone_auth/verify_otp_page.dart';
 import 'package:doctor_consultation/ui/common/splash_screen.dart';
 import 'package:doctor_consultation/ui/common/success_view.dart';
 import 'package:doctor_consultation/ui/common/welcome_user_type.dart';
-import 'package:doctor_consultation/ui/communication/chat_with_doctor/main_chat.dart';
+import 'package:doctor_consultation/ui/communication/chat_screen/chat_screen.dart';
+import 'package:doctor_consultation/ui/communication/chat_screen/chat_screen_cubit.dart';
+import 'package:doctor_consultation/ui/communication/user_patient_chats/chat_not_available.dart';
 import 'package:doctor_consultation/ui/doctor/dr_profile.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info_cubit.dart';
@@ -52,6 +54,8 @@ import 'package:doctor_consultation/ui/user/patient/notification/patient_notific
 
 import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/my_addresses/user_addresses_cubit.dart';
+import 'package:doctor_consultation/ui/user/patient/profile/personal_data/personal_data.dart';
+import 'package:doctor_consultation/ui/user/patient/profile/personal_data/personal_data_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan.dart';
 import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient_detail/patient_detail.dart';
@@ -119,6 +123,9 @@ const String videoPlayer = '/videoPlayer';
 const String youtubePlayer = '/youtubePlayer';
 const String userDetails = '/userDetails';
 const String patientDetails = '/patientDetails';
+const String chatScreen = '/chatScreen';
+const String chatNotAvailable = '/chatNotAvailable';
+const String personalData = '/personalData';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -207,9 +214,15 @@ Route<dynamic> controller(RouteSettings settings) {
     case manageSetSlots:
       return MaterialPageRoute(
           builder: (context) => LayoutSetSchedule(), settings: settings);
-    case patientsMessages:
+    case chatScreen:
       return MaterialPageRoute(
-          builder: (context) => MainChatPage(), settings: settings);
+          builder: (context) => BlocProvider(
+                create: (context) => ChatScreenCubit(),
+                child: ChatScreen(
+                  args: args as ChatScreenArgs,
+                ),
+              ),
+          settings: settings);
     case enterUserDetails:
       return MaterialPageRoute(
           builder: (context) => EnterUserDetail(), settings: settings);
@@ -309,6 +322,9 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => MyYoutubePlayer(videoUrl: args as String),
           settings: settings);
+    case chatNotAvailable:
+      return MaterialPageRoute(
+          builder: (context) => ChatNotAvailable(), settings: settings);
     case userDetails:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -323,6 +339,13 @@ Route<dynamic> controller(RouteSettings settings) {
                 create: (context) =>
                     PatientDetailCubit(PatientRepository(), CaseRepository()),
                 child: PatientDetailScreen(patientId: args as int),
+              ),
+          settings: settings);
+    case personalData:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+                create: (context) => PersonalDataCubit(AccountRepository()),
+                child: const PersonalData(),
               ),
           settings: settings);
     default:

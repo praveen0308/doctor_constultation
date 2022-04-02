@@ -15,7 +15,7 @@ class UserAuthBlocCubit extends Cubit<UserAuthBlocState> {
     emit(UserAuthBlocLoading());
     try {
       var result = await accountRepository.addUpdateUserDetails(userModel);
-      if (result) {
+      if (result != 0) {
         emit(UserAuthBlocRegistrationDone());
       } else {
         emit(UserAuthBlocRegistrationFailed());

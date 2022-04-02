@@ -13,8 +13,10 @@ UserDataModel _$UserDataModelFromJson(Map<String, dynamic> json) =>
       userName: json['userName'] as String?,
       email: json['email'] as String?,
       mobileNo: json['mobileNo'] as String?,
-      addedOn: json['addedOn'] as String?,
-      isActive: json['isActive'] as String?,
+      addedOn: json['addedOn'] == null
+          ? null
+          : DateTime.parse(json['addedOn'] as String),
+      isActive: json['isActive'] as bool?,
     );
 
 Map<String, dynamic> _$UserDataModelToJson(UserDataModel instance) =>
@@ -24,6 +26,6 @@ Map<String, dynamic> _$UserDataModelToJson(UserDataModel instance) =>
       'userName': instance.userName,
       'email': instance.email,
       'mobileNo': instance.mobileNo,
-      'addedOn': instance.addedOn,
+      'addedOn': instance.addedOn?.toIso8601String(),
       'isActive': instance.isActive,
     };

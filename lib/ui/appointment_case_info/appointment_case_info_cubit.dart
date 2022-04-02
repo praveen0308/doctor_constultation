@@ -11,6 +11,14 @@ class AppointmentCaseInfoCubit extends Cubit<AppointmentCaseInfoState> {
   AppointmentCaseInfoCubit(this._caseRepository)
       : super(AppointmentCaseInfoInitial());
 
+  void init(int caseID) {
+    if (caseID != 0) {
+      getCaseInfoDetail(caseID);
+    } else {
+      emit(EmptyCaseDetail());
+    }
+  }
+
   void getCaseInfoDetail(int caseID) async {
     emit(LoadingCaseInfo());
     try {

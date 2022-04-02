@@ -2,6 +2,7 @@ import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/user/patient/profile/personal_data/personal_data.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/about_us.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/contact_us.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/help_us.dart';
@@ -12,11 +13,11 @@ import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'account_pages/my_plan.dart';
-import 'personal_data/personl_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileBody extends StatelessWidget {
   final _storage = SecureStorage();
+
   ProfileBody({Key? key}) : super(key: key);
 
   @override
@@ -35,8 +36,9 @@ class ProfileBody extends StatelessWidget {
           TemplateProfileMenu(
               imgURL: AppImages.icUserProfile,
               title: "Personal Data",
-              tabPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PersonalData()))),
+              tabPressed: () {
+                Navigator.pushNamed(context, "/personalData");
+              }),
           /* TemplateProfileMenu(
               imgURL: AppImages.icSchedule,
               title: "My Bookings",
@@ -46,7 +48,9 @@ class ProfileBody extends StatelessWidget {
               imgURL: AppImages.icMyPlan,
               title: "Manage Patients",
               tabPressed: () =>
-                  Navigator.pushNamed(context, "/managePatients")),
+                  WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+                    Navigator.pushNamed(context, "/managePatients");
+                  })),
           /*TemplateProfileMenu(
               imgURL: AppImages.icMyPlan,
               title: "My Plan",

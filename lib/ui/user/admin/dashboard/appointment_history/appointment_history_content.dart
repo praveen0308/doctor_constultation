@@ -9,7 +9,6 @@ import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'doctor_appointment_history_cubit.dart';
 
 class AppointmentHistoryContent extends StatefulWidget {
@@ -34,7 +33,7 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       // margin: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
           color: AppColors.greyLightest,
@@ -49,18 +48,16 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
       child: BlocBuilder<DoctorAppointmentHistoryCubit,
           DoctorAppointmentHistoryState>(
         builder: (context, state) {
-          if(state is CancellingAppointment){
-            showToast("Appointment cancelled",ToastType.success);
-
-
+          if (state is CancellingAppointment) {
+            showToast("Appointment cancelled", ToastType.success);
           }
-          if(state is SessionStarted){
-            showToast("Session started",ToastType.success);
+          if (state is SessionStarted) {
+            showToast("Session started", ToastType.success);
           }
 
           if (state is Error) {
             // showToast(state.msg, ToastType.error);
-            return NoRecordsView(title:state.msg, onBtnClick: (){});
+            return NoRecordsView(title: state.msg, onBtnClick: () {});
           }
           if (state is ReceivedAppointments) {
             return Column(
@@ -79,8 +76,12 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                 ),
                 if (state.appointments.isEmpty)
                   Expanded(
-                    child: NoRecordsView(title:"No appointments today !!!", onBtnClick: (){})
-                  )
+                      child: Center(
+                    child: Text(
+                      "No appointments !!!",
+                      style: AppTextStyle.subtitle1(),
+                    ),
+                  ))
                 else
                   Expanded(
                     child: ListView.separated(
@@ -90,16 +91,25 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                           return TemplateScheduleDetail(
                             appointmentDetailModel: state.appointments[index],
                             onCancelClick: (int appointmentId) {
-                              _appointmentHistoryCubit.cancelAppointment(appointmentId);
+                              _appointmentHistoryCubit
+                                  .cancelAppointment(appointmentId);
                             },
                             onAddCaseInfoClick: (appointment) {
-                              Navigator.pushNamed(context, "/addCaseInfo",arguments: AddCaseInfoArgs(appointment.PatientID, appointment.AppointmentID));
+                              Navigator.pushNamed(context, "/addCaseInfo",
+                                  arguments: AddCaseInfoArgs(
+                                      appointment.PatientID,
+                                      appointment.AppointmentID));
                             },
                             onViewDetailsClick: (int appointmentId) {
-                              Navigator.pushNamed(context, "/appointmentDetailPage",arguments: state.appointments[index].AppointmentID);
-                            }, onStartSessionClick: (int appointmentId) {
-                            _appointmentHistoryCubit.startSession(appointmentId);
-                          },
+                              Navigator.pushNamed(
+                                  context, "/appointmentDetailPage",
+                                  arguments:
+                                      state.appointments[index].AppointmentID);
+                            },
+                            onStartSessionClick: (int appointmentId) {
+                              _appointmentHistoryCubit
+                                  .startSession(appointmentId);
+                            },
                           );
                         },
                         separatorBuilder: (_, index) {

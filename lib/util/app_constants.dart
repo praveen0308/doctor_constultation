@@ -7,6 +7,8 @@ import 'package:doctor_consultation/res/image_path.dart';
 class AppConstants {
   static const doctorName = "Dr. Priyanka Yaduwanshi";
   static const appName = "Dr. Priyanka Yaduwanshi";
+  static const msgNoChatAvailable =
+      "Chat is not available for this patient. Book appointment to connect with doctor. Chat will be available until appointment subscription expired.";
 
   static const RAZORPAY_KEY_ID = "rzp_test_WK75xX84FGDTsB";
   // static const RAZORPAY_KEY_ID = "rzp_live_8aAdWb0YdmkzxG";
@@ -47,8 +49,9 @@ class AppConstants {
         "Upload Video", AppImages.icVoiceCall, AppNavActions.uploadVideo));*/
     data.add(ActionModel("Manage Videos", AppImages.icUnMuteVideoCall,
         AppNavActions.manageVideos));
-    data.add(ActionModel(
-        "Manage Users", AppImages.icUserProfile, AppNavActions.manageUsers));
+    /*data.add(ActionModel(
+        "Manage Users", AppImages.icUserProfile, AppNavActions.manageUsers));*/
+
     return data;
   }
 

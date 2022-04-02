@@ -85,10 +85,13 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   ),
                 ),
               if (state is ReceivedAppointments)
-                ViewTodayTask(
-                  totalAppointment: state.total,
-                  remainingAppointment: state.remaining,
-                  completedAppointment: state.completed,
+                GestureDetector(
+                  onTap: () {},
+                  child: ViewTodayTask(
+                    totalAppointment: state.total,
+                    remainingAppointment: state.remaining,
+                    completedAppointment: state.completed,
+                  ),
                 ),
               const SizedBox(
                 height: 5,

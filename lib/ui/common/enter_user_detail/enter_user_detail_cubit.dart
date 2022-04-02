@@ -19,10 +19,10 @@ class EnterUserDetailCubit extends Cubit<EnterUserDetailState> {
   void updateUserDetails(String name, String email) async {
     emit(Loading());
     try {
-      bool response = await accountRepository
+      int response = await accountRepository
           .addUpdateUserDetails(UserModel(EmailID: email, UserName: name));
 
-      if (response) {
+      if (response != 0) {
         _storage.updateUserEmail(email);
         _storage.updateUserName(name);
         var roleId = await _storage.getUserRoleId();

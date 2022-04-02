@@ -7,7 +7,19 @@ class AddCaseInfoInitial extends AddCaseInfoState {}
 
 class Loading extends AddCaseInfoState {}
 
+class LoadingCaseInfo extends AddCaseInfoState {}
+
+class ReceivedCaseInfo extends AddCaseInfoState {
+  final CaseInfoModel caseInfoModel;
+
+  ReceivedCaseInfo(this.caseInfoModel);
+}
+
 class AddedSuccessfully extends AddCaseInfoState {}
+
+class UploadedSuccessfully extends AddCaseInfoState {}
+
+class UpdatedSuccessfully extends AddCaseInfoState {}
 
 class FilesUpdated extends AddCaseInfoState {}
 

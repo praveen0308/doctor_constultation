@@ -26,7 +26,7 @@ abstract class AccountApiClient {
   //#endregion
   //#region User Details
   @POST("Account/AddUpdateUserDetails")
-  Future<bool> addUpdateUserDetails(@Body() UserModel userModel);
+  Future<int> addUpdateUserDetails(@Body() UserModel userModel);
 
   @GET("Account/GetAllUserDetails")
   Future<List<UserModel>> getAllUserDetails();

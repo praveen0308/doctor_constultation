@@ -38,7 +38,7 @@ class AccountRepository {
   //#endregion
 
   //#region User Detail
-  Future<bool> addUpdateUserDetails(UserModel userModel) {
+  Future<int> addUpdateUserDetails(UserModel userModel) {
     return _accountApiClient.addUpdateUserDetails(userModel);
   }
 

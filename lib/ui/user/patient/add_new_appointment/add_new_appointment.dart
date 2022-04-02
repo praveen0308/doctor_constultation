@@ -143,6 +143,8 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                                             _addNewAppointmentCubit.slot!,
                                         patientId: _addNewAppointmentCubit
                                             .selectedPatientId,
+                                        patientName: _addNewAppointmentCubit
+                                            .selectedPatientName,
                                         description: _addNewAppointmentCubit
                                             .problemDescription));
                               }

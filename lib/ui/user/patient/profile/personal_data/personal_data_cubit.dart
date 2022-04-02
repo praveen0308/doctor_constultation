@@ -1,29 +1,26 @@
 import 'package:bloc/bloc.dart';
-import 'package:doctor_consultation/models/api/patient_detail_model.dart';
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/user_model.dart';
 import 'package:doctor_consultation/network/utils/network_exceptions.dart';
 import 'package:doctor_consultation/repository/account_repository.dart';
-import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-part 'user_detail_state.dart';
+part 'personal_data_state.dart';
 
-class UserDetailCubit extends Cubit<UserDetailState> {
+class PersonalDataCubit extends Cubit<PersonalDataState> {
+  final _storage = SecureStorage();
   final AccountRepository _accountRepository;
-  final PatientRepository _patientRepository;
-  UserDetailCubit(this._accountRepository, this._patientRepository)
-      : super(UserDetailInitial());
+  PersonalDataCubit(this._accountRepository) : super(PersonalDataInitial());
 
-  void getUserDetailByUserID(int userId) async {
+  void getUserDetail() async {
     emit(Loading());
     try {
+      var userID = await _storage.getUserId();
       UserModel response =
-          await _accountRepository.getUserDetailsByUserId(userId);
+          await _accountRepository.getUserDetailsByUserId(userID);
       if (response != null) {
         emit(ReceivedUserDetails(response));
-        await Future.delayed(const Duration(milliseconds: 200));
-        getPatients(response.ID!);
       } else {
         emit(Error("Failed to get user details!!!"));
       }
@@ -36,15 +33,14 @@ class UserDetailCubit extends Cubit<UserDetailState> {
     }
   }
 
-  void getPatients(int userId) async {
-    emit(LoadingPatients());
+  void updateUserDetails(UserModel userModel) async {
+    emit(Updating());
     try {
-      List<PatientDetailModel> response =
-          await _patientRepository.fetchPatientByID(userId: userId);
-      if (response != null) {
-        emit(ReceivedPatientRecords(response));
+      int response = await _accountRepository.addUpdateUserDetails(userModel);
+      if (response != 0) {
+        emit(UpdatedSuccessfully());
       } else {
-        emit(Error("Failed to get patient records!!!"));
+        emit(Error("Failed to update user details!!!"));
       }
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));

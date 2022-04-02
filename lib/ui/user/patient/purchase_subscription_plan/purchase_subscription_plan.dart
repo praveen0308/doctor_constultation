@@ -16,11 +16,13 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 class PurchaseSubscriptionPlanArgs {
   final ScheduleModel slotModel;
   final int patientId;
+  final String patientName;
   final String description;
 
   PurchaseSubscriptionPlanArgs(
       {required this.slotModel,
       required this.patientId,
+      required this.patientName,
       required this.description});
 }
 
@@ -68,8 +70,9 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Going to update user's subscription plan
     showToast("Payment successful!!!", ToastType.success);
-    if (subscriptionID != 0)
+    if (subscriptionID != 0) {
       _cubit.upgradeUserSubscriptionPlan(subscriptionID, widget.args.patientId);
+    }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -136,6 +139,7 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
             showToast("Plan updated successfully!!!", ToastType.success);
             _cubit.addNewAppointment(
                 widget.args.patientId,
+                widget.args.patientName,
                 widget.args.description,
                 widget.args.slotModel.ScheduleID!,
                 widget.args.slotModel.ScheduleDate!);
