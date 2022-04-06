@@ -84,6 +84,9 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
                                 state.patients[selectedIndex].ID!;
                             _addNewAppointmentCubit.selectedPatientName =
                                 state.patients[selectedIndex].FullName!;
+                            showToast(
+                                "Selected patients : ${_addNewAppointmentCubit.selectedPatientName}",
+                                ToastType.info);
                           });
                         },
                         child: Container(

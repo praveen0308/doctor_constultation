@@ -53,6 +53,9 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
   @override
   void initState() {
     super.initState();
+
+    debugPrint("patient Id : ${widget.args.patientId}");
+    debugPrint("patient name : ${widget.args.patientName}");
     try {
       _razorpay = Razorpay();
       _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
