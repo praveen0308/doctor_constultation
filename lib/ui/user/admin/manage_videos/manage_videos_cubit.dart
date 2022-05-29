@@ -16,6 +16,7 @@ class ManageVideosCubit extends Cubit<ManageVideosState> {
   void getUserRole() async {
     var roleId = await _storage.getUserRoleId();
     emit(ReceivedRoleId(roleId));
+    getAllVideos();
   }
 
   void getAllVideos() async {

@@ -30,7 +30,7 @@ class LoginCubit extends Cubit<LoginState> {
       emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");
     } on Exception catch (e) {
-      emit(Error("Something went wrong !!!"));
+      emit(IncorrectCredential());
       debugPrint("Exception >>> $e");
     }
   }

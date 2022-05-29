@@ -27,13 +27,14 @@ class _DrProfileHeaderState extends State<DrProfileHeader> {
                   bottomRight: Radius.circular(20))),
         ),
         Row(
-
           children: [
             Container(
               height: 150,
               width: 117,
               decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(topRight: Radius.circular(20.0),bottomRight: Radius.circular(20.0)),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0)),
                 image: DecorationImage(
                   image: AssetImage(AppImages.drPriyanka),
                   fit: BoxFit.cover,
@@ -42,12 +43,14 @@ class _DrProfileHeaderState extends State<DrProfileHeader> {
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 16,right: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text("Dr. Priyanka Yaduvanshi", style: AppTextStyle.headline6(txtColor: AppColors.greyLightest)),
+                    Text("Dr. Priyanka Yaduvanshi",
+                        style: AppTextStyle.headline6(
+                            txtColor: AppColors.greyLightest)),
                     const SizedBox(
                       height: 5,
                     ),
@@ -58,7 +61,7 @@ class _DrProfileHeaderState extends State<DrProfileHeader> {
                     const SizedBox(
                       height: 50,
                     ),
-                    Row(
+                    /*Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -84,7 +87,7 @@ class _DrProfileHeaderState extends State<DrProfileHeader> {
                           iconSize: 20, tabPressed: () =>Navigator.pushNamed(context, route.messagePage),
                         ),
                       ],
-                    )
+                    )*/
                   ],
                 ),
               ),

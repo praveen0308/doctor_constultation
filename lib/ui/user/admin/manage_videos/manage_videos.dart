@@ -22,11 +22,15 @@ class _ManageVideosState extends State<ManageVideos> {
   late ManageVideosCubit _cubit;
 
   var roleId = UserRoles.nonRegisteredPatient;
+  var _storage = SecureStorage();
   @override
   void initState() {
     super.initState();
+    _storage.getUserRoleId().then((value) {
+      roleId = value;
+      setState(() {});
+    });
     _cubit = BlocProvider.of<ManageVideosCubit>(context);
-    _cubit.getUserRole();
     _cubit.getAllVideos();
   }
 
@@ -82,9 +86,8 @@ class _ManageVideosState extends State<ManageVideos> {
                           Navigator.pushNamed(context, "/uploadVideo",
                               arguments: state.videos[index]);
                         },
-                        onDeleteClick: () {
-                          _cubit.deleteVideo(state.videos[index].VideoID);
-                        },
+                        onDeleteClick: () =>
+                            _cubit.deleteVideo(state.videos[index].VideoID),
                         isActionEnabled: roleId == UserRoles.doctor,
                       );
                     });
@@ -94,16 +97,16 @@ class _ManageVideosState extends State<ManageVideos> {
           },
         ),
       ),
-      floatingActionButton: roleId != UserRoles.doctor
-          ? null
-          : FloatingActionButton(
+      floatingActionButton: roleId == UserRoles.doctor
+          ? FloatingActionButton(
               backgroundColor: AppColors.primary,
               onPressed: () {
                 Navigator.pushNamed(context, "/uploadVideo",
                     arguments: VideoModel());
               },
               child: Icon(Icons.add),
-            ),
+            )
+          : null,
     ));
   }
 }

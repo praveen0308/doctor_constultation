@@ -87,6 +87,7 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
                 ConstrainedBox(
                   constraints: const BoxConstraints(minHeight: 180),
                   child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 24),
                     decoration: BoxDecoration(
                         color: AppColors.primaryLightest,
                         borderRadius: BorderRadius.circular(8)),
@@ -124,12 +125,14 @@ class CaseInfoDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         getDetailItem("Chief Complaints", caseInfoModel.ChiefComplaints),
         Row(
           children: [
-            getDetailItem("Pulse", caseInfoModel.Pulse),
-            getDetailItem("Temperature", caseInfoModel.Temperature),
+            Expanded(child: getDetailItem("Pulse", caseInfoModel.Pulse)),
+            Expanded(
+                child: getDetailItem("Temperature", caseInfoModel.Temperature)),
           ],
         ),
         getDetailItem("Past History", caseInfoModel.PastHistory),
@@ -162,19 +165,20 @@ class CaseInfoDetails extends StatelessWidget {
 
 Widget getDetailItem(String title, String value) {
   return Container(
-    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
     child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: AppTextStyle.subtitle1(),
+          style: AppTextStyle.subtitle2(txtColor: AppColors.primary),
         ),
         const SizedBox(
-          height: 12,
+          height: 8,
         ),
         Text(
           value,
-          style: AppTextStyle.subtitle2(),
+          style: AppTextStyle.subtitle1(),
         )
       ],
     ),

@@ -2,17 +2,14 @@ import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/user/patient/profile/personal_data/personal_data.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/about_us.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/contact_us.dart';
-import 'package:doctor_consultation/ui/user/patient/profile/util_pages/help_us.dart';
 import 'package:doctor_consultation/ui/user/patient/profile/util_pages/share_us.dart';
 import 'package:doctor_consultation/ui/widgets/template_profile_menu.dart';
 import 'package:doctor_consultation/ui/widgets/view_my_rich_text.dart';
 import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'account_pages/my_plan.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -73,13 +70,13 @@ class ProfileBody extends StatelessWidget {
           TemplateProfileMenu(
               imgURL: AppImages.icAboutUs,
               title: "About Us",
-              tabPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => AboutUs()))),
+              tabPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AboutUs()))),
           TemplateProfileMenu(
               imgURL: AppImages.icVoiceCall,
               title: "Contact Us",
               tabPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ContactUs()))),
+                  MaterialPageRoute(builder: (context) => const ContactUs()))),
           /*TemplateProfileMenu(
               imgURL: AppImages.icHelpUs,
               title: "Help Us",
@@ -88,8 +85,8 @@ class ProfileBody extends StatelessWidget {
           TemplateProfileMenu(
               imgURL: AppImages.icShareUs,
               title: "Share Us",
-              tabPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => ShareUs()))),
+              tabPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ShareUs()))),
           TemplateProfileMenu(
             imgURL: AppImages.icLogOut,
             title: "Logout",
@@ -187,13 +184,13 @@ class ProfileBody extends StatelessWidget {
   showAlertDialog(BuildContext context) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text("No"),
+      child: const Text("No"),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
     Widget continueButton = TextButton(
-      child: Text("Yes"),
+      child: const Text("Yes"),
       onPressed: () {
         _storage.clearStorage().then((value) {
           Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);

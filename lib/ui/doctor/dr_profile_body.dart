@@ -125,7 +125,7 @@ class _DrProfileBodyState extends State<DrProfileBody> {
           const SizedBox(
             height: 20,
           ),
-          LayoutPatientReview(),
+          // LayoutPatientReview(),
           const SizedBox(
             height: 20,
           ),
@@ -149,8 +149,59 @@ class _DrProfileBodyState extends State<DrProfileBody> {
           const SizedBox(
             height: 20,
           ),
+          Visibility(
+            visible: roleId == UserRoles.doctor,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: BtnFilled(
+                title: "Log Out",
+                onBtnPressed: () {
+                  showAlertDialog(context);
+                },
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: const Text("Yes"),
+      onPressed: () {
+        _storage.clearStorage().then((value) {
+          Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+        });
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Logout?"),
+      content: Text("Do you really want to logout?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 

@@ -130,11 +130,12 @@ class DoctorAppointmentHistoryCubit
     emit(ReceivedDates(range.start, diff.inDays));
   }
 
-  void startSession(int appointmentId) async {
+  void startSession(int appointmentId, String meetingID) async {
     emit(StartingSession());
     try {
       bool response = await _appointmentRepository.updateAppointmentStatus(
-          appointmentId, AppConstants.ongoing);
+          appointmentId, AppConstants.ongoing,
+          meetingId: meetingID);
       if (response) {
         emit(SessionStarted());
         getAppointmentsByDate(DateTime.parse(selectedDate));

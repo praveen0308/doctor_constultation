@@ -70,9 +70,9 @@ class VideoView extends StatelessWidget {
               child: PopupMenuButton(
                   onSelected: (index) {
                     if (index == 1) {
-                      onUpdateClick;
+                      onUpdateClick!();
                     } else {
-                      onDeleteClick;
+                      onDeleteClick!();
                     }
                   },
                   color: AppColors.greyLightest,

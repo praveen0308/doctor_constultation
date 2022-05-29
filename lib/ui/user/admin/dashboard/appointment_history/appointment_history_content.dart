@@ -9,6 +9,7 @@ import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../jitsee/jitsi_meet_methods.dart';
 import 'doctor_appointment_history_cubit.dart';
 
 class AppointmentHistoryContent extends StatefulWidget {
@@ -21,7 +22,7 @@ class AppointmentHistoryContent extends StatefulWidget {
 
 class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
   late DoctorAppointmentHistoryCubit _appointmentHistoryCubit;
-
+  JitsiMeetMethods meetMethods = JitsiMeetMethods();
   @override
   void initState() {
     super.initState();
@@ -107,8 +108,9 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                                       state.appointments[index].AppointmentID);
                             },
                             onStartSessionClick: (int appointmentId) {
-                              _appointmentHistoryCubit
-                                  .startSession(appointmentId);
+                              _appointmentHistoryCubit.startSession(
+                                  appointmentId,
+                                  meetMethods.generateMeetingId());
                             },
                           );
                         },
