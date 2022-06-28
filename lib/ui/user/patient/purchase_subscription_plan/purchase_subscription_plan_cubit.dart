@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
+import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/models/api/patient_subscription_model.dart';
+import 'package:doctor_consultation/models/api/payment_transaction_model.dart';
 import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
 import 'package:doctor_consultation/models/fb_models/chat_response.dart';
 import 'package:doctor_consultation/network/utils/network_exceptions.dart';
@@ -24,12 +26,12 @@ class PurchaseSubscriptionPlanCubit
       : super(PurchaseSubscriptionPlanInitial());
 
   final String subscriptionExpiry = "";
-  void addNewAppointment(int patientID, String patientName, String description,
+  void addNewAppointment(PatientDetailModel patientDetailModel, String description,
       int scheduleID, String date) async {
-    emit(Loading());
+    emit(Processing("Processing..."));
     try {
       var appointmentDetailModel = AppointmentDetailModel();
-      appointmentDetailModel.PatientID = patientID;
+      appointmentDetailModel.PatientID = patientDetailModel.ID!;
       appointmentDetailModel.Disease = description;
       appointmentDetailModel.ScheduleID = scheduleID;
       appointmentDetailModel.Date = date;
@@ -44,10 +46,12 @@ class PurchaseSubscriptionPlanCubit
         var now = DateTime.now();
         var exp = DateTime(now.year, now.month + 1, now.day);
         var chat = ChatResponse(
-            userId: patientID.toString(),
-            patientId: patientID.toString(),
+            userId: patientDetailModel.ID!.toString(),
+            patientId: patientDetailModel.ID!.toString(),
             expiry: exp,
-            patientName: patientName);
+            age: patientDetailModel.Age,
+            gender: patientDetailModel.getGender(),
+            patientName: patientDetailModel.FullName!);
         await _chatRepository.createChat(chat);
         emit(AppointmentAddedSuccessfully(response));
       } else {
@@ -67,8 +71,15 @@ class PurchaseSubscriptionPlanCubit
     try {
       List<SubscriptionPlanModel> response =
           await _accountRepository.fetchAllSubscriptionPlans();
+      if (response != null) {
 
-      emit(ReceivedSubscriptionPlans(response));
+        response[0].isSelected = true;
+
+        emit(ReceivedSubscriptionPlans(response));
+      } else {
+        emit(Error("Failed while fetching subscription plan !!!"));
+      }
+      // emit(ReceivedSubscriptionPlans(response));
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");
@@ -79,7 +90,7 @@ class PurchaseSubscriptionPlanCubit
   }
 
   void upgradeUserSubscriptionPlan(int subscriptionId, int patientId) async {
-    emit(Loading());
+    emit(Processing("Processing..."));
     try {
       PatientSubscriptionModel subscriptionModel = PatientSubscriptionModel();
       subscriptionModel.PatientID = patientId;
@@ -90,6 +101,41 @@ class PurchaseSubscriptionPlanCubit
         emit(PlanUpdatedSuccessfully());
       } else {
         emit(Error("Plan update failed!!!"));
+      }
+    } on NetworkExceptions catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    } on Exception catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    }
+  }
+
+  void addPaymentTransaction(String paymentID, String orderId,double amount,int appointmentID,int patientId) async {
+    emit(Processing("Processing..."));
+    try {
+      PaymentTransactionModel paymentTransactionModel = PaymentTransactionModel();
+      paymentTransactionModel.PaymentID = paymentID;
+      paymentTransactionModel.OrderID = "";
+      paymentTransactionModel.ID = 0;
+      paymentTransactionModel.PaymentAmount = amount;
+      paymentTransactionModel.PatientID = patientId;
+      paymentTransactionModel.CaseID = appointmentID;
+      paymentTransactionModel.Status = "PAID";
+      paymentTransactionModel.Message = "Appointment Booking";
+      paymentTransactionModel.RefundReason = "";
+      paymentTransactionModel.RefundAmount = 0;
+      paymentTransactionModel.IsPaid = true;
+      paymentTransactionModel.IsRefunded = false;
+      paymentTransactionModel.IsCancel = false;
+
+
+      bool response = await _transactionRepository
+          .addUpdatePaymentTransaction(paymentTransactionModel);
+      if (response) {
+        emit(TransactionAddedSuccessfully());
+      } else {
+        emit(Error("Transaction update failed!!!"));
       }
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));

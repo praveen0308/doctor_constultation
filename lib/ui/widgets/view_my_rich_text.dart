@@ -28,7 +28,7 @@ class ViewMyRichText extends StatelessWidget {
             style: txtStyle1,
           ),
           TextSpan(
-            text: ' ${text2}',
+            text: '${text2}',
             style: txtStyle2,
           ),
         ],

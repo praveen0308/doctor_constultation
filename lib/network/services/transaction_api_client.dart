@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:doctor_consultation/models/api/doctor_payment_model.dart';
 import 'package:doctor_consultation/models/api/patient_subscription_model.dart';
 import 'package:doctor_consultation/models/api/payment_option_model.dart';
+import 'package:doctor_consultation/models/api/payment_transaction_model.dart';
 import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
 import 'package:doctor_consultation/models/api/user_subscription_model.dart';
 import 'package:doctor_consultation/models/api/vc_payment_history_model.dart';
@@ -65,9 +66,23 @@ abstract class TransactionApiClient {
   @GET("Transaction/GetDoctPaymentDetailByID")
   Future<DoctorPaymentModel> getDoctorPaymentByID(@Query("ID") int id);
 
+
+
   @POST("Transaction/AddUpdateDoctPaymentDetails")
   Future<bool> addUpdateDoctorPayment(
       @Body() DoctorPaymentModel doctorPaymentModel);
   //#endregion
 
+  //#region Transactions CUD
+  @POST("Transaction/AddUpdatePaymentTransaction")
+  Future<bool> addUpdateTransaction(@Body() PaymentTransactionModel paymentTransactionModel);
+
+
+  @GET("Transaction/GetPaymentTransactionByID")
+  Future<PaymentTransactionModel> getPaymentTransactionById(@Query("ID") int ID);
+
+  @GET("Transaction/GetAllPaymentTransaction")
+  Future<List<PaymentTransactionModel>> getAllTransactions();
+
+  //#endregion
 }

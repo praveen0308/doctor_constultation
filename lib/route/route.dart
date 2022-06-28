@@ -35,14 +35,18 @@ import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_new_slot
 import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule.dart';
+import 'package:doctor_consultation/ui/user/admin/search_patient/search_patient.dart';
+import 'package:doctor_consultation/ui/user/admin/search_patient/search_patient_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/search_user/search_user.dart';
 import 'package:doctor_consultation/ui/user/admin/search_user/search_user_cubit.dart';
+import 'package:doctor_consultation/ui/user/admin/transactions/transaction_history.dart';
+import 'package:doctor_consultation/ui/user/admin/transactions/transaction_history_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/upload_videos/upload_video.dart';
 import 'package:doctor_consultation/ui/user/admin/upload_videos/upload_video_cubit.dart';
+import 'package:doctor_consultation/ui/user/admin/user_appointments/user_appointments.dart';
+import 'package:doctor_consultation/ui/user/admin/user_appointments/user_appointments_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_address/add_update_address.dart';
 import 'package:doctor_consultation/ui/user/patient/add_address/add_update_address_cubit.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient.dart';
 import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/appointment/new_appointment.dart';
@@ -66,6 +70,9 @@ import 'package:doctor_consultation/ui/video_player/video_player.dart';
 import 'package:doctor_consultation/ui/video_player/youtube_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../ui/add_new_appointment/add_new_appointment.dart';
+import '../ui/add_new_appointment/add_new_appointment_cubit.dart';
 
 // importing our pages into our route.dart
 
@@ -126,6 +133,9 @@ const String patientDetails = '/patientDetails';
 const String chatScreen = '/chatScreen';
 const String chatNotAvailable = '/chatNotAvailable';
 const String personalData = '/personalData';
+const String transactions = '/transactions';
+const String searchPatients = '/searchPatients';
+const String userAppointments = '/userAppointments';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -180,7 +190,7 @@ Route<dynamic> controller(RouteSettings settings) {
     case addPatientInfo:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-                create: (context) => AddPatientCubit(PatientRepository()),
+                create: (context) => AddPatientCubit(PatientRepository(),AccountRepository()),
                 child: AddPatientInfo(),
               ),
           settings: settings);
@@ -222,6 +232,12 @@ Route<dynamic> controller(RouteSettings settings) {
                   args: args as ChatScreenArgs,
                 ),
               ),
+          settings: settings);
+    case transactions:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => TransactionHistoryCubit(TransactionRepository()), child: TransactionHistory(),
+          ),
           settings: settings);
     case enterUserDetails:
       return MaterialPageRoute(
@@ -306,6 +322,12 @@ Route<dynamic> controller(RouteSettings settings) {
                 child: UserAddresses(),
               ),
           settings: settings);
+    case searchPatients:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => SearchPatientCubit(PatientRepository()),
+            child: SearchPatient(),
+          ));
     case manageVideos:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -348,6 +370,14 @@ Route<dynamic> controller(RouteSettings settings) {
                 child: const PersonalData(),
               ),
           settings: settings);
+    case userAppointments:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => UserAppointmentsCubit(AppointmentRepository()),
+            child: UserAppointments(userID: args as int,),
+          ),
+          settings: settings);
+
     default:
       throw ('this route name does not exist');
   }

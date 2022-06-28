@@ -3,11 +3,17 @@ import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/appointment_case_info/appointment_case_info_cubit.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
+import 'package:doctor_consultation/ui/user/admin/appointment_detail/case_attachments/case_attachments.dart';
+import 'package:doctor_consultation/ui/user/admin/appointment_detail/case_attachments/case_attachments_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/appointment_detail/case_history/patient_case_history_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../repository/case_repository.dart';
+import '../../res/image_path.dart';
+import '../widgets/view_heading_appointment.dart';
 
 class AppointmentCaseInfoArgs {
   final int patientID;
@@ -41,13 +47,30 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppointmentCaseInfoCubit, AppointmentCaseInfoState>(
+
       builder: (context, state) {
+        if(state is ReceivedCaseDetail){
+          caseInfoModel = state.caseInfoModel;
+        }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Case Info",
-              style: AppTextStyle.subtitle1(),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Case Info",
+                  style: AppTextStyle.subtitle1(),
+                ),
+                const Spacer(),
+                Text(
+                  "View History",
+                  style: AppTextStyle.subtitle2(
+                    txtColor: AppColors.primary,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 16,
@@ -82,8 +105,8 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
                     },
                     isLoading: false)
               ]),
-            if (state is ReceivedCaseDetail)
-              Column(children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              if (state is ReceivedCaseDetail)
                 ConstrainedBox(
                   constraints: const BoxConstraints(minHeight: 180),
                   child: Container(
@@ -91,22 +114,57 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
                     decoration: BoxDecoration(
                         color: AppColors.primaryLightest,
                         borderRadius: BorderRadius.circular(8)),
-                    child: CaseInfoDetails(caseInfoModel: state.caseInfoModel),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        getDetailItem("Case ID",
+                            state.caseInfoModel.ID.toString()),
+                        getDetailItem("Chief Complaints",
+                            state.caseInfoModel.ChiefComplaints),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: getDetailItem("Pulse",
+                                    "${state.caseInfoModel.Pulse} BPM")),
+                            Expanded(
+                                child: getDetailItem("Temperature",
+                                    "${state.caseInfoModel.Temperature} °F")),
+                          ],
+                        ),
+                        getDetailItem(
+                            "Past History", state.caseInfoModel.PastHistory),
+                        getDetailItem("Family History",
+                            state.caseInfoModel.ChiefComplaints),
+                        getDetailItem("Observations",
+                            state.caseInfoModel.ChiefComplaints),
+                        getDetailItem("Investigation Notes",
+                            state.caseInfoModel.ChiefComplaints),
+                        getDetailItem(
+                            "Diagnosis", state.caseInfoModel.Diagnosis.isEmpty ? "No Diagnosis": state.caseInfoModel.Diagnosis),
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
+
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: BlocProvider(
+                  create: (context) =>
+                      CaseAttachmentsCubit(CaseRepository()),
+                  child: CaseAttachments(caseID: widget.args.caseID,),
                 ),
-                CustomBtn(
-                    title: "Update Case Info",
-                    onBtnPressed: () {
-                      Navigator.pushNamed(context, "/addCaseInfo",
-                          arguments: AddCaseInfoArgs(
-                              widget.args.patientID, widget.args.appointmentID,
-                              caseId: widget.args.caseID));
-                    },
-                    isLoading: false)
-              ]),
+              ),
+
+              CustomBtn(
+                  title: "Update Case Info",
+                  onBtnPressed: () {
+                    Navigator.pushNamed(context, "/addCaseInfo",
+                        arguments: AddCaseInfoArgs(
+                            widget.args.patientID, widget.args.appointmentID,
+                            caseId: widget.args.caseID));
+                  },
+                  isLoading: false)
+            ]),
             const SizedBox(
               height: 32,
             ),
@@ -119,6 +177,7 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
 
 class CaseInfoDetails extends StatelessWidget {
   final CaseInfoModel caseInfoModel;
+
   const CaseInfoDetails({Key? key, required this.caseInfoModel})
       : super(key: key);
 
@@ -140,6 +199,10 @@ class CaseInfoDetails extends StatelessWidget {
         getDetailItem("Observations", caseInfoModel.ChiefComplaints),
         getDetailItem("Investigation Notes", caseInfoModel.ChiefComplaints),
         getDetailItem("Diagnosis", caseInfoModel.Diagnosis),
+        Text(
+          "Attachments",
+          style: AppTextStyle.subtitle2(txtColor: AppColors.primary),
+        ),
         /*if (caseInfoModel.files.isEmpty)
           const EmptyDataContainer(msg: "No attachments !!!"),
         if (_cubit.files.isNotEmpty)

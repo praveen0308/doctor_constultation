@@ -65,4 +65,13 @@ abstract class AccountApiClient {
   Future<SubscriptionPlanModel> fetchSubscriptionByLocation(
       @Query("pincode") String pinCode);
   //#endregion
+
+  @POST("Account/UploadProfileImage")
+  Future<String> uploadProfileImage(@Body() FormData formData);
+
+
+  @POST("Account/UpdateFCMToken")
+  Future<bool> updateFCMToken(@Query("UserID") int id,@Query("Token") String token);
+
+
 }

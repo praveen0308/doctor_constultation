@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'video_model.g.dart';
@@ -39,4 +40,8 @@ class VideoModel {
       _$VideoModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$VideoModelToJson(this);
+
+  String getThumbnailUrl(){
+    return AppConstants.getThumbnailUrl(VideoUrl);
+  }
 }

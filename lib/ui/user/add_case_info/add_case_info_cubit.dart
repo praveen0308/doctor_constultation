@@ -55,7 +55,7 @@ class AddCaseInfoCubit extends Cubit<AddCaseInfoState> {
             caseInfoId,
             comment,
             file.path,
-            "${DateTime.now()}.${file.path.split('/').last}");
+            file.path.split('/').last);
         if (response.isNotEmpty) {
           emit(DocumentUploaded(index));
         } else {

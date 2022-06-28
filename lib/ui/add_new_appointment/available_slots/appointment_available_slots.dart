@@ -1,13 +1,13 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment_cubit.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/available_slots/appointment_available_slots_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/custom_chip_group.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'appointment_available_slots_cubit.dart';
+import '../add_new_appointment_cubit.dart';
 
 class AppointmentAvailableSlots extends StatefulWidget {
   const AppointmentAvailableSlots({Key? key}) : super(key: key);

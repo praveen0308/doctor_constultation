@@ -142,7 +142,7 @@ class _$Idle<T> with DiagnosticableTreeMixin implements Idle<T> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'ResultState<$T>.idle'));
+    properties.add(DiagnosticsProperty('type', 'ResultState<$T>.idle'));
   }
 
   @override
@@ -262,7 +262,7 @@ class _$Loading<T> with DiagnosticableTreeMixin implements Loading<T> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'ResultState<$T>.loading'));
+    properties.add(DiagnosticsProperty('type', 'ResultState<$T>.loading'));
   }
 
   @override

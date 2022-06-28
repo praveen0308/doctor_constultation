@@ -35,11 +35,16 @@ class _CustomChipGroupState extends State<CustomChipGroup> {
   Widget build(BuildContext context) {
     return Container(
         child: widget.data.isNotEmpty
-            ? Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: List.generate(widget.data.length, //length
-                    (index) {
+            ? GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: widget.data.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    crossAxisCount: 2,
+                    childAspectRatio: 3),
+                itemBuilder: (context, index) {
                   var slot = widget.data[index];
 
                   return SlotView(
@@ -59,25 +64,8 @@ class _CustomChipGroupState extends State<CustomChipGroup> {
                       isBooked: slot.IsBooked,
                       isAvailable: slot.IsAvailable,
                       isSelected: slot.isSelected);
-                }
-                    /*SlotView1(
-                      index: index,
-                      title: widget.data[index].getTiming(),
-                      onTap: (index, status) {
-                        if (widget.type == ChipGroupType.single) {
-                          for (var element in widget.data) {
-                            element.IsAvailable = false;
-                          }
-                        }
-                        widget.data[index].IsAvailable = status;
-                        widget.onItemSelected(widget.data[index]);
-                        widget.onSubmitted(widget.data);
-                        setState(() {});
-                      },
-                      isSelected: widget.data[index].IsAvailable),
-*/
-
-                    ))
+                },
+              )
             : Container(
                 margin: const EdgeInsets.symmetric(vertical: 12),
                 width: double.infinity,

@@ -61,6 +61,7 @@ class _ManagePatientsState extends State<ManagePatients> {
                         age: "${user.Age} Years",
                         gender: user.getGender(),
                         subtitle: user.MobileNo ?? "N.A.",
+                        picUrl: user.getProfileUrl(),
                       ),
                     );
                   });

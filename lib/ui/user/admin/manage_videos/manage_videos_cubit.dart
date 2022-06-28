@@ -37,7 +37,7 @@ class ManageVideosCubit extends Cubit<ManageVideosState> {
     emit(Loading());
     try {
       bool response = await _utilRepository.deleteVideoById(videoId);
-      if (response) {
+      if (!response) {
         emit(DeletedSuccessfully());
       } else {
         emit(Error("Unable to delete video!!!"));

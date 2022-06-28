@@ -104,6 +104,7 @@ class _UserPatientChatsState extends State<UserPatientChats> {
                                 age: "${user.Age} Years",
                                 gender: user.getGender(),
                                 subtitle: user.MobileNo ?? "N.A.",
+                                picUrl: user.getProfileUrl(),
                               ),
                             );
                           }),

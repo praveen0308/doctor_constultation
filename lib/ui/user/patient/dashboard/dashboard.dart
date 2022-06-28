@@ -7,6 +7,7 @@ import 'package:doctor_consultation/ui/communication/user_patient_chats/user_pat
 import 'package:doctor_consultation/ui/communication/user_patient_chats/user_patient_chats_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/dashboard/appointment_history/patient_appointment_history.dart';
 import 'package:doctor_consultation/ui/widgets/bottom_nav_bar/bottom_nav.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
 
   @override
   void initState() {
+    super.initState();
     _tabsPageController = PageController();
     _storage.getUserRoleId().then((value) => {
           if (value == UserRoles.registeredPatient)
@@ -38,7 +40,9 @@ class _DashboardPatientState extends State<DashboardPatient> {
               })
             }
         });
-    super.initState();
+    FirebaseMessaging.instance.getToken().then((value){
+
+    });
   }
 
   @override

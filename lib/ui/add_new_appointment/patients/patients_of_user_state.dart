@@ -6,6 +6,7 @@ abstract class PatientsOfUserState {}
 class PatientsOfUserInitial extends PatientsOfUserState {}
 
 class Loading extends PatientsOfUserState {}
+class NoPatients extends PatientsOfUserState {}
 
 class Error extends PatientsOfUserState {
   final String msg;
@@ -16,3 +17,4 @@ class ReceivedPatientList extends PatientsOfUserState {
   final List<PatientDetailModel> patients;
   ReceivedPatientList(this.patients);
 }
+

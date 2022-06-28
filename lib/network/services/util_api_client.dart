@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:doctor_consultation/models/api/fact_model.dart';
+import 'package:doctor_consultation/models/api/stat_model.dart';
 import 'package:doctor_consultation/models/api/user_review_model.dart';
 import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/network/utils/api_constats.dart';
@@ -45,4 +46,7 @@ abstract class UtilApiClient {
   @POST("Utils/AddUpdateReviewInfoDetails")
   Future<bool> addUpdateReviewDetail(@Body() UserReviewModel userReviewModel);
   //#endregion
+
+  @GET("Utils/GetStatsByDoctor")
+  Future<StatModel> getStatsByDoctor(@Query("ID") int id);
 }

@@ -21,14 +21,14 @@ class AddNewAppointmentCubit extends Cubit<AddNewAppointmentState> {
       : super(AddNewAppointmentInitial());
 
   ScheduleModel? slot;
-  late int selectedPatientId;
-  late String selectedPatientName;
+  PatientDetailModel? patientDetailModel;
+
   int selectedLocationId = 0;
   String problemDescription = "";
   bool validateAppointment() {
     bool isValid = false;
     if (slot != null) {
-      if (selectedPatientId != null) {
+      if (patientDetailModel != null) {
         isValid = true;
       } else {
         emit(AddNewAppointmentError("Add a patient record!!!"));

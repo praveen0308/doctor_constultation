@@ -10,13 +10,14 @@ class TemplateAlphaPatient extends StatelessWidget {
   final String subtitle;
   final String age;
   final String gender;
+  final String picUrl;
 
   const TemplateAlphaPatient(
       {Key? key,
       required this.name,
       required this.subtitle,
       required this.age,
-      required this.gender})
+      required this.gender, this.picUrl=""})
       : super(key: key);
 
   @override
@@ -38,9 +39,9 @@ class TemplateAlphaPatient extends StatelessWidget {
             borderRadius: BorderRadius.circular(5)),
         child: Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 30,
-              backgroundImage: AssetImage(AppImages.imgAvatar),
+              backgroundImage: NetworkImage(picUrl),
             ),
             const SizedBox(
               width: 20,

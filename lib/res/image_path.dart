@@ -211,6 +211,7 @@ class AppImages {
   static const String imgPhonePe = '$rootImagePath/img_phonePe.png';
   static const String imgPaytm = '$rootImagePath/img_paytm.png';
   static const String imgUPI = '$rootImagePath/img_upi.png';
+  static const String icTransactions = '$rootImagePath/ic_transactions.svg';
 
   //#region Social Media
   static const String imgInstagram = '$rootImagePath/img_instagram.svg';

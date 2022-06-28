@@ -12,6 +12,8 @@ ChatResponse _$ChatResponseFromJson(String id, Map<String, dynamic> json) =>
       userId: json['userId'] as String?,
       patientId: json['patientId'] as String?,
       patientName: json['patientName'] as String?,
+      age: json['age'] as int?,
+      gender: json['gender'] as String?,
       lastMessage: json['lastMessage'] as String? ?? "",
       lmAddedOn: json['lmAddedOn'] == null
           ? null
@@ -23,9 +25,12 @@ ChatResponse _$ChatResponseFromJson(String id, Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ChatResponseToJson(ChatResponse instance) =>
     <String, dynamic>{
+      'chatId': instance.chatId,
       'userId': instance.userId,
       'patientId': instance.patientId,
       'patientName': instance.patientName,
+      'age': instance.age,
+      'gender': instance.gender,
       'lastMessage': instance.lastMessage,
       'lmAddedOn': instance.lmAddedOn != null
           ? const TimestampConverter().toJson(instance.lmAddedOn!)

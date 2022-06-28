@@ -40,10 +40,14 @@ class _CreateNewScheduleState extends State<CreateNewSchedule> {
             showToast(state.msg, ToastType.error);
           }
           if (state is SubmissionSuccess) {
+            _createNewScheduleCubit.close();
             showToast("Schedule submitted successfully !!!", ToastType.success);
             WidgetsBinding.instance!.addPostFrameCallback((_) {
-              Navigator.pop(context);
+              Navigator.pop(context,true);
             });
+
+
+
           }
           if (state is SubmissionFailure) {
             showToast("Schedule submitted failed !!!", ToastType.error);

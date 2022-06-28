@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart ';
 class AppStrings{
+  static const appName = "Dr. Priyanka Yaduwanshi";
   static const String drName = 'Dr. Priyanaka Yaduvanshi';
   static const String drFName = 'Dr. Priyanaka';
   static const String drLName = ' Yaduvanshi';
   static const String speciaList = 'Homeopathy';
   static const String slogan1 = '“I am your Doctor - ';
-  static const String slogan2 = 'A friend for life”';
+  static const String slogan2 = 'Experience magical homeopathy!';
   static const String clinicAddress = 'Vrindavan Clinic';
   static const String clinicPlace = 'Kandivali (E)';
   static const String clinicTiming = '10.00 am - 5.00 pm';
   static const String drEmail = 'drpriyagwh@yahoo.co.uk';
+  static const String doctorTitle = "MD, DHM, BHMS";
+  static const String drContactNo = "9820631193";
 
 //  Myth
   static const String myth1 = 'In Homeopathy all diseases are curable.';

@@ -3,11 +3,6 @@ import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment_cubit.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/available_slots/appointment_available_slots.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/available_slots/appointment_available_slots_cubit.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/patients/patients_of_user.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/patients/patients_of_user_cubit.dart';
 import 'package:doctor_consultation/ui/user/patient/purchase_subscription_plan/purchase_subscription_plan.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
@@ -17,7 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../repository/schedule_repository.dart';
-import 'package:geolocator/geolocator.dart';
+import 'available_slots/available_slots.dart';
+import 'patients/patients.dart';
+import 'add_new_appointment_cubit.dart';
 
 class AddNewAppointment extends StatefulWidget {
   const AddNewAppointment({Key? key}) : super(key: key);
@@ -54,14 +51,14 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                 BlocProvider(
                   create: (context) =>
                       AppointmentAvailableSlotsCubit(ScheduleRepository()),
-                  child: AppointmentAvailableSlots(),
+                  child: const AppointmentAvailableSlots(),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 BlocProvider(
                   create: (context) => PatientsOfUserCubit(PatientRepository()),
-                  child: const PatientsOfUser(),
+                  child:  const PatientsOfUser(),
                 ),
                 const SizedBox(
                   height: 16,
@@ -104,7 +101,7 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                     /*if (state is AppointmentAddedSuccessfully) {
                       showToast("Appointment booked successfully !!!",
                           ToastType.success);
-                      WidgetsBinding.instance!.addPostFrameCallback((_) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
                         Navigator.pushReplacementNamed(context, "/successPage",
                             arguments: _addNewAppointmentCubit.slot);
                       });
@@ -113,6 +110,10 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                       showToast("Failed !!!", ToastType.success);
                     }
 */
+
+                    if(state is AddNewAppointmentError){
+                      showToast(state.msg, ToastType.error);
+                    }
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -133,18 +134,15 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                           child: CustomBtn(
                             title: "Set Appointment",
                             onBtnPressed: () {
-                              // _addNewAppointmentCubit.addNewAppointment();
-                              if (_addNewAppointmentCubit
-                                  .validateAppointment()) {
+
+
+                              if (_addNewAppointmentCubit.validateAppointment()) {
                                 Navigator.pushNamed(
                                     context, "/purchaseSubscriptionPlan",
                                     arguments: PurchaseSubscriptionPlanArgs(
                                         slotModel:
                                             _addNewAppointmentCubit.slot!,
-                                        patientId: _addNewAppointmentCubit
-                                            .selectedPatientId,
-                                        patientName: _addNewAppointmentCubit
-                                            .selectedPatientName,
+                                        patientDetailModel: _addNewAppointmentCubit.patientDetailModel!,
                                         description: _addNewAppointmentCubit
                                             .problemDescription));
                               }

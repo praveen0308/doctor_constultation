@@ -1,7 +1,9 @@
 import 'package:doctor_consultation/res/app_colors.dart';
+import 'package:doctor_consultation/res/app_string.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_circle.dart';
+import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
@@ -48,14 +50,14 @@ class _DrProfileHeaderState extends State<DrProfileHeader> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text("Dr. Priyanka Yaduvanshi",
+                    Text(AppConstants.doctorName,
                         style: AppTextStyle.headline6(
                             txtColor: AppColors.greyLightest)),
                     const SizedBox(
                       height: 5,
                     ),
                     Text(
-                      "Ayurveda Specialist".toUpperCase(),
+                      AppStrings.doctorTitle.toUpperCase(),
                       style: const TextStyle(color: AppColors.greyLight),
                     ),
                     const SizedBox(

@@ -12,6 +12,7 @@ class AppointmentDetailModel {
   String AppointmentNumber;
   int DoctorID;
   int PatientID;
+  String? PatientProfileUrl;
   int AddressID;
   String Date;
   int AppointmentStatusID;
@@ -38,6 +39,7 @@ class AppointmentDetailModel {
     this.AppointmentNumber = "",
     this.DoctorID = 0,
     this.PatientID = 0,
+    this.PatientProfileUrl = "",
     this.AddressID = 0,
     this.Date = "",
     this.AppointmentStatusID = 0,

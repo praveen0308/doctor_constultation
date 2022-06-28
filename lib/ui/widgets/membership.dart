@@ -44,7 +44,7 @@ class _TemplateMembershipState extends State<TemplateMembership> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 100,
+        // height: 100,
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(

@@ -29,49 +29,54 @@ class _SearchUserState extends State<SearchUser> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: ViewSearchPatientFilter(
-              onTextUpdated: (txt) {
-                _cubit.filterUser(txt);
+          title: const Text("Manage Users"),
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: ViewSearchPatientFilter(
+                onTextUpdated: (txt) {
+                  _cubit.filterUser(txt);
+                },
+              ),
+            ),
+            BlocBuilder<SearchUserCubit, SearchUserState>(
+              builder: (context, state) {
+                if (state is Error) {
+                  showToast(state.msg, ToastType.error);
+                }
+                if (state is ReceivedUsers) {
+                  if (state.users.isEmpty) {
+                    return NoRecordsView(
+                        title: "No users found!!!", onBtnClick: () {});
+                  } else {
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: state.users.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (_, index) {
+                          var user = state.users[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, "/userDetails",
+                                  arguments: user.ID);
+                            },
+                            child: TemplateAlphaPatient(
+                              name: user.UserName!,
+                              age: "${user.Age} Years",
+                              gender: user.Gender,
+                              subtitle: user.MobileNo!, picUrl: user.getProfileUrl(),
+                            ),
+                          );
+                        });
+                  }
+                }
+                return LoadingView(isVisible: state is Loading);
               },
             ),
-          ),
-        ),
-        body: BlocBuilder<SearchUserCubit, SearchUserState>(
-          builder: (context, state) {
-            if (state is Error) {
-              showToast(state.msg, ToastType.error);
-            }
-            if (state is ReceivedUsers) {
-              if (state.users.isEmpty) {
-                return NoRecordsView(
-                    title: "No users found!!!", onBtnClick: () {});
-              } else {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: state.users.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (_, index) {
-                      var user = state.users[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/userDetails",
-                              arguments: user.ID);
-                        },
-                        child: TemplateAlphaPatient(
-                          name: user.UserName!,
-                          age: "${user.Age} Years",
-                          gender: user.Gender,
-                          subtitle: user.MobileNo!,
-                        ),
-                      );
-                    });
-              }
-            }
-            return LoadingView(isVisible: state is Loading);
-          },
+          ],
         ),
       ),
     );

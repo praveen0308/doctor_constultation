@@ -15,8 +15,11 @@ class PatientsOfUserCubit extends Cubit<PatientsOfUserState> {
     try {
       List<PatientDetailModel> response =
           await _patientRepository.fetchPatientByID();
-
-      emit(ReceivedPatientList(response));
+      if(response.isEmpty) {
+        emit(NoPatients());
+      } else {
+        emit(ReceivedPatientList(response));
+      }
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");

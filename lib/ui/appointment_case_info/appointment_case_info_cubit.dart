@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:doctor_consultation/models/api/case_doc_model.dart';
 import 'package:doctor_consultation/models/api/case_info_model.dart';
 import 'package:doctor_consultation/network/utils/network_exceptions.dart';
 import 'package:doctor_consultation/repository/case_repository.dart';
@@ -25,8 +26,10 @@ class AppointmentCaseInfoCubit extends Cubit<AppointmentCaseInfoState> {
       CaseInfoModel response = await _caseRepository.fetchCaseInfoByID(caseID);
       if (response != null) {
         emit(ReceivedCaseDetail(response));
+        Future.delayed(const Duration(milliseconds: 1000));
+        // getCaseAttachments(response.ID);
       } else {
-        emit(Error("Failed to get patient details!!!"));
+        emit(Error("Failed to get case details!!!"));
       }
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));
@@ -36,4 +39,6 @@ class AppointmentCaseInfoCubit extends Cubit<AppointmentCaseInfoState> {
       debugPrint("Exception >>> $e");
     }
   }
+
+
 }

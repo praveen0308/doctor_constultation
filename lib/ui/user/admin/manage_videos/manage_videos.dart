@@ -18,20 +18,39 @@ class ManageVideos extends StatefulWidget {
   State<ManageVideos> createState() => _ManageVideosState();
 }
 
-class _ManageVideosState extends State<ManageVideos> {
+class _ManageVideosState extends State<ManageVideos> with WidgetsBindingObserver {
   late ManageVideosCubit _cubit;
 
   var roleId = UserRoles.nonRegisteredPatient;
   var _storage = SecureStorage();
+
+
+
   @override
   void initState() {
-    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
     _storage.getUserRoleId().then((value) {
       roleId = value;
       setState(() {});
     });
     _cubit = BlocProvider.of<ManageVideosCubit>(context);
     _cubit.getAllVideos();
+    super.initState();
+
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _cubit.getAllVideos();
+    }
   }
 
   @override
@@ -47,6 +66,7 @@ class _ManageVideosState extends State<ManageVideos> {
           builder: (context, state) {
             if (state is DeletedSuccessfully) {
               showToast("Deleted successfully !!!", ToastType.success);
+              _cubit.getAllVideos();
             }
             if (state is ReceivedRoleId) {
               roleId = state.roleId;
@@ -82,9 +102,14 @@ class _ManageVideosState extends State<ManageVideos> {
                           Navigator.pushNamed(context, "/youtubePlayer",
                               arguments: state.videos[index].VideoUrl);
                         },
-                        onUpdateClick: () {
-                          Navigator.pushNamed(context, "/uploadVideo",
+                        onUpdateClick: () async {
+                          final result = await Navigator.pushNamed(context, "/uploadVideo",
                               arguments: state.videos[index]);
+
+                          if(result==true){
+                            _cubit.getAllVideos();
+                          }
+
                         },
                         onDeleteClick: () =>
                             _cubit.deleteVideo(state.videos[index].VideoID),
@@ -100,9 +125,13 @@ class _ManageVideosState extends State<ManageVideos> {
       floatingActionButton: roleId == UserRoles.doctor
           ? FloatingActionButton(
               backgroundColor: AppColors.primary,
-              onPressed: () {
-                Navigator.pushNamed(context, "/uploadVideo",
-                    arguments: VideoModel());
+              onPressed: () async {
+                final result = await Navigator.pushNamed(context, "/uploadVideo", arguments: VideoModel());
+
+                if(result==true){
+                  _cubit.getAllVideos();
+                }
+
               },
               child: Icon(Icons.add),
             )

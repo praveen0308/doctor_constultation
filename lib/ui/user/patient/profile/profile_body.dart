@@ -44,10 +44,9 @@ class ProfileBody extends StatelessWidget {
           TemplateProfileMenu(
               imgURL: AppImages.icMyPlan,
               title: "Manage Patients",
-              tabPressed: () =>
-                  WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-                    Navigator.pushNamed(context, "/managePatients");
-                  })),
+              tabPressed: () {
+                Navigator.pushNamed(context, "/managePatients");
+              }),
           /*TemplateProfileMenu(
               imgURL: AppImages.icMyPlan,
               title: "My Plan",
@@ -95,7 +94,7 @@ class ProfileBody extends StatelessWidget {
             },
           ),
           const SizedBox(
-            height: 10,
+            height: 24,
           ),
           Text(
             "Follow us",

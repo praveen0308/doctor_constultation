@@ -1,7 +1,7 @@
 import 'package:doctor_consultation/models/fb_models/timestamp_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'user_data_model.g.dart';
-
+@JsonSerializable()
 class UserDataModel {
   int? userUId;
   int? userId;

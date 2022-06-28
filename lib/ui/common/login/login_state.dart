@@ -15,6 +15,12 @@ class Error extends LoginState {
   Error(this.msg);
 }
 
+class TokenUpdatedSuccessfully extends LoginState {
+  final UserModel userModel;
+
+  TokenUpdatedSuccessfully(this.userModel);
+}
+
 class LoginSuccessful extends LoginState {
   final UserModel userModel;
 

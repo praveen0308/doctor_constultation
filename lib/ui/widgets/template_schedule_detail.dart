@@ -38,6 +38,7 @@ class TemplateScheduleDetail extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
         decoration: BoxDecoration(
             color: AppColors.greyLightest,
             boxShadow: const [

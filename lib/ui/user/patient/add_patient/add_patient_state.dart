@@ -13,5 +13,6 @@ class Error extends AddPatientState {
 }
 
 class PatientAddedSuccessfully extends AddPatientState {}
+class ProfileAddedSuccessfully extends AddPatientState {}
 
 // class AddressAddedSuccessfully extends AddPatientState {}

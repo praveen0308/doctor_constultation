@@ -7,6 +7,7 @@ import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_back_nav_bar.dart
 import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +41,12 @@ class _LoginPageState extends State<LoginPage> {
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
           if (state is LoginSuccessful) {
+            FirebaseMessaging.instance.getToken().then((value){
+              _loginCubit.updateFCMToken(value!, state.userModel);
+            });
+
+          }
+          if(state is TokenUpdatedSuccessfully){
             WidgetsBinding.instance!.addPostFrameCallback((_) {
               if (state.userModel.UserRoleID == UserRoles.registeredPatient) {
                 Navigator.pushNamedAndRemoveUntil(
@@ -83,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: 'Enter the mobileno',
+                        hintText: 'Enter the mobile number',
                         labelText: 'Mobile Number'),
                     keyboardType: TextInputType.name,
                   ),

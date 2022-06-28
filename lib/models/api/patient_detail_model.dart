@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../network/utils/api_constats.dart';
+
 part 'patient_detail_model.g.dart';
 
 @JsonSerializable()
@@ -14,6 +16,7 @@ class PatientDetailModel {
   int? TypeID;
   int? RelationID;
   String? CreateDateTime;
+  String? ProfileImage;
   bool? IsActive;
 
   PatientDetailModel(
@@ -21,6 +24,7 @@ class PatientDetailModel {
       this.UserID = 0,
       this.FullName = "",
       this.MobileNo = "",
+      this.ProfileImage = "",
       this.DOB = "",
       this.Age = 0,
       this.GenderID = 0,
@@ -49,4 +53,6 @@ class PatientDetailModel {
     }
     return gender;
   }
+
+  String getProfileUrl() => "${ApiConstants.baseUrl}$ProfileImage";
 }

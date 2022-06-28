@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:doctor_consultation/models/api/address_model.dart';
 import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/models/relation_model.dart';
+import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/patient/add_patient/add_patient_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline_tab.dart';
@@ -10,6 +13,7 @@ import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:doctor_consultation/ui/widgets/view_custom_dropdown.dart';
 import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,6 +30,7 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
   final List<RelationModel> relations = AppConstants.getRelations();
   final PatientDetailModel _patientDetailModel = PatientDetailModel();
   final AddressModel _addressModel = AddressModel();
+
 
   @override
   void initState() {
@@ -45,21 +50,37 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
             if (state is Error) {
               showToast(state.msg, ToastType.error);
             }
-            if (state is PatientAddedSuccessfully) {
+            if(state is ProfileAddedSuccessfully){
               showToast("Patient added successfully !!!", ToastType.success);
 
               _addPatientCubit.close();
               WidgetsBinding.instance!.addPostFrameCallback((_) {
-                Navigator.pop(context);
+                Navigator.pop(context,true);
               });
             }
+            if (state is PatientAddedSuccessfully) {
+              if(_addPatientCubit.selectedProfileImage!=null){
+                _addPatientCubit.uploadProfileImage();
+              }
+              else{
+                showToast("Patient added successfully !!!", ToastType.success);
+
+                _addPatientCubit.close();
+                WidgetsBinding.instance!.addPostFrameCallback((_) {
+                  Navigator.pop(context,true);
+                });
+              }
+
+            }
             return Form(
+              key: _addPatientInfoFormKey,
                 child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: ScrollConfiguration(
                 behavior: NoGlowBehaviour(),
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                           alignment: AlignmentDirectional.centerStart,
@@ -70,6 +91,26 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
                       const SizedBox(
                         height: 16,
                       ),
+                      GestureDetector(
+                        onTap: (){
+                          pickFiles();
+                        },
+                        child: Container(
+                          width: 150.0,
+                          height: 150.0,
+                          decoration: BoxDecoration(
+                            color:AppColors.greyLight,
+                            shape: BoxShape.circle,
+                            image: _addPatientCubit.selectedProfileImage==null ? null : DecorationImage(image: FileImage(_addPatientCubit.selectedProfileImage!),
+                              fit: BoxFit.cover,)
+                          ),
+                          child: const Icon(Icons.add,size: 36,),
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: 32,
+                      ),
                       CustomDropDown(
                           hint: "Select Relation",
                           itemList: relations,
@@ -79,6 +120,9 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
                                 (item as RelationModel).relationId;
                           }),
                       TextFormField(
+                        validator: (String? value){
+                          return (value==null || value.isEmpty) ? "Name cannot be empty!" : null;
+                        },
                         onChanged: (text) =>
                             _patientDetailModel.FullName = text,
                         onFieldSubmitted: (text) =>
@@ -93,6 +137,9 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
                         height: 16,
                       ),
                       TextFormField(
+                        validator: (String? value){
+                          return (value==null || value.isEmpty) ? "Age cannot be empty!" : null;
+                        },
                         onChanged: (text) =>
                             _patientDetailModel.Age = int.tryParse(text),
                         onFieldSubmitted: (text) =>
@@ -181,7 +228,11 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
                       CustomBtn(
                           title: "Submit",
                           onBtnPressed: () {
-                            _addPatientCubit.addNewPatient(_patientDetailModel);
+                            if(_addPatientInfoFormKey.currentState!.validate()){
+
+                              _addPatientCubit.addNewPatient(_patientDetailModel);
+                            }
+
                           },
                           isLoading: state is Loading)
                     ],
@@ -193,5 +244,23 @@ class _AddPatientInfoState extends State<AddPatientInfo> {
         ),
       ),
     );
+  }
+
+
+  void pickFiles() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+
+    );
+
+    if (result != null) {
+      setState(() {
+        _addPatientCubit.selectedProfileImage = File(result.files.single.path!);
+      });
+
+      
+    } else {
+      // User canceled the picker
+    }
   }
 }

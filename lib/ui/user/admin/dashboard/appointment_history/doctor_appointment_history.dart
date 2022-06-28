@@ -73,21 +73,22 @@ class _DoctorAppointmentHistoryState extends State<DoctorAppointmentHistory> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const ScheduleNavBar(
+                /*const ScheduleNavBar(
                   txtAddress: "",
-                ),
+                ),*/
+                const SizedBox(height: 16,),
                 Text(
                   "Your Appointments",
-                  style: AppTextStyle.headline6(txtColor: AppColors.primary),
+                  style: AppTextStyle.headline5(txtColor: AppColors.primary),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 20,
                 ),
 
-                Text(
+                /*Text(
                   DateFormat("MMMM dd, EEEE").format(startDay),
                   style: AppTextStyle.headline5(txtColor: AppColors.greyDark),
-                ),
+                ),*/
                 const SizedBox(
                   height: 10,
                 ),

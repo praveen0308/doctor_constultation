@@ -28,11 +28,9 @@ class AppNavBar extends StatelessWidget {
         onPressed: () => Navigator.pushNamed(context, route.drProfilePage),
       ),
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
         children: <Widget>[
-          const Spacer(
-            flex: 4,
-          ),
+          const Spacer(),
           Visibility(
             visible: false,
             child: Row(

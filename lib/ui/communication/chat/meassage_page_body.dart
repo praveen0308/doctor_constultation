@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
 import 'package:flutterfire_ui/firestore.dart';
 
+import '../../widgets/patient/alpha_patient.dart';
+
 class TemplateMessagePageBody extends StatelessWidget {
   TemplateMessagePageBody({Key? key}) : super(key: key);
   final usersQuery = FirebaseFirestore.instance
@@ -43,13 +45,27 @@ class TemplateMessagePageBody extends StatelessWidget {
         ),
         FirestoreListView<ChatResponse>(
           shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           query: usersQuery,
           itemBuilder: (context, snapshot) {
             // Data is now typed!
             ChatResponse resp = snapshot.data();
+            return  GestureDetector(
+              onTap: (){
+                var isExpired = resp.expiry!.isBefore(DateTime.now());
+                Navigator.of(context).pushNamed("/chatScreen",
+                    arguments: ChatScreenArgs(resp.userId!, resp.patientName!,
+                        resp.chatId!, isExpired));
+              },
+              child: TemplateAlphaPatient(
+                name: resp.patientName!,
+                age: "${resp.age} Years",
+                gender: resp.gender!,
+                subtitle: resp.lastMessage ?? "",
 
-            return PatientChatRow(
+              ),
+            );
+            /*return PatientChatRow(
                 patientName: resp.patientName!,
                 msg: resp.lastMessage ?? "",
                 timeStamp: resp.lmAddedOn,
@@ -58,7 +74,7 @@ class TemplateMessagePageBody extends StatelessWidget {
                   Navigator.of(context).pushNamed("/chatScreen",
                       arguments: ChatScreenArgs(resp.userId!, resp.patientName!,
                           resp.chatId!, isExpired));
-                });
+                });*/
           },
         )
         /*TemplateChatWithPatient(

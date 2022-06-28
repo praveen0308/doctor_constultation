@@ -6,6 +6,13 @@ abstract class HomePageState {}
 class HomePageInitial extends HomePageState {}
 
 class LoadingTodayAppointments extends HomePageState {}
+class LoadingStats extends HomePageState {}
+class ReceivedStats extends HomePageState {
+  final List<StatisticsModel> stats;
+
+  ReceivedStats(this.stats);
+
+}
 
 class Error extends HomePageState {
   final String msg;

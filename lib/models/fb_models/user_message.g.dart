@@ -21,6 +21,6 @@ Map<String, dynamic> _$UserMessageToJson(UserMessage instance) =>
       'messageId': instance.messageId,
       'senderId': instance.senderId,
       'msg': instance.msg,
-      'addedOn': const TimestampConverter().toJson(instance.addedOn!),
+          'addedOn': const TimestampConverter().toJson(instance.addedOn!),
       'isSeen': instance.isSeen,
     };

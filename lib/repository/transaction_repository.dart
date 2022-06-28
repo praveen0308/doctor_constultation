@@ -3,6 +3,7 @@ import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/doctor_payment_model.dart';
 import 'package:doctor_consultation/models/api/patient_subscription_model.dart';
 import 'package:doctor_consultation/models/api/payment_option_model.dart';
+import 'package:doctor_consultation/models/api/payment_transaction_model.dart';
 import 'package:doctor_consultation/models/api/user_subscription_model.dart';
 import 'package:doctor_consultation/models/api/vc_payment_history_model.dart';
 import 'package:doctor_consultation/network/services/transaction_api_client.dart';
@@ -95,6 +96,22 @@ class TransactionRepository {
   Future<bool> createUpdateDoctorPaymentDetail(
       DoctorPaymentModel doctorPaymentModel) {
     return _transactionApiClient.addUpdateDoctorPayment(doctorPaymentModel);
+  }
+//#endregion
+
+//#region Transactions
+  Future<bool> addUpdatePaymentTransaction(PaymentTransactionModel paymentTransactionModel) async {
+    int userId = await _storage.getUserId();
+    paymentTransactionModel.UserID = userId;
+    return _transactionApiClient.addUpdateTransaction(paymentTransactionModel);
+  }
+
+  Future<PaymentTransactionModel> getPaymentTransactionByID(int id) {
+    return _transactionApiClient.getPaymentTransactionById(id);
+  }
+
+  Future<List<PaymentTransactionModel>> getPaymentTransactions() {
+    return _transactionApiClient.getAllTransactions();
   }
 //#endregion
 

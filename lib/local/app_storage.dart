@@ -9,6 +9,7 @@ class SecureStorage {
   final _userName = "name";
   final _email = "email";
   final _phoneNumber = "phoneNumber";
+  final _profileUrl = "profileUrl";
 
   Future updateUserId(int userId) async {
     var writeData =
@@ -89,6 +90,15 @@ class SecureStorage {
     return readData;
   }
 
+  Future updateUserProfile(String name) async {
+    var writeData = await _storage.write(key: _profileUrl, value: name);
+    return writeData;
+  }
+
+  Future<String?> getUserProfile() async {
+    var readData = await _storage.read(key: _profileUrl);
+    return readData;
+  }
   Future clearStorage() async {
     await _storage.delete(key: _userId);
     await _storage.delete(key: _roleId);

@@ -20,8 +20,10 @@ class _ProfileHeaderState extends State<ProfileHeader> {
   final _storage = SecureStorage();
   String userName = "";
   String mobileNo = "";
+  String profileUrl = "";
   @override
   void initState() {
+    super.initState();
     _storage.getUserName().then((value) {
       setState(() {
         userName = value ?? "N.A.";
@@ -33,7 +35,13 @@ class _ProfileHeaderState extends State<ProfileHeader> {
         mobileNo = value ?? "N.A.";
       });
     });
-    super.initState();
+
+    _storage.getUserProfile().then((value) {
+      setState(() {
+        profileUrl = value ?? "";
+      });
+    });
+
   }
 
   @override
@@ -55,12 +63,16 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             // const SizedBox(
             //   width: 10,
             // ),
-            CircleAvatar(
+            if(profileUrl.isEmpty) const CircleAvatar(
               radius: 30,
               backgroundImage: AssetImage(AppImages.imgAvatar),
             ),
+            if(profileUrl.isNotEmpty) CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(profileUrl),
+            ),
             const SizedBox(
-              width: 10,
+              width: 16,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

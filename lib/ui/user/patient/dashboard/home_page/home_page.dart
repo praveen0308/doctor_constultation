@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                     onBtnPressed: () async {
                       var isLoggedIn = await _storage.getLoginStatus();
                       if (isLoggedIn) {
-                        Navigator.pushNamed(context, route.newAppointment);
+                        Navigator.pushNamed(context, route.addNewAppointment);
                       } else {
                         Navigator.pushNamed(context, route.login);
                       }

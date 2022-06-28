@@ -2,15 +2,18 @@ import 'dart:ffi';
 
 import 'package:dio/dio.dart';
 import 'package:doctor_consultation/models/api/fact_model.dart';
+import 'package:doctor_consultation/models/api/stat_model.dart';
 import 'package:doctor_consultation/models/api/user_review_model.dart';
 import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/network/services/util_api_client.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../local/app_storage.dart';
+
 class UtilRepository {
   late Dio _dio;
   late UtilApiClient _utilApiClient;
-
+  final _storage = SecureStorage();
   UtilRepository() {
     _dio = Dio();
     _dio.interceptors.add(PrettyDioLogger(
@@ -67,4 +70,10 @@ class UtilRepository {
     return _utilApiClient.addUpdateReviewDetail(userReviewModel);
   }
   //#endregion
+
+
+  Future<StatModel> getStats() async {
+    int userId = await _storage.getUserId();
+    return _utilApiClient.getStatsByDoctor(userId);
+  }
 }

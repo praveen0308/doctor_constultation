@@ -32,6 +32,9 @@ abstract class CaseApiClient {
   @GET("Case/GetCaseDoctDetailByID")
   Future<CaseDocModel> getCaseDocDetailByID(@Query("ID") int id);
 
+  @GET("Case/GetCaseAttachmentsByCaseID")
+  Future<List<CaseDocModel>> getCaseAttachmentsByCaseId(@Query("CaseID") int caseID);
+
   @POST("Case/AddUpdateCaseDocDetail")
   Future<bool> addUpdateCaseDocDetail(@Body() CaseDocModel caseDocModel);
 

@@ -56,48 +56,42 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const CircleAvatar(
-                            radius: 30,
+                          if(_patientDetailModel.getProfileUrl().isEmpty) const CircleAvatar(
+                            radius: 80,
                             backgroundImage: AssetImage(AppImages.imgAvatar),
                           ),
-                          const SizedBox(
-                            width: 16,
+
+                          if(_patientDetailModel.getProfileUrl().isNotEmpty) CircleAvatar(
+                            radius: 80,
+                            backgroundImage: NetworkImage(_patientDetailModel.getProfileUrl()),
                           ),
-                          Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                _patientDetailModel.FullName ?? "N.A.",
-                                style: AppTextStyle.subtitle1(
-                                    txtColor: AppColors.primary),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                _patientDetailModel.MobileNo ?? "N.A.",
-                                style: AppTextStyle.captionRF1(
-                                    txtColor: AppColors.greyBefore),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "${_patientDetailModel.GenderID} - ${_patientDetailModel.Age} Year Old",
-                                style: AppTextStyle.captionRF1(
-                                    txtColor: AppColors.greyBefore),
-                              ),
-                            ],
-                          ))
+
+                          const SizedBox(height: 8,),
+                          Text(
+                            _patientDetailModel.FullName ?? "N.A.",
+                            style: AppTextStyle.headline5(
+                                txtColor: AppColors.primary),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "${_patientDetailModel.getGender()} - ${_patientDetailModel.Age} Year Old",
+                            style: AppTextStyle.captionRF1(
+                                txtColor: AppColors.greyBefore),
+                          ),
+
+
+                          const SizedBox(
+                            height: 16,
+                          ),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+
                     Text(
                       "Case History",
                       style: AppTextStyle.subtitle1(),

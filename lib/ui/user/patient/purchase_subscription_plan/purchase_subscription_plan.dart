@@ -1,3 +1,4 @@
+import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/models/api/schedule_model.dart';
 import 'package:doctor_consultation/models/api/slot_model.dart';
 import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
@@ -13,16 +14,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
+import '../../../../res/app_string.dart';
+
 class PurchaseSubscriptionPlanArgs {
   final ScheduleModel slotModel;
-  final int patientId;
-  final String patientName;
+  final PatientDetailModel patientDetailModel;
   final String description;
 
   PurchaseSubscriptionPlanArgs(
       {required this.slotModel,
-      required this.patientId,
-      required this.patientName,
+      required this.patientDetailModel,
+
       required this.description});
 }
 
@@ -52,29 +54,32 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
 
   @override
   void initState() {
-    super.initState();
 
-    debugPrint("patient Id : ${widget.args.patientId}");
-    debugPrint("patient name : ${widget.args.patientName}");
+    super.initState();
+    debugPrint("patient Id : ${widget.args.patientDetailModel.ID}");
+    debugPrint("patient name : ${widget.args.patientDetailModel.FullName}");
     try {
       _razorpay = Razorpay();
       _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
       _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
       _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     } catch (e) {
+      showToast("Unable to open payment gateway !!!", ToastType.error);
       debugPrint("Razorpay initialization failed!!!");
       debugPrint("Exception : $e");
     }
 
     _cubit = BlocProvider.of<PurchaseSubscriptionPlanCubit>(context);
-    _cubit.getSubscriptionPlanByLocation();
+    _cubit.getSubscriptionPlans();
+
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Going to update user's subscription plan
     showToast("Payment successful!!!", ToastType.success);
     if (subscriptionID != 0) {
-      _cubit.upgradeUserSubscriptionPlan(subscriptionID, widget.args.patientId);
+      _cubit.addPaymentTransaction(response.paymentId.toString(),response.orderId.toString(),amountPayable.toDouble(), 0,widget.args.patientDetailModel.ID!);
+
     }
   }
 
@@ -89,18 +94,15 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
   }
 
   void _payUsingRazorpay() {
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     var options = {
       'key': AppConstants.RAZORPAY_KEY_ID,
       'amount': amountPayable * 100,
-      'name': 'Dr. Priyanka Yaduwanshi',
+      'name': AppConstants.doctorName,
       // 'order_id': 'order_${AppConstants.getRandomString(14)}',
       'retry': {'enabled': true, 'max_count': 3},
       'description': 'Purchase Plan',
       'timeout': 60,
-      'prefill': {'contact': '9699960540', 'email': 'yadavpravin1803@gmail.com'}
+      'prefill': {'contact': AppStrings.drContactNo, 'email': AppStrings.drEmail}
     };
 
     _razorpay.open(options);
@@ -124,30 +126,38 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
               subscriptionID = plans[0].SubscriptionID!;
             }
           }
+          // if(state is Processing){
+          //   showLoaderDialog(context, state.msg);
+          // }
           if (state is AddAppointmentFailed) {
+            // Navigator.pop(context);
             showToast("Failed booking appointment!!!", ToastType.error);
           }
           if (state is AppointmentAddedSuccessfully) {
+            // Navigator.pop(context);
             showToast("Appointment booked successfully!!!", ToastType.success);
             WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
               Navigator.pushNamedAndRemoveUntil(
                   context, "/successPage", (route) => route.isFirst,
                   arguments: SuccessPageArgs(
                       scheduleModel: widget.args.slotModel,
-                      patientId: widget.args.patientId,
+                      patientId: widget.args.patientDetailModel.ID!,
                       appointmentId: state.appointmentID));
             });
           }
+          if(state is TransactionAddedSuccessfully){
+            _cubit.upgradeUserSubscriptionPlan(subscriptionID, widget.args.patientDetailModel.ID!);
+          }
           if (state is PlanUpdatedSuccessfully) {
-            showToast("Plan updated successfully!!!", ToastType.success);
+            // showToast("Plan updated successfully!!!", ToastType.success);
             _cubit.addNewAppointment(
-                widget.args.patientId,
-                widget.args.patientName,
+                widget.args.patientDetailModel,
                 widget.args.description,
                 widget.args.slotModel.ScheduleID!,
                 widget.args.slotModel.ScheduleDate!);
           }
           if (state is Error) {
+            // Navigator.pop(context);
             showToast(state.msg, ToastType.error);
             /*return Expanded(
               child: NoRecordsView(
@@ -210,7 +220,7 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
                     onBtnPressed: () {
                       _payUsingRazorpay();
                     },
-                    isLoading: state is UpdatingPlan),
+                    isLoading: state is Processing),
               )
             ],
           );
@@ -218,4 +228,21 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
       ),
     ));
   }
+
+  /*showLoaderDialog(BuildContext context,String msg){
+    AlertDialog alert=AlertDialog(
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const CircularProgressIndicator(),
+          Text(msg),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }*/
 }

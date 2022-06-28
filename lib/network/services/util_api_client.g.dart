@@ -182,6 +182,22 @@ class _UtilApiClient implements UtilApiClient {
     return value;
   }
 
+  @override
+  Future<StatModel> getStatsByDoctor(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'ID': id};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<StatModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'Utils/GetStatsByDoctor',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = StatModel.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

@@ -38,7 +38,7 @@ class _TemplateVideoSliderState extends State<TemplateVideoSlider> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               image: DecorationImage(
-                image: NetworkImage(widget.videos[index].Thumbnail),
+                image: NetworkImage(widget.videos[index].getThumbnailUrl()),
                 fit: BoxFit.fill,
               ),
             ),

@@ -12,6 +12,7 @@ PatientDetailModel _$PatientDetailModelFromJson(Map<String, dynamic> json) =>
       UserID: json['UserID'] as int? ?? 0,
       FullName: json['FullName'] as String? ?? "",
       MobileNo: json['MobileNo'] as String? ?? "",
+      ProfileImage: json['ProfileImage'] as String? ?? "",
       DOB: json['DOB'] as String? ?? "",
       Age: json['Age'] as int? ?? 0,
       GenderID: json['GenderID'] as int? ?? 0,
@@ -33,5 +34,6 @@ Map<String, dynamic> _$PatientDetailModelToJson(PatientDetailModel instance) =>
       'TypeID': instance.TypeID,
       'RelationID': instance.RelationID,
       'CreateDateTime': instance.CreateDateTime,
+      'ProfileImage': instance.ProfileImage,
       'IsActive': instance.IsActive,
     };

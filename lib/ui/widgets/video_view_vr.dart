@@ -1,6 +1,7 @@
 import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class VideoView extends StatelessWidget {
@@ -34,7 +35,7 @@ class VideoView extends StatelessWidget {
             SizedBox(
               width: 120,
               child: Image.network(
-                videoModel.Thumbnail,
+                AppConstants.getThumbnailUrl(videoModel.VideoUrl),
                 errorBuilder: (context, exception, stackTrace) {
                   return FittedBox(
                     fit: BoxFit.cover,

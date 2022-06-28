@@ -1,9 +1,8 @@
+import 'package:doctor_consultation/models/api/address_model.dart';
 import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/add_new_appointment_cubit.dart';
-import 'package:doctor_consultation/ui/user/patient/add_new_appointment/patients/patients_of_user_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/btn/info_chip_with_icon.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
@@ -11,25 +10,28 @@ import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PatientsOfUser extends StatefulWidget {
-  const PatientsOfUser({Key? key}) : super(key: key);
+import 'addresses_of_user_cubit.dart';
+import '../add_new_appointment_cubit.dart';
+
+class AddressesOfUser extends StatefulWidget {
+  const AddressesOfUser({Key? key}) : super(key: key);
 
   @override
-  _PatientsOfUserState createState() => _PatientsOfUserState();
+  _AddressesOfUserState createState() => _AddressesOfUserState();
 }
 
-class _PatientsOfUserState extends State<PatientsOfUser> {
-  late PatientsOfUserCubit _cubit;
+class _AddressesOfUserState extends State<AddressesOfUser> {
+  late AddressesOfUserCubit _cubit;
   late AddNewAppointmentCubit _addNewAppointmentCubit;
-  final List<PatientDetailModel> _patients = [];
+  final List<AddressModel> _addresses = [];
   int selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _cubit = BlocProvider.of<PatientsOfUserCubit>(context);
+    _cubit = BlocProvider.of<AddressesOfUserCubit>(context);
     _addNewAppointmentCubit = BlocProvider.of<AddNewAppointmentCubit>(context);
-    _cubit.fetchPatientsByUserId();
+    _cubit.fetchAddressList();
   }
 
   @override
@@ -41,7 +43,7 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Patient Records",
+              "Appointment Locations",
               style: AppTextStyle.headline6(),
             ),
             ViewInfoChipWithIcon(
@@ -50,7 +52,7 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
               txtColor: AppColors.primary,
               bgColor: AppColors.primaryLight,
               onMyTab: () {
-                Navigator.pushNamed(context, "/addPatientInfo");
+                Navigator.pushNamed(context, "/addUpdateAddress");
               },
             ),
           ],
@@ -58,20 +60,19 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
         const SizedBox(
           height: 16,
         ),
-        BlocBuilder<PatientsOfUserCubit, PatientsOfUserState>(
+        BlocBuilder<AddressesOfUserCubit, AddressesOfUserState>(
           builder: (context, state) {
             if (state is Error) {
               showToast(state.msg, ToastType.error);
+              return Center(
+                child: Text(state.msg),
+              );
             }
 
-            if (state is ReceivedPatientList) {
-              _patients.clear();
-              _patients.addAll(state.patients);
-              if (_patients.isNotEmpty) {
-                _addNewAppointmentCubit.selectedPatientId = _patients[0].ID!;
-                _addNewAppointmentCubit.selectedPatientName =
-                    _patients[0].FullName!;
-
+            if (state is ReceivedAddressList) {
+              _addresses.clear();
+              _addresses.addAll(state.addresses);
+              if (_addresses.isNotEmpty) {
                 return ListView.separated(
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
@@ -80,13 +81,8 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
                         onTap: () {
                           setState(() {
                             selectedIndex = index;
-                            _addNewAppointmentCubit.selectedPatientId =
-                                state.patients[selectedIndex].ID!;
-                            _addNewAppointmentCubit.selectedPatientName =
-                                state.patients[selectedIndex].FullName!;
-                            showToast(
-                                "Selected patients : ${_addNewAppointmentCubit.selectedPatientName}",
-                                ToastType.info);
+                            _addNewAppointmentCubit.selectedLocationId =
+                                state.addresses[selectedIndex].ID;
                           });
                         },
                         child: Container(
@@ -102,41 +98,39 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Visibility(
-                                  visible: index == selectedIndex,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Booking for : ",
-                                        style: AppTextStyle.headline6(),
-                                      ),
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
-                                    ],
-                                  )),
                               Row(
                                 children: [
-                                  CircleAvatar(
-                                    backgroundColor: Colors.grey,
-                                    child: Center(
-                                      child: Text(
-                                        _patients[index]
-                                            .FullName!
-                                            .substring(0, 1),
-                                        style: AppTextStyle.headline6(),
-                                      ),
-                                    ),
+                                  Container(
+                                    height: 24,
+                                    width: 24,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                            color: AppColors.primary,
+                                            width: 2)),
+                                    child: Visibility(
+                                        visible: index == selectedIndex,
+                                        child: const Icon(
+                                          Icons.circle,
+                                          color: AppColors.primary,
+                                          size: 18,
+                                        )),
                                   ),
                                   const SizedBox(
                                     width: 16,
                                   ),
                                   Expanded(
-                                      child: Text(
-                                    _patients[index].FullName ?? "N.A.",
-                                    style: AppTextStyle.headline5(),
+                                      child: Column(
+                                    children: [
+                                      Text(
+                                        _addresses[index].LocationName,
+                                        style: AppTextStyle.headline5(),
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(_addresses[index].AddressLine1),
+                                    ],
                                   ))
                                 ],
                               ),
@@ -150,25 +144,16 @@ class _PatientsOfUserState extends State<PatientsOfUser> {
                         height: 8,
                       );
                     },
-                    itemCount: _patients.length);
+                    itemCount: _addresses.length);
               } else {
                 return Container(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Text("No patient records found !!"));
+                    child: const Text("No address records found !!"));
               }
             }
             return const LoadingView(isVisible: true);
           },
         ),
-        /* Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: CustomBtn(
-              title: "Add Patient",
-              onBtnPressed: () {
-                Navigator.pushNamed(context, "/addPatientInfo");
-              },
-              isLoading: false),
-        ),*/
       ],
     );
   }

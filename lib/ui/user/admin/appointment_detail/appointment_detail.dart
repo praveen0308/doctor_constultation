@@ -134,26 +134,28 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                             )
                           ],
                         ),
+
                         const SizedBox(
-                          height: 24,
+                          height: 10,
                         ),
-                        /*BlocProvider(
-                    create: (context) => AppointmentDetailCubit(AppointmentRepository()),
-                    child: TemplateAppointmentBody(
-                      appointmentDetailModel: widget.appointmentDetailModel,),
-                  ),*/
-                        Text(
-                          _appointmentDetailModel.PatientName,
-                          style: AppTextStyle.subtitle1(
-                              txtColor: AppColors.greyDark),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          AppStrings.speciaList.toUpperCase(),
-                          style: AppTextStyle.subtitle2(
-                              txtColor: AppColors.greyBefore),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Schedule Date",
+                              style: AppTextStyle.body1(
+                                  txtColor: AppColors.greyBefore,
+                                  wFont: FontWeight.w500),
+                            ),
+                            Text(
+                              _appointmentDetailModel.getAppointmentDate()
+                                  .toString(),
+                              style: AppTextStyle.subtitle1(
+                                  txtColor: AppColors.greyDark,
+                                  wFont: FontWeight.w500),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 10,
@@ -161,65 +163,92 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TemplateDateTime(
-                              imgURL: AppImages.icSchedulePrimary,
-                              imgSize: 18,
-                              dtColor: AppColors.greyBefore,
-                              title:
-                                  _appointmentDetailModel.getAppointmentDate(),
+                            Text(
+                              "Scheduled Slot",
+                              style: AppTextStyle.body1(
+                                  txtColor: AppColors.greyBefore,
+                                  wFont: FontWeight.w500),
                             ),
-                            TemplateDateTime(
-                              imgURL: AppImages.icTimingPrimary,
-                              imgSize: 18,
-                              dtColor: AppColors.greyBefore,
-                              title: _appointmentDetailModel.getTiming(),
+                            Text(
+               _appointmentDetailModel.getTiming().toString(),
+                              style: AppTextStyle.subtitle1(
+                                  txtColor: AppColors.greyDark,
+                                  wFont: FontWeight.w500),
                             ),
                           ],
                         ),
+
                         const SizedBox(
                           height: 10,
                         ),
-                        TemplateICText(
-                          txtTitle: "Location",
-                          txtSubTitle:
-                              _appointmentDetailModel.UserAddress != null
-                                  ? _appointmentDetailModel.UserAddress!
-                                      .getPreparedAddress()
-                                  : "N.A.",
-                          txtCaption:
-                              _appointmentDetailModel.UserAddress != null
-                                  ? _appointmentDetailModel.UserAddress!
-                                      .getCityPin()
-                                  : "N.A.",
-                          txtTColor: AppColors.greyBefore,
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: 150,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: const DecorationImage(
-                                  image: AssetImage(AppImages.imgMap),
-                                  fit: BoxFit.fill,
-                                ),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: AppColors.primaryLight,
-                                    blurRadius: 5.0,
-                                  ),
-                                ]),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Added On",
+                              style: AppTextStyle.body1(
+                                  txtColor: AppColors.greyBefore,
+                                  wFont: FontWeight.w500),
+                            ),
+                            Text(
+                              _appointmentDetailModel.Addedon.toString(),
+                              style: AppTextStyle.subtitle1(
+                                  txtColor: AppColors.greyDark,
+                                  wFont: FontWeight.w500),
+                            ),
+                          ],
                         ),
                         const Divider(
                           color: AppColors.grey,
                           thickness: 1.5,
                           height: 20,
                         ),
+
+                        Text(
+                          "Patient Info",
+                          style: AppTextStyle.subtitle1(),
+                        ),
+
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
+                          margin: const EdgeInsets.symmetric(vertical: 16),
+
+
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: AppColors.primaryLightest
+                          ),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 30.0,
+                                backgroundImage:
+                                _appointmentDetailModel.PatientProfileUrl!.isEmpty ? const NetworkImage("https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png") : NetworkImage(_appointmentDetailModel.PatientProfileUrl.toString()),
+                                backgroundColor: Colors.transparent,
+                              ),
+                              const SizedBox(width: 16,),
+                              Expanded(child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _appointmentDetailModel.PatientName,
+                                    style: AppTextStyle.subtitle1(
+                                        txtColor: AppColors.greyDark),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "ID : ${_appointmentDetailModel.PatientID.toString()}",
+                                    style: AppTextStyle.subtitle2(
+                                        txtColor: AppColors.greyBefore),
+                                  ),
+                                ],
+                              ))
+                            ],
+                          ),
+                        ),
+
                         BlocProvider(
                           create: (context) =>
                               AppointmentCaseInfoCubit(CaseRepository()),
@@ -229,13 +258,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                   _appointmentDetailModel.AppointmentID,
                                   _appointmentDetailModel.CaseID)),
                         ),
-                        BlocProvider(
-                          create: (context) =>
-                              PatientCaseHistoryCubit(CaseRepository()),
-                          child: PatientCaseHistory(
-                            patientId: _appointmentDetailModel.PatientID,
-                          ),
-                        ),
+
                         const SizedBox(
                           height: 30,
                         ),
@@ -282,7 +305,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                             AppConstants.ongoing)
                           Column(
                             children: [
-                              CustomBtn(
+                              /*CustomBtn(
                                 title: "Add Case Info",
                                 onBtnPressed: () {
                                   Navigator.pushNamed(context, "/addCaseInfo",
@@ -292,7 +315,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                               .AppointmentID));
                                 },
                                 isLoading: false,
-                              ),
+                              ),*/
                               const SizedBox(
                                 height: 16,
                               ),

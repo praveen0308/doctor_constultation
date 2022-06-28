@@ -35,6 +35,11 @@ class CaseRepository {
     return _caseApiClient.getCaseInfoDetailByID(id);
   }
 
+  Future<List<CaseDocModel>> fetchCaseAttachments(int id) {
+    return _caseApiClient.getCaseAttachmentsByCaseId(id);
+  }
+
+
   Future<List<CaseInfoModel>> getCaseHistoryByPatientID(int patientId) {
     return _caseApiClient.getCaseDetailsByPatientID(patientId);
   }

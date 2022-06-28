@@ -1,9 +1,11 @@
 import 'package:doctor_consultation/repository/appointment_repository.dart';
+import 'package:doctor_consultation/repository/util_repository.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/appointment_history/doctor_appointment_history_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/patient_profile_page.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/appointment_history/doctor_appointment_history.dart';
 import 'package:doctor_consultation/ui/user/admin/home_page/home_page_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/bottom_nav_bar/bottom_nav.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,8 +28,9 @@ class _DashboardAdminState extends State<DashboardAdmin> {
 
   @override
   void initState() {
-    _tabsPageController = PageController();
     super.initState();
+    _tabsPageController = PageController();
+
   }
 
   @override
@@ -56,7 +59,7 @@ class _DashboardAdminState extends State<DashboardAdmin> {
               },
               children: [
                 BlocProvider(
-                  create: (context) => HomePageCubit(AppointmentRepository()),
+                  create: (context) => HomePageCubit(AppointmentRepository(),UtilRepository()),
                   child: DoctorHomePage(),
                 ),
                 BlocProvider(

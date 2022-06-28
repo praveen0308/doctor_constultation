@@ -120,6 +120,24 @@ class _CaseApiClient implements CaseApiClient {
   }
 
   @override
+  Future<List<CaseDocModel>> getCaseAttachmentsByCaseId(caseID) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'CaseID': caseID};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<CaseDocModel>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'Case/GetCaseAttachmentsByCaseID',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => CaseDocModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<bool> addUpdateCaseDocDetail(caseDocModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

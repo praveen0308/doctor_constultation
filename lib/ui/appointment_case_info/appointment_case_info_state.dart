@@ -7,6 +7,7 @@ class AppointmentCaseInfoInitial extends AppointmentCaseInfoState {}
 
 class LoadingCaseInfo extends AppointmentCaseInfoState {}
 
+
 class Error extends AppointmentCaseInfoState {
   final String msg;
 

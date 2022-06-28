@@ -88,4 +88,29 @@ class AccountRepository {
     return _accountApiClient.fetchSubscriptionByLocation(pinCode);
   }
 //#endregion
+
+  Future<String> uploadProfileImage(
+  String path, String fileName,{int patientID=0}) async {
+    int userId = await _storage.getUserId();
+    var formData = FormData();
+    if(patientID==0){
+      formData.fields.add(MapEntry("UserID", userId.toString()));
+      formData.fields.add(MapEntry("PatientID", patientID.toString()));
+    }else{
+      formData.fields.add(const MapEntry("UserID", "0"));
+      formData.fields.add(MapEntry("PatientID", patientID.toString()));
+    }
+
+
+    formData.files.add(MapEntry(
+      "Document",
+      await MultipartFile.fromFile(path, filename: fileName),
+    ));
+    return _accountApiClient.uploadProfileImage(formData);
+  }
+
+  Future<bool> updateFCMToken(String token) async {
+    var userId = await _storage.getUserId();
+    return _accountApiClient.updateFCMToken(userId,token);
+  }
 }

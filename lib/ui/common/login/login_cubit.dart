@@ -11,6 +11,7 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   final _storage = SecureStorage();
   final AccountRepository _accountRepository;
+
   LoginCubit(this._accountRepository) : super(LoginInitial());
 
   void checkLoginDetails(String username, String password) async {
@@ -22,7 +23,10 @@ class LoginCubit extends Cubit<LoginState> {
       _storage.updateUserId(response.ID!);
       _storage.updateUserName(response.UserName!);
       _storage.updateUserEmail(response.EmailID!);
-      _storage.updateUserEmail(response.MobileNo!);
+      _storage.updatePhoneNumber(response.MobileNo!);
+      if (response.ProfileImage != null || response.ProfileImage!.isNotEmpty) {
+        _storage.updateUserProfile(response.getProfileUrl());
+      }
       _storage.updateLoginStatus(true);
 
       emit(LoginSuccessful(response));
@@ -31,6 +35,21 @@ class LoginCubit extends Cubit<LoginState> {
       debugPrint("Exception >>> $e");
     } on Exception catch (e) {
       emit(IncorrectCredential());
+      debugPrint("Exception >>> $e");
+    }
+  }
+
+  void updateFCMToken(String token,UserModel userModel) async {
+    emit(Loading());
+    try {
+      bool response = await _accountRepository.updateFCMToken(token);
+
+      emit(TokenUpdatedSuccessfully(userModel));
+    } on NetworkExceptions catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    } on Exception catch (e) {
+      emit(Error("Something went wrong !!!"));
       debugPrint("Exception >>> $e");
     }
   }

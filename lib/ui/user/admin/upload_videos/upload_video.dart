@@ -43,7 +43,7 @@ class _UploadVideoState extends State<UploadVideo> {
 
             _cubit.close();
             WidgetsBinding.instance!.addPostFrameCallback((_) {
-              Navigator.pop(context);
+              Navigator.pop(context,true);
             });
           }
           return Container(
@@ -74,7 +74,7 @@ class _UploadVideoState extends State<UploadVideo> {
                       const SizedBox(
                         height: 16,
                       ),
-                      TextFormField(
+                    /*  TextFormField(
                         controller: TextEditingController(
                             text: widget.videoModel.Thumbnail),
                         onChanged: (text) => widget.videoModel.Thumbnail = text,
@@ -89,7 +89,7 @@ class _UploadVideoState extends State<UploadVideo> {
                           labelText: 'Thumbnail Url',
                           alignLabelWithHint: true,
                         ),
-                      ),
+                      ),*/
                       const SizedBox(
                         height: 16,
                       ),

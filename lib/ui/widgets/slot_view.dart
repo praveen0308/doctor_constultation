@@ -26,31 +26,28 @@ class SlotView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FittedBox(
-          fit: BoxFit.contain,
-          child: InkWell(
-            onTap: () {
-              // Slot should be available and not booked then only user can click on view
-              if (isAvailable && !isBooked) {
-                onClick(id);
-              }
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              decoration: BoxDecoration(
-                  color:
-                      isSelected ? AppColors.primary : AppColors.greyLightest,
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  border: Border.all(
-                      color: isSelected
-                          ? AppColors.greyLightest
-                          : AppColors.primary)),
+        InkWell(
+          onTap: () {
+            // Slot should be available and not booked then only user can click on view
+            if (isAvailable && !isBooked) {
+              onClick(id);
+            }
+          },
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            decoration: BoxDecoration(
+                color:
+                    isSelected ? AppColors.primary : AppColors.greyLightest,
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                border: Border.all(
+                    color: isSelected
+                        ? AppColors.greyLightest
+                        : AppColors.primary)),
+            child: Center(
               child: Text(
                 title,
-                style: AppTextStyle.captionOF2(
-                    txtColor: isSelected
-                        ? AppColors.greyLightest
-                        : AppColors.primary),
+                style: TextStyle(color:isSelected? Colors.white: AppColors.primary,fontSize: 16),
               ),
             ),
           ),

@@ -10,6 +10,7 @@ class Loading extends PersonalDataState {}
 class Updating extends PersonalDataState {}
 
 class UpdatedSuccessfully extends PersonalDataState {}
+class ProfileAddedSuccessfully extends PersonalDataState {}
 
 class Error extends PersonalDataState {
   final String msg;

@@ -28,6 +28,11 @@ class AppointmentRepository {
     return _appointmentApiClient.getAppointmentDetailsByUserID(userId);
   }
 
+  Future<List<AppointmentDetailModel>>
+  getAppointmentsByUserId(int userId) async {
+
+    return _appointmentApiClient.getAppointmentDetailsByUserID(userId);
+  }
   Future<List<AppointmentDetailModel>> fetchAllAppointmentDetailsByDate(
       String date) async {
     return _appointmentApiClient.getAppointmentDetailsByDate(date);
