@@ -58,7 +58,7 @@ class _DrProfileHeaderState extends State<DrProfileHeader> {
                     ),
                     Text(
                       AppStrings.doctorTitle.toUpperCase(),
-                      style: const TextStyle(color: AppColors.greyLight),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     const SizedBox(
                       height: 50,

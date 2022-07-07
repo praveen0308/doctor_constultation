@@ -3,23 +3,23 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const primarySwatchColor = MaterialColor(0xFF265ED7, {
-    50: Color.fromRGBO(38, 94, 215, .1),
-    100: Color.fromRGBO(38, 94, 215, .2),
-    200: Color.fromRGBO(38, 94, 215, .3),
-    300: Color.fromRGBO(38, 94, 215, .4),
-    400: Color.fromRGBO(38, 94, 215, .5),
-    500: Color.fromRGBO(38, 94, 215, .6),
-    600: Color.fromRGBO(38, 94, 215, .7),
-    700: Color.fromRGBO(38, 94, 215, .8),
-    800: Color.fromRGBO(38, 94, 215, .9),
-    900: Color.fromRGBO(38, 94, 215, 1),
+  static const primarySwatchColor = MaterialColor(0xFF9BCDD6, {
+    50: Color.fromRGBO(155, 205, 214, .1),
+    100: Color.fromRGBO(155, 205, 214, .2),
+    200: Color.fromRGBO(155, 205, 214, .3),
+    300: Color.fromRGBO(155, 205, 214, .4),
+    400: Color.fromRGBO(155, 205, 214, .5),
+    500: Color.fromRGBO(155, 205, 214, .6),
+    600: Color.fromRGBO(155, 205, 214, .7),
+    700: Color.fromRGBO(155, 205, 214, .8),
+    800: Color.fromRGBO(155, 205, 214, .9),
+    900: Color.fromRGBO(155, 205, 214, 1),
   });
 
   //Primary Color
   static const primaryLightest = Color(0XFFE0E8FA);
   static const primaryLight = Color(0XFFE0E8FA);
-  static const primary = Color(0XFF265ED7);
+  static const primary = Color(0XFF9BCDD6);
   static const primaryDark = Color(0XFF10295D);
   static const primaryDarkest = Color(0XFF050E1F);
 
@@ -45,10 +45,10 @@ class AppColors {
   static const successDarkest = Color(0XFF002412);
 
   //Grey Color
-  static const greyLightest = Color(0XFFFEFEFE);
-  static const greyLight = Color(0XFFEDF2F3);
-  static const grey = Color(0XFFD5DDE8);
-  static const greyBefore = Color(0XFF808F9D);
-  static const greyDark = Color(0XFF475564);
-  static const greyDarkest = Color(0XFF222930);
+  static const greyLightest = Color(0XFFfafcfe);
+  static const greyLight = Color(0XFFbcc0c3);
+  static const greyBefore = Color(0XFF8e979b);
+  static const grey = Color(0XFF646c70);
+  static const greyDark = Color(0XFF3c4143);
+  static const greyDarkest = Color(0XFF141616);
 }

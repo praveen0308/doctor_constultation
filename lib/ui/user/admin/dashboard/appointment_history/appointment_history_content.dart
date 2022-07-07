@@ -1,4 +1,5 @@
 import 'package:doctor_consultation/res/app_colors.dart';
+import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
@@ -9,6 +10,7 @@ import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../jitsee/jitsi_meet_methods.dart';
 import 'doctor_appointment_history_cubit.dart';
 
@@ -78,11 +80,18 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                 if (state.appointments.isEmpty)
                   Expanded(
                       child: Center(
-                    child: Text(
-                      "No appointments !!!",
-                      style: AppTextStyle.subtitle1(),
-                    ),
-                  ))
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(AppImages.imgOnBoarding4,height: 170,),
+                            SizedBox(height: 16,),
+                            Text(
+                              "No appointments !!!",
+                              style: AppTextStyle.subtitle1(),
+                            ),
+                          ],
+                        ),
+                      ))
                 else
                   Expanded(
                     child: ListView.separated(

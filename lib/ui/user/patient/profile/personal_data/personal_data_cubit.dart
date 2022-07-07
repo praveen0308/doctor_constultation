@@ -27,7 +27,7 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
         _storage.updateUserName(response.UserName!);
         _storage.updateUserEmail(response.EmailID!);
         _storage.updatePhoneNumber(response.MobileNo!);
-        if (response.ProfileImage != null || response.ProfileImage!.isNotEmpty) {
+        if (response.ProfileImage != null && response.ProfileImage!.isNotEmpty) {
           _storage.updateUserProfile(response.getProfileUrl());
         }
         emit(ReceivedUserDetails(response));

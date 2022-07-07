@@ -188,10 +188,10 @@ class AppImages {
 
   //#region All Images
   //#region OnBoarding Images
-  static const String imgOnBoarding1 = '$rootImagePath/img_onboarding1.svg';
-  static const String imgOnBoarding2 = '$rootImagePath/img_onboarding2.svg';
-  static const String imgOnBoarding3 = '$rootImagePath/img_onboarding3.svg';
-  static const String imgOnBoarding4 = '$rootImagePath/img_onboarding4.svg';
+  static const String imgOnBoarding1 = '$rootImagePath/img_onBoarding1.svg';
+  static const String imgOnBoarding2 = '$rootImagePath/img_onBoarding2.svg';
+  static const String imgOnBoarding3 = '$rootImagePath/img_onBoarding3.svg';
+  static const String imgOnBoarding4 = '$rootImagePath/img_onBoarding4.svg';
 
   static const String imgWelcome = '$rootImagePath/img_doctor_team2.svg';
   static const String imgShareUs = '$rootImagePath/img_share_us.svg';
