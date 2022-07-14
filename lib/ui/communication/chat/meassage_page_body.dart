@@ -13,10 +13,18 @@ import 'package:flutter/material.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
 import 'package:flutterfire_ui/firestore.dart';
 
+import '../../../local/app_storage.dart';
 import '../../widgets/patient/alpha_patient.dart';
 
-class TemplateMessagePageBody extends StatelessWidget {
+class TemplateMessagePageBody extends StatefulWidget {
   TemplateMessagePageBody({Key? key}) : super(key: key);
+
+  @override
+  State<TemplateMessagePageBody> createState() => _TemplateMessagePageBodyState();
+}
+
+class _TemplateMessagePageBodyState extends State<TemplateMessagePageBody> {
+  final _storage = SecureStorage();
   final usersQuery = FirebaseFirestore.instance
       .collection('Chats')
       .orderBy('lmAddedOn')
@@ -25,6 +33,14 @@ class TemplateMessagePageBody extends StatelessWidget {
             ChatResponse.fromJson(snapshot.id, snapshot.data()!),
         toFirestore: (resp, _) => resp.toJson(),
       );
+
+  var userId = 0;
+  @override
+  void initState() {
+    super.initState();
+    _storage.getUserId().then((value) => userId = value);
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +70,7 @@ class TemplateMessagePageBody extends StatelessWidget {
               onTap: (){
                 var isExpired = resp.expiry!.isBefore(DateTime.now());
                 Navigator.of(context).pushNamed("/chatScreen",
-                    arguments: ChatScreenArgs(resp.userId!, resp.patientName!,
+                    arguments: ChatScreenArgs(userId.toString(),resp.userId!, resp.patientName!,
                         resp.chatId!, isExpired));
               },
               child: TemplateAlphaPatient(

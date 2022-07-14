@@ -91,8 +91,10 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Enter the mobile number',
-                        labelText: 'Mobile Number'),
+                        labelText: 'Mobile Number',
+                    ),
                     keyboardType: TextInputType.name,
+                    maxLength: 10,
                   ),
                   const SizedBox(
                     height: 20,

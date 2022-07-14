@@ -41,40 +41,42 @@ class _SearchUserState extends State<SearchUser> {
                 },
               ),
             ),
-            BlocBuilder<SearchUserCubit, SearchUserState>(
-              builder: (context, state) {
-                if (state is Error) {
-                  showToast(state.msg, ToastType.error);
-                }
-                if (state is ReceivedUsers) {
-                  if (state.users.isEmpty) {
-                    return NoRecordsView(
-                        title: "No users found!!!", onBtnClick: () {});
-                  } else {
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: state.users.length,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (_, index) {
-                          var user = state.users[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, "/userDetails",
-                                  arguments: user.ID);
-                            },
-                            child: TemplateAlphaPatient(
-                              name: user.UserName!,
-                              age: "${user.Age} Years",
-                              gender: user.Gender,
-                              subtitle: user.MobileNo!, picUrl: user.getProfileUrl(),
-                            ),
-                          );
-                        });
+            Expanded(
+              child: BlocBuilder<SearchUserCubit, SearchUserState>(
+                builder: (context, state) {
+                  if (state is Error) {
+                    showToast(state.msg, ToastType.error);
                   }
-                }
-                return LoadingView(isVisible: state is Loading);
-              },
+                  if (state is ReceivedUsers) {
+                    if (state.users.isEmpty) {
+                      return NoRecordsView(
+                          title: "No users found!!!", onBtnClick: () {});
+                    } else {
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount: state.users.length,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (_, index) {
+                            var user = state.users[index];
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, "/userDetails",
+                                    arguments: user.ID);
+                              },
+                              child: TemplateAlphaPatient(
+                                name: user.UserName!,
+                                age: "${user.Age} Years",
+                                gender: user.Gender,
+                                subtitle: user.MobileNo!, picUrl: user.getProfileUrl(),
+                              ),
+                            );
+                          });
+                    }
+                  }
+                  return LoadingView(isVisible: state is Loading);
+                },
+              ),
             ),
           ],
         ),

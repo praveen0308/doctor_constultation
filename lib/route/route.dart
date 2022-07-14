@@ -20,6 +20,7 @@ import 'package:doctor_consultation/ui/communication/chat_screen/chat_screen.dar
 import 'package:doctor_consultation/ui/communication/chat_screen/chat_screen_cubit.dart';
 import 'package:doctor_consultation/ui/communication/user_patient_chats/chat_not_available.dart';
 import 'package:doctor_consultation/ui/doctor/dr_profile.dart';
+import 'package:doctor_consultation/ui/image_viewer/image_viewer.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/appointment_detail/appointment_detail.dart';
@@ -131,6 +132,7 @@ const String youtubePlayer = '/youtubePlayer';
 const String userDetails = '/userDetails';
 const String patientDetails = '/patientDetails';
 const String chatScreen = '/chatScreen';
+const String imageViewer = '/imageViewer';
 const String chatNotAvailable = '/chatNotAvailable';
 const String personalData = '/personalData';
 const String transactions = '/transactions';
@@ -232,6 +234,13 @@ Route<dynamic> controller(RouteSettings settings) {
                   args: args as ChatScreenArgs,
                 ),
               ),
+          settings: settings);
+
+    case imageViewer:
+      return MaterialPageRoute(
+          builder: (context) => ImageViewer(
+            images: args as List<String>,
+          ),
           settings: settings);
     case transactions:
       return MaterialPageRoute(

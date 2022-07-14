@@ -23,11 +23,16 @@ class UserPatientChats extends StatefulWidget {
 class _UserPatientChatsState extends State<UserPatientChats> {
   late UserPatientChatsCubit _cubit;
   final _storage = SecureStorage();
+  var userId = 0;
+
   @override
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<UserPatientChatsCubit>(context);
-    _storage.getUserId().then((value) => _cubit.getPatients(value));
+    _storage.getUserId().then((value) {
+      userId = value;
+      _cubit.getPatients(value);
+    });
   }
 
   @override
@@ -72,7 +77,7 @@ class _UserPatientChatsState extends State<UserPatientChats> {
                           itemCount: state.patients.length,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (_, index) {
-                            var user = state.patients[index];
+                            var patient = state.patients[index];
                             return GestureDetector(
                               onTap: () async {
                                 /* check if patient id exists in firestore chats collection
@@ -83,14 +88,15 @@ class _UserPatientChatsState extends State<UserPatientChats> {
                                 // var userId = await _storage.getUserId();
                                 var chatResponse =
                                     await ChatRepository.getChatByUserId(
-                                        user.ID.toString());
+                                        patient.ID.toString());
 
                                 if (chatResponse != null) {
                                   var isExpired = chatResponse.expiry!
                                       .isBefore(DateTime.now());
                                   Navigator.of(context).pushNamed("/chatScreen",
                                       arguments: ChatScreenArgs(
-                                          user.ID.toString(),
+                                          userId.toString(),
+                                          patient.ID.toString(),
                                           AppConstants.doctorName,
                                           chatResponse.chatId!,
                                           isExpired));
@@ -100,11 +106,11 @@ class _UserPatientChatsState extends State<UserPatientChats> {
                                 }
                               },
                               child: TemplateAlphaPatient(
-                                name: user.FullName!,
-                                age: "${user.Age} Years",
-                                gender: user.getGender(),
-                                subtitle: user.MobileNo ?? "N.A.",
-                                picUrl: user.getProfileUrl(),
+                                name: patient.FullName!,
+                                age: "${patient.Age} Years",
+                                gender: patient.getGender(),
+                                subtitle: patient.MobileNo ?? "N.A.",
+                                picUrl: patient.getProfileUrl(),
                               ),
                             );
                           }),

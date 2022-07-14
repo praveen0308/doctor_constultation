@@ -147,7 +147,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                     return StatisticsView(
                         statisticsModel: stats[index],
                         onItemClick: (action) {
-                          navigateQuickActions(action!);
+                          // navigateQuickActions(action!);
                         });
                   }),
               const SizedBox(height: 16),

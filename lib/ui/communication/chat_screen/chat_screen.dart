@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/fb_models/user_message.dart';
 import 'package:doctor_consultation/repository/chat_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
@@ -14,11 +15,12 @@ import 'package:flutterfire_ui/firestore.dart';
 
 class ChatScreenArgs {
   final String userId;
+  final String patientId;
   final String userName;
   final String chatId;
   final bool isExpired;
 
-  ChatScreenArgs(this.userId, this.userName, this.chatId, this.isExpired);
+  ChatScreenArgs(this.userId,this.patientId, this.userName, this.chatId, this.isExpired);
 }
 
 class ChatScreen extends StatefulWidget {
@@ -31,9 +33,10 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+
   late ChatScreenCubit _cubit;
   final ScrollController _controller = ScrollController();
-
+  var userId = 0;
   void _scrollDown() {
     _controller.jumpTo(_controller.position.maxScrollExtent);
   }
@@ -42,8 +45,8 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<ChatScreenCubit>(context);
-    debugPrint("Chat id : ${widget.args.chatId}");
-    debugPrint("Chat id : ${widget.args.userId}");
+
+
   }
 
   @override
@@ -103,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 : TemplateBottomChatNav(
                     onSend: (String msg) {
                       _cubit.addNewMessage(msg, widget.args.chatId,
-                          patientId: int.parse(widget.args.userId));
+                          patientId: int.parse(widget.args.patientId));
                     },
                   )
           ],

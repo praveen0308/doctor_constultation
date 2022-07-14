@@ -135,7 +135,7 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: AppColors.primarySwatchColor,
             scaffoldBackgroundColor: AppColors.greyLightest,
             appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.white,
+              backgroundColor: AppColors.greyLightest,
               elevation: 0,
               iconTheme: IconThemeData(
                 color: AppColors.primary,

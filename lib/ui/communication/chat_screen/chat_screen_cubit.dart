@@ -13,16 +13,9 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
   ChatScreenCubit() : super(ChatScreenInitial());
 
   void addNewMessage(String msg, String chatId, {int patientId = 0}) async {
-    var userId = 0;
-    var userRoleID = await _storage.getUserRoleId();
-    if (userRoleID == UserRoles.doctor) {
-      userId = await _storage.getUserId();
-    } else {
-      userId = patientId;
-    }
-
+    
     UserMessage userMessage = UserMessage(
-        senderId: userId.toString(),
+        senderId: patientId.toString(),
         msg: msg,
         addedOn: DateTime.now(),
         isSeen: false);

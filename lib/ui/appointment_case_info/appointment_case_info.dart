@@ -175,56 +175,7 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
   }
 }
 
-class CaseInfoDetails extends StatelessWidget {
-  final CaseInfoModel caseInfoModel;
 
-  const CaseInfoDetails({Key? key, required this.caseInfoModel})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        getDetailItem("Chief Complaints", caseInfoModel.ChiefComplaints),
-        Row(
-          children: [
-            Expanded(child: getDetailItem("Pulse", caseInfoModel.Pulse)),
-            Expanded(
-                child: getDetailItem("Temperature", caseInfoModel.Temperature)),
-          ],
-        ),
-        getDetailItem("Past History", caseInfoModel.PastHistory),
-        getDetailItem("Family History", caseInfoModel.ChiefComplaints),
-        getDetailItem("Observations", caseInfoModel.ChiefComplaints),
-        getDetailItem("Investigation Notes", caseInfoModel.ChiefComplaints),
-        getDetailItem("Diagnosis", caseInfoModel.Diagnosis),
-        Text(
-          "Attachments",
-          style: AppTextStyle.subtitle2(txtColor: AppColors.primary),
-        ),
-        /*if (caseInfoModel.files.isEmpty)
-          const EmptyDataContainer(msg: "No attachments !!!"),
-        if (_cubit.files.isNotEmpty)
-          GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-              ),
-              itemCount: _cubit.files.length,
-              itemBuilder: (BuildContext context, int index) {
-                return FileView(
-                  file: _cubit.files[index],
-                  onDelete: () {
-                    _cubit.removeFile(index);
-                  },
-                );
-              }),*/
-      ],
-    );
-  }
-}
 
 Widget getDetailItem(String title, String value) {
   return Container(

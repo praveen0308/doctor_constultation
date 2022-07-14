@@ -69,14 +69,20 @@ class _CaseAttachmentsState extends State<CaseAttachments> {
                         itemCount: state.caseAttachments.length,
                         itemBuilder: (BuildContext context, int index) {
                           var caseAttachment = state.caseAttachments[index];
-                          return Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.black26
-                            ),
-                            child: Image.network(caseAttachment.getDocUrl(),
-                              errorBuilder: (context,exception,stackTrace) {
-                                return const Icon(Icons.error,size: 45,color: Colors.black,);
-                              },
+                          return GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, "/imageViewer",arguments: state.caseAttachments.map((e) => e.getDocUrl()).toList());
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black26,
+                                border: Border.all(color: AppColors.greyLight)
+                              ),
+                              child: Image.network(caseAttachment.getDocUrl(),fit: BoxFit.cover,
+                                errorBuilder: (context,exception,stackTrace) {
+                                  return const Icon(Icons.error,size: 45,color: Colors.black,);
+                                },
+                              ),
                             ),
                           );
                         }));
