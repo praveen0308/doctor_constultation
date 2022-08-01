@@ -11,9 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../util/date_time_helper.dart';
-import '../../../../widgets/btn/view_timing.dart';
-
 class ViewSchedule extends StatefulWidget {
   const ViewSchedule({Key? key}) : super(key: key);
 
@@ -34,14 +31,13 @@ class _ViewScheduleState extends State<ViewSchedule> {
         .fetchSlotsByDate(DateFormat("yyyy-MM-dd").format(selectedDate));
   }
 
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      _viewScheduleCubit.fetchSlotsByDate(DateFormat("yyyy-MM-dd").format(selectedDate));
+      _viewScheduleCubit
+          .fetchSlotsByDate(DateFormat("yyyy-MM-dd").format(selectedDate));
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +46,10 @@ class _ViewScheduleState extends State<ViewSchedule> {
         title: Text("View schedule"),
       ),
       body: Column(
-
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: DatePicker(
-
               DateTime.now(),
               height: 90,
               initialSelectedDate: DateTime.now(),
@@ -70,7 +64,6 @@ class _ViewScheduleState extends State<ViewSchedule> {
               },
             ),
           ),
-
           Expanded(
             child: BlocBuilder<ViewScheduleCubit, ViewScheduleState>(
               builder: (context, state) {
@@ -85,22 +78,26 @@ class _ViewScheduleState extends State<ViewSchedule> {
                               )*/
                 }
                 if (state is ReceivedAvailableSlots) {
-
-                    noOfSlots = state.slots.length;
+                  noOfSlots = state.slots.length;
 
                   if (state.slots.isNotEmpty) {
                     return GridView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 16),
                       itemCount: state.slots.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               mainAxisSpacing: 16,
                               crossAxisSpacing: 16,
                               crossAxisCount: 3,
-                              childAspectRatio: 1.3),
+                              childAspectRatio: 1.05),
                       itemBuilder: (_, index) {
                         var slot = state.slots[index];
-                        return SlotView1(startTime: slot.getFStartTime(), isBooked: slot.IsBooked, endTime: slot.getFEndTime(),);
+                        return SlotView1(
+                          startTime: slot.getFStartTime(),
+                          isBooked: slot.IsBooked,
+                          endTime: slot.getFEndTime(),
+                        );
                         /*return SlotView(
                             onClick: (id) {},
                             id: slot.ScheduleID!,
@@ -113,7 +110,6 @@ class _ViewScheduleState extends State<ViewSchedule> {
                   } else {
                     return NoRecordsView(
                       title: "Not schedule yet !!!",
-
                       onBtnClick: () {
                         Navigator.pushNamed(context, "/createNewSchedule",
                             arguments:
@@ -121,8 +117,6 @@ class _ViewScheduleState extends State<ViewSchedule> {
                       },
                     );
                   }
-
-
                 }
 
                 return const LoadingView(isVisible: true);
@@ -138,59 +132,73 @@ class _ViewScheduleState extends State<ViewSchedule> {
           ))*/
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () async {
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.pushNamed(
+              context, "/createNewSchedule",
+              arguments: DateFormat("yyyy-MM-dd").format(selectedDate));
 
-
-        final result = await Navigator.pushNamed(context, "/createNewSchedule",
-            arguments:
-            DateFormat("yyyy-MM-dd").format(selectedDate));
-
-        if(result==true){
-          _viewScheduleCubit.fetchSlotsByDate(DateFormat("yyyy-MM-dd").format(selectedDate));
-        }
-      },
-      child: Icon(Icons.add),backgroundColor: AppColors.primary,),
+          if (result == true) {
+            _viewScheduleCubit.fetchSlotsByDate(
+                DateFormat("yyyy-MM-dd").format(selectedDate));
+          }
+        },
+        child: Icon(Icons.add),
+        backgroundColor: AppColors.primary,
+      ),
     );
   }
 }
 
 class SlotView1 extends StatelessWidget {
-
   final String startTime;
   final String endTime;
   final bool isBooked;
-  const SlotView1({Key? key, required this.startTime, required this.endTime, required this.isBooked}) : super(key: key);
+
+  const SlotView1(
+      {Key? key,
+      required this.startTime,
+      required this.endTime,
+      required this.isBooked})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: AppColors.primaryLight
-      ),
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 70,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(8.0),
-                  topLeft: Radius.circular(8.0),
-            ),
-          ),
-          child: Column(crossAxisAlignment:CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,children: [
-            Text(startTime,style: AppTextStyle.body1(),),
-            const Text("to",),
-            Text(endTime,style: AppTextStyle.body1(),)
-          ],),),
-          Positioned(bottom: 8,left: 0,right: 0,child: Center(child: Text(isBooked ? "Booked":"Available",style: AppTextStyle.captionOF1(),)))
+      width: double.infinity,
+      height: 90,
+      decoration:  BoxDecoration(
+        color: Colors.white,borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.primary)
+        ),
 
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            startTime,
+            style: AppTextStyle.body1(),
+          ),
+          const Text(
+            "to",
+          ),
+          Text(
+            endTime,
+            style: AppTextStyle.body1(),
+          ),
+
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Divider(height: 8,thickness:1,color: AppColors.primary,),
+          ),
+
+          Text(
+            isBooked ? "Booked" : "Available".toUpperCase(),
+            style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w800),
+          )
         ],
       ),
     );
   }
 }
-

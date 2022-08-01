@@ -53,7 +53,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    const double itemHeight = 80;
+    const double itemHeight = 120;
     final double itemWidth = size.width / 2;
 
     return BlocBuilder<HomePageCubit, HomePageState>(
@@ -162,6 +162,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               const SizedBox(
                 height: 10,
               ),
+
               GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -294,13 +295,15 @@ class DashboardItem extends StatelessWidget {
         onItemClick(actionModel.action);
       },
       child: Container(
+
         padding: const EdgeInsets.all(8),
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),border: Border.all(color: AppColors.grey)),
+            borderRadius: BorderRadius.circular(8),border: Border.all(color: AppColors.primary)),
         child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center
+            ,
             children: [
               SvgPicture.asset(
                 actionModel.icon,
@@ -308,7 +311,7 @@ class DashboardItem extends StatelessWidget {
                 color: AppColors.primary,
               ),
               const SizedBox(
-                width: 16,
+                height: 16,
               ),
               Text(
                 actionModel.title,

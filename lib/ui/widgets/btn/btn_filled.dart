@@ -18,6 +18,7 @@ class BtnFilled extends StatelessWidget {
       color: AppColors.primary,
       child: Text(
         title.toUpperCase(),
+        textAlign: TextAlign.center,
       ),
       onPressed: () => onBtnPressed!(),
       shape: RoundedRectangleBorder(

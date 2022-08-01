@@ -29,12 +29,13 @@ class AppointmentHistoryItem extends StatelessWidget {
         onViewDetailsClick(appointmentDetailModel.AppointmentID);
       },
       child: Container(
-        padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
+        padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
+        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
             color: AppColors.greyLightest,
             boxShadow: const [
               BoxShadow(
-                color: AppColors.grey,
+                color: AppColors.greyLight,
                 blurRadius: 5.0,
               ),
             ],
@@ -54,7 +55,7 @@ class AppointmentHistoryItem extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            TemplateICText(
+            /*TemplateICText(
               imgURL: AppImages.icClinicPrimary,
               txtTitle: "Location",
               txtSubTitle: appointmentDetailModel.UserAddress != null
@@ -63,7 +64,7 @@ class AppointmentHistoryItem extends StatelessWidget {
               txtCaption: appointmentDetailModel.UserAddress != null
                   ? appointmentDetailModel.UserAddress!.City
                   : "N.A.",
-            ),
+            ),*/
             const SizedBox(
               height: 5,
             ),
@@ -115,7 +116,7 @@ class AppointmentHistoryItem extends StatelessWidget {
                     },
                   )),
                 const SizedBox(
-                  width: 16,
+                  width: 8,
                 ),
                 Expanded(
                   child: BtnFilled(
