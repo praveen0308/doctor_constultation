@@ -30,27 +30,38 @@ class NoRecordsView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 24,),
-          SvgPicture.asset(
-            imgUrl,
-            height: 200,
+          const SizedBox(
+            height: 24,
           ),
-          const SizedBox(height: 16,),
+          Center(
+            child: SvgPicture.asset(
+              imgUrl,
+              height: 200,
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
           Text(
             title,
             style: AppTextStyle.headline5(),
           ),
-          const SizedBox(height: 16,),
+          const SizedBox(
+            height: 16,
+          ),
           Text(
             subtitle,
             style: AppTextStyle.overlieOF4(),
           ),
           Spacer(),
-
           Visibility(
             visible: requiredBtn,
             child: CustomBtn(
-                title: btnText, onBtnPressed: () { onBtnClick();}, isLoading: false),
+                title: btnText,
+                onBtnPressed: () {
+                  onBtnClick();
+                },
+                isLoading: false),
           ),
         ],
       ),

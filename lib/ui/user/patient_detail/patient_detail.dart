@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
@@ -8,14 +10,19 @@ import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
 import 'package:doctor_consultation/ui/widgets/no_records_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../admin/appointment_detail/case_history/patient_case_history.dart';
 
 class PatientDetailScreen extends StatefulWidget {
   final int patientId;
+  final String imgUrl;
 
-  const PatientDetailScreen({Key? key, required this.patientId})
+  const PatientDetailScreen(
+      {Key? key,
+      this.imgUrl = AppImages.imgNotAvailable,
+      required this.patientId})
       : super(key: key);
 
   @override
@@ -59,17 +66,20 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          if(_patientDetailModel.getProfileUrl().isEmpty) const CircleAvatar(
-                            radius: 80,
-                            backgroundImage: AssetImage(AppImages.imgAvatar),
+                          if (_patientDetailModel.getProfileUrl().isEmpty)
+                            const CircleAvatar(
+                              radius: 80,
+                              backgroundImage: AssetImage(AppImages.imgAvatar),
+                            ),
+                          if (_patientDetailModel.getProfileUrl().isNotEmpty)
+                            CircleAvatar(
+                              radius: 80,
+                              backgroundImage: NetworkImage(
+                                  _patientDetailModel.getProfileUrl()),
+                            ),
+                          const SizedBox(
+                            height: 8,
                           ),
-
-                          if(_patientDetailModel.getProfileUrl().isNotEmpty) CircleAvatar(
-                            radius: 80,
-                            backgroundImage: NetworkImage(_patientDetailModel.getProfileUrl()),
-                          ),
-
-                          const SizedBox(height: 8,),
                           Text(
                             _patientDetailModel.FullName ?? "N.A.",
                             style: AppTextStyle.headline5(
@@ -83,15 +93,12 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
                             style: AppTextStyle.captionRF1(
                                 txtColor: AppColors.greyBefore),
                           ),
-
-
                           const SizedBox(
                             height: 16,
                           ),
                         ],
                       ),
                     ),
-
                     Text(
                       "Case History",
                       style: AppTextStyle.subtitle1(),
@@ -107,9 +114,17 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
                           return SizedBox(
                             height: 150,
                             child: Center(
-                              child: Text(
-                                "No History !!!",
-                                style: AppTextStyle.captionOF1(),
+                              child: Column(
+                                children: [
+                                  SvgPicture.asset(
+                                    imgUrl,
+                                    height: 200,
+                                  ),
+                                  Text(
+                                    "No History !!!",
+                                    style: AppTextStyle.captionOF1(),
+                                  ),
+                                ],
                               ),
                             ),
                           );

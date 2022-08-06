@@ -44,12 +44,14 @@ class TemplateICText extends StatelessWidget {
           children: [
             Text(
               txtTitle,
-              style: AppTextStyle.body1(txtColor: txtTColor,wFont: FontWeight.w500),
+              style: AppTextStyle.body1(
+                  txtColor: txtTColor, wFont: FontWeight.w500),
             ),
             const SizedBox(
               height: 2,
             ),
-            Text(txtSubTitle, style: AppTextStyle.subtitle2(txtColor: txtSTColor)),
+            Text(txtSubTitle,
+                style: AppTextStyle.subtitle2(txtColor: txtSTColor)),
             Text(
               txtCaption.toUpperCase(),
               style: AppTextStyle.body2(txtColor: txtCapColor),
