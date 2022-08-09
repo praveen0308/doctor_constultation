@@ -92,9 +92,10 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                   keyboardType: TextInputType.multiline,
                   maxLength: 100,
                   maxLines: 3,
+                  textInputAction: TextInputAction.done,
                 ),
                 const SizedBox(
-                  height: 64,
+                  height: 50,
                 ),
                 BlocBuilder<AddNewAppointmentCubit, AddNewAppointmentState>(
                   builder: (context, state) {
@@ -114,43 +115,47 @@ class _AddNewAppointmentState extends State<AddNewAppointment> {
                     if(state is AddNewAppointmentError){
                       showToast(state.msg, ToastType.error);
                     }
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.42,
-                          child: BtnOutline(
-                            title: "Cancel",
-                            onBtnPressed: () {
-                              WidgetsBinding.instance!
-                                  .addPostFrameCallback((_) {
-                                Navigator.pop(context);
-                              });
-                            },
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.42,
+                            child: BtnOutline(
+                              title: "Cancel",
+                              onBtnPressed: () {
+                                WidgetsBinding.instance!
+                                    .addPostFrameCallback((_) {
+                                  Navigator.pop(context);
+                                });
+                              },
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.42,
-                          child: CustomBtn(
-                            title: "Set Appointment",
-                            onBtnPressed: () {
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.42,
+                            child: CustomBtn(
+                              title: "Set Appointment",
+                              onBtnPressed: () {
 
 
-                              if (_addNewAppointmentCubit.validateAppointment()) {
-                                Navigator.pushNamed(
-                                    context, "/purchaseSubscriptionPlan",
-                                    arguments: PurchaseSubscriptionPlanArgs(
-                                        slotModel:
-                                            _addNewAppointmentCubit.slot!,
-                                        patientDetailModel: _addNewAppointmentCubit.patientDetailModel!,
-                                        description: _addNewAppointmentCubit
-                                            .problemDescription));
-                              }
-                            },
-                            isLoading: state is AddingNewAppointment,
+                                if (_addNewAppointmentCubit.validateAppointment()) {
+                                  Navigator.pushNamed(
+                                      context, "/purchaseSubscriptionPlan",
+                                      arguments: PurchaseSubscriptionPlanArgs(
+                                          slotModel:
+                                              _addNewAppointmentCubit.slot!,
+                                          patientDetailModel: _addNewAppointmentCubit.patientDetailModel!,
+                                          description: _addNewAppointmentCubit
+                                              .problemDescription));
+                                }
+                              },
+                              isLoading: state is AddingNewAppointment,
+                            ),
                           ),
-                        ),
-                      ],
+
+                        ],
+                      ),
                     );
                   },
                 ),

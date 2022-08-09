@@ -38,7 +38,11 @@ class _TemplateMessagePageBodyState extends State<TemplateMessagePageBody> {
   @override
   void initState() {
     super.initState();
-    _storage.getUserId().then((value) => userId = value);
+    _storage.getUserId().then((value){
+      setState(() {
+        userId = value;
+      });
+      });
 
   }
 
@@ -49,7 +53,7 @@ class _TemplateMessagePageBodyState extends State<TemplateMessagePageBody> {
       children: [
         ViewMyRichText(
           text1: "Patient's",
-          text2: "Messages",
+          text2: " Messages",
           txtStyle1: AppTextStyle.subtitle1(),
           txtStyle2: AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
         ),
@@ -70,7 +74,7 @@ class _TemplateMessagePageBodyState extends State<TemplateMessagePageBody> {
               onTap: (){
                 var isExpired = resp.expiry!.isBefore(DateTime.now());
                 Navigator.of(context).pushNamed("/chatScreen",
-                    arguments: ChatScreenArgs(userId.toString(),resp.userId!, resp.patientName!,
+                    arguments: ChatScreenArgs(userId.toString(),resp.patientId!, resp.patientName!,
                         resp.chatId!, isExpired));
               },
               child: TemplateAlphaPatient(

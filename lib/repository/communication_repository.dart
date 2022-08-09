@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/notification_model.dart';
 import 'package:doctor_consultation/models/api/video_call_detail_model.dart';
 import 'package:doctor_consultation/network/services/communication_api_client.dart';
@@ -7,6 +8,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class CommunicationRepository {
   late Dio _dio;
   late CommunicationApiClient _communicationApiClient;
+  final _storage = SecureStorage();
 
   CommunicationRepository() {
     _dio = Dio();
@@ -35,11 +37,13 @@ class CommunicationRepository {
 
   //#region Notification Detail Repo
   Future<List<NotificationModel>> fetchAllNotificationDetail() {
+    _storage.getUserId().then((value) => null);
     return _communicationApiClient.fetchNotificationDetailList();
   }
 
-  Future<NotificationModel> fetchNotificationDetailByID(int id) {
-    return _communicationApiClient.getNotificationDetailByID(id);
+  Future<List<NotificationModel>> fetchNotificationsByReceiverID() async {
+    var userId = await _storage.getUserId();
+    return _communicationApiClient.getNotificationDetailByReceiverID(userId);
   }
 
   Future<bool> createUpdateNotificationDetail(NotificationModel notificationModel) {

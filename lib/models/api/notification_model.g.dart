@@ -18,6 +18,7 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
       ContentID: json['ContentID'] as int?,
       ContentTypeID: json['ContentTypeID'] as int?,
       IsActive: json['IsActive'] as bool?,
+      AddedOn: json['AddedOn'] as String?,
     );
 
 Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) =>
@@ -32,4 +33,5 @@ Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) =>
       'ContentID': instance.ContentID,
       'ContentTypeID': instance.ContentTypeID,
       'IsActive': instance.IsActive,
+      'AddedOn': instance.AddedOn,
     };

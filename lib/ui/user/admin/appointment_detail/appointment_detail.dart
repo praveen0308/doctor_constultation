@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:doctor_consultation/jitsee/jitsi_meet_methods.dart';
 import 'package:doctor_consultation/local/app_storage.dart';
@@ -6,27 +5,20 @@ import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/models/user_roles.dart';
 import 'package:doctor_consultation/repository/case_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
-import 'package:doctor_consultation/res/app_string.dart';
-import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/appointment_case_info/appointment_case_info.dart';
 import 'package:doctor_consultation/ui/appointment_case_info/appointment_case_info_cubit.dart';
-import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/btn/info_chip.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
-import 'package:doctor_consultation/ui/widgets/schedule/temp_date.dart';
-import 'package:doctor_consultation/ui/widgets/template_ic_text1.dart';
 import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'appointment_detail_cubit.dart';
-import 'case_history/patient_case_history.dart';
-import 'case_history/patient_case_history_cubit.dart';
 
 class AppointmentDetailPage extends StatefulWidget {
   final int appointmentId;
@@ -54,6 +46,13 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
         userRoleId = value;
       });
     });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _cubit.getAppointmentDetail(widget.appointmentId);
+    }
   }
 
 /*
@@ -86,6 +85,13 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                 _cubit.getAppointmentDetail(
                     _appointmentDetailModel.AppointmentID);
                 showToast("Session started", ToastType.success);
+                // createNewMeeting();
+
+              }
+              if (state is AppointmentClosedSuccessfully) {
+                _cubit.getAppointmentDetail(
+                    _appointmentDetailModel.AppointmentID);
+                showToast("Appointment closed successfully !!!", ToastType.success);
                 // createNewMeeting();
 
               }
@@ -129,8 +135,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                               title: _appointmentDetailModel
                                   .getAppointmentStatus()
                                   .toUpperCase(),
-                              bgColor: AppColors.successLightest,
-                              txtColor: AppColors.successDark,
+                              bgColor: _appointmentDetailModel.getAppointmentStatusBgColor(),
+                              txtColor: _appointmentDetailModel.getAppointmentStatusTextColor(),
                             )
                           ],
                         ),
@@ -199,7 +205,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                           ],
                         ),
                         const Divider(
-                          color: AppColors.grey,
+                          color: AppColors.primaryLight,
                           thickness: 1.5,
                           height: 20,
                         ),
@@ -208,47 +214,50 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                           "Patient Info",
                           style: AppTextStyle.subtitle1(),
                         ),
-
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
-                          margin: const EdgeInsets.symmetric(vertical: 16),
-
-
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: AppColors.primaryLightest
-                          ),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 30.0,
-                                backgroundImage:
-                                _appointmentDetailModel.PatientProfileUrl!.isEmpty ? const NetworkImage("https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png") : NetworkImage(_appointmentDetailModel.PatientProfileUrl.toString()),
-                                backgroundColor: Colors.transparent,
-                              ),
-                              const SizedBox(width: 16,),
-                              Expanded(child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    _appointmentDetailModel.PatientName,
-                                    style: AppTextStyle.subtitle1(
-                                        txtColor: AppColors.greyDark),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    "ID : ${_appointmentDetailModel.PatientID.toString()}",
-                                    style: AppTextStyle.subtitle2(
-                                        txtColor: AppColors.greyBefore),
-                                  ),
-                                ],
-                              ))
-                            ],
-                          ),
+                        const SizedBox(height: 16,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Patient ID",
+                              style: AppTextStyle.body1(
+                                  txtColor: AppColors.greyBefore,
+                                  wFont: FontWeight.w500),
+                            ),
+                            Text(
+                              "PT000${_appointmentDetailModel.PatientID.toString()}",
+                              style: AppTextStyle.subtitle1(
+                                  txtColor: AppColors.greyDark,
+                                  wFont: FontWeight.w500),
+                            ),
+                          ],
                         ),
 
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Patient Name",
+                              style: AppTextStyle.body1(
+                                  txtColor: AppColors.greyBefore,
+                                  wFont: FontWeight.w500),
+                            ),
+                            Text(
+                              _appointmentDetailModel.PatientName.toString(),
+                              style: AppTextStyle.subtitle1(
+                                  txtColor: AppColors.greyDark,
+                                  wFont: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        const Divider(
+                          color: AppColors.primaryLight,
+                          thickness: 1.5,
+                          height: 20,
+                        ),
                         BlocProvider(
                           create: (context) =>
                               AppointmentCaseInfoCubit(CaseRepository()),
@@ -282,6 +291,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                     isLoading: state is CancellingAppointment,
                                   ),
                                 ),
+                                if (userRoleId == UserRoles.doctor)
                                 const SizedBox(
                                   width: 16,
                                 ),
@@ -302,27 +312,13 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                             ),
                           ),
                         if (_appointmentDetailModel.AppointmentStatusID ==
-                            AppConstants.ongoing)
+                            AppConstants.ongoing || _appointmentDetailModel.AppointmentStatusID == AppConstants.closed)
                           Column(
                             children: [
-                              /*CustomBtn(
-                                title: "Add Case Info",
-                                onBtnPressed: () {
-                                  Navigator.pushNamed(context, "/addCaseInfo",
-                                      arguments: AddCaseInfoArgs(
-                                          _appointmentDetailModel.PatientID,
-                                          _appointmentDetailModel
-                                              .AppointmentID));
-                                },
-                                isLoading: false,
-                              ),*/
-                              const SizedBox(
-                                height: 16,
-                              ),
                               CustomBtn(
                                 title: "Join Meeting",
                                 onBtnPressed: () {
-                                  meetMethods.createMeeting(
+                                  meetMethods.joinMeeting(
                                       roomName:
                                           _appointmentDetailModel.MeetingID!,
                                       isAudioMuted: true,
@@ -333,8 +329,21 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                               const SizedBox(
                                 height: 16,
                               ),
+
                             ],
                           ),
+
+                        if(userRoleId==UserRoles.doctor)
+                          if(userRoleId==AppConstants.ongoing)
+                            CustomBtn(
+                              title: "Close Appointment",
+                              onBtnPressed: () {
+                                _cubit.closeAppointment(
+                                    _appointmentDetailModel
+                                        .AppointmentID);
+                              },
+                              isLoading: false,
+                            ),
                       ],
                     ),
                     LoadingView(isVisible: state is LoadingAppointmentDetail)

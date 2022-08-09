@@ -35,7 +35,7 @@ class SlotView extends StatelessWidget {
           },
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
+            padding: const EdgeInsets.symmetric(vertical: 6),
             decoration: BoxDecoration(
                 color:
                     isSelected ? AppColors.primary : AppColors.greyLightest,

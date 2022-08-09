@@ -30,8 +30,13 @@ class _UserPatientChatsState extends State<UserPatientChats> {
     super.initState();
     _cubit = BlocProvider.of<UserPatientChatsCubit>(context);
     _storage.getUserId().then((value) {
-      userId = value;
+
+
+      setState(() {
+        userId = value;
+      });
       _cubit.getPatients(value);
+
     });
   }
 
@@ -47,7 +52,7 @@ class _UserPatientChatsState extends State<UserPatientChats> {
             const SizedBox(
               height: 16,
             ),
-            TemplateMessagePageHeader(
+            const TemplateMessagePageHeader(
               firstLine: "Let's Chat",
               secondLine: "With Doctor",
             ),
@@ -56,7 +61,7 @@ class _UserPatientChatsState extends State<UserPatientChats> {
             ),
             ViewMyRichText(
               text1: "Patient's",
-              text2: "Messages",
+              text2: " Messages",
               txtStyle1: AppTextStyle.subtitle1(),
               txtStyle2: AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
             ),
@@ -87,7 +92,7 @@ class _UserPatientChatsState extends State<UserPatientChats> {
                                 * */
                                 // var userId = await _storage.getUserId();
                                 var chatResponse =
-                                    await ChatRepository.getChatByUserId(
+                                    await ChatRepository.getChatByPatientId(
                                         patient.ID.toString());
 
                                 if (chatResponse != null) {

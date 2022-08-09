@@ -68,6 +68,9 @@ class PersonalDataCubit extends Cubit<PersonalDataState> {
     try {
       int response = await _accountRepository.addUpdateUserDetails(userModel);
       if (response != 0) {
+        _storage.updateUserName(userModel.UserName.toString());
+        _storage.updatePhoneNumber(userModel.MobileNo.toString());
+        _storage.updateUserName(userModel.UserName.toString());
         emit(UpdatedSuccessfully());
       } else {
         emit(Error("Failed to update user details!!!"));

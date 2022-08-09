@@ -13,6 +13,7 @@ class TemplateContactUs extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             TemplateICText(
               imgURL: AppImages.icClinicPrimary,

@@ -1,17 +1,34 @@
+import 'package:doctor_consultation/local/app_storage.dart';
+import 'package:doctor_consultation/models/user_roles.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
 
-class AppNavBar extends StatelessWidget {
+class AppNavBar extends StatefulWidget {
   final String txtAddress;
 
   const AppNavBar({
     Key? key,
     this.txtAddress = "Current Location",
   }) : super(key: key);
+
+  @override
+  State<AppNavBar> createState() => _AppNavBarState();
+}
+
+class _AppNavBarState extends State<AppNavBar> {
+  final _storage = SecureStorage();
+  int roleId = 0;
+  @override
+  void initState() {
+    super.initState();
+    _storage.getUserRoleId().then((value) {
+      setState(() {
+        roleId = value;
+      });});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +61,8 @@ class AppNavBar extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  txtAddress,
-                  style: TextStyle(color: AppColors.greyDark, fontSize: 16),
+                  widget.txtAddress,
+                  style: const TextStyle(color: AppColors.greyDark, fontSize: 16),
                 ),
                 const SizedBox(
                   width: 4,
@@ -58,10 +75,13 @@ class AppNavBar extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-            icon: SvgPicture.asset(AppImages.icNotificationPrimary),
-            onPressed: () =>
-                Navigator.pushNamed(context, route.notificationPage),
+          Visibility(
+            visible: roleId!=UserRoles.nonRegisteredPatient,
+            child: IconButton(
+              icon: SvgPicture.asset(AppImages.icNotificationPrimary),
+              onPressed: () =>
+                  Navigator.pushNamed(context, route.notificationPage),
+            ),
           ),
         ],
       ),

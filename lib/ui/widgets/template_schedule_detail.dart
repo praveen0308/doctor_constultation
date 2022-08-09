@@ -6,6 +6,7 @@ import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
+import 'package:doctor_consultation/ui/widgets/btn/info_chip.dart';
 import 'package:doctor_consultation/ui/widgets/schedule/temp_date.dart';
 import 'package:doctor_consultation/ui/widgets/schedule/temp_status.dart';
 import 'package:doctor_consultation/ui/widgets/template_ic_text1.dart';
@@ -51,19 +52,35 @@ class TemplateScheduleDetail extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(appointmentDetailModel.PatientName,
-                style: AppTextStyle.headline6()),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              AppStrings.speciaList.toUpperCase(),
-              style: AppTextStyle.body3(txtColor: AppColors.greyBefore),
-            ),
+            Row(children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(appointmentDetailModel.PatientName,
+                        style: AppTextStyle.headline6()),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      AppStrings.speciaList.toUpperCase(),
+                      style: AppTextStyle.body3(txtColor: AppColors.greyBefore),
+                    ),
+                  ],
+                ),
+              ),
+
+              ViewInfoChip(
+                title: appointmentDetailModel.getAppointmentStatus()                    .toUpperCase(),
+                bgColor: appointmentDetailModel.getAppointmentStatusBgColor(),
+                txtColor: appointmentDetailModel.getAppointmentStatusTextColor(),
+              )
+            ],),
+
             const SizedBox(
               height: 10,
             ),
-            TemplateICText(
+            /*TemplateICText(
               imgURL: AppImages.icClinicPrimary,
               txtTitle: "Location",
               txtSubTitle: appointmentDetailModel.UserAddress != null
@@ -72,7 +89,7 @@ class TemplateScheduleDetail extends StatelessWidget {
               txtCaption: appointmentDetailModel.UserAddress != null
                   ? appointmentDetailModel.UserAddress!.City
                   : "N.A.",
-            ),
+            ),*/
             const SizedBox(
               height: 5,
             ),
@@ -94,18 +111,7 @@ class TemplateScheduleDetail extends StatelessWidget {
                     imgSize: 18,
                     dtColor: AppColors.greyBefore,
                     title: appointmentDetailModel.getTiming().toUpperCase()),
-                /*TemplateStatus(
-                  title: appointmentDetailModel
-                      .getAppointmentStats()
-                      .toString(),
-                  sColor: AppColors.greyLightest,
-                  sSize: 5,
-                ),*/
 
-                Text(
-                  appointmentDetailModel.getAppointmentStatus(),
-                  style: AppTextStyle.overlieRF1(),
-                )
               ],
             ),
             const SizedBox(

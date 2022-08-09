@@ -13,8 +13,8 @@ class AppConstants {
   static const msgNoChatAvailable =
       "Chat is not available for this patient. Book appointment to connect with doctor. Chat will be available until appointment subscription expired.";
 
-  static const RAZORPAY_KEY_ID = "rzp_test_WK75xX84FGDTsB";
-  // static const RAZORPAY_KEY_ID = "rzp_live_eSD5cAGj3dGPo4";
+  // static const RAZORPAY_KEY_ID = "rzp_test_WK75xX84FGDTsB";
+   static const RAZORPAY_KEY_ID = "rzp_live_eSD5cAGj3dGPo4";
   // static const RAZORPAY_KEY_ID = "rzp_live_8aAdWb0YdmkzxG";
 
   static String getRandomString(int length) {

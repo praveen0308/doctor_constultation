@@ -104,15 +104,7 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
                     if (state is ReceivedCaseHistory)
                       (() {
                         if (state.caseHistory.isEmpty) {
-                          return SizedBox(
-                            height: 150,
-                            child: Center(
-                              child: Text(
-                                "No History !!!",
-                                style: AppTextStyle.captionOF1(),
-                              ),
-                            ),
-                          );
+                          return SizedBox(height:400,child: NoRecordsView(title: "No case history!!!", onBtnClick: (){}));
                         } else {
                           var lastIndex = state.caseHistory.length - 1;
                           return ListView.builder(

@@ -5,6 +5,7 @@ import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_outline.dart';
+import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,14 +41,14 @@ class SuccessPage extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Thank you for Appoinment Booking!",
+                "Thank you for Appointment Booking!",
                 style: AppTextStyle.subtitle1(txtColor: AppColors.greyDark),
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
-                '''You booked an appoinment with \n Dr. Priyanaka Yaduwanshi \n on ${DateFormat("dd MMMM, yyyy").format(DateTime.parse(args.scheduleModel.ScheduleDate!))} at ${args.scheduleModel.getFStartTime()}''',
+                '''You booked an appointment with \n ${AppConstants.doctorName}\n on ${DateFormat("dd MMMM, yyyy").format(DateTime.parse(args.scheduleModel.ScheduleDate!))} at ${args.scheduleModel.getFStartTime()}''',
                 textAlign: TextAlign.center,
                 style: AppTextStyle.overlieOF1(txtColor: AppColors.greyBefore),
               ),

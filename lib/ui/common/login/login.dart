@@ -2,13 +2,10 @@ import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/common/login/login_cubit.dart';
-import 'package:doctor_consultation/ui/user/patient/dashboard/dashboard.dart';
 import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_back_nav_bar.dart';
-import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,6 +37,9 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
+          if(state is Error){
+            showToast(state.msg, ToastType.error);
+          }
           if (state is LoginSuccessful) {
             FirebaseMessaging.instance.getToken().then((value){
               _loginCubit.updateFCMToken(value!, state.userModel);
@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
             });
           }
           if (state is IncorrectCredential) {
-            showToast("Incorrect email or password!!", ToastType.error);
+            showToast("Incorrect user id or password!!", ToastType.error);
           }
           return Scaffold(
             body: Padding(
@@ -92,8 +92,10 @@ class _LoginPageState extends State<LoginPage> {
                         border: OutlineInputBorder(),
                         hintText: 'Enter the mobile number',
                         labelText: 'Mobile Number',
+                      counterText: ""
                     ),
                     keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.next,
                     maxLength: 10,
                   ),
                   const SizedBox(
@@ -105,9 +107,11 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     onFieldSubmitted: (text) {
                       password = text;
+                      _loginCubit.checkLoginDetails(username, password);
                     },
+
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         hintText: 'Enter the password',
                         labelText: 'Password',
                         suffixIcon: IconButton(
@@ -120,12 +124,13 @@ class _LoginPageState extends State<LoginPage> {
                             });
                           },
                         )),
+                    textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.name,
                     obscureText: _securityText,
                     obscuringCharacter: "*",
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     alignment: Alignment.centerRight,
                     child: Text(
                       "Forget password?",
@@ -147,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Navigator.pushNamed(context, route.register);
                       },
-                      child: Text("Register"))
+                      child: const Text("Register"))
                 ],
               ),
             ),

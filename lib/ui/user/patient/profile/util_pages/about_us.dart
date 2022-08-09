@@ -16,21 +16,23 @@ class AboutUs extends StatelessWidget {
         appBar: AppBar(
           title: const Text("About Us"),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CircleAvatar(
-                backgroundImage: AssetImage(AppImages.drPriyanka),
-                radius: 100,
-              ),
-              SizedBox(height: 16,),
-              Text(AppConstants.doctorName,style: AppTextStyle.headline4(txtColor:
-              AppColors.primary),),
-              SizedBox(height: 24,),
-              Text(AppConstants.aboutDoctor,textAlign:TextAlign.justify,style: TextStyle(fontSize: 18,letterSpacing: 0.5,wordSpacing: 1),)
-            ],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const CircleAvatar(
+                  backgroundImage: AssetImage(AppImages.drPriyanka),
+                  radius: 100,
+                ),
+                SizedBox(height: 16,),
+                Text(AppConstants.doctorName,textAlign:TextAlign.center,style: AppTextStyle.headline5(txtColor:
+                AppColors.primary),),
+                SizedBox(height: 24,),
+                Text(AppConstants.aboutDoctor,textAlign:TextAlign.justify,style: TextStyle(fontSize: 18,letterSpacing: 0.5,wordSpacing: 1),)
+              ],
+            ),
           ),
         ),
       ),

@@ -67,7 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
             // AppChatNavBar(),
             Expanded(
               child: Container(
-                  color: AppColors.greyLight,
+                  color: Colors.black12,
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: FirestoreListView<UserMessage>(
                     controller: _controller,
@@ -87,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       // Data is now typed!
                       UserMessage resp = snapshot.data();
                       return getChatItem(resp.msg!, resp.addedOn!,
-                          resp.senderId != widget.args.userId);
+                          resp.senderId == widget.args.userId);
                     },
                   )),
             ),
@@ -106,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 : TemplateBottomChatNav(
                     onSend: (String msg) {
                       _cubit.addNewMessage(msg, widget.args.chatId,
-                          patientId: int.parse(widget.args.patientId));
+                          patientId: int.parse(widget.args.userId));
                     },
                   )
           ],
@@ -139,8 +139,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: Text(
                   msg,
                   style: TextStyle(
+                  fontSize: 16,
                       color: isSender
-                          ? AppColors.primaryLightest
+                          ? Colors.white
                           : AppColors.primaryDarkest),
                 ),
               ),

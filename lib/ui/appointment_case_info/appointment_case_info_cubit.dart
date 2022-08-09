@@ -26,7 +26,7 @@ class AppointmentCaseInfoCubit extends Cubit<AppointmentCaseInfoState> {
       CaseInfoModel response = await _caseRepository.fetchCaseInfoByID(caseID);
       if (response != null) {
         emit(ReceivedCaseDetail(response));
-        Future.delayed(const Duration(milliseconds: 1000));
+        Future.delayed(const Duration(milliseconds: 100));
         // getCaseAttachments(response.ID);
       } else {
         emit(Error("Failed to get case details!!!"));

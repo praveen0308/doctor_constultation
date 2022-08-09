@@ -19,13 +19,16 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       UserModel response =
           await _accountRepository.loginUser(username, password);
+
       _storage.updateUserRoleId(response.UserRoleID!);
       _storage.updateUserId(response.ID!);
-      _storage.updateUserName(response.UserName!);
-      _storage.updateUserEmail(response.EmailID!);
-      _storage.updatePhoneNumber(response.MobileNo!);
-      if (response.ProfileImage != null || response.ProfileImage!.isNotEmpty) {
-        _storage.updateUserProfile(response.getProfileUrl());
+      _storage.updateUserName(response.UserName.toString());
+      _storage.updateUserEmail(response.EmailID.toString());
+      _storage.updatePhoneNumber(response.MobileNo.toString());
+      if (response.ProfileImage != null) {
+        if(response.ProfileImage!.isNotEmpty){
+          _storage.updateUserProfile(response.getProfileUrl());
+        }
       }
       _storage.updateLoginStatus(true);
 
@@ -37,6 +40,7 @@ class LoginCubit extends Cubit<LoginState> {
       emit(IncorrectCredential());
       debugPrint("Exception >>> $e");
     }
+
   }
 
   void updateFCMToken(String token,UserModel userModel) async {

@@ -11,6 +11,7 @@ class SlotModel {
   String? StartTime;
   String? EndTime;
   bool? IsAvailable;
+  bool IsDisabled=false;
 
   SlotModel(
       {this.ID,
@@ -18,7 +19,8 @@ class SlotModel {
       this.BatchID,
       this.StartTime,
       this.EndTime,
-      this.IsAvailable});
+      this.IsAvailable,
+      this.IsDisabled=false});
 
   factory SlotModel.fromJson(Map<String, dynamic> json) =>
       _$SlotModelFromJson(json);

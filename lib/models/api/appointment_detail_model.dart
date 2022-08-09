@@ -1,5 +1,8 @@
 import 'package:doctor_consultation/models/api/address_model.dart';
+import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/util/app_constants.dart';
+import 'package:flutter/material.dart';
+
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -105,4 +108,68 @@ class AppointmentDetailModel {
     }
     return status;
   }
+
+  Color getAppointmentStatusTextColor() {
+    var color = AppColors.primary;
+    switch (AppointmentStatusID) {
+      case AppConstants.pending:
+        {
+          color = AppColors.greyDark;
+        }
+        break;
+      case AppConstants.approved:
+        {
+          color = AppColors.successDark;
+        }
+        break;
+      case AppConstants.cancelled:
+        {
+          color = AppColors.errorDark;
+        }
+        break;
+      case AppConstants.ongoing:
+        {
+          color = AppColors.warningDark;
+        }
+        break;
+      case AppConstants.closed:
+        {
+          color = AppColors.successDark;
+        }
+        break;
+    }
+    return color;
+  }
+  Color getAppointmentStatusBgColor() {
+    var color = AppColors.primary;
+    switch (AppointmentStatusID) {
+      case AppConstants.pending:
+        {
+          color = AppColors.greyLight;
+        }
+        break;
+      case AppConstants.approved:
+        {
+          color = AppColors.successLightest;
+        }
+        break;
+      case AppConstants.cancelled:
+        {
+          color = AppColors.errorLightest;
+        }
+        break;
+      case AppConstants.ongoing:
+        {
+          color = AppColors.warningLightest;
+        }
+        break;
+      case AppConstants.closed:
+        {
+          color = AppColors.successLightest;
+        }
+        break;
+    }
+    return color;
+  }
+
 }

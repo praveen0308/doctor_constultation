@@ -30,15 +30,17 @@ class NoRecordsView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 24,),
-          SvgPicture.asset(
-            imgUrl,
-            height: 200,
+          const Spacer(),
+          Center(
+            child: SvgPicture.asset(
+              imgUrl,
+              height: 200,
+            ),
           ),
           const SizedBox(height: 16,),
           Text(
             title,
-            style: AppTextStyle.headline5(),
+            style: AppTextStyle.headline6(),
           ),
           const SizedBox(height: 16,),
           Text(

@@ -13,6 +13,7 @@ SlotModel _$SlotModelFromJson(Map<String, dynamic> json) => SlotModel(
       StartTime: json['StartTime'] as String?,
       EndTime: json['EndTime'] as String?,
       IsAvailable: json['IsAvailable'] as bool?,
+      IsDisabled: json['IsDisabled'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$SlotModelToJson(SlotModel instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$SlotModelToJson(SlotModel instance) => <String, dynamic>{
       'StartTime': instance.StartTime,
       'EndTime': instance.EndTime,
       'IsAvailable': instance.IsAvailable,
+      'IsDisabled': instance.IsDisabled,
     };

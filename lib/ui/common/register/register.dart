@@ -78,6 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Enter the fullname',
                         labelText: 'Full Name'),
                     keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(
                     height: 14,
@@ -93,7 +94,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         border: OutlineInputBorder(),
                         hintText: 'Email',
                         labelText: 'Email'),
-                    keyboardType: TextInputType.name,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(
                     height: 14,
@@ -109,7 +111,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         border: OutlineInputBorder(),
                         hintText: 'Mobile Number',
                         labelText: 'Mobile Number'),
-                    keyboardType: TextInputType.name,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(
                     height: 14,
@@ -120,6 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     onFieldSubmitted: (text) {
                       _userModel.Password = text;
+                      _registerCubit.checkLoginDetails(_userModel);
                     },
                     decoration: InputDecoration(
                         border: const OutlineInputBorder(),
@@ -138,6 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     keyboardType: TextInputType.name,
                     obscureText: _securityText,
                     obscuringCharacter: "*",
+                    textInputAction: TextInputAction.done,
                   ),
                   const SizedBox(
                     height: 20,

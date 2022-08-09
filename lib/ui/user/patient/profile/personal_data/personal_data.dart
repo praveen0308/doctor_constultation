@@ -67,188 +67,172 @@ class _PersonalDataState extends State<PersonalData> {
             }
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16),
-              child: Column(
+              child: SingleChildScrollView(
+                child: Column(
 
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: GestureDetector(
-                         onTap: () {
-                          pickFiles();
-                        },
-                        child: ((() {
-                          if (userModel.ProfileImage != null) {
-                            return CircleAvatar(
-                              radius: 75,
-                              backgroundImage:
-                                  NetworkImage(userModel.getProfileUrl()),
-                            );
-                          } else {
-                            return SvgPicture.asset(AppImages.icUserProfile,width: 150,height: 150,);
-                          }
-                        }()))),
-                  ),
-                /*GestureDetector(
-                  onTap: (){
-                    pickFiles();
-                  },
-                  child: Center(child: SvgPicture.asset(AppImages.icUserProfile,width: 150,height: 150,)),
-                ),*/
-                  const SizedBox(height: 16,),
-                  Text(
-                    "Full name",
-                    style: AppTextStyle.captionRF1(
-                        txtColor: AppColors.greyBefore),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: TextEditingController()
-                      ..text = userModel.UserName ?? "",
-                    onChanged: (text) {
-                      userModel.UserName = text;
-                    },
-                    onFieldSubmitted: (text) {
-                      userModel.UserName = text;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter full name',
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: GestureDetector(
+                           onTap: () {
+                            pickFiles();
+                          },
+                          child: ((() {
+                            if (userModel.ProfileImage != null) {
+                              return CircleAvatar(
+                                radius: 75,
+                                backgroundImage:
+                                    NetworkImage(userModel.getProfileUrl()),
+                              );
+                            } else {
+                              return SvgPicture.asset(AppImages.icUserProfile,width: 150,height: 150,);
+                            }
+                          }()))),
                     ),
-                    keyboardType: TextInputType.name,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Contact",
-                    style: AppTextStyle.captionRF1(
-                        txtColor: AppColors.greyBefore),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: TextEditingController()
-                      ..text = userModel.MobileNo ?? "",
-                    onChanged: (text) {
-                      userModel.MobileNo = text;
+                  /*GestureDetector(
+                    onTap: (){
+                      pickFiles();
                     },
-                    onFieldSubmitted: (text) {
-                      userModel.MobileNo = text;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      fillColor: AppColors.greyLight,
-                      hintText: 'Enter the contact',
+                    child: Center(child: SvgPicture.asset(AppImages.icUserProfile,width: 150,height: 150,)),
+                  ),*/
+                    const SizedBox(height: 16,),
+                    Text(
+                      "Full name",
+                      style: AppTextStyle.captionRF1(
+                          txtColor: AppColors.greyBefore),
                     ),
-                    keyboardType: TextInputType.number,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Age",
-                    style: AppTextStyle.captionRF1(
-                        txtColor: AppColors.greyBefore),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: TextEditingController()
-                      ..text = userModel.Age == 0
-                          ? ""
-                          : userModel.Age.toString(),
-                    onChanged: (text) {
-                      userModel.Age = int.parse(text);
-                    },
-                    onFieldSubmitted: (text) {
-                      userModel.Age = int.parse(text);
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      fillColor: AppColors.greyLight,
-                      hintText: 'Enter age',
+                    const SizedBox(
+                      height: 8,
                     ),
-                    keyboardType: TextInputType.number,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Gender",
-                    style: AppTextStyle.captionRF1(
-                        txtColor: AppColors.greyBefore),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  CustomDropDown(
-                      isOutlined: true,
-                      hint: "Gender",
-                      itemList: ["Male", "Female", "Other"],
-                      onItemSelected: (element) {},
-                      selectedIndex: getGenderIndex(userModel.Gender)),
-                  /*BtnOutlineTabView(
-                txtTab1: "Female",
-                txtTab2: "Male",
-                txtTab3: "Other",
-                onTabSelected: (int index) {},
-              ),*/
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  // Text("Write your problem (Optional)",style: AppTextStyle.captionRF1(txtColor: AppColors.greyBefore),),
-                  // const SizedBox(
-                  //   height: 8,
-                  // ),
-                  // SizedBox(
-                  //   height: maxLines * 30.0,
-                  //   child: TextFormField(
-                  //     maxLines: maxLines,
-                  //     decoration: const InputDecoration(
-                  //       border: OutlineInputBorder(),
-                  //       fillColor: AppColors.greyLight,
-                  //       hintText: 'Please write here your problem',
-                  //     ),
-                  //     keyboardType: TextInputType.text,
-                  //     maxLength: 100,
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   height: 15,
-                  // ),
+                    TextFormField(
+                      controller: TextEditingController()
+                        ..text = userModel.UserName ?? "",
+                      onChanged: (text) {
+                        userModel.UserName = text;
+                      },
+                      onFieldSubmitted: (text) {
+                        userModel.UserName = text;
+                      },
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter full name',
+                      ),
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Contact",
+                      style: AppTextStyle.captionRF1(
+                          txtColor: AppColors.greyBefore),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextFormField(
+                      controller: TextEditingController()
+                        ..text = userModel.MobileNo ?? "",
+                      onChanged: (text) {
+                        userModel.MobileNo = text;
+                      },
+                      onFieldSubmitted: (text) {
+                        userModel.MobileNo = text;
+                      },
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        fillColor: AppColors.greyLight,
+                        hintText: 'Enter the contact',
+                          counterText: ""
+                      ),
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      maxLength: 10,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "Age",
+                      style: AppTextStyle.captionRF1(
+                          txtColor: AppColors.greyBefore),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextFormField(
+                      controller: TextEditingController()
+                        ..text = userModel.Age == 0
+                            ? ""
+                            : userModel.Age.toString(),
+                      onChanged: (text) {
+                        userModel.Age = int.parse(text);
+                      },
+                      onFieldSubmitted: (text) {
+                        userModel.Age = int.parse(text);
+                      },
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        fillColor: AppColors.greyLight,
+                        hintText: 'Enter age',
+                         counterText: ""
+                      ),
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.done,
+                      maxLength: 2,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Gender",
+                      style: AppTextStyle.captionRF1(
+                          txtColor: AppColors.greyBefore),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CustomDropDown(
+                        isOutlined: true,
+                        hint: "Gender",
+                        itemList: ["Male", "Female", "Other"],
+                        onItemSelected: (element) {},
+                        selectedIndex: getGenderIndex(userModel.Gender)),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.42,
-                        child: BtnOutline(
-                          title: "Cancel",
-                          onBtnPressed: () {
-                            WidgetsBinding.instance!
-                                .addPostFrameCallback((timeStamp) {
-                              Navigator.pop(context);
-                            });
-                          },
+                    const SizedBox(
+                      height: 15,
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.42,
+                          child: BtnOutline(
+                            title: "Cancel",
+                            onBtnPressed: () {
+                              WidgetsBinding.instance!
+                                  .addPostFrameCallback((timeStamp) {
+                                Navigator.pop(context);
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.42,
-                        child: CustomBtn(
-                          title: "Save",
-                          onBtnPressed: () {
-                            _cubit.updateUserDetails(userModel);
-                          },
-                          isLoading: state is Updating,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.42,
+                          child: CustomBtn(
+                            title: "Save",
+                            onBtnPressed: () {
+                              _cubit.updateUserDetails(userModel);
+                            },
+                            isLoading: state is Updating,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           },

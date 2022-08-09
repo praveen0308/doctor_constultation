@@ -36,7 +36,7 @@ class _CustomChipGroupState extends State<CustomChipGroup> {
     return Container(
         child: widget.data.isNotEmpty
             ? GridView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: widget.data.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -77,7 +77,7 @@ class _CustomChipGroupState extends State<CustomChipGroup> {
                 ),
                 child: Center(
                   child: Text(
-                    "No available slots today !!!",
+                    "No available slots on this day !!!",
                     style: AppTextStyle.headline6(),
                   ),
                 ),

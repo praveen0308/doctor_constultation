@@ -5,7 +5,7 @@ class AppStrings{
   static const String drFName = 'Dr. Priyanaka';
   static const String drLName = ' Yaduvanshi';
   static const String speciaList = 'Homeopathy';
-  static const String slogan1 = '“I am your Doctor - ';
+  static const String slogan1 = '"I am your Doctor" - ';
   static const String slogan2 = 'Experience magical homeopathy!';
   static const String clinicAddress = 'Vrindavan Clinic';
   static const String clinicPlace = 'Kandivali (E)';

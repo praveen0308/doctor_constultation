@@ -4,7 +4,9 @@ import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/repository/case_repository.dart';
+import 'package:doctor_consultation/repository/communication_repository.dart';
 import 'package:doctor_consultation/repository/patient_repository.dart';
+import 'package:doctor_consultation/repository/schedule_repository.dart';
 import 'package:doctor_consultation/repository/transaction_repository.dart';
 import 'package:doctor_consultation/repository/util_repository.dart';
 import 'package:doctor_consultation/ui/common/login/login.dart';
@@ -31,8 +33,8 @@ import 'package:doctor_consultation/ui/user/admin/communication/payment_detail.d
 import 'package:doctor_consultation/ui/user/admin/dashboard/dashboard.dart';
 import 'package:doctor_consultation/ui/user/admin/manage_videos/manage_videos.dart';
 import 'package:doctor_consultation/ui/user/admin/manage_videos/manage_videos_cubit.dart';
-import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_new_slot.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/create_new_schedule/create_new_schedule_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/set_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule.dart';
@@ -67,6 +69,7 @@ import 'package:doctor_consultation/ui/user/patient_detail/patient_detail.dart';
 import 'package:doctor_consultation/ui/user/patient_detail/patient_detail_cubit.dart';
 import 'package:doctor_consultation/ui/user/user_detail/user_detail.dart';
 import 'package:doctor_consultation/ui/user/user_detail/user_detail_cubit.dart';
+import 'package:doctor_consultation/ui/user_notifications/user_notifications.dart';
 import 'package:doctor_consultation/ui/video_player/video_player.dart';
 import 'package:doctor_consultation/ui/video_player/youtube_player.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +77,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../ui/add_new_appointment/add_new_appointment.dart';
 import '../ui/add_new_appointment/add_new_appointment_cubit.dart';
+import '../ui/user/admin/schedule/create_new_schedule/create_new_schedule.dart';
+import '../ui/user_notifications/user_notifications_cubit.dart';
 
 // importing our pages into our route.dart
 
@@ -290,9 +295,12 @@ Route<dynamic> controller(RouteSettings settings) {
           builder: (context) => const PatientProfilePage(), settings: settings);
     case createNewSchedule:
       return MaterialPageRoute(
-          builder: (context) => CreateNewSchedule(scheduleDate: args as String),
+          builder: (context) => BlocProvider(
+            create: (context) =>
+                CreateNewScheduleCubit(AppointmentRepository(), ScheduleRepository()),
+            child: CreateNewSchedule(args: args as CreateNewScheduleArgs),
+          ),
           settings: settings);
-
     case patientPastAppointmentDetailPage:
       return MaterialPageRoute(
           builder: (context) => const PatientPastAppointmentDetailPage(),
@@ -304,7 +312,11 @@ Route<dynamic> controller(RouteSettings settings) {
 
     case notificationPage:
       return MaterialPageRoute(
-          builder: (context) => const NotificationPage(), settings: settings);
+          builder: (context) => BlocProvider(
+            create: (context) => UserNotificationsCubit(CommunicationRepository()),
+            child: const UserNotifications(),
+          ),
+          settings: settings);
 
     case drProfilePage:
       return MaterialPageRoute(

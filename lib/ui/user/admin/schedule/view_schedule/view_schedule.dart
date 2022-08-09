@@ -1,6 +1,7 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/user/admin/schedule/create_new_schedule/create_new_schedule.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
@@ -10,6 +11,8 @@ import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../../models/api/schedule_model.dart';
 
 class ViewSchedule extends StatefulWidget {
   const ViewSchedule({Key? key}) : super(key: key);
@@ -22,6 +25,8 @@ class _ViewScheduleState extends State<ViewSchedule> {
   late ViewScheduleCubit _viewScheduleCubit;
   DateTime selectedDate = DateTime.now();
   int noOfSlots = 0;
+  List<ScheduleModel> schedules = [];
+
 
   @override
   void initState() {
@@ -78,6 +83,8 @@ class _ViewScheduleState extends State<ViewSchedule> {
                               )*/
                 }
                 if (state is ReceivedAvailableSlots) {
+                  schedules.clear();
+                  schedules.addAll(state.slots);
                   noOfSlots = state.slots.length;
 
                   if (state.slots.isNotEmpty) {
@@ -113,7 +120,7 @@ class _ViewScheduleState extends State<ViewSchedule> {
                       onBtnClick: () {
                         Navigator.pushNamed(context, "/createNewSchedule",
                             arguments:
-                                DateFormat("yyyy-MM-dd").format(selectedDate));
+                                CreateNewScheduleArgs(DateFormat("yyyy-MM-dd").format(selectedDate), state.slots));
                       },
                     );
                   }
@@ -136,7 +143,7 @@ class _ViewScheduleState extends State<ViewSchedule> {
         onPressed: () async {
           final result = await Navigator.pushNamed(
               context, "/createNewSchedule",
-              arguments: DateFormat("yyyy-MM-dd").format(selectedDate));
+              arguments: CreateNewScheduleArgs(DateFormat("yyyy-MM-dd").format(selectedDate), schedules));
 
           if (result == true) {
             _viewScheduleCubit.fetchSlotsByDate(

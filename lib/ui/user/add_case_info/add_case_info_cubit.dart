@@ -12,6 +12,8 @@ class AddCaseInfoCubit extends Cubit<AddCaseInfoState> {
   final CaseRepository _caseRepository;
   final List<File> files = [];
   AddCaseInfoCubit(this._caseRepository) : super(AddCaseInfoInitial());
+
+
   void addCaseInfo(CaseInfoModel caseInfoModel) async {
     emit(Loading());
     try {

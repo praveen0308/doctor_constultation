@@ -79,7 +79,7 @@ class ShareUs extends StatelessWidget {
         title: AppConstants.doctorName,
         text:
             'Check out this application for booking appointment for the consultation with ${AppConstants.doctorName}',
-        linkUrl: 'https://flutter.dev/',
+        linkUrl: 'https://play.google.com/store/apps/details?id=com.jmm.doctor_consultation',
         chooserTitle: 'Share with');
   }
 }

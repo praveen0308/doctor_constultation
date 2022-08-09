@@ -101,7 +101,7 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
       // 'order_id': 'order_${AppConstants.getRandomString(14)}',
       'retry': {'enabled': true, 'max_count': 3},
       'description': 'Purchase Plan',
-      'timeout': 60,
+      'timeout': 180,
       'prefill': {'contact': AppStrings.drContactNo, 'email': AppStrings.drEmail}
     };
 
@@ -212,7 +212,7 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
 
               // btn action
               Positioned(
-                bottom: 0,
+                bottom: 10,
                 left: 16,
                 right: 16,
                 child: CustomBtn(

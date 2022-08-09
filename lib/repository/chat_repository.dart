@@ -50,7 +50,7 @@ class ChatRepository {
     debugPrint("Response :: $response");
   }
 
-  static Future<ChatResponse?> getChatByUserId(String patientId) async {
+  static Future<ChatResponse?> getChatByPatientId(String patientId) async {
     var response = await _chats.where("patientId", isEqualTo: patientId).get();
     debugPrint("Response :: $response");
     if (response.size != 0) {

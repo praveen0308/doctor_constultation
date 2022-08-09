@@ -23,7 +23,7 @@ class _VideoCarouselState extends State<VideoCarousel> {
           children: <Widget>[
             ViewMyRichText(
               text1: "YouTube",
-              text2: "Video's",
+              text2: " Video's",
               txtStyle1: AppTextStyle.subtitle1(txtColor: AppColors.greyDark),
               txtStyle2: AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
             ),

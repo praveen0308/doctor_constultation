@@ -8,6 +8,8 @@ import 'package:doctor_consultation/util/date_time_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../models/api/schedule_model.dart';
+
 part 'create_new_schedule_state.dart';
 
 class CreateNewScheduleCubit extends Cubit<CreateNewScheduleState> {
@@ -17,21 +19,20 @@ class CreateNewScheduleCubit extends Cubit<CreateNewScheduleState> {
   CreateNewScheduleCubit(this._appointmentRepository, this._scheduleRepository)
       : super(CreateNewScheduleInitial());
 
-  void fetchSlotsByDayId(int id) async {
+  void fetchSlotsByDayId(int id,List<ScheduleModel> schedules) async {
     emit(Loading());
     try {
       List<SlotModel> response =
           await _appointmentRepository.fetchAllSlotDetail(dayId: id);
 
-      /* List<BatchModel> batches = DateTimeHelper.getBatches();
-      for (var batch in batches) {
-        for (var slot in response) {
-          if (batch.id == slot.BatchID) {
-            batch.slots.add(slot);
+      response.forEach((slot) {
+        slot.IsAvailable = false;
+        schedules.forEach((element) {
+          if(slot.getTiming()==element.getTiming()) {
+            slot.IsDisabled = true;
           }
-        }
-      }
-*/    response.forEach((element) { element.IsAvailable = false;});
+        });
+      });
       emit(ReceivedSlots(response));
     } on NetworkExceptions catch (e) {
       emit(Error("Something went wrong !!!"));

@@ -43,4 +43,6 @@ class UserModel {
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
   String getProfileUrl() => "${ApiConstants.baseUrl}$ProfileImage";
+
+
 }

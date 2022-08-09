@@ -45,7 +45,7 @@ class _LayoutHomeopathyFactState extends State<LayoutHomeopathyFact> {
           children: <Widget>[
             ViewMyRichText(
               text1: "Facts & Myth",
-              text2: "Homeopathy",
+              text2: " Homeopathy",
               txtStyle1: AppTextStyle.subtitle1(txtColor: AppColors.greyDark),
               txtStyle2: AppTextStyle.subtitle1(txtColor: AppColors.greyBefore),
             ),
@@ -70,7 +70,7 @@ class _LayoutHomeopathyFactState extends State<LayoutHomeopathyFact> {
             autoPlayCurve: Curves.fastOutSlowIn,
             enableInfiniteScroll: true,
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
-            viewportFraction: 0.8,
+            viewportFraction: 0.9,
           ),
           itemBuilder: (BuildContext context, int index, int realIndex) {
             return Container(
@@ -92,7 +92,7 @@ class _LayoutHomeopathyFactState extends State<LayoutHomeopathyFact> {
                     ]),
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
                   RichText(
                     text: TextSpan(children: [

@@ -21,6 +21,7 @@ class PurchaseSubscriptionPlanCubit
   final TransactionRepository _transactionRepository;
   final AppointmentRepository _appointmentRepository;
   final ChatRepository _chatRepository = ChatRepository();
+
   PurchaseSubscriptionPlanCubit(this._accountRepository,
       this._transactionRepository, this._appointmentRepository)
       : super(PurchaseSubscriptionPlanInitial());
@@ -46,7 +47,7 @@ class PurchaseSubscriptionPlanCubit
         var now = DateTime.now();
         var exp = DateTime(now.year, now.month + 1, now.day);
         var chat = ChatResponse(
-            userId: patientDetailModel.ID!.toString(),
+            userId: patientDetailModel.UserID!.toString(),
             patientId: patientDetailModel.ID!.toString(),
             expiry: exp,
             age: patientDetailModel.Age,

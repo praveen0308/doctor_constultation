@@ -67,10 +67,10 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 5.0, bottom: 20),
+                  padding: const EdgeInsets.only(top: 5.0, bottom: 20,left: 12),
                   child: ViewMyRichText(
                     text1: "Appointment",
-                    text2: "(${state.appointments.length.toString()})",
+                    text2: " (${state.appointments.length.toString()})",
                     txtStyle1: AppTextStyle.captionRF1(
                         txtColor: AppColors.greyDark, wFont: FontWeight.w500),
                     txtStyle2: AppTextStyle.captionRF1(
@@ -84,7 +84,7 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(AppImages.imgOnBoarding4,height: 170,),
-                            SizedBox(height: 16,),
+                            const SizedBox(height: 16,),
                             Text(
                               "No appointments !!!",
                               style: AppTextStyle.subtitle1(),
@@ -96,7 +96,7 @@ class _AppointmentHistoryContentState extends State<AppointmentHistoryContent> {
                   Expanded(
                     child: ListView.separated(
                         shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         itemBuilder: (_, index) {
                           return TemplateScheduleDetail(
                             appointmentDetailModel: state.appointments[index],

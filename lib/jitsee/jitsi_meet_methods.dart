@@ -12,7 +12,7 @@ class JitsiMeetMethods {
     return roomName;
   }
 
-  void createMeeting({
+  void joinMeeting({
     required String roomName,
     required bool isAudioMuted,
     required bool isVideoMuted,

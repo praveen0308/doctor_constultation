@@ -10,6 +10,8 @@ import 'package:doctor_consultation/ui/widgets/template_ic_text1.dart';
 import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../widgets/btn/info_chip.dart';
+
 class AppointmentHistoryItem extends StatelessWidget {
   final AppointmentDetailModel appointmentDetailModel;
   final Function(int appointmentId) onCancelClick;
@@ -43,31 +45,35 @@ class AppointmentHistoryItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(appointmentDetailModel.PatientName,
-                style: AppTextStyle.headline6()),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              AppStrings.speciaList.toUpperCase(),
-              style: AppTextStyle.body3(txtColor: AppColors.greyBefore),
-            ),
+            Row(children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(appointmentDetailModel.PatientName,
+                        style: AppTextStyle.headline6()),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      AppStrings.speciaList.toUpperCase(),
+                      style: AppTextStyle.body3(txtColor: AppColors.greyBefore),
+                    ),
+                  ],
+                ),
+              ),
+
+              ViewInfoChip(
+                title: appointmentDetailModel.getAppointmentStatus()                    .toUpperCase(),
+                bgColor: appointmentDetailModel.getAppointmentStatusBgColor(),
+                txtColor: appointmentDetailModel.getAppointmentStatusTextColor(),
+              )
+            ],),
+
             const SizedBox(
               height: 10,
             ),
-            /*TemplateICText(
-              imgURL: AppImages.icClinicPrimary,
-              txtTitle: "Location",
-              txtSubTitle: appointmentDetailModel.UserAddress != null
-                  ? appointmentDetailModel.UserAddress!.AddressLine1
-                  : "N.A.",
-              txtCaption: appointmentDetailModel.UserAddress != null
-                  ? appointmentDetailModel.UserAddress!.City
-                  : "N.A.",
-            ),*/
-            const SizedBox(
-              height: 5,
-            ),
+
             const Divider(
               thickness: 1,
               color: AppColors.grey,
@@ -94,10 +100,7 @@ class AppointmentHistoryItem extends StatelessWidget {
                   sSize: 5,
                 ),*/
 
-                Text(
-                  appointmentDetailModel.getAppointmentStatus(),
-                  style: AppTextStyle.overlieRF1(),
-                )
+
               ],
             ),
             const SizedBox(

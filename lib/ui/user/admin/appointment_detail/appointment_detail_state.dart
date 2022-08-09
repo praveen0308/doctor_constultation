@@ -10,6 +10,7 @@ class CancellingAppointment extends AppointmentDetailState {}
 class AppointmentCancelled extends AppointmentDetailState {}
 
 class StartingSession extends AppointmentDetailState {}
+class AppointmentClosedSuccessfully extends AppointmentDetailState {}
 
 class SessionStarted extends AppointmentDetailState {
   final String meetingId;

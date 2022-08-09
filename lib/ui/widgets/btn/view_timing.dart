@@ -8,10 +8,11 @@ class ViewTiming extends StatefulWidget {
   final SlotModel slotModel;
   final Function(SlotModel slotModel) onClick;
 
+
   const ViewTiming({
     Key? key,
     required this.slotModel,
-    required this.onClick,
+    required this.onClick
   }) : super(key: key);
 
   @override
@@ -25,30 +26,52 @@ class _ViewTimingState extends State<ViewTiming> {
       fit: BoxFit.contain,
       child: InkWell(
         onTap: () {
-          setState(() {
-            widget.slotModel.IsAvailable = !widget.slotModel.IsAvailable!;
-            widget.onClick(widget.slotModel);
-          });
+          if(!widget.slotModel.IsDisabled){
+            setState(() {
+              widget.slotModel.IsAvailable = !widget.slotModel.IsAvailable!;
+              widget.onClick(widget.slotModel);
+            });
+          }
+
         },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-          decoration: BoxDecoration(
-              color: widget.slotModel.IsAvailable!
-                  ? AppColors.primary
-                  : AppColors.greyLightest,
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              border: Border.all(
+        child: (() {
+          // your code here
+          if(widget.slotModel.IsDisabled){
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              decoration: BoxDecoration(
+                  color:  AppColors.greyLight,
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(
+                      color: AppColors.grey)),
+              child: Text(
+                widget.slotModel.getTiming(),
+                style: AppTextStyle.captionOF2(
+                    txtColor: AppColors.grey),
+              ),
+            );
+          }else{
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              decoration: BoxDecoration(
                   color: widget.slotModel.IsAvailable!
-                      ? AppColors.greyLightest
-                      : AppColors.primary)),
-          child: Text(
-            widget.slotModel.getTiming(),
-            style: AppTextStyle.captionOF2(
-                txtColor: widget.slotModel.IsAvailable!
-                    ? AppColors.greyLightest
-                    : AppColors.primary),
-          ),
-        ),
+                      ? AppColors.primary
+                      : AppColors.greyLightest,
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(
+                      color: widget.slotModel.IsAvailable!
+                          ? AppColors.greyLightest
+                          : AppColors.primary)),
+              child: Text(
+                widget.slotModel.getTiming(),
+                style: AppTextStyle.captionOF2(
+                    txtColor: widget.slotModel.IsAvailable!
+                        ? AppColors.greyLightest
+                        : AppColors.primary),
+              ),
+            );
+          }
+        }()),
       ),
     );
   }

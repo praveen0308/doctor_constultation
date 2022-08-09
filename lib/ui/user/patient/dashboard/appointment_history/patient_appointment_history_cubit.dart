@@ -86,6 +86,12 @@ class PatientAppointmentHistoryCubit
       }
     }
 
-    emit(ReceivedAppointmentHistory(result));
+    if(result.isNotEmpty){
+      emit(ReceivedAppointmentHistory(result));
+    }else{
+      emit(NoAppointmentHistory());
+    }
+
+
   }
 }

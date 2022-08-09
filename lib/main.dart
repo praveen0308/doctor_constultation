@@ -8,7 +8,7 @@ import 'package:doctor_consultation/repository/appointment_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
 import 'package:doctor_consultation/ui/common/register/register_cubit.dart';
-import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule_cubit.dart';
+
 import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_slot_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/manage_slots/manage_slot_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/view_schedule/view_schedule_cubit.dart';
@@ -125,9 +125,6 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (_) => ViewScheduleCubit(ScheduleRepository())),
         // BlocProvider(create: (_) => AddPatientCubit(PatientRepository())),
 
-        BlocProvider(
-            create: (_) => CreateNewScheduleCubit(
-                AppointmentRepository(), ScheduleRepository())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -6,6 +6,7 @@ import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_nav_bar.dart';
 import 'package:doctor_consultation/ui/widgets/btn/btn_tab.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:doctor_consultation/ui/widgets/no_glow_behaviour.dart';
+import 'package:doctor_consultation/ui/widgets/no_records_view.dart';
 import 'package:doctor_consultation/ui/widgets/template_schedule_detail.dart';
 import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,7 +60,7 @@ class _PatientAppointmentHistoryPageState
               height: 10,
             ),
             BtnTabView(
-              txtTab1: "Upcoming",
+              txtTab1: "All",
               txtTab2: "Completed",
               txtTab3: "Canceled",
               onSwitched: (index) {
@@ -79,9 +80,7 @@ class _PatientAppointmentHistoryPageState
                     );
                   }
                   if (state is NoAppointmentHistory) {
-                    return const Center(
-                      child: Text("No Appointment records."),
-                    );
+                    return SizedBox(height:400,child: NoRecordsView(title: "No appointment records!!!", onBtnClick: (){}));
                   }
                   if (state is ReceivedAppointmentHistory) {
                     return ListView.builder(

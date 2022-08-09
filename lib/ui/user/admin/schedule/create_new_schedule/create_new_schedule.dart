@@ -1,5 +1,5 @@
+import 'package:doctor_consultation/models/api/schedule_model.dart';
 import 'package:doctor_consultation/res/style_text.dart';
-import 'package:doctor_consultation/ui/user/admin/schedule/add_schedule/create_new_schedule_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/btn/view_timing.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
@@ -7,10 +7,18 @@ import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CreateNewSchedule extends StatefulWidget {
-  final String scheduleDate;
+import 'create_new_schedule_cubit.dart';
 
-  const CreateNewSchedule({Key? key, required this.scheduleDate})
+class CreateNewScheduleArgs{
+  final String scheduleDate;
+  final List<ScheduleModel> schedules;
+
+  CreateNewScheduleArgs(this.scheduleDate, this.schedules);
+}
+class CreateNewSchedule extends StatefulWidget {
+  final CreateNewScheduleArgs args;
+
+  const CreateNewSchedule({Key? key, required this.args})
       : super(key: key);
 
   @override
@@ -25,7 +33,7 @@ class _CreateNewScheduleState extends State<CreateNewSchedule> {
   void initState() {
     super.initState();
     _createNewScheduleCubit = BlocProvider.of<CreateNewScheduleCubit>(context);
-    _createNewScheduleCubit.fetchSlotsByDayId(1);
+    _createNewScheduleCubit.fetchSlotsByDayId(1,widget.args.schedules);
   }
 
   @override
@@ -85,7 +93,9 @@ class _CreateNewScheduleState extends State<CreateNewSchedule> {
                             } else {
                               selectedSlots.remove(slot.ID);
                             }
+
                           },
+
                         );
                       },
                     ),
@@ -94,7 +104,7 @@ class _CreateNewScheduleState extends State<CreateNewSchedule> {
                       title: "Submit",
                       onBtnPressed: () {
                         _createNewScheduleCubit.submitSlots(
-                            widget.scheduleDate, selectedSlots);
+                            widget.args.scheduleDate, selectedSlots);
                       },
                       isLoading: state is SubmittingSlots)
                 ],

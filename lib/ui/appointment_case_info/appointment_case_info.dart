@@ -11,6 +11,8 @@ import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../local/app_storage.dart';
+import '../../models/user_roles.dart';
 import '../../repository/case_repository.dart';
 import '../../res/image_path.dart';
 import '../widgets/view_heading_appointment.dart';
@@ -36,7 +38,8 @@ class AppointmentCaseInfo extends StatefulWidget {
 class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
   late AppointmentCaseInfoCubit _cubit;
   late CaseInfoModel caseInfoModel;
-
+  final _storage = SecureStorage();
+  int userRoleId = 0;
   @override
   void initState() {
     super.initState();
@@ -64,10 +67,16 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
                   style: AppTextStyle.subtitle1(),
                 ),
                 const Spacer(),
-                Text(
-                  "View History",
-                  style: AppTextStyle.subtitle2(
-                    txtColor: AppColors.primary,
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, "/patientDetails",
+                        arguments: widget.args.patientID);
+                  },
+                  child: Text(
+                    "View History",
+                    style: AppTextStyle.subtitle2(
+                      txtColor: AppColors.primary,
+                    ),
                   ),
                 ),
               ],
@@ -76,37 +85,39 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
               height: 16,
             ),
             if (state is LoadingCaseInfo) const LoadingView(isVisible: true),
-            if (state is EmptyCaseDetail)
-              Column(children: [
-                ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 180),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: AppColors.primaryLightest,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Center(
-                      child: Text(
-                        "Case record not found !!!",
-                        style: AppTextStyle.subtitle1(),
+            ((){
+              if (state is EmptyCaseDetail){
+                return Column(children: [
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 180),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.primaryLightest,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Center(
+                        child: Text(
+                          "Case record not found !!!",
+                          style: AppTextStyle.subtitle1(),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomBtn(
-                    title: "Create Case",
-                    onBtnPressed: () {
-                      Navigator.pushNamed(context, "/addCaseInfo",
-                          arguments: AddCaseInfoArgs(
-                              widget.args.patientID, widget.args.appointmentID,
-                              caseId: widget.args.caseID));
-                    },
-                    isLoading: false)
-              ]),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              if (state is ReceivedCaseDetail)
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  CustomBtn(
+                      title: "Create Case",
+                      onBtnPressed: () {
+                        Navigator.pushNamed(context, "/addCaseInfo",
+                            arguments: AddCaseInfoArgs(
+                                widget.args.patientID, widget.args.appointmentID,
+                                caseId: widget.args.caseID));
+                      },
+                      isLoading: false)
+                ]);}
+              else if (state is ReceivedCaseDetail){
+                return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+
                 ConstrainedBox(
                   constraints: const BoxConstraints(minHeight: 180),
                   child: Container(
@@ -134,37 +145,45 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
                         getDetailItem(
                             "Past History", state.caseInfoModel.PastHistory),
                         getDetailItem("Family History",
-                            state.caseInfoModel.ChiefComplaints),
+                            state.caseInfoModel.FamilyHistory),
                         getDetailItem("Observations",
-                            state.caseInfoModel.ChiefComplaints),
+                            state.caseInfoModel.ClinicalObservations.isEmpty ? "Not Provided": state.caseInfoModel.ClinicalObservations),
                         getDetailItem("Investigation Notes",
-                            state.caseInfoModel.ChiefComplaints),
+                            state.caseInfoModel.InvestigationNotes.isEmpty ? "Not Provided": state.caseInfoModel.InvestigationNotes),
                         getDetailItem(
-                            "Diagnosis", state.caseInfoModel.Diagnosis.isEmpty ? "No Diagnosis": state.caseInfoModel.Diagnosis),
+                            "Diagnosis", state.caseInfoModel.Diagnosis.isEmpty ? "Not Provided": state.caseInfoModel.Diagnosis),
                       ],
                     ),
                   ),
                 ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: BlocProvider(
+                      create: (context) =>
+                          CaseAttachmentsCubit(CaseRepository()),
+                      child: CaseAttachments(caseID: widget.args.caseID,),
+                    ),
+                  ),
+                  if(userRoleId==UserRoles.doctor)
+                  CustomBtn(
+                      title: "Update Case Info",
+                      onBtnPressed: () {
+                        Navigator.pushNamed(context, "/addCaseInfo",
+                            arguments: AddCaseInfoArgs(
+                                widget.args.patientID, widget.args.appointmentID,
+                                caseId: widget.args.caseID));
+                      },
+                      isLoading: false)
 
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: BlocProvider(
-                  create: (context) =>
-                      CaseAttachmentsCubit(CaseRepository()),
-                  child: CaseAttachments(caseID: widget.args.caseID,),
-                ),
-              ),
+                ]);
 
-              CustomBtn(
-                  title: "Update Case Info",
-                  onBtnPressed: () {
-                    Navigator.pushNamed(context, "/addCaseInfo",
-                        arguments: AddCaseInfoArgs(
-                            widget.args.patientID, widget.args.appointmentID,
-                            caseId: widget.args.caseID));
-                  },
-                  isLoading: false)
-            ]),
+              }
+              else{
+              return const Text("Loading....");
+              }
+
+
+            }()),
             const SizedBox(
               height: 32,
             ),

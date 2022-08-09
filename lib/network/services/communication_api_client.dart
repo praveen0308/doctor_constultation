@@ -26,8 +26,8 @@ abstract class CommunicationApiClient {
   @GET("Communication/GetAllNotificationDetails")
   Future<List<NotificationModel>> fetchNotificationDetailList();
 
-  @GET("Communication/GetNotificationDetailByUserID")
-  Future<NotificationModel> getNotificationDetailByID(@Query("ID") int id);
+  @GET("Communication/GetNotificationDetailByReceiverID")
+  Future<List<NotificationModel>> getNotificationDetailByReceiverID(@Query("ID") int id);
 
   @POST("Communication/AddUpdateNotificationDetails")
   Future<bool> addUpdateNotificationDetail(@Body() NotificationModel notificationModel);

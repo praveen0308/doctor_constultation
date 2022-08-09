@@ -47,6 +47,25 @@ class AppointmentDetailCubit extends Cubit<AppointmentDetailState> {
     }
   }
 
+  void closeAppointment(int appointmentId) async {
+    emit(StartingSession());
+    try {
+      bool response = await _appointmentRepository.updateAppointmentStatus(
+          appointmentId, AppConstants.closed,);
+      if (response) {
+        emit(AppointmentClosedSuccessfully());
+      } else {
+        emit(Error("Failed to close appointment!!!"));
+      }
+    } on NetworkExceptions catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    } on Exception catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    }
+  }
+
   void cancelAppointment(int appointmentId) async {
     emit(CancellingAppointment());
     try {

@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/case_info_model.dart';
+import 'package:doctor_consultation/models/user_roles.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
@@ -33,13 +35,19 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
   late AddCaseInfoCubit _cubit;
 
   late CaseInfoModel _caseInfoModel = CaseInfoModel();
-
+  final _storage = SecureStorage();
+  int userRoleId = UserRoles.doctor;
   @override
   void initState() {
     super.initState();
     _cubit = BlocProvider.of<AddCaseInfoCubit>(context);
     _caseInfoModel.PatientInfoID = widget.caseInfoArgs.patientId;
     _caseInfoModel.AppointmentID = widget.caseInfoArgs.appointmentId;
+    _storage.getUserRoleId().then((value){
+      setState(() {
+        userRoleId = value;
+      });
+      });
     if (widget.caseInfoArgs.caseId != 0) {
       _cubit.getCaseInfoDetail(widget.caseInfoArgs.caseId);
     }
@@ -92,6 +100,7 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                             _caseInfoModel.ChiefComplaints = text,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
+
                           hintText: 'Enter chief complaints',
                           labelText: 'Chief Complaints',
                         ),
@@ -103,6 +112,7 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         children: [
                           Flexible(
                             child: TextFormField(
+                              textInputAction: TextInputAction.next,
                               controller: TextEditingController()
                                 ..text = _caseInfoModel.Pulse,
                               onChanged: (text) => _caseInfoModel.Pulse = text,
@@ -120,6 +130,7 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                           ),
                           Flexible(
                             child: TextFormField(
+                              textInputAction: TextInputAction.next,
                               controller: TextEditingController()
                                 ..text = _caseInfoModel.Temperature,
                               onChanged: (text) =>
@@ -139,6 +150,7 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         height: 16,
                       ),
                       TextFormField(
+                        textInputAction: TextInputAction.next,
                         controller: TextEditingController()
                           ..text = _caseInfoModel.PastHistory,
                         onChanged: (text) => _caseInfoModel.PastHistory = text,
@@ -154,6 +166,7 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         height: 16,
                       ),
                       TextFormField(
+                        textInputAction: TextInputAction.next,
                         controller: TextEditingController()
                           ..text = _caseInfoModel.FamilyHistory,
                         onChanged: (text) =>
@@ -169,7 +182,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                       const SizedBox(
                         height: 16,
                       ),
-                      TextFormField(
+                      if(userRoleId!=UserRoles.registeredPatient)TextFormField(
+                        textInputAction: TextInputAction.next,
                         controller: TextEditingController()
                           ..text = _caseInfoModel.ClinicalObservations,
                         onChanged: (text) =>
@@ -185,7 +199,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                       const SizedBox(
                         height: 16,
                       ),
-                      TextFormField(
+                      if(userRoleId!=UserRoles.registeredPatient)TextFormField(
+                        textInputAction: TextInputAction.next,
                         controller: TextEditingController()
                           ..text = _caseInfoModel.InvestigationNotes,
                         onChanged: (text) =>
@@ -201,7 +216,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                       const SizedBox(
                         height: 16,
                       ),
-                      TextFormField(
+                      if(userRoleId!=UserRoles.registeredPatient)TextFormField(
+                        textInputAction: TextInputAction.done,
                         controller: TextEditingController()
                           ..text = _caseInfoModel.Diagnosis,
                         onChanged: (text) => _caseInfoModel.Diagnosis = text,
