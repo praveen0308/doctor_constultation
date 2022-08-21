@@ -93,81 +93,83 @@ class ProfileBody extends StatelessWidget {
               showAlertDialog(context);
             },
           ),
-          const SizedBox(
-            height: 24,
-          ),
-          Text(
-            "Follow us",
-            style: AppTextStyle.subtitle1(
-                txtColor: AppColors.greyDark, wFont: FontWeight.w500),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    _launchURL(SocialLink.instagram);
-                  },
-                  child: SvgPicture.asset(
-                    AppImages.imgInstagram,
-                    height: 24,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    _launchURL(SocialLink.facebook);
-                  },
-                  child: SvgPicture.asset(
-                    AppImages.imgFacebook,
-                    height: 24,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                /*GestureDetector(
-                  onTap: () {},
-                  child: SvgPicture.asset(
-                    AppImages.imgWhatsApp,
-                    height: 24,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: SvgPicture.asset(
-                    AppImages.imgLinkedin,
-                    height: 24,
-                  ),
-                ),*/
-                GestureDetector(
-                  onTap: () {
-                    _launchURL(SocialLink.twitter);
-                  },
-                  child: SvgPicture.asset(
-                    AppImages.imgTwitter,
-                    height: 24,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    _launchURL(SocialLink.youtube);
-                  },
-                  child: SvgPicture.asset(
-                    AppImages.imgYouTube,
-                    height: 20,
-                  ),
-                ),
-              ],
-            ),
-          ),
+
+          // const SizedBox(
+          //   height: 24,
+          // ),
+          // Text(
+          //   "Follow us",
+          //   style: AppTextStyle.subtitle1(
+          //       txtColor: AppColors.greyDark, wFont: FontWeight.w500),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 16.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       GestureDetector(
+          //         onTap: () {
+          //           _launchURL(SocialLink.instagram);
+          //         },
+          //         child: SvgPicture.asset(
+          //           AppImages.imgInstagram,
+          //           height: 24,
+          //         ),
+          //       ),
+          //       const SizedBox(
+          //         width: 16,
+          //       ),
+          //       GestureDetector(
+          //         onTap: () {
+          //           _launchURL(SocialLink.facebook);
+          //         },
+          //         child: SvgPicture.asset(
+          //           AppImages.imgFacebook,
+          //           height: 24,
+          //         ),
+          //       ),
+          //       const SizedBox(
+          //         width: 16,
+          //       ),
+          //       /*GestureDetector(
+          //         onTap: () {},
+          //         child: SvgPicture.asset(
+          //           AppImages.imgWhatsApp,
+          //           height: 24,
+          //         ),
+          //       ),
+          //       GestureDetector(
+          //         onTap: () {},
+          //         child: SvgPicture.asset(
+          //           AppImages.imgLinkedin,
+          //           height: 24,
+          //         ),
+          //       ),*/
+          //       GestureDetector(
+          //         onTap: () {
+          //           _launchURL(SocialLink.twitter);
+          //         },
+          //         child: SvgPicture.asset(
+          //           AppImages.imgTwitter,
+          //           height: 24,
+          //         ),
+          //       ),
+          //       const SizedBox(
+          //         width: 16,
+          //       ),
+          //       GestureDetector(
+          //         onTap: () {
+          //           _launchURL(SocialLink.youtube);
+          //         },
+          //         child: SvgPicture.asset(
+          //           AppImages.imgYouTube,
+          //           height: 20,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+
           const SizedBox(
             height: 10,
           ),

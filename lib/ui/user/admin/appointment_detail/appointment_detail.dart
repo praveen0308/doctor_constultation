@@ -1,4 +1,3 @@
-
 import 'package:doctor_consultation/jitsee/jitsi_meet_methods.dart';
 import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
@@ -91,7 +90,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               if (state is AppointmentClosedSuccessfully) {
                 _cubit.getAppointmentDetail(
                     _appointmentDetailModel.AppointmentID);
-                showToast("Appointment closed successfully !!!", ToastType.success);
+                showToast(
+                    "Appointment closed successfully !!!", ToastType.success);
                 // createNewMeeting();
 
               }
@@ -135,16 +135,16 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                               title: _appointmentDetailModel
                                   .getAppointmentStatus()
                                   .toUpperCase(),
-                              bgColor: _appointmentDetailModel.getAppointmentStatusBgColor(),
-                              txtColor: _appointmentDetailModel.getAppointmentStatusTextColor(),
+                              bgColor: _appointmentDetailModel
+                                  .getAppointmentStatusBgColor(),
+                              txtColor: _appointmentDetailModel
+                                  .getAppointmentStatusTextColor(),
                             )
                           ],
                         ),
-
                         const SizedBox(
                           height: 10,
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -155,7 +155,8 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                   wFont: FontWeight.w500),
                             ),
                             Text(
-                              _appointmentDetailModel.getAppointmentDate()
+                              _appointmentDetailModel
+                                  .getAppointmentDate()
                                   .toString(),
                               style: AppTextStyle.subtitle1(
                                   txtColor: AppColors.greyDark,
@@ -176,14 +177,13 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                   wFont: FontWeight.w500),
                             ),
                             Text(
-               _appointmentDetailModel.getTiming().toString(),
+                              _appointmentDetailModel.getTiming().toString(),
                               style: AppTextStyle.subtitle1(
                                   txtColor: AppColors.greyDark,
                                   wFont: FontWeight.w500),
                             ),
                           ],
                         ),
-
                         const SizedBox(
                           height: 10,
                         ),
@@ -209,12 +209,13 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                           thickness: 1.5,
                           height: 20,
                         ),
-
                         Text(
                           "Patient Info",
                           style: AppTextStyle.subtitle1(),
                         ),
-                        const SizedBox(height: 16,),
+                        const SizedBox(
+                          height: 16,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -232,7 +233,6 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                             ),
                           ],
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -267,7 +267,6 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                   _appointmentDetailModel.AppointmentID,
                                   _appointmentDetailModel.CaseID)),
                         ),
-
                         const SizedBox(
                           height: 30,
                         ),
@@ -292,9 +291,9 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                                   ),
                                 ),
                                 if (userRoleId == UserRoles.doctor)
-                                const SizedBox(
-                                  width: 16,
-                                ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
                                 if (userRoleId == UserRoles.doctor)
                                   Flexible(
                                     child: CustomBtn(
@@ -312,7 +311,9 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                             ),
                           ),
                         if (_appointmentDetailModel.AppointmentStatusID ==
-                            AppConstants.ongoing || _appointmentDetailModel.AppointmentStatusID == AppConstants.closed)
+                                AppConstants.ongoing ||
+                            _appointmentDetailModel.AppointmentStatusID ==
+                                AppConstants.closed)
                           Column(
                             children: [
                               CustomBtn(
@@ -329,18 +330,15 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                               const SizedBox(
                                 height: 16,
                               ),
-
                             ],
                           ),
-
-                        if(userRoleId==UserRoles.doctor)
-                          if(userRoleId==AppConstants.ongoing)
+                        if (userRoleId == UserRoles.doctor)
+                          if (userRoleId == AppConstants.ongoing)
                             CustomBtn(
                               title: "Close Appointment",
                               onBtnPressed: () {
                                 _cubit.closeAppointment(
-                                    _appointmentDetailModel
-                                        .AppointmentID);
+                                    _appointmentDetailModel.AppointmentID);
                               },
                               isLoading: false,
                             ),

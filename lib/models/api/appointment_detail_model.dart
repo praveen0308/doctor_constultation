@@ -31,6 +31,7 @@ class AppointmentDetailModel {
   int CaseID;
   int AddedBy;
   String Addedon;
+  String RecordDate;
   String StartTime;
   String EndTime;
   String PatientName;
@@ -58,6 +59,7 @@ class AppointmentDetailModel {
     this.CaseID = 0,
     this.AddedBy = 0,
     this.Addedon = "",
+    this.RecordDate = "",
     this.StartTime = "",
     this.EndTime = "",
     this.PatientName = "",
@@ -77,6 +79,8 @@ class AppointmentDetailModel {
   String getTiming() => "${getFStartTime()} - ${getFEndTime()}";
   String getAppointmentDate() => DateFormat("dd MMM yy")
       .format(DateFormat("yyyy-MM-dd'T'hh:mm:ss").parse(Date));
+  String getRecordDate() => DateFormat("dd MMM yy")
+      .format(DateFormat("yyyy-MM-dd'T'hh:mm:ss").parse(RecordDate));
   String getAppointmentStatus() {
     var status = "Pending";
     switch (AppointmentStatusID) {
@@ -140,6 +144,7 @@ class AppointmentDetailModel {
     }
     return color;
   }
+
   Color getAppointmentStatusBgColor() {
     var color = AppColors.primary;
     switch (AppointmentStatusID) {
@@ -171,5 +176,4 @@ class AppointmentDetailModel {
     }
     return color;
   }
-
 }
