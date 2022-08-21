@@ -41,59 +41,81 @@ class _TemplateBottomChatNavState extends State<TemplateBottomChatNav> {
       height: 60,
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
       width: MediaQuery.of(context).size.width,
-      color: AppColors.greyLightest,
+      color: AppColors.primary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // IconButton(onPressed: (){}, icon: SvgPicture.asset(AppImages.icAttachment)),
           Expanded(
-            child: TextFormField(
-              controller: _editingController,
-              onChanged: (txt) {
-                setState(() {
-                  msg = txt;
-                });
-              },
-              onFieldSubmitted: (txt) {
-                setState(() {
-                  msg = txt;
-                });
-              },
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  fillColor: AppColors.greyLightest,
-                  hintText: 'Type a message...',
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16)),
-              keyboardType: TextInputType.text,
+            child: Material(
+              elevation: 5,
+              shadowColor: AppColors.primaryLight,
+              borderRadius: BorderRadius.circular(50),
+              child: TextFormField(
+
+                controller: _editingController,
+                onChanged: (txt) {
+                  setState(() {
+                    msg = txt;
+                  });
+                },
+                onFieldSubmitted: (txt) {
+                  setState(() {
+                    msg = txt;
+                  });
+                },
+                textInputAction: TextInputAction.newline,
+                decoration: InputDecoration(
+
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: const BorderSide(width: 2,color: AppColors.primary),
+
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: const BorderSide(width: 1,color: AppColors.primary),
+                    ),
+
+                    filled: true,
+                    fillColor: AppColors.greyLightest,
+                    hintText: 'Type a message...',
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16)),
+                keyboardType: TextInputType.text,
+              ),
             ),
           ),
           // IconButton(onPressed: (){}, icon: SvgPicture.asset(AppImages.icUnMuteMic)),
 
-          RawMaterialButton(
-            onPressed: () {
-              if (msg.isNotEmpty) {
-                widget.onSend(msg);
+          Visibility(
+            visible: msg.isNotEmpty,
+            child: RawMaterialButton(
+              onPressed: () {
+                if (msg.isNotEmpty) {
+                  widget.onSend(msg);
 
-                _editingController.text = "";
-                setState(() {
-                  msg = "";
-                });
-              } else {
-                showToast("Type something...", ToastType.warning);
-              }
-            },
-            elevation: 2.0,
-            fillColor: msg.isNotEmpty ? AppColors.primary : AppColors.grey,
-            child: Center(
-              child: Icon(
-                Icons.send,
-                size: 24.0,
-                color: msg.isNotEmpty ? Colors.white : Colors.grey,
+                  _editingController.text = "";
+                  setState(() {
+                    msg = "";
+                  });
+                } else {
+                  showToast("Type something...", ToastType.warning);
+                }
+              },
+              elevation: 2.0,
+              fillColor: AppColors.greyLightest,
+              child: const Center(
+                child: Icon(
+                  Icons.send,
+                  size: 24.0,
+                  color: AppColors.primary,
+                ),
               ),
+              shape: const CircleBorder(),
             ),
-            shape: const CircleBorder(),
           )
         ],
       ),

@@ -6,6 +6,12 @@ abstract class RegisterState {}
 class RegisterInitial extends RegisterState {}
 
 class Loading extends RegisterState {}
+class ValidationFailed extends RegisterState {
+  final String msg;
+
+  ValidationFailed(this.msg);
+}
+
 
 class UserAlreadyExist extends RegisterState {}
 

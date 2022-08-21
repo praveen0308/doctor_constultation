@@ -27,14 +27,21 @@ class _DrProfilePageState extends State<DrProfilePage> {
     super.dispose();
   }
 
+
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: AppColors.primary,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarColor: AppColors.greyLight,
         systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarDividerColor: AppColors.greyLight));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         body: ScrollConfiguration(

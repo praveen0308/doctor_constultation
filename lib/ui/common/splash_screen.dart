@@ -71,15 +71,19 @@ class _SplashScreenState extends State<SplashScreen> {
               const SizedBox(
                 height: 10,
               ),
-              RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                      text: AppStrings.slogan1,
-                      style: AppTextStyle.body1(txtColor: AppColors.primary)),
-                  TextSpan(
-                      text: AppStrings.slogan2,
-                      style: AppTextStyle.body1(txtColor: AppColors.greyDark)),
-                ]),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(children: [
+                    TextSpan(
+                        text: AppStrings.slogan1,
+                        style: AppTextStyle.body1(txtColor: AppColors.primary)),
+                    TextSpan(
+                        text: AppStrings.slogan2,
+                        style: AppTextStyle.body1(txtColor: AppColors.greyDark)),
+                  ]),
+                ),
               ),
               const Expanded(
                   child: SpinKitCircle(

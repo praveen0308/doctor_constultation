@@ -25,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   late RegisterCubit _registerCubit;
   bool _securityText = true;
   final UserModel _userModel = UserModel();
+  final _registerFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -46,121 +47,167 @@ class _RegisterPageState extends State<RegisterPage> {
             }
             if (state is UserAlreadyExist) {
               showToast("User already exists!!!", ToastType.error);
+              _registerCubit.emit(RegisterInitial());
             }
-            return Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListView(
-                children: [
-                  const AppBackNavBar(
-                    imgUrl: AppImages.icBackArrow,
-                    navColor: AppColors.primary,
-                    bgColor: AppColors.greyLightest,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SvgPicture.asset(
-                    AppImages.imgMaleLogin,
-                    height: 300,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    onChanged: (text) {
-                      _userModel.UserName = text;
-                    },
-                    onFieldSubmitted: (text) {
-                      _userModel.UserName = text;
-                    },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter the fullname',
-                        labelText: 'Full Name'),
-                    keyboardType: TextInputType.name,
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  TextFormField(
-                    onChanged: (text) {
-                      _userModel.EmailID = text;
-                    },
-                    onFieldSubmitted: (text) {
-                      _userModel.EmailID = text;
-                    },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Email',
-                        labelText: 'Email'),
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  TextFormField(
-                    onChanged: (text) {
-                      _userModel.MobileNo = text;
-                    },
-                    onFieldSubmitted: (text) {
-                      _userModel.MobileNo = text;
-                    },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Mobile Number',
-                        labelText: 'Mobile Number'),
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  TextFormField(
-                    onChanged: (text) {
-                      _userModel.Password = text;
-                    },
-                    onFieldSubmitted: (text) {
-                      _userModel.Password = text;
-                      _registerCubit.checkLoginDetails(_userModel);
-                    },
-                    decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        hintText: 'Enter the password',
-                        labelText: 'Password',
-                        suffixIcon: IconButton(
-                          icon: Icon(_securityText
-                              ? Icons.remove_red_eye
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _securityText = !_securityText;
-                            });
-                          },
-                        )),
-                    keyboardType: TextInputType.name,
-                    obscureText: _securityText,
-                    obscuringCharacter: "*",
-                    textInputAction: TextInputAction.done,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  CustomBtn(
-                    title: "Register",
-                    onBtnPressed: () {
-                      _userModel.ID = 0;
-                      _userModel.RegisteredOn = DateTime.now().toString();
-                      _userModel.LangCulture = "";
-                      _userModel.IsActive = true;
-                      _userModel.UserRoleID = UserRoles.registeredPatient;
+            return Form(
+              key: _registerFormKey,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView(
+                  children: [
+                    const AppBackNavBar(
+                      imgUrl: AppImages.icBackArrow,
+                      navColor: AppColors.primary,
+                      bgColor: AppColors.greyLightest,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SvgPicture.asset(
+                      AppImages.imgMaleLogin,
+                      height: 300,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      onChanged: (text) {
+                        _userModel.UserName = text;
+                      },
+                      onFieldSubmitted: (text) {
+                        _userModel.UserName = text;
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter the fullname',
+                          labelText: 'Full Name'),
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter valid name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    TextFormField(
+                      onChanged: (text) {
+                        _userModel.EmailID = text;
+                      },
+                      onFieldSubmitted: (text) {
+                        _userModel.EmailID = text;
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Email',
+                          labelText: 'Email'),
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (value == null || value.isEmpty || !validateEmail(value)) {
+                          return 'Please enter valid email id';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    TextFormField(
+                      onChanged: (text) {
+                        _userModel.MobileNo = text;
+                      },
+                      onFieldSubmitted: (text) {
+                        _userModel.MobileNo = text;
+                      },
+                      maxLength: 10,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Mobile Number',
+                          counterText: "",
+                          labelText: 'Mobile Number'),
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (value == null || value.isEmpty || value.length<10) {
+                          return 'Please enter valid mobile';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    TextFormField(
+                      onChanged: (text) {
+                        _userModel.Password = text;
+                      },
+                      onFieldSubmitted: (text) {
+                        _userModel.Password = text;
+                        if(_registerFormKey.currentState!.validate()){
 
-                      _registerCubit.checkLoginDetails(_userModel);
-                    },
-                    isLoading: state is Loading,
-                  )
-                ],
+                          _userModel.ID = 0;
+                          _userModel.RegisteredOn = DateTime.now().toString();
+                          _userModel.LangCulture = "";
+                          _userModel.IsActive = true;
+                          _userModel.UserRoleID = UserRoles.registeredPatient;
+
+                          _registerCubit.registerNewUser(_userModel);
+                        }
+                      },
+                      decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          hintText: 'Enter the password',
+                          labelText: 'Password',
+                          counterText: "",
+                          suffixIcon: IconButton(
+                            icon: Icon(_securityText
+                                ? Icons.remove_red_eye
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                _securityText = !_securityText;
+                              });
+                            },
+                          )),
+                      keyboardType: TextInputType.name,
+                      obscureText: _securityText,
+                      obscuringCharacter: "*",
+                      textInputAction: TextInputAction.done,
+                      maxLength: 16,
+                      validator: (value) {
+                        if (value == null || value.isEmpty || value.length<8) {
+                          return "Enter valid password !\nPassword length should be between 8 and 16.";
+                        }
+                        return null;
+                      },
+
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomBtn(
+                      title: "Register",
+                      onBtnPressed: () {
+                        if(_registerFormKey.currentState!.validate()){
+
+                          _userModel.ID = 0;
+                          _userModel.RegisteredOn = DateTime.now().toString();
+                          _userModel.LangCulture = "";
+                          _userModel.IsActive = true;
+                          _userModel.UserRoleID = UserRoles.registeredPatient;
+
+                          _registerCubit.registerNewUser(_userModel);
+                        }
+
+                      },
+                      isLoading: state is Loading,
+                    )
+                  ],
+                ),
               ),
             );
           },

@@ -54,6 +54,7 @@ class NoRecordsView extends StatelessWidget {
             child: CustomBtn(
                 title: btnText, onBtnPressed: () { onBtnClick();}, isLoading: false),
           ),
+          const SizedBox(height: 16,)
         ],
       ),
     );

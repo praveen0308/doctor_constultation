@@ -33,11 +33,13 @@ class _ManagePatientsState extends State<ManagePatients> {
       body: BlocBuilder<ManagePatientsCubit, ManagePatientsState>(
         builder: (context, state) {
           if (state is Error) {
-            return NoRecordsView(
-                title: state.msg,
-                onBtnClick: () {
-                  _cubit.fetchPatientsByUserId();
-                });
+            return Center(
+              child: NoRecordsView(
+                  title: state.msg,
+                  onBtnClick: () {
+                    _cubit.fetchPatientsByUserId();
+                  }),
+            );
           }
           if (state is ReceivedPatientList) {
             if (state.patients.isEmpty) {

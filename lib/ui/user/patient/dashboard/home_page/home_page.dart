@@ -39,8 +39,10 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _storage.getUserRoleId().then((value) {
-      roleId = value;
-      setState(() {});
+
+      setState(() {
+        roleId = value;
+      });
     });
     _cubit = BlocProvider.of<HomePageCubit>(context);
     _cubit.getAllVideos();

@@ -26,6 +26,9 @@ class _LoginPageState extends State<LoginPage> {
 
   String username = "";
   String password = "";
+
+  final _loginFormKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -37,16 +40,16 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
-          if(state is Error){
+          if (state is Error) {
             showToast(state.msg, ToastType.error);
+            _loginCubit.emit(LoginInitial());
           }
           if (state is LoginSuccessful) {
-            FirebaseMessaging.instance.getToken().then((value){
+            FirebaseMessaging.instance.getToken().then((value) {
               _loginCubit.updateFCMToken(value!, state.userModel);
             });
-
           }
-          if(state is TokenUpdatedSuccessfully){
+          if (state is TokenUpdatedSuccessfully) {
             WidgetsBinding.instance!.addPostFrameCallback((_) {
               if (state.userModel.UserRoleID == UserRoles.registeredPatient) {
                 Navigator.pushNamedAndRemoveUntil(
@@ -62,98 +65,119 @@ class _LoginPageState extends State<LoginPage> {
             showToast("Incorrect user id or password!!", ToastType.error);
           }
           return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListView(
-                children: [
-                  const AppBackNavBar(
-                    imgUrl: AppImages.icBackArrow,
-                    navColor: AppColors.primary,
-                    bgColor: AppColors.greyLightest,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SvgPicture.asset(
-                    AppImages.imgMaleLogin,
-                    height: 300,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    onChanged: (text) {
-                      username = text;
-                    },
-                    onFieldSubmitted: (text) {
-                      username = text;
-                    },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter the mobile number',
-                        labelText: 'Mobile Number',
-                      counterText: ""
+            body: Form(
+              key: _loginFormKey,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView(
+                  children: [
+                    const AppBackNavBar(
+                      imgUrl: AppImages.icBackArrow,
+                      navColor: AppColors.primary,
+                      bgColor: AppColors.greyLightest,
                     ),
-                    keyboardType: TextInputType.name,
-                    textInputAction: TextInputAction.next,
-                    maxLength: 10,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    onChanged: (text) {
-                      password = text;
-                    },
-                    onFieldSubmitted: (text) {
-                      password = text;
-                      _loginCubit.checkLoginDetails(username, password);
-                    },
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SvgPicture.asset(
+                      AppImages.imgMaleLogin,
+                      height: 300,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      onChanged: (text) {
+                        username = text;
 
-                    decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        hintText: 'Enter the password',
-                        labelText: 'Password',
-                        suffixIcon: IconButton(
-                          icon: Icon(_securityText
-                              ? Icons.remove_red_eye
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _securityText = !_securityText;
-                            });
-                          },
-                        )),
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.name,
-                    obscureText: _securityText,
-                    obscuringCharacter: "*",
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "Forget password?",
-                      style:
-                          AppTextStyle.captionRF1(txtColor: AppColors.primary),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  CustomBtn(
-                    title: "Login",
-                    onBtnPressed: () {
-                      _loginCubit.checkLoginDetails(username, password);
-                    },
-                    isLoading: state is Loading,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, route.register);
                       },
-                      child: const Text("Register"))
-                ],
+                      onFieldSubmitted: (text) {
+                        username = text;
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter the mobile number',
+                          labelText: 'Mobile Number',
+                          counterText: ""),
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      maxLength: 10,
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            value.length < 10) {
+                          return 'Please enter valid mobile';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      onChanged: (text) {
+                        password = text;
+
+                      },
+                      onFieldSubmitted: (text) {
+                        password = text;
+                        if (_loginFormKey.currentState!.validate()) {
+                          _loginCubit.checkLoginDetails(username, password);
+                        }
+                      },
+                      decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          hintText: 'Enter the password',
+                          labelText: 'Password',
+                          suffixIcon: IconButton(
+                            icon: Icon(_securityText
+                                ? Icons.remove_red_eye
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                _securityText = !_securityText;
+                              });
+                            },
+                          )),
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.name,
+                      obscureText: _securityText,
+                      obscuringCharacter: "*",
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter valid password';
+                        }
+                        return null;
+                      },
+                    ),
+                    /*Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "Forget password?",
+                        style:
+                            AppTextStyle.captionRF1(txtColor: AppColors.primary),
+                      ),
+                    ),*/
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomBtn(
+                      title: "Login",
+                      onBtnPressed: () {
+                        if (_loginFormKey.currentState!.validate()) {
+                          _loginCubit.checkLoginDetails(username, password);
+                        }
+                      },
+                      isLoading: state is Loading,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, route.register);
+                        },
+                        child: const Text("Register"))
+                  ],
+                ),
               ),
             ),
           );

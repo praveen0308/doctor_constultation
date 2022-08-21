@@ -10,6 +10,7 @@ import 'package:doctor_consultation/repository/schedule_repository.dart';
 import 'package:doctor_consultation/repository/transaction_repository.dart';
 import 'package:doctor_consultation/repository/util_repository.dart';
 import 'package:doctor_consultation/ui/common/login/login.dart';
+import 'package:doctor_consultation/ui/common/login/login_cubit.dart';
 import 'package:doctor_consultation/ui/common/register/register.dart';
 import 'package:doctor_consultation/ui/common/enter_user_detail/enter_user_detail.dart';
 import 'package:doctor_consultation/ui/common/phone_auth/phone_auth_cubit.dart';
@@ -286,7 +287,10 @@ Route<dynamic> controller(RouteSettings settings) {
           builder: (context) => const NewAppointment(), settings: settings);
     case login:
       return MaterialPageRoute(
-          builder: (context) => const LoginPage(), settings: settings);
+          builder: (context) => BlocProvider(
+            create: (context) => LoginCubit(AccountRepository()),
+            child: const LoginPage(),
+          ), settings: settings);
     case register:
       return MaterialPageRoute(
           builder: (context) => const RegisterPage(), settings: settings);

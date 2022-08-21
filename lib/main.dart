@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
             create: (_) =>
                 PatientAppointmentHistoryCubit(AppointmentRepository())),
-        BlocProvider(create: (_) => LoginCubit(AccountRepository())),
+
         BlocProvider(create: (_) => RegisterCubit(AccountRepository())),
         BlocProvider(create: (_) => ManageSlotCubit(AppointmentRepository())),
         BlocProvider(create: (_) => AddSlotCubit(AppointmentRepository())),

@@ -37,6 +37,8 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
   late CaseInfoModel _caseInfoModel = CaseInfoModel();
   final _storage = SecureStorage();
   int userRoleId = UserRoles.doctor;
+
+  final _addCaseInfoKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -83,6 +85,7 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               child: Form(
+                key: _addCaseInfoKey,
                   child: ScrollConfiguration(
                 behavior: NoGlowBehaviour(),
                 child: SingleChildScrollView(
@@ -104,6 +107,12 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                           hintText: 'Enter chief complaints',
                           labelText: 'Chief Complaints',
                         ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '* Required';
+                            }
+                            return null;
+                          }
                       ),
                       const SizedBox(
                         height: 16,
@@ -120,9 +129,18 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                                   _caseInfoModel.Pulse = text,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: '120/80',
+                                hintText: '80 bpm',
                                 labelText: 'Pulse Rate',
+                                counterText: ""
                               ),
+                                keyboardType: TextInputType.number,
+                                maxLength: 3,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return '* Required';
+                                  }
+                                  return null;
+                                }
                             ),
                           ),
                           const SizedBox(
@@ -141,7 +159,17 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                                 border: OutlineInputBorder(),
                                 hintText: '100 F',
                                 labelText: 'Temperature',
+                                counterText: ""
                               ),
+                                keyboardType: TextInputType.number,
+                                maxLength: 3,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return '* Required';
+                                  }
+                                  return null;
+                                }
+
                             ),
                           ),
                         ],
@@ -161,6 +189,12 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                           hintText: 'Enter past history',
                           labelText: 'Past History',
                         ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '* Required';
+                            }
+                            return null;
+                          }
                       ),
                       const SizedBox(
                         height: 16,
@@ -178,6 +212,12 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                           hintText: 'Enter family history',
                           labelText: 'Family History',
                         ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '* Required';
+                            }
+                            return null;
+                          }
                       ),
                       const SizedBox(
                         height: 16,
@@ -274,7 +314,9 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                       CustomBtn(
                           title: "Submit",
                           onBtnPressed: () {
+                            if(_addCaseInfoKey.currentState!.validate()){
                             _cubit.addCaseInfo(_caseInfoModel);
+                            }
                           },
                           isLoading: state is Loading)
                     ],

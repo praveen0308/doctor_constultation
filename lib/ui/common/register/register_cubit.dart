@@ -17,7 +17,9 @@ class RegisterCubit extends Cubit<RegisterState> {
   final ChatRepository _chatRepository = ChatRepository();
   RegisterCubit(this._accountRepository) : super(RegisterInitial());
 
-  void checkLoginDetails(UserModel userModel) async {
+  void registerNewUser(UserModel userModel) async {
+
+
     emit(Loading());
     try {
       int response = await _accountRepository.addUpdateUserDetails(userModel);
