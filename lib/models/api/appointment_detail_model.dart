@@ -81,6 +81,7 @@ class AppointmentDetailModel {
       .format(DateFormat("yyyy-MM-dd'T'hh:mm:ss").parse(Date));
   String getRecordDate() => DateFormat("dd MMM yy")
       .format(DateFormat("yyyy-MM-dd'T'hh:mm:ss").parse(RecordDate));
+
   String getAppointmentStatus() {
     var status = "Pending";
     switch (AppointmentStatusID) {

@@ -187,23 +187,23 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Added On",
-                              style: AppTextStyle.body1(
-                                  txtColor: AppColors.greyBefore,
-                                  wFont: FontWeight.w500),
-                            ),
-                            Text(
-                              _appointmentDetailModel.Addedon.toString(),
-                              style: AppTextStyle.subtitle1(
-                                  txtColor: AppColors.greyDark,
-                                  wFont: FontWeight.w500),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     Text(
+                        //       "Record Date",
+                        //       style: AppTextStyle.body1(
+                        //           txtColor: AppColors.greyBefore,
+                        //           wFont: FontWeight.w500),
+                        //     ),
+                        //     Text(
+                        //       _appointmentDetailModel.getRecordDate().toString(),
+                        //       style: AppTextStyle.subtitle1(
+                        //           txtColor: AppColors.greyDark,
+                        //           wFont: FontWeight.w500),
+                        //     ),
+                        //   ],
+                        // ),
                         const Divider(
                           color: AppColors.primaryLight,
                           thickness: 1.5,

@@ -17,7 +17,7 @@ class NewAppointmentBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppBackNavBar(
+          const AppBackNavBar(
               imgUrl: AppImages.icBackArrow,
               txtTitle: "New Appointment",
               navColor: AppColors.primary,

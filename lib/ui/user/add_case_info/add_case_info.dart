@@ -109,7 +109,7 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return '* Required';
+                              return 'Required (*)';
                             }
                             return null;
                           }
@@ -135,12 +135,12 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                               ),
                                 keyboardType: TextInputType.number,
                                 maxLength: 3,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return '* Required';
-                                  }
-                                  return null;
-                                }
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return 'Required (*)';
+                                //   }
+                                //   return null;
+                                // }
                             ),
                           ),
                           const SizedBox(
@@ -163,12 +163,12 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                               ),
                                 keyboardType: TextInputType.number,
                                 maxLength: 3,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return '* Required';
-                                  }
-                                  return null;
-                                }
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return 'Required (*)';
+                                //   }
+                                //   return null;
+                                // }
 
                             ),
                           ),
@@ -191,7 +191,7 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return '* Required';
+                              return 'Required (*)\nNote: if no any past history just type NA (Not Applicable)';
                             }
                             return null;
                           }
@@ -214,7 +214,7 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                         ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return '* Required';
+                              return 'Required (*)\nNote: if no any family history just type NA (Not Applicable)';
                             }
                             return null;
                           }
@@ -318,7 +318,11 @@ class _AddCaseInfoState extends State<AddCaseInfo> {
                             _cubit.addCaseInfo(_caseInfoModel);
                             }
                           },
-                          isLoading: state is Loading)
+                          isLoading: state is Loading,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
                     ],
                   ),
                 ),

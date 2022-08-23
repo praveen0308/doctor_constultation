@@ -52,8 +52,8 @@ class CaseInfoModel {
   Map<String, dynamic> toJson() => _$CaseInfoModelToJson(this);
 
   String getCaseDate() => DateFormat("dd MMM yyyy")
-      .format(DateFormat("yyyy-mm-dd'T'HH:mm:ss").parse(RecordDate));
+      .format(DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(RecordDate));
 
   String getCaseTiming() => DateFormat("hh:mm a")
-      .format(DateFormat("yyyy-mm-dd'T'HH:mm:ss").parse(RecordDate));
+      .format(DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(RecordDate));
 }
