@@ -6,7 +6,7 @@ part of 'util_api_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
 class _UtilApiClient implements UtilApiClient {
   _UtilApiClient(this._dio, {this.baseUrl}) {

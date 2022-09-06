@@ -22,16 +22,24 @@ PrescriptionMedicineModel _$PrescriptionMedicineModelFromJson(
     );
 
 Map<String, dynamic> _$PrescriptionMedicineModelToJson(
-        PrescriptionMedicineModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'PrescriptionID': instance.PrescriptionID,
-      'Presentation': instance.Presentation,
-      'Brand': instance.Brand,
-      'Generic': instance.Generic,
-      'Strength': instance.Strength,
-      'Dosage': instance.Dosage,
-      'DosageInstructions': instance.DosageInstructions,
-      'DosageDuration': instance.DosageDuration,
-      'TotalQty': instance.TotalQty,
-    };
+    PrescriptionMedicineModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('PrescriptionID', instance.PrescriptionID);
+  writeNotNull('Presentation', instance.Presentation);
+  writeNotNull('Brand', instance.Brand);
+  writeNotNull('Generic', instance.Generic);
+  writeNotNull('Strength', instance.Strength);
+  writeNotNull('Dosage', instance.Dosage);
+  writeNotNull('DosageInstructions', instance.DosageInstructions);
+  writeNotNull('DosageDuration', instance.DosageDuration);
+  writeNotNull('TotalQty', instance.TotalQty);
+  return val;
+}

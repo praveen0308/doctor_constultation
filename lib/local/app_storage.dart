@@ -1,9 +1,12 @@
+import 'package:doctor_consultation/models/api/stat_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorage {
   final _storage = const FlutterSecureStorage();
 
   final _userId = "userID";
+  final _stats = "stats";
+  final _noOfAppointments = "noOfAppointments";
   final _roleId = "roleId";
   final _loginStatus = "loginStatus";
   final _userName = "name";
@@ -106,5 +109,43 @@ class SecureStorage {
     await _storage.delete(key: _loginStatus);
     await _storage.delete(key: _email);
     await _storage.delete(key: _phoneNumber);
+  }
+
+  Future updateStats(StatModel statModel) async {
+    var csStats = "${statModel.Users},${statModel.Patient},${statModel.Appointment},${statModel.Video}";
+    var writeData = await _storage.write(key: _stats, value: csStats);
+    return writeData;
+  }
+
+  Future<StatModel?> getStats() async {
+
+    var readData = await _storage.read(key: _stats);
+    if(readData!=null){
+      List<int> stats = readData.split(",").map((e) => int.parse(e)).toList();
+
+      return StatModel(Users: stats[0],Patient: stats[1],Appointment: stats[2],Video: stats[3]);
+
+    }
+    return null;
+
+  }
+
+  Future updateNoOfAppointments(int total,int remaining,int completed) async {
+    var csData = "$total,$remaining,$completed";
+    var writeData = await _storage.write(key: _noOfAppointments, value: csData);
+    return writeData;
+  }
+
+  Future<List<int>?> getNoOfAppointments() async {
+
+    var readData = await _storage.read(key: _noOfAppointments);
+    if(readData!=null){
+      List<int> data = readData.split(",").map((e) => int.parse(e)).toList();
+
+      return data;
+
+    }
+    return null;
+
   }
 }

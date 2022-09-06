@@ -14,8 +14,10 @@ PaymentTransactionModel _$PaymentTransactionModelFromJson(
       OrderID: json['OrderID'] as String?,
       CaseID: json['CaseID'] as int?,
       PatientID: json['PatientID'] as int?,
+      PatientName: json['PatientName'] as String?,
       Name: json['Name'] as String?,
       UserID: json['UserID'] as int?,
+      UserName: json['UserName'] as String?,
       PaymentAmount: (json['PaymentAmount'] as num?)?.toDouble(),
       Status: json['Status'] as String?,
       Message: json['Message'] as String?,
@@ -25,25 +27,39 @@ PaymentTransactionModel _$PaymentTransactionModelFromJson(
       RefundAmount: (json['RefundAmount'] as num?)?.toDouble(),
       IsPaid: json['IsPaid'] as bool?,
       IsCancel: json['IsCancel'] as bool?,
+      PaymentDate: json['PaymentDate'] as String?,
+      AppointmentNumber: json['AppointmentNumber'] as String?,
     );
 
 Map<String, dynamic> _$PaymentTransactionModelToJson(
-        PaymentTransactionModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'PaymentID': instance.PaymentID,
-      'OrderID': instance.OrderID,
-      'CaseID': instance.CaseID,
-      'PatientID': instance.PatientID,
-      'Name': instance.Name,
-      'UserID': instance.UserID,
-      'PaymentAmount': instance.PaymentAmount,
-      'Status': instance.Status,
-      'Message': instance.Message,
-      'IsRefunded': instance.IsRefunded,
-      'RefundReason': instance.RefundReason,
-      'AddedOn': instance.AddedOn,
-      'RefundAmount': instance.RefundAmount,
-      'IsPaid': instance.IsPaid,
-      'IsCancel': instance.IsCancel,
-    };
+    PaymentTransactionModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('PaymentID', instance.PaymentID);
+  writeNotNull('OrderID', instance.OrderID);
+  writeNotNull('CaseID', instance.CaseID);
+  writeNotNull('PatientID', instance.PatientID);
+  writeNotNull('PatientName', instance.PatientName);
+  writeNotNull('UserID', instance.UserID);
+  writeNotNull('UserName', instance.UserName);
+  writeNotNull('Name', instance.Name);
+  writeNotNull('PaymentAmount', instance.PaymentAmount);
+  writeNotNull('Status', instance.Status);
+  writeNotNull('Message', instance.Message);
+  writeNotNull('AppointmentNumber', instance.AppointmentNumber);
+  writeNotNull('IsRefunded', instance.IsRefunded);
+  writeNotNull('RefundReason', instance.RefundReason);
+  writeNotNull('AddedOn', instance.AddedOn);
+  writeNotNull('RefundAmount', instance.RefundAmount);
+  writeNotNull('IsPaid', instance.IsPaid);
+  writeNotNull('IsCancel', instance.IsCancel);
+  writeNotNull('PaymentDate', instance.PaymentDate);
+  return val;
+}

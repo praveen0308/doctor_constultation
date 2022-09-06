@@ -24,18 +24,26 @@ MedicinePrescribedModel _$MedicinePrescribedModelFromJson(
     );
 
 Map<String, dynamic> _$MedicinePrescribedModelToJson(
-        MedicinePrescribedModel instance) =>
-    <String, dynamic>{
-      'medid': instance.medid,
-      'caseno': instance.caseno,
-      'gv': instance.gv,
-      'brand': instance.brand,
-      'generic': instance.generic,
-      'strg': instance.strg,
-      'dos': instance.dos,
-      'ins': instance.ins,
-      'dur': instance.dur,
-      'quan': instance.quan,
-      'ing': instance.ing,
-      'fwid': instance.fwid,
-    };
+    MedicinePrescribedModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('medid', instance.medid);
+  writeNotNull('caseno', instance.caseno);
+  writeNotNull('gv', instance.gv);
+  writeNotNull('brand', instance.brand);
+  writeNotNull('generic', instance.generic);
+  writeNotNull('strg', instance.strg);
+  writeNotNull('dos', instance.dos);
+  writeNotNull('ins', instance.ins);
+  writeNotNull('dur', instance.dur);
+  writeNotNull('quan', instance.quan);
+  writeNotNull('ing', instance.ing);
+  writeNotNull('fwid', instance.fwid);
+  return val;
+}

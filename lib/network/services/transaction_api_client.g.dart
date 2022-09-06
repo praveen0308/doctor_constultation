@@ -6,7 +6,7 @@ part of 'transaction_api_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
 class _TransactionApiClient implements TransactionApiClient {
   _TransactionApiClient(this._dio, {this.baseUrl}) {
@@ -262,13 +262,13 @@ class _TransactionApiClient implements TransactionApiClient {
   }
 
   @override
-  Future<bool> addUpdateTransaction(paymentTransactionModel) async {
+  Future<int> addUpdateTransaction(paymentTransactionModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(paymentTransactionModel.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, 'Transaction/AddUpdatePaymentTransaction',
                 queryParameters: queryParameters, data: _data)
@@ -287,6 +287,23 @@ class _TransactionApiClient implements TransactionApiClient {
         _setStreamType<PaymentTransactionModel>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, 'Transaction/GetPaymentTransactionByID',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PaymentTransactionModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<PaymentTransactionModel> getPaymentTransactionDetailByID(ID) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'ID': ID};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PaymentTransactionModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(
+                    _dio.options, 'Transaction/GetPaymentTransactionDetailByID',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = PaymentTransactionModel.fromJson(_result.data!);

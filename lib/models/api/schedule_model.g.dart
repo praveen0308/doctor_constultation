@@ -31,27 +31,35 @@ ScheduleModel _$ScheduleModelFromJson(Map<String, dynamic> json) =>
       IsActive: json['IsActive'] as bool?,
     );
 
-Map<String, dynamic> _$ScheduleModelToJson(ScheduleModel instance) =>
-    <String, dynamic>{
-      'ScheduleID': instance.ScheduleID,
-      'ClinicID': instance.ClinicID,
-      'ScheduleDate': instance.ScheduleDate,
-      'ScheduleDayOfMonth': instance.ScheduleDayOfMonth,
-      'ScheduleMonth': instance.ScheduleMonth,
-      'ScheduleYear': instance.ScheduleYear,
-      'DayID': instance.DayID,
-      'DoctorID': instance.DoctorID,
-      'StartTime': instance.StartTime,
-      'EndTime': instance.EndTime,
-      'ScheduleStatus': instance.ScheduleStatus,
-      'IsCompleted': instance.IsCompleted,
-      'IsCancel': instance.IsCancel,
-      'IsAvailable': instance.IsAvailable,
-      'IsBooked': instance.IsBooked,
-      'AddenOn': instance.AddenOn,
-      'AddedBy': instance.AddedBy,
-      'IsModified': instance.IsModified,
-      'ModifiedOn': instance.ModifiedOn,
-      'ModifiedBy': instance.ModifiedBy,
-      'IsActive': instance.IsActive,
-    };
+Map<String, dynamic> _$ScheduleModelToJson(ScheduleModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ScheduleID', instance.ScheduleID);
+  writeNotNull('ClinicID', instance.ClinicID);
+  writeNotNull('ScheduleDate', instance.ScheduleDate);
+  writeNotNull('ScheduleDayOfMonth', instance.ScheduleDayOfMonth);
+  writeNotNull('ScheduleMonth', instance.ScheduleMonth);
+  writeNotNull('ScheduleYear', instance.ScheduleYear);
+  writeNotNull('DayID', instance.DayID);
+  writeNotNull('DoctorID', instance.DoctorID);
+  writeNotNull('StartTime', instance.StartTime);
+  writeNotNull('EndTime', instance.EndTime);
+  writeNotNull('ScheduleStatus', instance.ScheduleStatus);
+  writeNotNull('IsCompleted', instance.IsCompleted);
+  writeNotNull('IsCancel', instance.IsCancel);
+  val['IsAvailable'] = instance.IsAvailable;
+  val['IsBooked'] = instance.IsBooked;
+  writeNotNull('AddenOn', instance.AddenOn);
+  writeNotNull('AddedBy', instance.AddedBy);
+  writeNotNull('IsModified', instance.IsModified);
+  writeNotNull('ModifiedOn', instance.ModifiedOn);
+  writeNotNull('ModifiedBy', instance.ModifiedBy);
+  writeNotNull('IsActive', instance.IsActive);
+  return val;
+}

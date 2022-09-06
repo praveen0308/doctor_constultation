@@ -24,18 +24,26 @@ VcPaymentHistoryModel _$VcPaymentHistoryModelFromJson(
     );
 
 Map<String, dynamic> _$VcPaymentHistoryModelToJson(
-        VcPaymentHistoryModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'VideoCallID': instance.VideoCallID,
-      'PaymentID': instance.PaymentID,
-      'PaymentRequestID': instance.PaymentRequestID,
-      'Amount': instance.Amount,
-      'PaymentStatus': instance.PaymentStatus,
-      'LongURL': instance.LongURL,
-      'SettlementDate': instance.SettlementDate,
-      'IsSettlementCreated': instance.IsSettlementCreated,
-      'SettlementStatus': instance.SettlementStatus,
-      'TransactionFees': instance.TransactionFees,
-      'GST': instance.GST,
-    };
+    VcPaymentHistoryModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('VideoCallID', instance.VideoCallID);
+  writeNotNull('PaymentID', instance.PaymentID);
+  writeNotNull('PaymentRequestID', instance.PaymentRequestID);
+  writeNotNull('Amount', instance.Amount);
+  writeNotNull('PaymentStatus', instance.PaymentStatus);
+  writeNotNull('LongURL', instance.LongURL);
+  writeNotNull('SettlementDate', instance.SettlementDate);
+  writeNotNull('IsSettlementCreated', instance.IsSettlementCreated);
+  writeNotNull('SettlementStatus', instance.SettlementStatus);
+  writeNotNull('TransactionFees', instance.TransactionFees);
+  writeNotNull('GST', instance.GST);
+  return val;
+}

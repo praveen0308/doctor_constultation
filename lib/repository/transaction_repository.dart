@@ -100,14 +100,14 @@ class TransactionRepository {
 //#endregion
 
 //#region Transactions
-  Future<bool> addUpdatePaymentTransaction(PaymentTransactionModel paymentTransactionModel) async {
+  Future<int> addUpdatePaymentTransaction(PaymentTransactionModel paymentTransactionModel) async {
     int userId = await _storage.getUserId();
     paymentTransactionModel.UserID = userId;
     return _transactionApiClient.addUpdateTransaction(paymentTransactionModel);
   }
 
   Future<PaymentTransactionModel> getPaymentTransactionByID(int id) {
-    return _transactionApiClient.getPaymentTransactionById(id);
+    return _transactionApiClient.getPaymentTransactionDetailByID(id);
   }
 
   Future<List<PaymentTransactionModel>> getPaymentTransactions() {

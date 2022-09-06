@@ -11,7 +11,7 @@ import 'package:doctor_consultation/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:doctor_consultation/route/route.dart' as route;
 class ProfileBody extends StatelessWidget {
   final _storage = SecureStorage();
 
@@ -42,11 +42,20 @@ class ProfileBody extends StatelessWidget {
               tabPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MyBooking()))),*/
           TemplateProfileMenu(
-              imgURL: AppImages.icMyPlan,
+              imgURL: AppImages.icPatientCount,
               title: "Manage Patients",
               tabPressed: () {
                 Navigator.pushNamed(context, "/managePatients");
+
               }),
+          TemplateProfileMenu(
+              imgURL: AppImages.icMyPlan,
+              title: "Transactions",
+              tabPressed: () {
+                Navigator.pushNamed(context, route.transactions);
+
+              }),
+
           /*TemplateProfileMenu(
               imgURL: AppImages.icMyPlan,
               title: "My Plan",

@@ -23,19 +23,28 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       IsActive: json['IsActive'] as bool?,
     );
 
-Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
-      'ID': instance.ID,
-      'UserName': instance.UserName,
-      'Gender': instance.Gender,
-      'Age': instance.Age,
-      'PatientCount': instance.PatientCount,
-      'AppointmentCount': instance.AppointmentCount,
-      'MobileNo': instance.MobileNo,
-      'ProfileImage': instance.ProfileImage,
-      'EmailID': instance.EmailID,
-      'Password': instance.Password,
-      'UserRoleID': instance.UserRoleID,
-      'LangCulture': instance.LangCulture,
-      'RegisteredOn': instance.RegisteredOn,
-      'IsActive': instance.IsActive,
-    };
+Map<String, dynamic> _$UserModelToJson(UserModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('UserName', instance.UserName);
+  val['Gender'] = instance.Gender;
+  val['Age'] = instance.Age;
+  val['PatientCount'] = instance.PatientCount;
+  val['AppointmentCount'] = instance.AppointmentCount;
+  writeNotNull('MobileNo', instance.MobileNo);
+  writeNotNull('ProfileImage', instance.ProfileImage);
+  writeNotNull('EmailID', instance.EmailID);
+  writeNotNull('Password', instance.Password);
+  writeNotNull('UserRoleID', instance.UserRoleID);
+  writeNotNull('LangCulture', instance.LangCulture);
+  writeNotNull('RegisteredOn', instance.RegisteredOn);
+  writeNotNull('IsActive', instance.IsActive);
+  return val;
+}

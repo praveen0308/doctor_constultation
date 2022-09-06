@@ -31,5 +31,12 @@ abstract class CommunicationApiClient {
 
   @POST("Communication/AddUpdateNotificationDetails")
   Future<bool> addUpdateNotificationDetail(@Body() NotificationModel notificationModel);
+
+  @POST("Communication/SendChatNotification")
+  Future<bool> sendChatNotification(
+      @Query("senderid") int senderID,
+      @Query("receiverid") int receiverID,
+      @Query("message") String message,
+      );
 //#endregion
 }

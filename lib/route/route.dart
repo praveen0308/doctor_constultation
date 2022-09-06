@@ -1,5 +1,6 @@
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/models/api/schedule_model.dart';
+import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
 import 'package:doctor_consultation/models/api/video_model.dart';
 import 'package:doctor_consultation/repository/account_repository.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
@@ -24,6 +25,8 @@ import 'package:doctor_consultation/ui/communication/chat_screen/chat_screen_cub
 import 'package:doctor_consultation/ui/communication/user_patient_chats/chat_not_available.dart';
 import 'package:doctor_consultation/ui/doctor/dr_profile.dart';
 import 'package:doctor_consultation/ui/image_viewer/image_viewer.dart';
+import 'package:doctor_consultation/ui/manage_discount/add_discount/add_discount.dart';
+import 'package:doctor_consultation/ui/manage_discount/add_discount/add_discount_cubit.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info.dart';
 import 'package:doctor_consultation/ui/user/add_case_info/add_case_info_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/appointment_detail/appointment_detail.dart';
@@ -32,6 +35,11 @@ import 'package:doctor_consultation/ui/user/admin/appointment/patient_past_appoi
 import 'package:doctor_consultation/ui/user/admin/appointment_detail/appointment_detail_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/communication/payment_detail.dart';
 import 'package:doctor_consultation/ui/user/admin/dashboard/dashboard.dart';
+import 'package:doctor_consultation/ui/user/admin/manage_plans/add_plan/add_plan.dart';
+import 'package:doctor_consultation/ui/user/admin/manage_plans/add_plan/add_plan_cubit.dart';
+import 'package:doctor_consultation/ui/user/admin/manage_plans/manage_plans.dart';
+import 'package:doctor_consultation/ui/user/admin/manage_plans/manage_plans_cubit.dart';
+
 import 'package:doctor_consultation/ui/user/admin/manage_videos/manage_videos.dart';
 import 'package:doctor_consultation/ui/user/admin/manage_videos/manage_videos_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/schedule/add_slot/add_new_slot.dart';
@@ -43,6 +51,8 @@ import 'package:doctor_consultation/ui/user/admin/search_patient/search_patient.
 import 'package:doctor_consultation/ui/user/admin/search_patient/search_patient_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/search_user/search_user.dart';
 import 'package:doctor_consultation/ui/user/admin/search_user/search_user_cubit.dart';
+import 'package:doctor_consultation/ui/user/admin/transactions/transaction_detail/transaction_detail.dart';
+import 'package:doctor_consultation/ui/user/admin/transactions/transaction_detail/transaction_detail_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/transactions/transaction_history.dart';
 import 'package:doctor_consultation/ui/user/admin/transactions/transaction_history_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/upload_videos/upload_video.dart';
@@ -78,6 +88,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../ui/add_new_appointment/add_new_appointment.dart';
 import '../ui/add_new_appointment/add_new_appointment_cubit.dart';
+import '../ui/user/admin/doctor_new_profile/doctor_profile_page.dart';
 import '../ui/user/admin/schedule/create_new_schedule/create_new_schedule.dart';
 import '../ui/user_notifications/user_notifications_cubit.dart';
 
@@ -144,6 +155,11 @@ const String personalData = '/personalData';
 const String transactions = '/transactions';
 const String searchPatients = '/searchPatients';
 const String userAppointments = '/userAppointments';
+const String addNewDiscount = '/addNewDiscount';
+const String doctorProfile = '/doctorProfile';
+const String managePlans = '/managePlans';
+const String addPlan = '/addPlan';
+const String transactionDetail = '/transactionDetail';
 
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -402,6 +418,39 @@ Route<dynamic> controller(RouteSettings settings) {
             child: UserAppointments(userID: args as int,),
           ),
           settings: settings);
+    case addNewDiscount:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => AddDiscountCubit(),
+            child: const AddDiscount(),
+          ),
+          settings: settings);
+
+    case managePlans:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => ManagePlansCubit(AccountRepository()),
+            child: const ManagePlans(),
+          ),
+          settings: settings);
+    case addPlan:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => AddPlanCubit(AccountRepository()),
+            child:  AddPlan(planModel: args as SubscriptionPlanModel?,),
+          ),
+          settings: settings);
+
+    case transactionDetail:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => TransactionDetailCubit(),
+            child:  TransactionDetail(transactionID: args as int,),
+          ),
+          settings: settings);
+    case doctorProfile:
+      return MaterialPageRoute(
+          builder: (context) => DoctorProfilePage(), settings: settings);
 
     default:
       throw ('this route name does not exist');

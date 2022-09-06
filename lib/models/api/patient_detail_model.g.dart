@@ -22,18 +22,26 @@ PatientDetailModel _$PatientDetailModelFromJson(Map<String, dynamic> json) =>
       IsActive: json['IsActive'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$PatientDetailModelToJson(PatientDetailModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'UserID': instance.UserID,
-      'FullName': instance.FullName,
-      'MobileNo': instance.MobileNo,
-      'DOB': instance.DOB,
-      'Age': instance.Age,
-      'GenderID': instance.GenderID,
-      'TypeID': instance.TypeID,
-      'RelationID': instance.RelationID,
-      'CreateDateTime': instance.CreateDateTime,
-      'ProfileImage': instance.ProfileImage,
-      'IsActive': instance.IsActive,
-    };
+Map<String, dynamic> _$PatientDetailModelToJson(PatientDetailModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('UserID', instance.UserID);
+  writeNotNull('FullName', instance.FullName);
+  writeNotNull('MobileNo', instance.MobileNo);
+  writeNotNull('DOB', instance.DOB);
+  writeNotNull('Age', instance.Age);
+  writeNotNull('GenderID', instance.GenderID);
+  writeNotNull('TypeID', instance.TypeID);
+  writeNotNull('RelationID', instance.RelationID);
+  writeNotNull('CreateDateTime', instance.CreateDateTime);
+  writeNotNull('ProfileImage', instance.ProfileImage);
+  writeNotNull('IsActive', instance.IsActive);
+  return val;
+}

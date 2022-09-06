@@ -22,19 +22,28 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) => AddressModel(
       IsActive: json['IsActive'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'UserID': instance.UserID,
-      'City': instance.City,
-      'LocationName': instance.LocationName,
-      'State': instance.State,
-      'Country': instance.Country,
-      'AddressLine1': instance.AddressLine1,
-      'AddressLine2': instance.AddressLine2,
-      'AddressType': instance.AddressType,
-      'PinCode': instance.PinCode,
-      'AddedBy': instance.AddedBy,
-      'AddedOn': instance.AddedOn,
-      'IsActive': instance.IsActive,
-    };
+Map<String, dynamic> _$AddressModelToJson(AddressModel instance) {
+  final val = <String, dynamic>{
+    'ID': instance.ID,
+    'UserID': instance.UserID,
+    'City': instance.City,
+    'LocationName': instance.LocationName,
+    'State': instance.State,
+    'Country': instance.Country,
+    'AddressLine1': instance.AddressLine1,
+    'AddressLine2': instance.AddressLine2,
+    'AddressType': instance.AddressType,
+    'PinCode': instance.PinCode,
+    'AddedBy': instance.AddedBy,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('AddedOn', instance.AddedOn);
+  val['IsActive'] = instance.IsActive;
+  return val;
+}

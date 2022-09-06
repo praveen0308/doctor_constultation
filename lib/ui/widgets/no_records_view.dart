@@ -10,7 +10,7 @@ class NoRecordsView extends StatelessWidget {
   final String subtitle;
   final bool requiredBtn;
   final String btnText;
-  final Function() onBtnClick;
+  final Function()? onBtnClick;
 
   const NoRecordsView(
       {Key? key,
@@ -52,7 +52,7 @@ class NoRecordsView extends StatelessWidget {
           Visibility(
             visible: requiredBtn,
             child: CustomBtn(
-                title: btnText, onBtnPressed: () { onBtnClick();}, isLoading: false),
+                title: btnText, onBtnPressed: () { onBtnClick!();}, isLoading: false),
           ),
           const SizedBox(height: 16,)
         ],

@@ -18,14 +18,23 @@ FactModel _$FactModelFromJson(Map<String, dynamic> json) => FactModel(
       IsActive: json['IsActive'] as bool?,
     );
 
-Map<String, dynamic> _$FactModelToJson(FactModel instance) => <String, dynamic>{
-      'FactID': instance.FactID,
-      'DoctorID': instance.DoctorID,
-      'Title': instance.Title,
-      'Description': instance.Description,
-      'AddedBy': instance.AddedBy,
-      'AddedOn': instance.AddedOn,
-      'ModifiedBy': instance.ModifiedBy,
-      'ModifiedOn': instance.ModifiedOn,
-      'IsActive': instance.IsActive,
-    };
+Map<String, dynamic> _$FactModelToJson(FactModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('FactID', instance.FactID);
+  writeNotNull('DoctorID', instance.DoctorID);
+  writeNotNull('Title', instance.Title);
+  writeNotNull('Description', instance.Description);
+  writeNotNull('AddedBy', instance.AddedBy);
+  writeNotNull('AddedOn', instance.AddedOn);
+  writeNotNull('ModifiedBy', instance.ModifiedBy);
+  writeNotNull('ModifiedOn', instance.ModifiedOn);
+  writeNotNull('IsActive', instance.IsActive);
+  return val;
+}

@@ -24,20 +24,28 @@ DoctorPaymentModel _$DoctorPaymentModelFromJson(Map<String, dynamic> json) =>
       RepayAttempts: json['RepayAttempts'] as int?,
     );
 
-Map<String, dynamic> _$DoctorPaymentModelToJson(DoctorPaymentModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'DoctorInfoID': instance.DoctorInfoID,
-      'PaymentID': instance.PaymentID,
-      'PaymentRequestID': instance.PaymentRequestID,
-      'Amount': instance.Amount,
-      'TransactionFees': instance.TransactionFees,
-      'GST': instance.GST,
-      'PaymentStatus': instance.PaymentStatus,
-      'PurchaseDate': instance.PurchaseDate,
-      'PackageSeconds': instance.PackageSeconds,
-      'PackageStatus': instance.PackageStatus,
-      'LongURL': instance.LongURL,
-      'PackageText': instance.PackageText,
-      'RepayAttempts': instance.RepayAttempts,
-    };
+Map<String, dynamic> _$DoctorPaymentModelToJson(DoctorPaymentModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('DoctorInfoID', instance.DoctorInfoID);
+  writeNotNull('PaymentID', instance.PaymentID);
+  writeNotNull('PaymentRequestID', instance.PaymentRequestID);
+  writeNotNull('Amount', instance.Amount);
+  writeNotNull('TransactionFees', instance.TransactionFees);
+  writeNotNull('GST', instance.GST);
+  writeNotNull('PaymentStatus', instance.PaymentStatus);
+  writeNotNull('PurchaseDate', instance.PurchaseDate);
+  writeNotNull('PackageSeconds', instance.PackageSeconds);
+  writeNotNull('PackageStatus', instance.PackageStatus);
+  writeNotNull('LongURL', instance.LongURL);
+  writeNotNull('PackageText', instance.PackageText);
+  writeNotNull('RepayAttempts', instance.RepayAttempts);
+  return val;
+}

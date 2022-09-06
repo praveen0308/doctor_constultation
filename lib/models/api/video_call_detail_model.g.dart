@@ -32,26 +32,34 @@ VideoCallDetailModel _$VideoCallDetailModelFromJson(
     );
 
 Map<String, dynamic> _$VideoCallDetailModelToJson(
-        VideoCallDetailModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'CaseInfoID': instance.CaseInfoID,
-      'ScheduledDateTime': instance.ScheduledDateTime,
-      'ScheduledTimeInSecs': instance.ScheduledTimeInSecs,
-      'ActualDateTime': instance.ActualDateTime,
-      'ActualTimeInSecs': instance.ActualTimeInSecs,
-      'MeetingID': instance.MeetingID,
-      'MeetingPwd': instance.MeetingPwd,
-      'CallType': instance.CallType,
-      'PayLater': instance.PayLater,
-      'IsPaymentInitiated': instance.IsPaymentInitiated,
-      'IsPaymentDone': instance.IsPaymentDone,
-      'IsCallStarted': instance.IsCallStarted,
-      'IsCallDone': instance.IsCallDone,
-      'IsCallExpired': instance.IsCallExpired,
-      'PrescriptionPDF': instance.PrescriptionPDF,
-      'PatientTokenID': instance.PatientTokenID,
-      'DoctorTokenID': instance.DoctorTokenID,
-      'SessionID': instance.SessionID,
-      'ArchiveID': instance.ArchiveID,
-    };
+    VideoCallDetailModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('CaseInfoID', instance.CaseInfoID);
+  writeNotNull('ScheduledDateTime', instance.ScheduledDateTime);
+  writeNotNull('ScheduledTimeInSecs', instance.ScheduledTimeInSecs);
+  writeNotNull('ActualDateTime', instance.ActualDateTime);
+  writeNotNull('ActualTimeInSecs', instance.ActualTimeInSecs);
+  writeNotNull('MeetingID', instance.MeetingID);
+  writeNotNull('MeetingPwd', instance.MeetingPwd);
+  writeNotNull('CallType', instance.CallType);
+  writeNotNull('PayLater', instance.PayLater);
+  writeNotNull('IsPaymentInitiated', instance.IsPaymentInitiated);
+  writeNotNull('IsPaymentDone', instance.IsPaymentDone);
+  writeNotNull('IsCallStarted', instance.IsCallStarted);
+  writeNotNull('IsCallDone', instance.IsCallDone);
+  writeNotNull('IsCallExpired', instance.IsCallExpired);
+  writeNotNull('PrescriptionPDF', instance.PrescriptionPDF);
+  writeNotNull('PatientTokenID', instance.PatientTokenID);
+  writeNotNull('DoctorTokenID', instance.DoctorTokenID);
+  writeNotNull('SessionID', instance.SessionID);
+  writeNotNull('ArchiveID', instance.ArchiveID);
+  return val;
+}

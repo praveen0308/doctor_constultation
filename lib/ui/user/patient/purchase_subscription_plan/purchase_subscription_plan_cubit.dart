@@ -27,6 +27,7 @@ class PurchaseSubscriptionPlanCubit
       : super(PurchaseSubscriptionPlanInitial());
 
   final String subscriptionExpiry = "";
+  int paymentId = 0;
   void addNewAppointment(PatientDetailModel patientDetailModel, String description,
       int scheduleID, String date) async {
     emit(Processing("Processing..."));
@@ -39,6 +40,7 @@ class PurchaseSubscriptionPlanCubit
 
       appointmentDetailModel.AddressID = 0;
       appointmentDetailModel.DoctorID = 1;
+      appointmentDetailModel.PaymentID = paymentId;
 
       int response = await _appointmentRepository
           .createUpdateAppointmentDetail(appointmentDetailModel);
@@ -131,10 +133,10 @@ class PurchaseSubscriptionPlanCubit
       paymentTransactionModel.IsCancel = false;
 
 
-      bool response = await _transactionRepository
+      int response = await _transactionRepository
           .addUpdatePaymentTransaction(paymentTransactionModel);
-      if (response) {
-        emit(TransactionAddedSuccessfully());
+      if (response!=0) {
+        emit(TransactionAddedSuccessfully(response));
       } else {
         emit(Error("Transaction update failed!!!"));
       }

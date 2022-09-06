@@ -11,8 +11,8 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
-      margin: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+      margin: const EdgeInsets.only(bottom: 16,left: 16,right: 16),
 
 
       decoration: BoxDecoration(

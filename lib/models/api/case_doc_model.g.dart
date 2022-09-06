@@ -18,15 +18,23 @@ CaseDocModel _$CaseDocModelFromJson(Map<String, dynamic> json) => CaseDocModel(
       IsAllowedToDoc: json['IsAllowedToDoc'] as bool?,
     );
 
-Map<String, dynamic> _$CaseDocModelToJson(CaseDocModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'CaseInfoID': instance.CaseInfoID,
-      'FileName': instance.FileName,
-      'FilePath': instance.FilePath,
-      'Type': instance.Type,
-      'Extension': instance.Extension,
-      'UploadedOn': instance.UploadedOn,
-      'Details': instance.Details,
-      'IsAllowedToDoc': instance.IsAllowedToDoc,
-    };
+Map<String, dynamic> _$CaseDocModelToJson(CaseDocModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('CaseInfoID', instance.CaseInfoID);
+  writeNotNull('FileName', instance.FileName);
+  writeNotNull('FilePath', instance.FilePath);
+  writeNotNull('Type', instance.Type);
+  writeNotNull('Extension', instance.Extension);
+  writeNotNull('UploadedOn', instance.UploadedOn);
+  writeNotNull('Details', instance.Details);
+  writeNotNull('IsAllowedToDoc', instance.IsAllowedToDoc);
+  return val;
+}

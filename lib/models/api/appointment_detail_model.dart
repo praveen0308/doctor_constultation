@@ -28,6 +28,7 @@ class AppointmentDetailModel {
   String Progress;
   String Prescription;
   int ScheduleID;
+  int PaymentID;
   int CaseID;
   int AddedBy;
   String Addedon;
@@ -56,6 +57,7 @@ class AppointmentDetailModel {
     this.Progress = "",
     this.Prescription = "",
     this.ScheduleID = 0,
+    this.PaymentID = 0,
     this.CaseID = 0,
     this.AddedBy = 0,
     this.Addedon = "",

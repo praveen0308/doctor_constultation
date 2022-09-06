@@ -20,16 +20,24 @@ UserReviewModel _$UserReviewModelFromJson(Map<String, dynamic> json) =>
       IsActive: json['IsActive'] as bool?,
     );
 
-Map<String, dynamic> _$UserReviewModelToJson(UserReviewModel instance) =>
-    <String, dynamic>{
-      'ReviewID': instance.ReviewID,
-      'UserID': instance.UserID,
-      'Rating': instance.Rating,
-      'Description': instance.Description,
-      'IsApprove': instance.IsApprove,
-      'AddedBy': instance.AddedBy,
-      'AddedOn': instance.AddedOn,
-      'ModifiedBy': instance.ModifiedBy,
-      'ModifiedOn': instance.ModifiedOn,
-      'IsActive': instance.IsActive,
-    };
+Map<String, dynamic> _$UserReviewModelToJson(UserReviewModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ReviewID', instance.ReviewID);
+  writeNotNull('UserID', instance.UserID);
+  writeNotNull('Rating', instance.Rating);
+  writeNotNull('Description', instance.Description);
+  writeNotNull('IsApprove', instance.IsApprove);
+  writeNotNull('AddedBy', instance.AddedBy);
+  writeNotNull('AddedOn', instance.AddedOn);
+  writeNotNull('ModifiedBy', instance.ModifiedBy);
+  writeNotNull('ModifiedOn', instance.ModifiedOn);
+  writeNotNull('IsActive', instance.IsActive);
+  return val;
+}

@@ -14,10 +14,18 @@ PaymentOptionModel _$PaymentOptionModelFromJson(Map<String, dynamic> json) =>
       PackageTime: json['PackageTime'] as int?,
     );
 
-Map<String, dynamic> _$PaymentOptionModelToJson(PaymentOptionModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'PaymentText': instance.PaymentText,
-      'Amount': instance.Amount,
-      'PackageTime': instance.PackageTime,
-    };
+Map<String, dynamic> _$PaymentOptionModelToJson(PaymentOptionModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('PaymentText', instance.PaymentText);
+  writeNotNull('Amount', instance.Amount);
+  writeNotNull('PackageTime', instance.PackageTime);
+  return val;
+}

@@ -18,7 +18,11 @@ class PlanUpdatedSuccessfully extends PurchaseSubscriptionPlanState {}
 
 class AddingNewAppointment extends PurchaseSubscriptionPlanState {}
 class AddingPaymentTransaction extends PurchaseSubscriptionPlanState {}
-class TransactionAddedSuccessfully extends PurchaseSubscriptionPlanState {}
+class TransactionAddedSuccessfully extends PurchaseSubscriptionPlanState {
+  final int paymentId;
+
+  TransactionAddedSuccessfully(this.paymentId);
+}
 
 class AppointmentAddedSuccessfully extends PurchaseSubscriptionPlanState {
   final int appointmentID;

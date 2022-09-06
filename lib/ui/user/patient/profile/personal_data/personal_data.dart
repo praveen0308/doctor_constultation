@@ -144,8 +144,10 @@ class _PersonalDataState extends State<PersonalData> {
                         border: OutlineInputBorder(),
                         fillColor: AppColors.greyLight,
                         hintText: 'Enter the contact',
-                          counterText: ""
+                          counterText: "",
+
                       ),
+                      enabled: false,
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
                       maxLength: 10,

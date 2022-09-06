@@ -75,11 +75,15 @@ abstract class TransactionApiClient {
 
   //#region Transactions CUD
   @POST("Transaction/AddUpdatePaymentTransaction")
-  Future<bool> addUpdateTransaction(@Body() PaymentTransactionModel paymentTransactionModel);
+  Future<int> addUpdateTransaction(@Body() PaymentTransactionModel paymentTransactionModel);
 
 
   @GET("Transaction/GetPaymentTransactionByID")
   Future<PaymentTransactionModel> getPaymentTransactionById(@Query("ID") int ID);
+
+
+  @GET("Transaction/GetPaymentTransactionDetailByID")
+  Future<PaymentTransactionModel> getPaymentTransactionDetailByID(@Query("ID") int ID);
 
   @GET("Transaction/GetAllPaymentTransaction")
   Future<List<PaymentTransactionModel>> getAllTransactions();

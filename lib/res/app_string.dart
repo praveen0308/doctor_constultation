@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart ';
 class AppStrings{
-  static const appName = "Dr. Priyanka Yaduwanshi";
+  static const appName = "Dr. Priyanka Yaduvanshi";
   static const String drName = 'Dr. Priyanaka Yaduvanshi';
   static const String drFName = 'Dr. Priyanaka';
   static const String drLName = ' Yaduvanshi';

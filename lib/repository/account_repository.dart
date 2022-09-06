@@ -113,4 +113,9 @@ class AccountRepository {
     var userId = await _storage.getUserId();
     return _accountApiClient.updateFCMToken(userId,token);
   }
+
+  Future<bool> addUpdateSubscriptionPlan(SubscriptionPlanModel subscriptionPlanModel) {
+    return _accountApiClient.addUpdateSubscriptionPlan(subscriptionPlanModel);
+  }
+
 }

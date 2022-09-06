@@ -27,9 +27,11 @@ AppointmentDetailModel _$AppointmentDetailModelFromJson(
       Progress: json['Progress'] as String? ?? "",
       Prescription: json['Prescription'] as String? ?? "",
       ScheduleID: json['ScheduleID'] as int? ?? 0,
+      PaymentID: json['PaymentID'] as int? ?? 0,
       CaseID: json['CaseID'] as int? ?? 0,
       AddedBy: json['AddedBy'] as int? ?? 0,
       Addedon: json['Addedon'] as String? ?? "",
+      RecordDate: json['RecordDate'] as String? ?? "",
       StartTime: json['StartTime'] as String? ?? "",
       EndTime: json['EndTime'] as String? ?? "",
       PatientName: json['PatientName'] as String? ?? "",
@@ -39,31 +41,42 @@ AppointmentDetailModel _$AppointmentDetailModelFromJson(
     );
 
 Map<String, dynamic> _$AppointmentDetailModelToJson(
-        AppointmentDetailModel instance) =>
-    <String, dynamic>{
-      'AppointmentID': instance.AppointmentID,
-      'MeetingID': instance.MeetingID,
-      'AppointmentNumber': instance.AppointmentNumber,
-      'DoctorID': instance.DoctorID,
-      'PatientID': instance.PatientID,
-      'PatientProfileUrl': instance.PatientProfileUrl,
-      'AddressID': instance.AddressID,
-      'Date': instance.Date,
-      'AppointmentStatusID': instance.AppointmentStatusID,
-      'Bill_Amount': instance.Bill_Amount,
-      'Bill_Status': instance.Bill_Status,
-      'DoctorNotification': instance.DoctorNotification,
-      'PatientNotification': instance.PatientNotification,
-      'FeedbackStatus': instance.FeedbackStatus,
-      'Disease': instance.Disease,
-      'Progress': instance.Progress,
-      'Prescription': instance.Prescription,
-      'ScheduleID': instance.ScheduleID,
-      'CaseID': instance.CaseID,
-      'AddedBy': instance.AddedBy,
-      'Addedon': instance.Addedon,
-      'StartTime': instance.StartTime,
-      'EndTime': instance.EndTime,
-      'PatientName': instance.PatientName,
-      'UserAddress': instance.UserAddress,
-    };
+    AppointmentDetailModel instance) {
+  final val = <String, dynamic>{
+    'AppointmentID': instance.AppointmentID,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('MeetingID', instance.MeetingID);
+  val['AppointmentNumber'] = instance.AppointmentNumber;
+  val['DoctorID'] = instance.DoctorID;
+  val['PatientID'] = instance.PatientID;
+  writeNotNull('PatientProfileUrl', instance.PatientProfileUrl);
+  val['AddressID'] = instance.AddressID;
+  val['Date'] = instance.Date;
+  val['AppointmentStatusID'] = instance.AppointmentStatusID;
+  val['Bill_Amount'] = instance.Bill_Amount;
+  val['Bill_Status'] = instance.Bill_Status;
+  val['DoctorNotification'] = instance.DoctorNotification;
+  val['PatientNotification'] = instance.PatientNotification;
+  val['FeedbackStatus'] = instance.FeedbackStatus;
+  val['Disease'] = instance.Disease;
+  val['Progress'] = instance.Progress;
+  val['Prescription'] = instance.Prescription;
+  val['ScheduleID'] = instance.ScheduleID;
+  val['PaymentID'] = instance.PaymentID;
+  val['CaseID'] = instance.CaseID;
+  val['AddedBy'] = instance.AddedBy;
+  val['Addedon'] = instance.Addedon;
+  val['RecordDate'] = instance.RecordDate;
+  val['StartTime'] = instance.StartTime;
+  val['EndTime'] = instance.EndTime;
+  val['PatientName'] = instance.PatientName;
+  writeNotNull('UserAddress', instance.UserAddress?.toJson());
+  return val;
+}

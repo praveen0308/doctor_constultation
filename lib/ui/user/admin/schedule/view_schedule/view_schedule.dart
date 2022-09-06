@@ -150,7 +150,7 @@ class _ViewScheduleState extends State<ViewSchedule> {
                 DateFormat("yyyy-MM-dd").format(selectedDate));
           }
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add,color: Colors.white,),
         backgroundColor: AppColors.primary,
       ),
     );

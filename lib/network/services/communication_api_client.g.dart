@@ -6,7 +6,7 @@ part of 'communication_api_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
 class _CommunicationApiClient implements CommunicationApiClient {
   _CommunicationApiClient(this._dio, {this.baseUrl}) {
@@ -118,6 +118,25 @@ class _CommunicationApiClient implements CommunicationApiClient {
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, 'Communication/AddUpdateNotificationDetails',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<bool> sendChatNotification(senderID, receiverID, message) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'senderid': senderID,
+      r'receiverid': receiverID,
+      r'message': message
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'Communication/SendChatNotification',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

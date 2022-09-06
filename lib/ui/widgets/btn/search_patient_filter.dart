@@ -78,7 +78,7 @@ class _ViewSearchPatientFilterState extends State<ViewSearchPatientFilter> {
                     },
                   ),
                 ),
-                hintText: 'Search Patients...',
+                hintText: 'Search ...',
                 border: InputBorder.none),
           ),
         ),

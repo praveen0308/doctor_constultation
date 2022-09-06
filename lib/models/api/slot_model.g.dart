@@ -16,12 +16,21 @@ SlotModel _$SlotModelFromJson(Map<String, dynamic> json) => SlotModel(
       IsDisabled: json['IsDisabled'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$SlotModelToJson(SlotModel instance) => <String, dynamic>{
-      'ID': instance.ID,
-      'DayID': instance.DayID,
-      'BatchID': instance.BatchID,
-      'StartTime': instance.StartTime,
-      'EndTime': instance.EndTime,
-      'IsAvailable': instance.IsAvailable,
-      'IsDisabled': instance.IsDisabled,
-    };
+Map<String, dynamic> _$SlotModelToJson(SlotModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('DayID', instance.DayID);
+  writeNotNull('BatchID', instance.BatchID);
+  writeNotNull('StartTime', instance.StartTime);
+  writeNotNull('EndTime', instance.EndTime);
+  writeNotNull('IsAvailable', instance.IsAvailable);
+  val['IsDisabled'] = instance.IsDisabled;
+  return val;
+}

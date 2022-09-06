@@ -13,9 +13,17 @@ MedicineModel _$MedicineModelFromJson(Map<String, dynamic> json) =>
       Generic: json['Generic'] as String?,
     );
 
-Map<String, dynamic> _$MedicineModelToJson(MedicineModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'Brand': instance.Brand,
-      'Generic': instance.Generic,
-    };
+Map<String, dynamic> _$MedicineModelToJson(MedicineModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('Brand', instance.Brand);
+  writeNotNull('Generic', instance.Generic);
+  return val;
+}

@@ -1,4 +1,4 @@
-import 'package:doctor_consultation/models/api/patient_detail_model.dart';
+ import 'package:doctor_consultation/models/api/patient_detail_model.dart';
 import 'package:doctor_consultation/models/api/schedule_model.dart';
 import 'package:doctor_consultation/models/api/slot_model.dart';
 import 'package:doctor_consultation/models/api/subscription_plan_model.dart';
@@ -15,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../../../../res/app_string.dart';
+import '../../../../util/razorpay_helper.dart';
 
 class PurchaseSubscriptionPlanArgs {
   final ScheduleModel slotModel;
@@ -45,6 +46,7 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
   var amountPayable = 0;
   var subscriptionID = 0;
   late Razorpay _razorpay;
+  var appointmentId = 0;
 
   @override
   void dispose() {
@@ -78,7 +80,7 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
     // Going to update user's subscription plan
     showToast("Payment successful!!!", ToastType.success);
     if (subscriptionID != 0) {
-      _cubit.addPaymentTransaction(response.paymentId.toString(),response.orderId.toString(),amountPayable.toDouble(), 0,widget.args.patientDetailModel.ID!);
+      _cubit.addPaymentTransaction(response.paymentId.toString(),response.orderId.toString(),amountPayable.toDouble(), appointmentId,widget.args.patientDetailModel.ID!);
 
     }
   }
@@ -93,12 +95,13 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
     // Do something when an external wallet is selected
   }
 
-  void _payUsingRazorpay() {
+  Future<void> _payUsingRazorpay() async {
+    String orderId = await generateOrderId(AppConstants.RAZORPAY_KEY_ID,AppConstants.RAZORPAY_KEY_SECRET,amountPayable * 100);
     var options = {
       'key': AppConstants.RAZORPAY_KEY_ID,
       'amount': amountPayable * 100,
       'name': AppConstants.doctorName,
-      // 'order_id': 'order_${AppConstants.getRandomString(14)}',
+      'order_id': orderId,
       'retry': {'enabled': true, 'max_count': 3},
       'description': 'Purchase Plan',
       'timeout': 180,
@@ -182,28 +185,50 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
                   if (plans.isNotEmpty)
                     ListView.builder(
                         shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         itemCount: plans.length,
                         itemBuilder: (_, index) {
                           var plan = plans[index];
-                          return TemplateMembership(
-                            txtTitle: plan.PlanName,
-                            txtSubTitle: plan.PlanDescription,
-                            selectionEnabled: true,
-                            txtCaption: plan.Amount.toString(),
-                            isSelected: plan.isSelected,
-                            mIndex: index,
-                            onSelected: (id) {
-                              setState(() {
-                                for (var element in plans) {
-                                  element.isSelected = false;
-                                }
-                                plans[index].isSelected = true;
-                                amountPayable = plans[index].Amount.toInt();
-                                subscriptionID = plans[index].SubscriptionID!;
-                              });
-                            },
-                          );
+
+                          if(plan.Discount > 0.0){
+                            return TemplateMembership(
+                              txtTitle: plan.PlanName,
+                              txtSubTitle: plan.PlanDescription,
+                              selectionEnabled: true,
+                              txtCaption: plan.getCurrentAmountWords(),
+                              txtCaption1: plan.getOriginalAmount(),
+                              validity: "Valid till ${plan.getDuration()}",
+                              isSelected: plan.isSelected,
+                              mIndex: index,
+                              onSelected: (id) {
+                                setState(() {
+                                  for (var element in plans) {
+                                    element.isSelected = false;
+                                  }
+                                  plans[index].isSelected = true;
+
+                                });
+                              },
+                            );
+                          }else{
+                            return TemplateMembership(
+                              txtTitle: plan.PlanName,
+                              txtSubTitle: plan.PlanDescription,
+                              selectionEnabled: true,
+                              txtCaption: plan.getCurrentAmountWords(),
+                              isSelected: plan.isSelected,
+                              mIndex: index,
+                              onSelected: (id) {
+                                setState(() {
+                                  for (var element in plans) {
+                                    element.isSelected = false;
+                                  }
+                                  plans[index].isSelected = true;
+                                });
+                              },
+                            );
+                          }
+
                         }),
                   if (state is Loading)
                     const Expanded(child: LoadingView(isVisible: true))
@@ -217,8 +242,11 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
                 right: 16,
                 child: CustomBtn(
                     title: "Continue",
-                    onBtnPressed: () {
-                      _payUsingRazorpay();
+                    onBtnPressed: () async{
+                      amountPayable = plans.firstWhere((element) => element.isSelected==true).getCurrentAmount().toInt();
+                      subscriptionID = plans.firstWhere((element) => element.isSelected==true).SubscriptionID!;
+                      print("Payable AMount : $amountPayable");
+                      await _payUsingRazorpay();
                     },
                     isLoading: state is Processing),
               )

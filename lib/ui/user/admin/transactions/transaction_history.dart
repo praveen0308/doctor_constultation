@@ -3,10 +3,9 @@ import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/style_text.dart';
 import 'package:doctor_consultation/ui/user/admin/transactions/transaction_history_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:doctor_consultation/route/route.dart' as route;
 class TransactionHistory extends StatefulWidget {
   const TransactionHistory({Key? key}) : super(key: key);
 
@@ -59,39 +58,44 @@ class TransactionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey,width: 1),
-        borderRadius: BorderRadius.circular(8)
-      ),
-      child: Row(crossAxisAlignment: CrossAxisAlignment.start,children: [
-        Container(
-          margin: const EdgeInsets.only(right: 16),
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: AppColors.primaryLight
-          ),
-          child: Icon(Icons.call_received_rounded,size: 32,color: AppColors.primary,),
-
+    return InkWell(
+      onTap: (){
+        Navigator.pushNamed(context, route.transactionDetail,arguments: transactionModel.ID);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey,width: 1),
+          borderRadius: BorderRadius.circular(8)
         ),
+        child: Row(crossAxisAlignment: CrossAxisAlignment.start,children: [
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: AppColors.primaryLight
+            ),
+            child: const Icon(Icons.call_received_rounded,size: 32,color: AppColors.primary,),
 
-        Expanded(child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          ),
 
-          children: [
-          Text(transactionModel.Name ?? "N.A.",style: AppTextStyle.headline6(),),
-          const SizedBox(height: 8,),
-          Text(transactionModel.AddedOn ?? "N.A.",style: TextStyle(color: AppColors.greyDark),)
-        ],)),
-        Column(crossAxisAlignment: CrossAxisAlignment.end,children: [
-          Text("₹${transactionModel.PaymentAmount}",style:AppTextStyle.subtitle1(txtColor: Colors.green,),),
-          const SizedBox(height: 8,),
-          Text(transactionModel.Status!,style: AppTextStyle.captionRF2(),)],)
-      ],),
+          Expanded(child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+
+            children: [
+            Text(transactionModel.Message ?? "N.A.",style: AppTextStyle.subtitle1(),),
+            const SizedBox(height: 8,),
+            Text(transactionModel.getTransactionDate(),style: const TextStyle(color: AppColors.greyDark),)
+          ],)),
+          Column(crossAxisAlignment: CrossAxisAlignment.end,children: [
+            Text("₹${transactionModel.PaymentAmount}",style:AppTextStyle.subtitle1(txtColor: Colors.green,),),
+            const SizedBox(height: 8,),
+            Text(transactionModel.Status!,style: AppTextStyle.captionRF2(),)],)
+        ],),
+      ),
     );
   }
 }

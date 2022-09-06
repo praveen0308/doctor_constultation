@@ -11,8 +11,16 @@ DosageModel _$DosageModelFromJson(Map<String, dynamic> json) => DosageModel(
       Value: json['Value'] as String?,
     );
 
-Map<String, dynamic> _$DosageModelToJson(DosageModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'Value': instance.Value,
-    };
+Map<String, dynamic> _$DosageModelToJson(DosageModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('Value', instance.Value);
+  return val;
+}

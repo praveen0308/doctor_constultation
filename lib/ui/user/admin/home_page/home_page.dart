@@ -1,10 +1,16 @@
 import 'package:doctor_consultation/models/action_model.dart';
 import 'package:doctor_consultation/models/api/stat_model.dart';
 import 'package:doctor_consultation/models/statistics_model.dart';
+import 'package:doctor_consultation/repository/appointment_repository.dart';
+import 'package:doctor_consultation/repository/util_repository.dart';
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/app_string.dart';
 import 'package:doctor_consultation/res/style_text.dart';
+import 'package:doctor_consultation/ui/user/admin/home_page/current_day_appointment/current_day_appointment.dart';
+import 'package:doctor_consultation/ui/user/admin/home_page/current_day_appointment/current_day_appointment_cubit.dart';
 import 'package:doctor_consultation/ui/user/admin/home_page/home_page_cubit.dart';
+import 'package:doctor_consultation/ui/user/admin/home_page/home_statistics/home_statistics.dart';
+import 'package:doctor_consultation/ui/user/admin/home_page/home_statistics/home_statistics_cubit.dart';
 import 'package:doctor_consultation/ui/widgets/admin_today_task.dart';
 import 'package:doctor_consultation/ui/widgets/app_nav_bar/app_nav_bar.dart';
 import 'package:doctor_consultation/ui/widgets/btn/search_patient_filter.dart';
@@ -45,7 +51,6 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
     super.initState();
 
     _cubit = BlocProvider.of<HomePageCubit>(context);
-    _cubit.getAppointmentsByDate();
 
   }
 
@@ -59,17 +64,6 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
     return BlocBuilder<HomePageCubit, HomePageState>(
       builder: (context, state) {
 
-        if(state is ReceivedAppointments){
-          appointments.add(state.total);
-          appointments.add(state.remaining);
-          appointments.add(state.completed);
-
-        }
-
-        if(state is ReceivedStats){
-          stats.clear();
-          stats.addAll(state.stats);
-        }
 
         return ScrollConfiguration(
           behavior: NoGlowBehaviour(),
@@ -104,22 +98,11 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               const SizedBox(
                 height: 5,
               ),
-              if (state is LoadingTodayAppointments)
-                const SizedBox(
-                  height: 120,
-                  child: LoadingView(
-                    isVisible: true,
-                  ),
-                ),
-              if (appointments.isNotEmpty)
-                GestureDetector(
-                  onTap: () {},
-                  child: ViewTodayTask(
-                    totalAppointment: appointments[0],
-                    remainingAppointment: appointments[1],
-                    completedAppointment: appointments[2],
-                  ),
-                ),
+              BlocProvider(
+                create: (context) =>
+                    CurrentDayAppointmentCubit(AppointmentRepository()),
+                child: CurrentDayAppointment(),
+              ),
               const SizedBox(
                 height: 12,
               ),
@@ -133,23 +116,11 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               const SizedBox(
                 height: 10,
               ),
-              if(state is LoadingStats) const LoadingView(isVisible: true),
-              if(stats.isNotEmpty) GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: stats.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1.75,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4),
-                  itemBuilder: (_, index) {
-                    return StatisticsView(
-                        statisticsModel: stats[index],
-                        onItemClick: (action) {
-                          // navigateQuickActions(action!);
-                        });
-                  }),
+              BlocProvider(
+                create: (context) =>
+                    HomeStatisticsCubit(UtilRepository()),
+                child: HomeStatistics(),
+              ),
               const SizedBox(height: 16),
 
               ViewMyRichText(
@@ -272,6 +243,9 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
         break;
       case AppNavActions.transactions:
         Navigator.pushNamed(context, route.transactions);
+        break;
+      case AppNavActions.managePlans:
+        Navigator.pushNamed(context, route.managePlans);
         break;
     }
 

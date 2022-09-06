@@ -13,9 +13,18 @@ StatModel _$StatModelFromJson(Map<String, dynamic> json) => StatModel(
       Video: json['Video'] as int?,
     );
 
-Map<String, dynamic> _$StatModelToJson(StatModel instance) => <String, dynamic>{
-      'Patient': instance.Patient,
-      'Users': instance.Users,
-      'Appointment': instance.Appointment,
-      'Video': instance.Video,
-    };
+Map<String, dynamic> _$StatModelToJson(StatModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('Patient', instance.Patient);
+  writeNotNull('Users', instance.Users);
+  writeNotNull('Appointment', instance.Appointment);
+  writeNotNull('Video', instance.Video);
+  return val;
+}

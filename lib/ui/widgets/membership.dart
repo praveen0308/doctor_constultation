@@ -9,6 +9,8 @@ class TemplateMembership extends StatefulWidget {
   final String? txtTitle;
   final String? txtSubTitle;
   final String? txtCaption;
+  final String? txtCaption1;
+  final String? validity;
 
   final Color checkColor;
   final Color borderColor;
@@ -28,7 +30,7 @@ class TemplateMembership extends StatefulWidget {
       this.borderColor = AppColors.grey,
       this.selectionEnabled = false,
       this.isSelected = false,
-      required this.onSelected})
+      required this.onSelected, this.txtCaption1 = "", this.validity = ""})
       : super(key: key);
 
   @override
@@ -90,13 +92,28 @@ class _TemplateMembershipState extends State<TemplateMembership> {
                     style:
                         AppTextStyle.captionRF1(txtColor: AppColors.greyDark),
                   ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(widget.validity??"",style: const TextStyle(color: Colors.redAccent,fontWeight: FontWeight.w700),)
                 ],
               ),
             ),
-            Text(
-              "₹${widget.txtCaption}",
-              style: AppTextStyle.headline6(txtColor: AppColors.primary),
-            ),
+            Column(
+              children: [
+                Text(
+                  widget.txtCaption ?? "",
+                  style: AppTextStyle.subtitle1(),
+                ),
+                Text(widget.txtCaption1 ?? "",
+                    style: const TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.grey)),
+              ],
+            )
+
           ],
         ),
       ),

@@ -21,17 +21,25 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
       AddedOn: json['AddedOn'] as String?,
     );
 
-Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) =>
-    <String, dynamic>{
-      'NotificationID': instance.NotificationID,
-      'ReceiverID': instance.ReceiverID,
-      'SenderID': instance.SenderID,
-      'Title': instance.Title,
-      'Description': instance.Description,
-      'ImageUrl': instance.ImageUrl,
-      'IsSeen': instance.IsSeen,
-      'ContentID': instance.ContentID,
-      'ContentTypeID': instance.ContentTypeID,
-      'IsActive': instance.IsActive,
-      'AddedOn': instance.AddedOn,
-    };
+Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('NotificationID', instance.NotificationID);
+  writeNotNull('ReceiverID', instance.ReceiverID);
+  writeNotNull('SenderID', instance.SenderID);
+  writeNotNull('Title', instance.Title);
+  writeNotNull('Description', instance.Description);
+  writeNotNull('ImageUrl', instance.ImageUrl);
+  writeNotNull('IsSeen', instance.IsSeen);
+  writeNotNull('ContentID', instance.ContentID);
+  writeNotNull('ContentTypeID', instance.ContentTypeID);
+  writeNotNull('IsActive', instance.IsActive);
+  writeNotNull('AddedOn', instance.AddedOn);
+  return val;
+}

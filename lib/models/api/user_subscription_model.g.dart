@@ -23,17 +23,25 @@ UserSubscriptionModel _$UserSubscriptionModelFromJson(
     );
 
 Map<String, dynamic> _$UserSubscriptionModelToJson(
-        UserSubscriptionModel instance) =>
-    <String, dynamic>{
-      'UserSubscriptionID': instance.UserSubscriptionID,
-      'SubscriptionID': instance.SubscriptionID,
-      'UserID': instance.UserID,
-      'SubscriptionStartDate': instance.SubscriptionStartDate,
-      'SubscriptionEndDate': instance.SubscriptionEndDate,
-      'AllowedCount': instance.AllowedCount,
-      'UtilizedCount': instance.UtilizedCount,
-      'IsLapsed': instance.IsLapsed,
-      'IsExpired': instance.IsExpired,
-      'IsRenewed': instance.IsRenewed,
-      'IsActive': instance.IsActive,
-    };
+    UserSubscriptionModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('UserSubscriptionID', instance.UserSubscriptionID);
+  writeNotNull('SubscriptionID', instance.SubscriptionID);
+  writeNotNull('UserID', instance.UserID);
+  writeNotNull('SubscriptionStartDate', instance.SubscriptionStartDate);
+  writeNotNull('SubscriptionEndDate', instance.SubscriptionEndDate);
+  writeNotNull('AllowedCount', instance.AllowedCount);
+  writeNotNull('UtilizedCount', instance.UtilizedCount);
+  writeNotNull('IsLapsed', instance.IsLapsed);
+  writeNotNull('IsExpired', instance.IsExpired);
+  writeNotNull('IsRenewed', instance.IsRenewed);
+  writeNotNull('IsActive', instance.IsActive);
+  return val;
+}

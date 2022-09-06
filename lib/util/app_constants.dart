@@ -14,7 +14,8 @@ class AppConstants {
       "Chat is not available for this patient. Book appointment to connect with doctor. Chat will be available until appointment subscription expired.";
 
   // static const RAZORPAY_KEY_ID = "rzp_test_WK75xX84FGDTsB";
-   static const RAZORPAY_KEY_ID = "rzp_live_eSD5cAGj3dGPo4";
+   static const RAZORPAY_KEY_ID = "rzp_live_D1Qkh44U2ngXpE";
+   static const RAZORPAY_KEY_SECRET = "TmCMdZfcyjpjoy3B29XF9Ujn";
   // static const RAZORPAY_KEY_ID = "rzp_live_8aAdWb0YdmkzxG";
 
   static String getRandomString(int length) {
@@ -60,6 +61,7 @@ class AppConstants {
     data.add(ActionModel("View Users", AppImages.icPatientCount, AppNavActions.manageUsers));
     data.add(ActionModel("Manage Videos", AppImages.icUnMuteVideoCall, AppNavActions.manageVideos));
     data.add(ActionModel("Transactions", AppImages.icTransactions, AppNavActions.transactions));
+    data.add(ActionModel("Manage Plans", AppImages.icMyPlan, AppNavActions.managePlans));
 
     return data;
   }
@@ -72,7 +74,7 @@ class AppConstants {
 }
 
 enum IOperations { create, read, update, delete }
-enum AppNavActions { viewSchedule, uploadVideo, manageVideos,manageUsers,managePatients,appointments,transactions }
+enum AppNavActions { viewSchedule, uploadVideo, manageVideos,manageUsers,managePatients,appointments,transactions,managePlans }
 
 class SocialLink {
   static const instagram = "https://www.google.com/";

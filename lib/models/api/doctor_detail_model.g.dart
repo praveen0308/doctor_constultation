@@ -30,26 +30,34 @@ DoctorDetailModel _$DoctorDetailModelFromJson(Map<String, dynamic> json) =>
       IfscCode: json['IfscCode'] as String?,
     );
 
-Map<String, dynamic> _$DoctorDetailModelToJson(DoctorDetailModel instance) =>
-    <String, dynamic>{
-      'ID': instance.ID,
-      'UserID': instance.UserID,
-      'LiteAccount': instance.LiteAccount,
-      'Name': instance.Name,
-      'RegistrationNo': instance.RegistrationNo,
-      'Qualifications': instance.Qualifications,
-      'Address': instance.Address,
-      'EmailID': instance.EmailID,
-      'ContactNo': instance.ContactNo,
-      'MeetingPwd': instance.MeetingPwd,
-      'PresSrNo': instance.PresSrNo,
-      'SessionId': instance.SessionId,
-      'TotalTimeSecs': instance.TotalTimeSecs,
-      'TotalTimeSecsLeft': instance.TotalTimeSecsLeft,
-      'ConsultingFees': instance.ConsultingFees,
-      'Signature': instance.Signature,
-      'ContentType': instance.ContentType,
-      'AcHolderName': instance.AcHolderName,
-      'AcNumber': instance.AcNumber,
-      'IfscCode': instance.IfscCode,
-    };
+Map<String, dynamic> _$DoctorDetailModelToJson(DoctorDetailModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ID', instance.ID);
+  writeNotNull('UserID', instance.UserID);
+  writeNotNull('LiteAccount', instance.LiteAccount);
+  writeNotNull('Name', instance.Name);
+  writeNotNull('RegistrationNo', instance.RegistrationNo);
+  writeNotNull('Qualifications', instance.Qualifications);
+  writeNotNull('Address', instance.Address);
+  writeNotNull('EmailID', instance.EmailID);
+  writeNotNull('ContactNo', instance.ContactNo);
+  writeNotNull('MeetingPwd', instance.MeetingPwd);
+  writeNotNull('PresSrNo', instance.PresSrNo);
+  writeNotNull('SessionId', instance.SessionId);
+  writeNotNull('TotalTimeSecs', instance.TotalTimeSecs);
+  writeNotNull('TotalTimeSecsLeft', instance.TotalTimeSecsLeft);
+  writeNotNull('ConsultingFees', instance.ConsultingFees);
+  writeNotNull('Signature', instance.Signature);
+  writeNotNull('ContentType', instance.ContentType);
+  writeNotNull('AcHolderName', instance.AcHolderName);
+  writeNotNull('AcNumber', instance.AcNumber);
+  writeNotNull('IfscCode', instance.IfscCode);
+  return val;
+}

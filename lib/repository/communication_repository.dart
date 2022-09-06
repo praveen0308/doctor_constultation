@@ -49,5 +49,9 @@ class CommunicationRepository {
   Future<bool> createUpdateNotificationDetail(NotificationModel notificationModel) {
     return _communicationApiClient.addUpdateNotificationDetail(notificationModel);
   }
+  Future<bool> sendChatNotification(int receiverId,String msg) async {
+    var userId = await _storage.getUserId();
+    return _communicationApiClient.sendChatNotification(userId,receiverId,msg);
+  }
 //#endregion
 }

@@ -16,12 +16,20 @@ PrescriptionModel _$PrescriptionModelFromJson(Map<String, dynamic> json) =>
       FollowupDays: json['FollowupDays'] as String?,
     );
 
-Map<String, dynamic> _$PrescriptionModelToJson(PrescriptionModel instance) =>
-    <String, dynamic>{
-      'PrescriptionID': instance.PrescriptionID,
-      'VideoCallID': instance.VideoCallID,
-      'Advice': instance.Advice,
-      'SugRegimen': instance.SugRegimen,
-      'Investigations': instance.Investigations,
-      'FollowupDays': instance.FollowupDays,
-    };
+Map<String, dynamic> _$PrescriptionModelToJson(PrescriptionModel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('PrescriptionID', instance.PrescriptionID);
+  writeNotNull('VideoCallID', instance.VideoCallID);
+  writeNotNull('Advice', instance.Advice);
+  writeNotNull('SugRegimen', instance.SugRegimen);
+  writeNotNull('Investigations', instance.Investigations);
+  writeNotNull('FollowupDays', instance.FollowupDays);
+  return val;
+}

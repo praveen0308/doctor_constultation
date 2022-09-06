@@ -3,7 +3,7 @@ description: Mobile application for doctor consultation
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.7+8
+version: 1.0.8+9
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -70,7 +70,7 @@ dependencies:
   #  time picker
   time_picker_sheet: ^0.0.2+1
   date_picker_timeline: ^1.2.3
-  razorpay_flutter: ^1.2.9
+  razorpay_flutter: ^1.3.0
   cloud_firestore: ^3.1.10
 
   #vidoplayer
@@ -113,4 +113,3 @@ flutter:
     - assets/images/
     - assets/icons/primary/
     - assets/icons/single/
-
