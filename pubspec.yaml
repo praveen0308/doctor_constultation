@@ -3,7 +3,7 @@ description: Mobile application for doctor consultation
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.8+9
+version: 1.0.9+10
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -90,6 +90,8 @@ dependencies:
   flutterfire_ui: ^0.4.0
   firebase_messaging: ^11.4.2
   firebase_analytics: ^9.1.10
+  sqflite:
+  path:
 dev_dependencies:
   flutter_launcher_icons: "^0.9.2"
 

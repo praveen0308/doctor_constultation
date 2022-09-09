@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:dio/dio.dart';
+import 'package:doctor_consultation/local/db_helper.dart';
 import 'package:doctor_consultation/models/api/fact_model.dart';
 import 'package:doctor_consultation/models/api/stat_model.dart';
 import 'package:doctor_consultation/models/api/user_review_model.dart';
@@ -14,6 +15,7 @@ class UtilRepository {
   late Dio _dio;
   late UtilApiClient _utilApiClient;
   final _storage = SecureStorage();
+  final dbHelper = DatabaseHelper.instance;
   UtilRepository() {
     _dio = Dio();
     _dio.interceptors.add(PrettyDioLogger(
@@ -26,8 +28,14 @@ class UtilRepository {
     _utilApiClient = UtilApiClient(_dio);
   }
   //#region Video Repo
-  Future<List<VideoModel>> fetchAllVideos() {
-    return _utilApiClient.getAllVideos();
+  Future<List<VideoModel>> fetchAllVideos() async {
+    var result = await dbHelper.queryAllRows();
+    if(result.isNotEmpty) {return result.map((e) => VideoModel.fromJson(e)).toList();}
+    var networkRecords = await _utilApiClient.getAllVideos();
+    await dbHelper.insertAll(networkRecords);
+    var refreshedData = await dbHelper.queryAllRows();
+    return refreshedData.map((e) => VideoModel.fromJson(e)).toList();
+
   }
 
   Future<VideoModel> fetchVideoByID(int id) {
