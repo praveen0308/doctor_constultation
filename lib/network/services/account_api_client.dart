@@ -61,6 +61,12 @@ abstract class AccountApiClient {
   Future<bool> addUpdateSubscriptionPlan(
       @Body() SubscriptionPlanModel subscriptionPlanModel);
 
+  @POST("Account/DeleteSubscriptionPlan")
+  Future<bool> deleteSubscriptionPlan(
+      @Query("SubscriptionID") int subscriptionID,
+      @Query("IsActive") bool isActive,
+      );
+
   @GET("Account/FetchSubscriptionByLocation")
   Future<SubscriptionPlanModel> fetchSubscriptionByLocation(
       @Query("pincode") String pinCode);

@@ -20,7 +20,7 @@ SubscriptionPlanModel _$SubscriptionPlanModelFromJson(
       OfferEndDate: json['OfferEndDate'] as String?,
       Country: json['Country'] as String?,
       IsActive: json['IsActive'] as bool?,
-      IsFixed: json['IsFixed'] as bool,
+      IsFixed: json['IsFixed'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$SubscriptionPlanModelToJson(
@@ -41,9 +41,9 @@ Map<String, dynamic> _$SubscriptionPlanModelToJson(
   val['Amount'] = instance.Amount;
   writeNotNull('Country', instance.Country);
   writeNotNull('IsActive', instance.IsActive);
-  writeNotNull('Discount', instance.Discount);
+  val['Discount'] = instance.Discount;
   writeNotNull('OfferStartDate', instance.OfferStartDate);
   writeNotNull('OfferEndDate', instance.OfferEndDate);
-  writeNotNull('IsFixed', instance.IsFixed);
+  val['IsFixed'] = instance.IsFixed;
   return val;
 }

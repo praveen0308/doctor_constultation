@@ -10,7 +10,7 @@ part of 'appointment_api_client.dart';
 
 class _AppointmentApiClient implements AppointmentApiClient {
   _AppointmentApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://doctorconsult.pocketmoney.net.in/';
+    baseUrl ??= 'https://doctorconsult.jmminfotech.com/';
   }
 
   final Dio _dio;

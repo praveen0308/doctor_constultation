@@ -10,7 +10,7 @@ part of 'schedule_api_client.dart';
 
 class _ScheduleApiClient implements ScheduleApiClient {
   _ScheduleApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://doctorconsult.pocketmoney.net.in/';
+    baseUrl ??= 'https://doctorconsult.jmminfotech.com/';
   }
 
   final Dio _dio;

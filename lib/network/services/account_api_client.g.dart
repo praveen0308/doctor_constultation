@@ -10,7 +10,7 @@ part of 'account_api_client.dart';
 
 class _AccountApiClient implements AccountApiClient {
   _AccountApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://doctorconsult.pocketmoney.net.in/';
+    baseUrl ??= 'https://doctorconsult.jmminfotech.com/';
   }
 
   final Dio _dio;
@@ -237,6 +237,24 @@ class _AccountApiClient implements AccountApiClient {
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, 'Account/AddUpdateSubscriptionPlanDetail',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<bool> deleteSubscriptionPlan(subscriptionID, isActive) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'SubscriptionID': subscriptionID,
+      r'IsActive': isActive
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'Account/DeleteSubscriptionPlan',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

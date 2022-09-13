@@ -10,7 +10,7 @@ part of 'patient_api_client.dart';
 
 class _PatientApiClient implements PatientApiClient {
   _PatientApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://doctorconsult.pocketmoney.net.in/';
+    baseUrl ??= 'https://doctorconsult.jmminfotech.com/';
   }
 
   final Dio _dio;

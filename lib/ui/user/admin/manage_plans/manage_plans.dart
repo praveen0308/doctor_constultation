@@ -5,6 +5,7 @@ import 'package:doctor_consultation/ui/widgets/btn/btn_filled.dart';
 import 'package:doctor_consultation/ui/widgets/btn/custom_btn.dart';
 import 'package:doctor_consultation/ui/widgets/loading_view.dart';
 import 'package:doctor_consultation/ui/widgets/no_records_view.dart';
+import 'package:doctor_consultation/util/util_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
@@ -39,11 +40,21 @@ class _ManagePlansState extends State<ManagePlans> {
             if (state is Error) {
               return NoRecordsView(title: state.msg, onBtnClick: () {});
             }
+            if(state is SuccessfullyDeleted){
+              showToast("Deleted successfully !!!",ToastType.success);
+              _cubit.fetchSubscriptionPlans();
+            }
+            if(state is DeletionFailed){
+              showToast("Deletion failed !!!",ToastType.error);
+              _cubit.fetchSubscriptionPlans();
+            }
             if (state is ReceivedPlans) {
               return ListView.builder(
                 itemBuilder: (_, index) {
                   var plan = state.plans[index];
-                  return EditableSubscriptionPlanView(plan: plan, onDelete: () {  }, onEdit: () async {
+                  return EditableSubscriptionPlanView(plan: plan, onDelete: () {
+                    _cubit.deleteSubscriptionPlan(plan.SubscriptionID!);
+                  }, onEdit: () async {
                     final result = await Navigator.pushNamed(context, route.addPlan,arguments: plan);
 
                     if(result==true){

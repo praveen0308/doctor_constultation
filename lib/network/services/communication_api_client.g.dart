@@ -10,7 +10,7 @@ part of 'communication_api_client.dart';
 
 class _CommunicationApiClient implements CommunicationApiClient {
   _CommunicationApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://doctorconsult.pocketmoney.net.in/';
+    baseUrl ??= 'https://doctorconsult.jmminfotech.com/';
   }
 
   final Dio _dio;

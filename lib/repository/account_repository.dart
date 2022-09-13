@@ -84,6 +84,11 @@ class AccountRepository {
     return _accountApiClient.addUpdateSubscriptionPlan(subscriptionPlanModel);
   }
 
+  Future<bool> deleteSubscriptionPlan(
+      int subscriptionID,bool isActive) {
+    return _accountApiClient.deleteSubscriptionPlan(subscriptionID,isActive);
+  }
+
   Future<SubscriptionPlanModel> getSubscriptionPlanByLocation(String pinCode) {
     return _accountApiClient.fetchSubscriptionByLocation(pinCode);
   }

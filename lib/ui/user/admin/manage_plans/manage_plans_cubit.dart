@@ -25,4 +25,23 @@ class ManagePlansCubit extends Cubit<ManagePlansState> {
       debugPrint("Exception >>> $e");
     }
   }
+
+  void deleteSubscriptionPlan(int subscriptionID) async {
+    emit(Loading());
+    try {
+      bool response = await _accountRepository.deleteSubscriptionPlan(subscriptionID, false);
+      if(response){
+        emit(SuccessfullyDeleted());
+      }else{
+        emit(DeletionFailed());
+      }
+
+    } on NetworkExceptions catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    } on Exception catch (e) {
+      emit(Error("Something went wrong !!!"));
+      debugPrint("Exception >>> $e");
+    }
+  }
 }

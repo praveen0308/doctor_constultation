@@ -10,7 +10,7 @@ part of 'util_api_client.dart';
 
 class _UtilApiClient implements UtilApiClient {
   _UtilApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://doctorconsult.pocketmoney.net.in/';
+    baseUrl ??= 'https://doctorconsult.jmminfotech.com/';
   }
 
   final Dio _dio;

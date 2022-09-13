@@ -10,7 +10,7 @@ part of 'transaction_api_client.dart';
 
 class _TransactionApiClient implements TransactionApiClient {
   _TransactionApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://doctorconsult.pocketmoney.net.in/';
+    baseUrl ??= 'https://doctorconsult.jmminfotech.com/';
   }
 
   final Dio _dio;
