@@ -22,15 +22,15 @@ class ViewEducationTimelineLast extends StatelessWidget {
     return SizedBox(
       child: TimelineTile(
         afterLineStyle:
-        LineStyle(thickness: 2.5, color: AppColors.primaryLight),
+        const LineStyle(thickness: 2.5, color: AppColors.primaryLight),
         endChild:   TemplateTimelineEductionChild(
           txtYear: txtYear,
-          txtMonth: '${txtMonth}, ',
+          txtMonth: '$txtMonth, ',
           txtTitle: txtTitle,
           txtSubTitle: txtSubTitle,
         ),
         isLast: true,
-        indicatorStyle: IndicatorStyle(
+        indicatorStyle: const IndicatorStyle(
             color: AppColors.primaryLight,
             width: 18,
             height: 18,

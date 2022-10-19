@@ -50,6 +50,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
   void initState() {
     super.initState();
 
+
     _cubit = BlocProvider.of<HomePageCubit>(context);
 
   }

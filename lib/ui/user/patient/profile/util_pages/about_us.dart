@@ -26,11 +26,11 @@ class AboutUs extends StatelessWidget {
                   backgroundImage: AssetImage(AppImages.drPriyanka),
                   radius: 100,
                 ),
-                SizedBox(height: 16,),
+                const SizedBox(height: 16,),
                 Text(AppConstants.doctorName,textAlign:TextAlign.center,style: AppTextStyle.headline5(txtColor:
                 AppColors.primary),),
-                SizedBox(height: 24,),
-                Text(AppConstants.aboutDoctor,textAlign:TextAlign.justify,style: TextStyle(fontSize: 18,letterSpacing: 0.5,wordSpacing: 1),)
+                const SizedBox(height: 24,),
+                const Text(AppConstants.aboutDoctor,textAlign:TextAlign.justify,style: TextStyle(fontSize: 18,letterSpacing: 0.5,wordSpacing: 1),)
               ],
             ),
           ),

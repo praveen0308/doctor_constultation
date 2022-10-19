@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart ';
-class AppStrings{
+
+class AppStrings {
   static const appName = "Dr. Priyanka Yaduvanshi";
   static const String drName = 'Dr. Priyanaka Yaduvanshi';
   static const String drFName = 'Dr. Priyanaka';
   static const String drLName = ' Yaduvanshi';
+  static const aboutDoctor = "Dr Priyanka Yaduvanshi is one among the few Doctors globally practising Classical Homoeopathy in its true essence. A compassionate physician, presently in India and travels extensively across the country serving different segments of the society through free Homeopathic Camps and Clinic. She believes in the power of Classical Homoeopathy and combines it with her knowledge of Vedic Scriptures and Ayurveda to restore and solve complex Chronic illnesses. In addition to being a qualified doctor, she is an Astrologer and Palmist. People seek her advise for marriage, a new venture, business, Vastu and family matters. A doctor with sincere empathy who wants to propagate Homoeopathy in its purest form. Very dear to everyone because of her Caring and Loving aura.";
+  static const String byDoctor = 'I have been practising Homoeopathy since the last 20 years and the experience of its wonder play and the efficacy of this infallible science brings deep satisfaction to me when I hear the happy exposure to Homoeopathic treatment from my patients. '
+      'I am also thankful to my teachers for sharing their valuable knowledge and experience with me which they gained practising their entire life. '
+      'Also Homoeopathic opinion is a must when any disease does not respond to other modalities of treatments. '
+      'In ICU cases, accidents and emergencies where the doctors are losing hope you must consult an expert Homoeopath.';
   static const String speciaList = 'Homeopathy';
   static const String slogan1 = '"I am your Doctor" - ';
-  static const String slogan2 = 'Experience magical homeopathy!';
+  static const String slogan2 = 'Friend for a life.';
   static const String clinicAddress = 'Vrindavan Clinic';
   static const String officeAddress = ' Vrindavan Clinic Gokul Nagari - II, Digital Cable, Kandivali (E, Western Express Hwy, opp. Hathway, Thakur Village, Mumbai, Maharashtra 400101';
   static const String webUrl = 'www.priyankayaduvanshi.net';
@@ -14,15 +20,16 @@ class AppStrings{
   static const String clinicTiming = '10.00 am - 5.00 pm';
   static const String drEmail = 'drpriyagwh@yahoo.co.uk';
   static const String doctorTitle = "MD, DHM, BHMS";
-  static const String drContactNo = "+91 9820631193";
+  static const String drContactNo = "+91 9820531347";
 
-//  Myth
+  //  Myth
   static const String myth1 = 'In Homeopathy all diseases are curable.';
   static const String myth2 = 'Homeopathy is mere placebo.';
   static const String myth3 = 'Homeopathy increases the symptoms of disease before cure.';
   static const String myth4 = 'The wondrous cure in Homeopathy is because of steroids in them.';
   static const String myth5 = 'Homeopathy is very slow.';
-// Fact
+
+  // Fact
   static const String fact1 = 'The nature of this material world is such that every living entity has to undergo the cycle of birth, disease, old age and death. With Homeopathy all diseases in their curable stage is curable and I personally with my experience still uphold that the physician fails but not Homeopathy in curable cases.';
   static const String fact2 = 'Homeopathy has been proven to be a wondrous healing science used since last 220 years in 162 countries. People who discard it are not ignorant but fearful of its efficacy and prejudiced to accept truth.';
   static const String fact3 = "Not always. Only in few diseases and that's too does not increase suffering as with the action of cure comes a feeling of well being and even in that aggravation of symptoms the patients feels good. It's a subtle feeling and can only be experienced if you have been under Homeopathic treatment. Under a expert Homeopath that aggravation may be very minute or nil but anyways it's not dangerous.";

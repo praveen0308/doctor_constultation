@@ -12,7 +12,7 @@ class ViewTimelineEducation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: const [
         ViewEducationTimelineFirst(
           txtYear: "2010",
           txtMonth: "March",
@@ -34,10 +34,10 @@ class ViewTimelineEducation extends StatelessWidget {
         ),
 
         ViewEducationTimelineLast(
-          txtYear: "2001",
-          txtMonth: "Februray",
-          txtTitle: "H.S.C.",
-          txtSubTitle: "Maharshtra State Board",
+          txtYear: "1997",
+          txtMonth: "April",
+          txtTitle: "Senior Secondary",
+          txtSubTitle: "CBSE Board, KV Salt Lake, Kolkata",
         ),
       ],
     );

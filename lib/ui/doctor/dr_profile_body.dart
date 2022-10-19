@@ -14,6 +14,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_consultation/route/route.dart' as route;
 
+import '../../res/app_string.dart';
+
 class DrProfileBody extends StatefulWidget {
   const DrProfileBody({Key? key}) : super(key: key);
 
@@ -93,7 +95,23 @@ class _DrProfileBodyState extends State<DrProfileBody> {
             height: 10,
           ),
           ExpandableText(
-            "I have been practising Homeopathy for the last 15 years and the experience of it's wonder play and the efficacy of this infallible science brings deep satisfaction to me. When I hear from my clients their happy exposure to Homeopathic treatment and seeing the delightful smile on their faces, it makes my day. I am also thankful to my teachers for imparting such valuable knowledge and experience to me which they gained practising their entire life. Also Homoeopathic opinion is must when any disease does not respond to other modalities of treatments,ICU cases, accidents and emergencies.",
+            AppStrings.aboutDoctor,
+            style: AppTextStyle.body1(),
+            expandText: 'Read more',
+            collapseText: 'Read less',
+            maxLines: 3,
+            linkColor: AppColors.primary,
+          ),
+          const SizedBox(height: 16,),
+          Text(
+            AppStrings.drName,
+            style: AppTextStyle.subtitle1(),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ExpandableText(
+            AppStrings.byDoctor,
             style: AppTextStyle.body1(),
             expandText: 'Read more',
             collapseText: 'Read less',
