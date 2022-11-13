@@ -54,5 +54,5 @@ class PatientDetailModel {
     return gender;
   }
 
-  String getProfileUrl() => "${ApiConstants.baseUrl}$ProfileImage";
+  String getProfileUrl() => ProfileImage==null || ProfileImage!.isEmpty? "" :"${ApiConstants.baseUrl}$ProfileImage";
 }

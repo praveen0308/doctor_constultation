@@ -79,5 +79,13 @@ abstract class AccountApiClient {
   @POST("Account/UpdateFCMToken")
   Future<bool> updateFCMToken(@Query("UserID") int id,@Query("Token") String token);
 
+  @POST("Account/ResetPassword")
+  Future<bool> resetPassword(@Query("email") String email);
+
+  @POST("Account/VerifyResetOTP")
+  Future<bool> verifyOtp(@Query("email") String email,@Query("otp") String otp);
+
+  @POST("Account/UpdatePassword")
+  Future<bool> updatePassword(@Query("email") String email,@Query("pwd") String password);
 
 }

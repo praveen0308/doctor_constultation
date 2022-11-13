@@ -24,6 +24,12 @@ import 'package:doctor_consultation/ui/communication/chat_screen/chat_screen.dar
 import 'package:doctor_consultation/ui/communication/chat_screen/chat_screen_cubit.dart';
 import 'package:doctor_consultation/ui/communication/user_patient_chats/chat_not_available.dart';
 import 'package:doctor_consultation/ui/doctor/dr_profile.dart';
+import 'package:doctor_consultation/ui/forgot_password/reset_password/reset_password_cubit.dart';
+import 'package:doctor_consultation/ui/forgot_password/reset_password/reset_password_screen.dart';
+import 'package:doctor_consultation/ui/forgot_password/update_password/update_password_cubit.dart';
+import 'package:doctor_consultation/ui/forgot_password/update_password/update_password_screen.dart';
+import 'package:doctor_consultation/ui/forgot_password/verify_otp/verify_otp_cubit.dart';
+import 'package:doctor_consultation/ui/forgot_password/verify_otp/verify_otp_screen.dart';
 import 'package:doctor_consultation/ui/image_viewer/image_viewer.dart';
 import 'package:doctor_consultation/ui/manage_discount/add_discount/add_discount.dart';
 import 'package:doctor_consultation/ui/manage_discount/add_discount/add_discount_cubit.dart';
@@ -161,6 +167,10 @@ const String managePlans = '/managePlans';
 const String addPlan = '/addPlan';
 const String transactionDetail = '/transactionDetail';
 
+const String resetPassword = '/resetPassword';
+const String verifyOtpScreen = '/verifyOtpScreen';
+const String updatePassword = '/updatePassword';
+
 // controller function with switch statement to control page route flow
 Route<dynamic> controller(RouteSettings settings) {
   final args = settings.arguments;
@@ -214,7 +224,8 @@ Route<dynamic> controller(RouteSettings settings) {
     case addPatientInfo:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-                create: (context) => AddPatientCubit(PatientRepository(),AccountRepository()),
+                create: (context) =>
+                    AddPatientCubit(PatientRepository(), AccountRepository()),
                 child: AddPatientInfo(),
               ),
           settings: settings);
@@ -261,14 +272,16 @@ Route<dynamic> controller(RouteSettings settings) {
     case imageViewer:
       return MaterialPageRoute(
           builder: (context) => ImageViewer(
-            images: args as List<String>,
-          ),
+                images: args as List<String>,
+              ),
           settings: settings);
     case transactions:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => TransactionHistoryCubit(TransactionRepository()), child: TransactionHistory(),
-          ),
+                create: (context) =>
+                    TransactionHistoryCubit(TransactionRepository()),
+                child: TransactionHistory(),
+              ),
           settings: settings);
     case enterUserDetails:
       return MaterialPageRoute(
@@ -304,9 +317,10 @@ Route<dynamic> controller(RouteSettings settings) {
     case login:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => LoginCubit(AccountRepository()),
-            child: const LoginPage(),
-          ), settings: settings);
+                create: (context) => LoginCubit(AccountRepository()),
+                child: const LoginPage(),
+              ),
+          settings: settings);
     case register:
       return MaterialPageRoute(
           builder: (context) => const RegisterPage(), settings: settings);
@@ -316,10 +330,10 @@ Route<dynamic> controller(RouteSettings settings) {
     case createNewSchedule:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) =>
-                CreateNewScheduleCubit(AppointmentRepository(), ScheduleRepository()),
-            child: CreateNewSchedule(args: args as CreateNewScheduleArgs),
-          ),
+                create: (context) => CreateNewScheduleCubit(
+                    AppointmentRepository(), ScheduleRepository()),
+                child: CreateNewSchedule(args: args as CreateNewScheduleArgs),
+              ),
           settings: settings);
     case patientPastAppointmentDetailPage:
       return MaterialPageRoute(
@@ -333,9 +347,10 @@ Route<dynamic> controller(RouteSettings settings) {
     case notificationPage:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => UserNotificationsCubit(CommunicationRepository()),
-            child: const UserNotifications(),
-          ),
+                create: (context) =>
+                    UserNotificationsCubit(CommunicationRepository()),
+                child: const UserNotifications(),
+              ),
           settings: settings);
 
     case drProfilePage:
@@ -366,9 +381,9 @@ Route<dynamic> controller(RouteSettings settings) {
     case searchPatients:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => SearchPatientCubit(PatientRepository()),
-            child: SearchPatient(),
-          ));
+                create: (context) => SearchPatientCubit(PatientRepository()),
+                child: SearchPatient(),
+              ));
     case manageVideos:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -414,43 +429,74 @@ Route<dynamic> controller(RouteSettings settings) {
     case userAppointments:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => UserAppointmentsCubit(AppointmentRepository()),
-            child: UserAppointments(userID: args as int,),
-          ),
+                create: (context) =>
+                    UserAppointmentsCubit(AppointmentRepository()),
+                child: UserAppointments(
+                  userID: args as int,
+                ),
+              ),
           settings: settings);
     case addNewDiscount:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => AddDiscountCubit(),
-            child: const AddDiscount(),
-          ),
+                create: (context) => AddDiscountCubit(),
+                child: const AddDiscount(),
+              ),
           settings: settings);
 
     case managePlans:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => ManagePlansCubit(AccountRepository()),
-            child: const ManagePlans(),
-          ),
+                create: (context) => ManagePlansCubit(AccountRepository()),
+                child: const ManagePlans(),
+              ),
           settings: settings);
     case addPlan:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => AddPlanCubit(AccountRepository()),
-            child:  AddPlan(planModel: args as SubscriptionPlanModel?,),
-          ),
+                create: (context) => AddPlanCubit(AccountRepository()),
+                child: AddPlan(
+                  planModel: args as SubscriptionPlanModel?,
+                ),
+              ),
           settings: settings);
 
     case transactionDetail:
       return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => TransactionDetailCubit(),
-            child:  TransactionDetail(transactionID: args as int,),
-          ),
+                create: (context) => TransactionDetailCubit(),
+                child: TransactionDetail(
+                  transactionID: args as int,
+                ),
+              ),
           settings: settings);
     case doctorProfile:
       return MaterialPageRoute(
           builder: (context) => DoctorProfilePage(), settings: settings);
+    case resetPassword:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => ResetPasswordCubit(
+                RepositoryProvider.of<AccountRepository>(context)),
+            child: const ResetPasswordScreen(),
+          ),
+          settings: settings);
+    case verifyOtpScreen:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => VerifyOtpCubit(
+                RepositoryProvider.of<AccountRepository>(context)),
+            child: VerifyOtpScreen(email: args as String),
+          ),
+          settings: settings);
+    case updatePassword:
+      return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => UpdatePasswordCubit(
+                RepositoryProvider.of<AccountRepository>(context)),
+            child: UpdatePasswordScreen(email: args as String),
+          ),
+          settings: settings);
 
     default:
       throw ('this route name does not exist');

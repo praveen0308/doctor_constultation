@@ -18,14 +18,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data.toString());
   print(message.notification!.title);
 }
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
@@ -54,12 +52,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-
     // 1. This method call when app in terminated state and you get a notification
     // when you click on notification app open from terminated state and you can get notification data in this method
 
     FirebaseMessaging.instance.getInitialMessage().then(
-          (message) {
+      (message) {
         print("FirebaseMessaging.instance.getInitialMessage");
         if (message != null) {
           print("New Notification");
@@ -78,7 +75,7 @@ class _MyAppState extends State<MyApp> {
 
     // 2. This method only call when App in forground it mean app must be opened
     FirebaseMessaging.onMessage.listen(
-          (message) {
+      (message) {
         print("FirebaseMessaging.onMessage.listen");
         if (message.notification != null) {
           print(message.notification!.title);
@@ -92,7 +89,7 @@ class _MyAppState extends State<MyApp> {
 
     // 3. This method only call when App in background and not terminated(not closed)
     FirebaseMessaging.onMessageOpenedApp.listen(
-          (message) {
+      (message) {
         print("FirebaseMessaging.onMessageOpenedApp.listen");
         if (message.notification != null) {
           print(message.notification!.title);
@@ -101,7 +98,6 @@ class _MyAppState extends State<MyApp> {
         }
       },
     );
-
   }
 
   @override
@@ -112,38 +108,42 @@ class _MyAppState extends State<MyApp> {
         systemNavigationBarColor: AppColors.greyLightest,
         systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarDividerColor: AppColors.greyLight));
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider(create: (_) => PhoneAuthCubit(AccountRepository())),
-        BlocProvider(
-            create: (_) =>
-                PatientAppointmentHistoryCubit(AppointmentRepository())),
-
-        BlocProvider(create: (_) => RegisterCubit(AccountRepository())),
-        BlocProvider(create: (_) => ManageSlotCubit(AppointmentRepository())),
-        BlocProvider(create: (_) => AddSlotCubit(AppointmentRepository())),
-        BlocProvider(create: (_) => ViewScheduleCubit(ScheduleRepository())),
-        // BlocProvider(create: (_) => AddPatientCubit(PatientRepository())),
-
+        RepositoryProvider(create: (_) => AccountRepository())
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            primarySwatch: AppColors.primarySwatchColor,
-            scaffoldBackgroundColor: AppColors.greyLightest,
-            appBarTheme: const AppBarTheme(
-              backgroundColor: AppColors.greyLightest,
-              elevation: 0,
-              iconTheme: IconThemeData(
-                color: AppColors.primary,
-              ),
-              titleTextStyle: TextStyle(
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => PhoneAuthCubit(AccountRepository())),
+          BlocProvider(
+              create: (_) =>
+                  PatientAppointmentHistoryCubit(AppointmentRepository())),
+
+          BlocProvider(create: (_) => RegisterCubit(AccountRepository())),
+          BlocProvider(create: (_) => ManageSlotCubit(AppointmentRepository())),
+          BlocProvider(create: (_) => AddSlotCubit(AppointmentRepository())),
+          BlocProvider(create: (_) => ViewScheduleCubit(ScheduleRepository())),
+          // BlocProvider(create: (_) => AddPatientCubit(PatientRepository())),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              primarySwatch: AppColors.primarySwatchColor,
+              scaffoldBackgroundColor: AppColors.greyLightest,
+              appBarTheme: const AppBarTheme(
+                backgroundColor: AppColors.greyLightest,
+                elevation: 0,
+                iconTheme: IconThemeData(
                   color: AppColors.primary,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600),
-            )),
-        initialRoute: route.splashScreen,
-        onGenerateRoute: route.controller,
+                ),
+                titleTextStyle: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
+              )),
+          initialRoute: route.splashScreen,
+          onGenerateRoute: route.controller,
+        ),
       ),
     );
   }

@@ -119,7 +119,7 @@ class PurchaseSubscriptionPlanCubit
     try {
       PaymentTransactionModel paymentTransactionModel = PaymentTransactionModel();
       paymentTransactionModel.PaymentID = paymentID;
-      paymentTransactionModel.OrderID = "";
+      paymentTransactionModel.OrderID = orderId;
       paymentTransactionModel.ID = 0;
       paymentTransactionModel.PaymentAmount = amount;
       paymentTransactionModel.PatientID = patientId;
@@ -136,6 +136,7 @@ class PurchaseSubscriptionPlanCubit
       int response = await _transactionRepository
           .addUpdatePaymentTransaction(paymentTransactionModel);
       if (response!=0) {
+        paymentId = response;
         emit(TransactionAddedSuccessfully(response));
       } else {
         emit(Error("Transaction update failed!!!"));

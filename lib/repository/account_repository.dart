@@ -123,4 +123,16 @@ class AccountRepository {
     return _accountApiClient.addUpdateSubscriptionPlan(subscriptionPlanModel);
   }
 
+  Future<bool> resetPassword(String email) {
+    return _accountApiClient.resetPassword(email);
+  }
+
+  Future<bool> verifyOtp(String email,String otp) {
+    return _accountApiClient.verifyOtp(email,otp);
+  }
+
+
+  Future<bool> updatePassword(String email,String password) {
+    return _accountApiClient.updatePassword(email,password);
+  }
 }

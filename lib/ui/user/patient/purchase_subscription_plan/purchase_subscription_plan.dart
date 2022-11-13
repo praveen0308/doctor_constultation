@@ -79,6 +79,7 @@ class _PurchaseSubscriptionPlanState extends State<PurchaseSubscriptionPlan> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Going to update user's subscription plan
     showToast("Payment successful!!!", ToastType.success);
+
     if (subscriptionID != 0) {
       _cubit.addPaymentTransaction(response.paymentId.toString(),response.orderId.toString(),amountPayable.toDouble(), appointmentId,widget.args.patientDetailModel.ID!);
 

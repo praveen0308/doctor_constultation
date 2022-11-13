@@ -53,9 +53,6 @@ class _CreateNewScheduleState extends State<CreateNewSchedule> {
             WidgetsBinding.instance!.addPostFrameCallback((_) {
               Navigator.pop(context,true);
             });
-
-
-
           }
           if (state is SubmissionFailure) {
             showToast("Schedule submitted failed !!!", ToastType.error);
