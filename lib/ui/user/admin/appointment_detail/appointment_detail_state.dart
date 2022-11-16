@@ -5,20 +5,11 @@ abstract class AppointmentDetailState {}
 
 class AppointmentDetailInitial extends AppointmentDetailState {}
 
-class CancellingAppointment extends AppointmentDetailState {}
-
-class AppointmentCancelled extends AppointmentDetailState {}
-
-class StartingSession extends AppointmentDetailState {}
-class AppointmentClosedSuccessfully extends AppointmentDetailState {}
-
-class SessionStarted extends AppointmentDetailState {
-  final String meetingId;
-
-  SessionStarted(this.meetingId);
-}
-
 class LoadingAppointmentDetail extends AppointmentDetailState {}
+class Error extends AppointmentDetailState {
+  final String msg;
+  Error(this.msg);
+}
 
 class ReceivedAppointmentDetail extends AppointmentDetailState {
   final AppointmentDetailModel appointmentDetailModel;
@@ -26,8 +17,25 @@ class ReceivedAppointmentDetail extends AppointmentDetailState {
   ReceivedAppointmentDetail(this.appointmentDetailModel);
 }
 
-class Error extends AppointmentDetailState {
+
+class CancellingAppointment extends AppointmentDetailState {}
+
+class AppointmentCancelled extends AppointmentDetailState {}
+
+class StartingSession extends AppointmentDetailState {}
+
+class SessionStarted extends AppointmentDetailState {
+  final String meetingId;
+
+  SessionStarted(this.meetingId);
+}
+
+class AppointmentClosedSuccessfully extends AppointmentDetailState {}
+
+class FailedOperation extends AppointmentDetailState {
   final String msg;
 
-  Error(this.msg);
+  FailedOperation(this.msg);
+
 }
+

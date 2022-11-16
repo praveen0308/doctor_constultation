@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:doctor_consultation/local/app_storage.dart';
 import 'package:doctor_consultation/models/api/appointment_detail_model.dart';
 import 'package:doctor_consultation/network/utils/network_exceptions.dart';
 import 'package:doctor_consultation/repository/appointment_repository.dart';
@@ -11,6 +12,9 @@ class AppointmentDetailCubit extends Cubit<AppointmentDetailState> {
   final AppointmentRepository _appointmentRepository;
   AppointmentDetailCubit(this._appointmentRepository)
       : super(AppointmentDetailInitial());
+  final SecureStorage _secureStorage = SecureStorage();
+
+
   void getAppointmentDetail(int appointmentId) async {
     emit(LoadingAppointmentDetail());
     try {

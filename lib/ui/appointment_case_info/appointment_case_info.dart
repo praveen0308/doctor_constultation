@@ -45,6 +45,7 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
     super.initState();
     _cubit = BlocProvider.of<AppointmentCaseInfoCubit>(context);
     _cubit.init(widget.args.caseID);
+    _storage.getUserRoleId().then((value) => userRoleId=value);
   }
 
   @override
@@ -129,7 +130,7 @@ class _AppointmentCaseInfoState extends State<AppointmentCaseInfo> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         getDetailItem("Case ID",
-                            state.caseInfoModel.ID.toString()),
+                            state.caseInfoModel.CaseNo.toString()),
                         getDetailItem("Chief Complaints",
                             state.caseInfoModel.ChiefComplaints),
                         Row(
