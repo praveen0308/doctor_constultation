@@ -1,9 +1,7 @@
 import 'package:doctor_consultation/res/app_colors.dart';
 import 'package:doctor_consultation/res/image_path.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:doctor_consultation/route/route.dart' as route;
 
 class BottomNav extends StatefulWidget {
   final int selectedTab;

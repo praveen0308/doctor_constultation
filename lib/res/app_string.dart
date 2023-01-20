@@ -2,8 +2,8 @@ import 'package:flutter/material.dart ';
 
 class AppStrings {
   static const appName = "Dr. Priyanka Yaduvanshi";
-  static const String drName = 'Dr. Priyanaka Yaduvanshi';
-  static const String drFName = 'Dr. Priyanaka';
+  static const String drName = 'Dr. Priyanka Yaduvanshi';
+  static const String drFName = 'Dr. Priyanka';
   static const String drLName = ' Yaduvanshi';
   static const aboutDoctor = "Dr Priyanka Yaduvanshi is one among the few Doctors globally practising Classical Homoeopathy in its true essence. A compassionate physician, presently in India and travels extensively across the country serving different segments of the society through free Homeopathic Camps and Clinic. She believes in the power of Classical Homoeopathy and combines it with her knowledge of Vedic Scriptures and Ayurveda to restore and solve complex Chronic illnesses. In addition to being a qualified doctor, she is an Astrologer and Palmist. People seek her advise for marriage, a new venture, business, Vastu and family matters. A doctor with sincere empathy who wants to propagate Homoeopathy in its purest form. Very dear to everyone because of her Caring and Loving aura.";
   static const String byDoctor = 'I have been practising Homoeopathy since the last 20 years and the experience of its wonder play and the efficacy of this infallible science brings deep satisfaction to me when I hear the happy exposure to Homoeopathic treatment from my patients. '

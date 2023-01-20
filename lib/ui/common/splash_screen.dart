@@ -51,45 +51,20 @@ class _SplashScreenState extends State<SplashScreen> {
         systemNavigationBarDividerColor: AppColors.greyLight));
     return SafeArea(
       child: Scaffold(
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 100,
-              ),
-              Image.asset(AppImages.imgLogo),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                AppStrings.drName,
-                style: AppTextStyle.headline5(txtColor: AppColors.greyDark),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(children: [
-                    TextSpan(
-                        text: AppStrings.slogan1,
-                        style: AppTextStyle.body1(txtColor: AppColors.primary)),
-                    TextSpan(
-                        text: AppStrings.slogan2,
-                        style: AppTextStyle.body1(txtColor: AppColors.greyDark)),
-                  ]),
-                ),
-              ),
-              const Expanded(
-                  child: SpinKitCircle(
+        body: Stack(
+          children: [
+            Center(child: SizedBox(height:220,width: 220,child: FittedBox(child: Image.asset(AppImages.imgLogo)))),
+
+
+            Positioned(
+              bottom: 16,
+              left: 0,
+              right: 0,
+              child: SpinKitCircle(
                 color: AppColors.primary,
-              ))
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
