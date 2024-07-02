@@ -5,7 +5,7 @@ import 'package:doctor_consultation/models/relation_model.dart';
 import 'package:doctor_consultation/res/image_path.dart';
 
 class AppConstants {
-  static const RAZORPAY_KEY_ID = "rzp_test_AbgCshi1ASlOF0";
+  static const RAZORPAY_KEY_ID = "rzp_test_XXXXXXXXXXXXXXXX";
 
   static String getRandomString(int length) {
     var _chars =
