@@ -1,16 +1,3 @@
-# doctor_consultation
-
-Mobile application for doctor consultation
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Screenshots
+![image8](https://github.com/praveen0308/doctor_constultation/assets/64425296/605647e9-09ef-4294-9a76-cedb8c001500)
+![image2](https://github.com/praveen0308/doctor_constultation/assets/64425296/f6d594b0-3ea3-4a08-9147-abbb92c22bd2)
